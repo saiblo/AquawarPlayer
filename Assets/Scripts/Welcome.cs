@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Welcome : MonoBehaviour
@@ -12,6 +13,11 @@ public class Welcome : MonoBehaviour
         var openFileDialog = Instantiate(openFileDialogPrefab);
         var dialog = openFileDialog.GetComponent<Dialog>();
         dialog.OpenFileDialog("打开文件", "~", ".json", OnDialogComplete);
+    }
+
+    public void EnterGame()
+    {
+        SceneManager.LoadScene("Scenes/Game");
     }
 
     private static string Show(string path)
