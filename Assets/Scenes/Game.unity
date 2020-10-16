@@ -154,6 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb16c82df9549b143bab43f7dfc2a736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fishPrefab: {fileID: 3950787879464761876, guid: f821d51518fbf664eb90eabd31864c11, type: 3}
   statusBarPrefab: {fileID: 7436594424736310076, guid: a7c45802fd095254486178d8b61113e6, type: 3}
   myStatusRoot: {fileID: 842206341}
   enemyStatusRoot: {fileID: 568479763}
@@ -336,7 +337,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 735424222}
-  - component: {fileID: 735424223}
   m_Layer: 0
   m_Name: AllFish
   m_TagString: Untagged
@@ -358,19 +358,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &735424223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 735424221}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6450ffa8a3c7b7e4aad766d2c6fdbfe7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fishPrefab: {fileID: 3950787879464761876, guid: f821d51518fbf664eb90eabd31864c11, type: 3}
 --- !u!1 &842206340
 GameObject:
   m_ObjectHideFlags: 0
