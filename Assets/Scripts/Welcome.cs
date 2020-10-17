@@ -31,8 +31,8 @@ public class Welcome : MonoBehaviour
                 // 从文件读取并显示行，直到文件的末尾 
                 while ((line = sr.ReadLine()) != null)
                 {
-                    total = total + line;
-                    total = total + "\n";
+                    total += line;
+                    total += "\n";
                 }
                 return total;
             }
