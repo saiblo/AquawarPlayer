@@ -17,7 +17,7 @@ public class Welcome : MonoBehaviour
 
     public void EnterGame()
     {
-        SceneManager.LoadScene("Scenes/Game");
+        SceneManager.LoadScene("Scenes/Preparation");
     }
 
     private static string Show(string path)
