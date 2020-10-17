@@ -3,6 +3,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using WebSocketSharp;
 
 public class Welcome : MonoBehaviour
 {
@@ -18,6 +19,15 @@ public class Welcome : MonoBehaviour
     public void EnterGame()
     {
         SceneManager.LoadScene("Scenes/Preparation");
+    }
+
+    public void ConnectRoom(Text roomIdText)
+    {
+        Debug.Log(roomIdText.text);
+        var ws = new WebSocket("ws://localhost:8765");
+        ws.OnMessage += (sender, e) => Debug.Log(e.Data);
+        ws.Connect();
+        ws.Send("foo");
     }
 
     private static string Show(string path)
