@@ -426,6 +426,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 902abe6b6ddca8e46864883c098421d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fishPrefab: {fileID: 3950787879464761876, guid: f821d51518fbf664eb90eabd31864c11, type: 3}
+  allFishRoot: {fileID: 1729169947}
+  doneButton: {fileID: 526210615}
 --- !u!1 &1729169946
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,7 +453,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1729169946}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -566,6 +569,7 @@ GameObject:
   - component: {fileID: 1883719096}
   - component: {fileID: 1883719095}
   - component: {fileID: 1883719094}
+  - component: {fileID: 1883719097}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -638,6 +642,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1883719097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883719093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49b4cc203aa6414fae5c798d1d0e7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
 --- !u!1 &1919589608
 GameObject:
   m_ObjectHideFlags: 0
