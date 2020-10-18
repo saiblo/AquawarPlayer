@@ -1153,7 +1153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1842fe0a097ee5c45b5fab71a19ff760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  openFileDialogPrefab: {fileID: 1000013749298676, guid: b4a5265f6d09fe147bd484dc3b5a18a1, type: 3}
+  openFileDialogPrefab: {fileID: 114000011762028948, guid: b4a5265f6d09fe147bd484dc3b5a18a1, type: 3}
+  textResult: {fileID: 2087536336}
 --- !u!114 &1459689401
 MonoBehaviour:
   m_ObjectHideFlags: 0

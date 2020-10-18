@@ -9,13 +9,15 @@ using UnityEngine.UI;
 
 public class Welcome : MonoBehaviour
 {
-    public GameObject openFileDialogPrefab;
+    public Dialog openFileDialogPrefab;
+
+    public Text textResult;
 
     public void OpenFile()
     {
-        var openFileDialog = Instantiate(openFileDialogPrefab);
-        var dialog = openFileDialog.GetComponent<Dialog>();
-        dialog.OpenFileDialog("打开文件", "~", ".json", OnDialogComplete);
+        Instantiate(openFileDialogPrefab)
+            .OpenFileDialog("打开文件", "~", ".json",
+                (isSucessful, path) => { textResult.text = isSucessful ? Show(path) : "未选择任何文件"; });
     }
 
     public void EnterGame()
@@ -27,14 +29,30 @@ public class Welcome : MonoBehaviour
     {
         var tokenEncoded = tokenInputField.text;
         var tokenDecoded = Encoding.UTF8.GetString(Convert.FromBase64String(tokenEncoded));
-        var ws = new ClientWebSocket();
-        await ws.ConnectAsync(new Uri($"wss://{tokenDecoded}"), CancellationToken.None);
-        await ws.SendAsync(
-            new ArraySegment<byte>(Encoding.UTF8.GetBytes($"{{\"token\":\"{tokenEncoded}\",\"request\":\"connect\"}}")),
-            WebSocketMessageType.Text,
-            true,
-            CancellationToken.None
-        );
+        if (tokenDecoded == tokenEncoded)
+        {
+            textResult.text = "Token解码失败";
+            return;
+        }
+        try
+        {
+            textResult.text = "连接中……";
+            var ws = new ClientWebSocket();
+            await ws.ConnectAsync(new Uri($"wss://{tokenDecoded}"), CancellationToken.None);
+            await ws.SendAsync(
+                new ArraySegment<byte>(
+                    Encoding.UTF8.GetBytes($"{{\"token\":\"{tokenEncoded}\",\"request\":\"connect\"}}")),
+                WebSocketMessageType.Text,
+                true,
+                CancellationToken.None
+            );
+            textResult.text = "连接成功";
+        }
+        catch (Exception)
+        {
+            // ReSharper disable once Unity.InefficientPropertyAccess
+            textResult.text = "连接失败";
+        }
     }
 
     private static string Show(string path)
@@ -58,21 +76,6 @@ public class Welcome : MonoBehaviour
             Console.WriteLine("The file could not be read:");
             Console.WriteLine(e.Message);
             return $"The file could not be read: {path}.";
-        }
-    }
-
-    private static void OnDialogComplete(bool isSucessful, string path)
-    {
-        var textGameObject = GameObject.Find("TextResult");
-        if (isSucessful)
-        {
-            Debug.Log("Path : " + path);
-            textGameObject.GetComponent<Text>().text = Show(path);
-        }
-        else
-        {
-            Debug.Log("No File/Folder Chosen, Cancel was pressed or something else happened.");
-            textGameObject.GetComponent<Text>().text = "No File was selected. Press this button to try again.";
         }
     }
 }
