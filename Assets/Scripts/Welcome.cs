@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net.WebSockets;
 using System.Text;
@@ -6,6 +7,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using LitJson;
 
 public class Welcome : MonoBehaviour
 {
@@ -25,6 +27,14 @@ public class Welcome : MonoBehaviour
         SceneManager.LoadScene("Scenes/Preparation");
     }
 
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
+    private class ConnectRequest
+    {
+        public string token { get; set; }
+        public string request { get; set; }
+    }
+
     public async void ConnectRoom(InputField tokenInputField)
     {
         var tokenEncoded = tokenInputField.text;
@@ -39,9 +49,9 @@ public class Welcome : MonoBehaviour
             textResult.text = "连接中……";
             var ws = new ClientWebSocket();
             await ws.ConnectAsync(new Uri($"wss://{tokenDecoded}"), CancellationToken.None);
+            var request = new ConnectRequest {token = tokenEncoded, request = "connect"};
             await ws.SendAsync(
-                new ArraySegment<byte>(
-                    Encoding.UTF8.GetBytes($"{{\"token\":\"{tokenEncoded}\",\"request\":\"connect\"}}")),
+                new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonMapper.ToJson(request))),
                 WebSocketMessageType.Text,
                 true,
                 CancellationToken.None
