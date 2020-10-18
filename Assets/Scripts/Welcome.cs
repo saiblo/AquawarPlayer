@@ -1,9 +1,11 @@
 ﻿using System;
 using System.IO;
+using System.Net.WebSockets;
+using System.Text;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using WebSocketSharp;
 
 public class Welcome : MonoBehaviour
 {
@@ -21,13 +23,18 @@ public class Welcome : MonoBehaviour
         SceneManager.LoadScene("Scenes/Preparation");
     }
 
-    public void ConnectRoom(Text roomIdText)
+    public async void ConnectRoom(InputField tokenInputField)
     {
-        Debug.Log(roomIdText.text);
-        var ws = new WebSocket("ws://localhost:8765");
-        ws.OnMessage += (sender, e) => Debug.Log(e.Data);
-        ws.Connect();
-        ws.Send("foo");
+        var tokenEncoded = tokenInputField.text;
+        var tokenDecoded = Encoding.UTF8.GetString(Convert.FromBase64String(tokenEncoded));
+        var ws = new ClientWebSocket();
+        await ws.ConnectAsync(new Uri($"wss://{tokenDecoded}"), CancellationToken.None);
+        await ws.SendAsync(
+            new ArraySegment<byte>(Encoding.UTF8.GetBytes($"{{\"token\":\"{tokenEncoded}\",\"request\":\"connect\"}}")),
+            WebSocketMessageType.Text,
+            true,
+            CancellationToken.None
+        );
     }
 
     private static string Show(string path)
