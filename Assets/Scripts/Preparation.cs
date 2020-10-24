@@ -58,7 +58,7 @@ public class Preparation : MonoBehaviour
                         ActivateFishTriggers();
                     });
                 },
-                null, i * 800, 0);
+                null, i * 500, 0);
         }
     }
 
