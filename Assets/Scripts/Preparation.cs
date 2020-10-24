@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -21,6 +24,10 @@ public class Preparation : MonoBehaviour
         false, false, false, false, false, false
     };
 
+    private readonly Queue<Action> _uiQueue = new Queue<Action>();
+
+    private readonly Timer[] _timers = new Timer[6];
+
     public Button doneButton;
 
     private void Awake()
@@ -40,9 +47,19 @@ public class Preparation : MonoBehaviour
         for (var i = 0; i < Constants.BanNum; i++)
         {
             var id = i;
-            _fishMeshRenderers[id].material.color = Color.red;
+            _timers[id] = new Timer(
+                state =>
+                {
+                    _uiQueue.Enqueue(() =>
+                    {
+                        _fishMeshRenderers[id].material.color = Color.red;
+                        if (id != 5) return;
+                        foreach (var timer in _timers) timer.Dispose();
+                        ActivateFishTriggers();
+                    });
+                },
+                null, i * 800, 0);
         }
-        ActivateFishTriggers();
     }
 
     private void ActivateFishTriggers()
@@ -68,5 +85,7 @@ public class Preparation : MonoBehaviour
     private void Update()
     {
         doneButton.interactable = _fishSelected.Count(b => b) == 4;
+        while (_uiQueue.Count > 0)
+            _uiQueue.Dequeue()();
     }
 }
