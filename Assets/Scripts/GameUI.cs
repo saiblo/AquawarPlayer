@@ -7,7 +7,9 @@ using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
-    public Transform fishPrefab;
+    private readonly int[] _myFishId = {1, 3, 4, 5};
+    private readonly int[] _enemyFishId = {3, 6, 7, 8};
+
     public Transform statusBarPrefab;
 
     public Transform allFishRoot;
@@ -16,6 +18,9 @@ public class GameUI : MonoBehaviour
 
     public Button changeStatusButton;
     public Text changeStatusPrompt;
+
+    private readonly Vector3 _small = new Vector3(5, 5, 5);
+    private readonly Vector3 _large = new Vector3(8, 8, 8);
 
     private enum SelectStatus
     {
@@ -26,8 +31,8 @@ public class GameUI : MonoBehaviour
 
     private SelectStatus _selectStatus = SelectStatus.DoAssertion;
 
-    private readonly List<MeshRenderer> _myFishMeshRenderers = new List<MeshRenderer>();
-    private readonly List<MeshRenderer> _enemyFishMeshRenderers = new List<MeshRenderer>();
+    private readonly List<Transform> _myFishTransforms = new List<Transform>();
+    private readonly List<Transform> _enemyFishTransforms = new List<Transform>();
 
     private int _myFishSelected = -1;
 
@@ -71,8 +76,9 @@ public class GameUI : MonoBehaviour
             Instantiate(statusBarPrefab, enemyStatusRoot)
                 .localPosition = new Vector3(10, -15 * i - 10);
 
-            var myFish = Instantiate(fishPrefab, allFishRoot);
-            myFish.localPosition = new Vector3(-2 * (i + 2), 0, 2 - i);
+            var myFish = Instantiate(PrefabRefs.FishPrefabs[_myFishId[i]], allFishRoot);
+            myFish.localPosition = new Vector3(-3 * (i + 2), 0, 2 - i);
+            myFish.localScale = _small;
             var myFishTrigger = new EventTrigger.Entry();
             myFishTrigger.callback.AddListener(delegate
             {
@@ -91,10 +97,11 @@ public class GameUI : MonoBehaviour
                 }
             });
             myFish.GetComponent<EventTrigger>().triggers.Add(myFishTrigger);
-            _myFishMeshRenderers.Add(myFish.GetComponent<MeshRenderer>());
+            _myFishTransforms.Add(myFish);
 
-            var enemyFish = Instantiate(fishPrefab, allFishRoot);
-            enemyFish.localPosition = new Vector3(2 * (i + 2), 0, 2 - i);
+            var enemyFish = Instantiate(PrefabRefs.FishPrefabs[_enemyFishId[i]], allFishRoot);
+            enemyFish.localPosition = new Vector3(3 * (i + 2), 0, 2 - i);
+            enemyFish.localScale = _small;
             var enemyFishTrigger = new EventTrigger.Entry();
             enemyFishTrigger.callback.AddListener(delegate
             {
@@ -113,7 +120,7 @@ public class GameUI : MonoBehaviour
                 }
             });
             enemyFish.GetComponent<EventTrigger>().triggers.Add(enemyFishTrigger);
-            _enemyFishMeshRenderers.Add(enemyFish.GetComponent<MeshRenderer>());
+            _enemyFishTransforms.Add(enemyFish);
         }
     }
 
@@ -122,14 +129,14 @@ public class GameUI : MonoBehaviour
         for (var i = 0; i < 4; i++)
         {
             if (_myFishSelectedAsTarget[i])
-                _myFishMeshRenderers[i].material.color = Color.red;
+                _myFishTransforms[i].localScale = _large;
             else if (_myFishSelected == i)
-                _myFishMeshRenderers[i].material.color = Color.green;
+                _myFishTransforms[i].localScale = _large;
             else
-                _myFishMeshRenderers[i].material.color = Color.blue;
+                _myFishTransforms[i].localScale = _small;
 
-            _enemyFishMeshRenderers[i].material.color =
-                _enemyFishSelectedAsTarget[i] || i == _assertion ? Color.red : Color.blue;
+            _enemyFishTransforms[i].localScale =
+                _enemyFishSelectedAsTarget[i] || i == _assertion ? _large : _small;
         }
 
         changeStatusButton.interactable =

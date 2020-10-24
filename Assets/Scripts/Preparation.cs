@@ -9,13 +9,11 @@ using UnityEngine.UI;
 
 public class Preparation : MonoBehaviour
 {
-    public Transform fishPrefab;
-
     public Transform allFishRoot;
 
-    private readonly MeshRenderer[] _fishMeshRenderers = new MeshRenderer[18];
+    private readonly Transform[] _fishTransforms = new Transform[Constants.FishNum];
 
-    private readonly EventTrigger[] _fishEventTriggers = new EventTrigger[18];
+    private readonly EventTrigger[] _fishEventTriggers = new EventTrigger[Constants.FishNum];
 
     private readonly bool[] _fishSelected =
     {
@@ -26,7 +24,7 @@ public class Preparation : MonoBehaviour
 
     private readonly Queue<Action> _uiQueue = new Queue<Action>();
 
-    private readonly Timer[] _timers = new Timer[6];
+    private readonly Timer[] _timers = new Timer[Constants.BanNum];
 
     public Button doneButton;
 
@@ -36,12 +34,10 @@ public class Preparation : MonoBehaviour
         {
             for (var j = 0; j < 6; j++)
             {
-                var fish = Instantiate(fishPrefab, allFishRoot);
-                fish.localPosition = new Vector3(j * 3 - 7.5f, -i * 3);
                 var id = i * 6 + j;
-                _fishMeshRenderers[id] = fish.GetComponent<MeshRenderer>();
-                _fishMeshRenderers[id].material.color = Color.gray;
-                _fishEventTriggers[id] = fish.GetComponent<EventTrigger>();
+                _fishTransforms[id] = Instantiate(PrefabRefs.FishPrefabs[id], allFishRoot);
+                _fishTransforms[id].localPosition = new Vector3(j * 3 - 7.5f, -i * 3);
+                _fishEventTriggers[id] = _fishTransforms[id].GetComponent<EventTrigger>();
             }
         }
         for (var i = 0; i < Constants.BanNum; i++)
@@ -52,7 +48,7 @@ public class Preparation : MonoBehaviour
                 {
                     _uiQueue.Enqueue(() =>
                     {
-                        _fishMeshRenderers[id].material.color = Color.red;
+                        _fishTransforms[id].localScale = new Vector3(2, 2, 2);
                         if (id != 5) return;
                         foreach (var timer in _timers) timer.Dispose();
                         ActivateFishTriggers();
@@ -71,7 +67,7 @@ public class Preparation : MonoBehaviour
             trigger.callback.AddListener(delegate
             {
                 _fishSelected[id] = !_fishSelected[id];
-                _fishMeshRenderers[id].material.color = _fishSelected[id] ? Color.green : Color.gray;
+                _fishTransforms[id].localScale = _fishSelected[id] ? new Vector3(4, 4, 4) : new Vector3(3, 3, 3);
             });
             _fishEventTriggers[id].triggers.Add(trigger);
         }

@@ -1155,6 +1155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openFileDialogPrefab: {fileID: 114000011762028948, guid: b4a5265f6d09fe147bd484dc3b5a18a1, type: 3}
   textResult: {fileID: 2087536336}
+  fishPrefabSample: {fileID: 4611287467837322, guid: 7015b623a04a499409c98dede26fdf1b, type: 3}
 --- !u!114 &1459689401
 MonoBehaviour:
   m_ObjectHideFlags: 0

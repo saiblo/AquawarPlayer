@@ -15,6 +15,14 @@ public class Welcome : MonoBehaviour
 
     public Text textResult;
 
+    public Transform fishPrefabSample;
+
+    private void Awake()
+    {
+        for (var i = 0; i < Constants.FishNum; i++)
+            PrefabRefs.FishPrefabs[i] = fishPrefabSample;
+    }
+
     public void OpenFile()
     {
         Instantiate(openFileDialogPrefab)
