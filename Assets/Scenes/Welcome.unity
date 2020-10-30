@@ -264,6 +264,38 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1459689400}
+          m_TargetAssemblyTypeName: Welcome, Assembly-CSharp
+          m_MethodName: BubbleOnHover
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 812603502}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1459689400}
+          m_TargetAssemblyTypeName: Welcome, Assembly-CSharp
+          m_MethodName: BubbleOnLoseHover
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 812603502}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!135 &812603499
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -764,6 +796,38 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1459689400}
+          m_TargetAssemblyTypeName: Welcome, Assembly-CSharp
+          m_MethodName: BubbleOnHover
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1188565309}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1459689400}
+          m_TargetAssemblyTypeName: Welcome, Assembly-CSharp
+          m_MethodName: BubbleOnLoseHover
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1188565309}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
