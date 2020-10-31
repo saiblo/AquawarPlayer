@@ -13,6 +13,8 @@ public class Preparation : MonoBehaviour
 {
     public Transform allFishRoot;
 
+    public Transform bubblePrefab;
+
     private readonly Transform[] _fishTransforms = new Transform[Constants.FishNum];
 
     private readonly Vector3[] _targetPositions = new Vector3[Constants.FishNum];
@@ -24,6 +26,8 @@ public class Preparation : MonoBehaviour
     private readonly List<int> _entranceSpeedY = new List<int>();
 
     private readonly Random _random = new Random(Convert.ToInt32(DateTime.Now.Ticks % 100000000));
+
+    private readonly int[] _bannedIndices = {1, 4, 5, 8, 10, 13};
 
     private DateTime _initialTime;
 
@@ -66,9 +70,10 @@ public class Preparation : MonoBehaviour
 
     private void ActivateFishTriggers()
     {
-        for (var i = Constants.BanNum; i < Constants.FishNum; i++)
+        for (var i = 0; i < Constants.FishNum; i++)
         {
             var id = i;
+            if (_bannedIndices.Contains(id)) continue;
             var trigger = new EventTrigger.Entry();
             trigger.callback.AddListener(delegate
             {
@@ -110,13 +115,15 @@ public class Preparation : MonoBehaviour
                         {
                             _uiQueue.Enqueue(() =>
                             {
-                                _fishTransforms[id].localScale = new Vector3(2, 2, 2);
+                                var banBubble = Instantiate(bubblePrefab, allFishRoot);
+                                banBubble.localPosition = _targetPositions[_bannedIndices[id]];
+                                banBubble.localScale = new Vector3(2, 2, 2);
                                 if (id != 5) return;
                                 foreach (var timer in _timers) timer.Dispose();
                                 ActivateFishTriggers();
                             });
                         },
-                        null, i * 500, 0);
+                        null, i * 500 + 800, 0);
                 }
             }
         }

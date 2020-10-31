@@ -427,6 +427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allFishRoot: {fileID: 1729169947}
+  bubblePrefab: {fileID: 5151837911361778245, guid: 3621fa5a565e846419545bc91090c3a4, type: 3}
   doneButton: {fileID: 526210615}
 --- !u!1 &1571519937
 GameObject:
