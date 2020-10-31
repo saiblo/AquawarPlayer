@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -22,11 +23,16 @@ public class GameUI : MonoBehaviour
     private readonly Vector3 _small = new Vector3(5, 5, 5);
     private readonly Vector3 _large = new Vector3(8, 8, 8);
 
+    private readonly Queue<Action> _uiQueue = new Queue<Action>();
+
+    private int _internalTick;
+
     private enum SelectStatus
     {
         DoAssertion,
         SelectMyFish,
-        SelectEnemyFish
+        SelectEnemyFish,
+        WaitingAnimation
     }
 
     private SelectStatus _selectStatus = SelectStatus.DoAssertion;
@@ -56,10 +62,68 @@ public class GameUI : MonoBehaviour
                 _selectStatus = SelectStatus.SelectEnemyFish;
                 break;
             case SelectStatus.SelectEnemyFish:
-                _selectStatus = SelectStatus.SelectMyFish;
-                _myFishSelected = -1;
-                for (var i = 0; i < 4; i++)
-                    _myFishSelectedAsTarget[i] = _enemyFishSelectedAsTarget[i] = false;
+                _selectStatus = SelectStatus.WaitingAnimation;
+                _internalTick = 0;
+                Timer timer = null;
+                timer = new Timer(state =>
+                {
+                    _internalTick++;
+                    if (_internalTick < 100)
+                    {
+                        _uiQueue.Enqueue(() =>
+                        {
+                            if (_myFishSelected < 0 || _myFishSelected >= 4) return;
+                            _myFishTransforms[_myFishSelected].localPosition = new Vector3(
+                                -3 * (_myFishSelected + 2),
+                                1 - (_internalTick - 50) * (_internalTick - 50) / 2500f,
+                                2 - _myFishSelected
+                            );
+                        });
+                    }
+                    else if (_internalTick < 300)
+                    {
+                        _uiQueue.Enqueue(() =>
+                        {
+                            for (var i = 0; i < 4; i++)
+                            {
+                                if (_myFishSelectedAsTarget[i])
+                                {
+                                    _myFishTransforms[i].RotateAround(
+                                        _myFishTransforms[i].localPosition,
+                                        Vector3.up,
+                                        10f
+                                    );
+                                }
+                                if (_enemyFishSelectedAsTarget[i])
+                                {
+                                    _enemyFishTransforms[i].RotateAround(
+                                        _enemyFishTransforms[i].localPosition,
+                                        Vector3.up,
+                                        10f
+                                    );
+                                }
+                            }
+                        });
+                    }
+                    else
+                    {
+                        // ReSharper disable once AccessToModifiedClosure
+                        timer?.Dispose();
+                        _myFishSelected = -1;
+                        _uiQueue.Enqueue(() =>
+                        {
+                            for (var i = 0; i < 4; i++)
+                            {
+                                _myFishSelectedAsTarget[i] = _enemyFishSelectedAsTarget[i] = false;
+                                _myFishTransforms[i].rotation = new Quaternion();
+                                _enemyFishTransforms[i].rotation = new Quaternion();
+                            }
+                        });
+                        _selectStatus = SelectStatus.SelectMyFish;
+                    }
+                }, null, 0, 5);
+                break;
+            case SelectStatus.WaitingAnimation:
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -92,6 +156,8 @@ public class GameUI : MonoBehaviour
                     case SelectStatus.SelectEnemyFish:
                         _myFishSelectedAsTarget[j] = !_myFishSelectedAsTarget[j];
                         break;
+                    case SelectStatus.WaitingAnimation:
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -115,6 +181,8 @@ public class GameUI : MonoBehaviour
                     case SelectStatus.SelectEnemyFish:
                         _enemyFishSelectedAsTarget[j] = !_enemyFishSelectedAsTarget[j];
                         break;
+                    case SelectStatus.WaitingAnimation:
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -126,6 +194,9 @@ public class GameUI : MonoBehaviour
 
     private void Update()
     {
+        while (_uiQueue.Count > 0)
+            _uiQueue.Dequeue()();
+
         for (var i = 0; i < 4; i++)
         {
             if (_myFishSelectedAsTarget[i])
@@ -157,6 +228,9 @@ public class GameUI : MonoBehaviour
                 break;
             case SelectStatus.SelectEnemyFish:
                 title = "选择作用对象";
+                break;
+            case SelectStatus.WaitingAnimation:
+                title = "请等待动画放完";
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
