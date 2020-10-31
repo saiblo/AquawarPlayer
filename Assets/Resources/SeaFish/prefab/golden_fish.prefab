@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 95129505778356250}
   - component: {fileID: -7164550071830840532}
   - component: {fileID: 7683741820328848882}
+  - component: {fileID: -5891511418704141203}
   m_Layer: 0
   m_Name: golden_fish
   m_TagString: Untagged
@@ -81,6 +82,22 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!111 &-5891511418704141203
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1144274577932934}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400008, guid: be3dc60ee52ceba4988774dfc8356383, type: 3}
+  m_Animations:
+  - {fileID: 7400008, guid: be3dc60ee52ceba4988774dfc8356383, type: 3}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1170890473231810
 GameObject:
   m_ObjectHideFlags: 0
