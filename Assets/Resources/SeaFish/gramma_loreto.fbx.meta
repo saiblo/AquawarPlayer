@@ -1,68 +1,176 @@
 fileFormatVersion: 2
 guid: 5074f37993ca149428adcfbb3623f436
-timeCreated: 1497767595
-licenseType: Store
 ModelImporter:
-  serializedVersion: 19
-  fileIDToRecycleName:
-    100000: body
-    100002: fin_1.L
-    100004: fin_1.L_end
-    100006: fin_1.R
-    100008: fin_1.R_end
-    100010: fin_2
-    100012: fin_2.L
-    100014: fin_2.L_end
-    100016: fin_2.R
-    100018: fin_2.R_end
-    100020: fin_2_end
-    100022: fin_3
-    100024: fin_3_end
-    100026: general
-    100028: //RootNode
-    100030: gramma_loreto
-    100032: gramma_loreto_pose
-    100034: head
-    100036: head_end
-    100038: neak
-    100040: tail
-    100042: tail_1
-    100044: tail_2
-    100046: tail_end
-    400000: body
-    400002: fin_1.L
-    400004: fin_1.L_end
-    400006: fin_1.R
-    400008: fin_1.R_end
-    400010: fin_2
-    400012: fin_2.L
-    400014: fin_2.L_end
-    400016: fin_2.R
-    400018: fin_2.R_end
-    400020: fin_2_end
-    400022: fin_3
-    400024: fin_3_end
-    400026: general
-    400028: //RootNode
-    400030: gramma_loreto
-    400032: gramma_loreto_pose
-    400034: head
-    400036: head_end
-    400038: neak
-    400040: tail
-    400042: tail_1
-    400044: tail_2
-    400046: tail_end
-    4300000: gramma_loreto
-    7400000: swim
-    7400002: eat
-    7400004: idle
-    9500000: //RootNode
-    13700000: gramma_loreto
+  serializedVersion: 20101
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: body
+  - first:
+      1: 100002
+    second: fin_1.L
+  - first:
+      1: 100004
+    second: fin_1.L_end
+  - first:
+      1: 100006
+    second: fin_1.R
+  - first:
+      1: 100008
+    second: fin_1.R_end
+  - first:
+      1: 100010
+    second: fin_2
+  - first:
+      1: 100012
+    second: fin_2.L
+  - first:
+      1: 100014
+    second: fin_2.L_end
+  - first:
+      1: 100016
+    second: fin_2.R
+  - first:
+      1: 100018
+    second: fin_2.R_end
+  - first:
+      1: 100020
+    second: fin_2_end
+  - first:
+      1: 100022
+    second: fin_3
+  - first:
+      1: 100024
+    second: fin_3_end
+  - first:
+      1: 100026
+    second: general
+  - first:
+      1: 100028
+    second: //RootNode
+  - first:
+      1: 100030
+    second: gramma_loreto
+  - first:
+      1: 100032
+    second: gramma_loreto_pose
+  - first:
+      1: 100034
+    second: head
+  - first:
+      1: 100036
+    second: head_end
+  - first:
+      1: 100038
+    second: neak
+  - first:
+      1: 100040
+    second: tail
+  - first:
+      1: 100042
+    second: tail_1
+  - first:
+      1: 100044
+    second: tail_2
+  - first:
+      1: 100046
+    second: tail_end
+  - first:
+      4: 400000
+    second: body
+  - first:
+      4: 400002
+    second: fin_1.L
+  - first:
+      4: 400004
+    second: fin_1.L_end
+  - first:
+      4: 400006
+    second: fin_1.R
+  - first:
+      4: 400008
+    second: fin_1.R_end
+  - first:
+      4: 400010
+    second: fin_2
+  - first:
+      4: 400012
+    second: fin_2.L
+  - first:
+      4: 400014
+    second: fin_2.L_end
+  - first:
+      4: 400016
+    second: fin_2.R
+  - first:
+      4: 400018
+    second: fin_2.R_end
+  - first:
+      4: 400020
+    second: fin_2_end
+  - first:
+      4: 400022
+    second: fin_3
+  - first:
+      4: 400024
+    second: fin_3_end
+  - first:
+      4: 400026
+    second: general
+  - first:
+      4: 400028
+    second: //RootNode
+  - first:
+      4: 400030
+    second: gramma_loreto
+  - first:
+      4: 400032
+    second: gramma_loreto_pose
+  - first:
+      4: 400034
+    second: head
+  - first:
+      4: 400036
+    second: head_end
+  - first:
+      4: 400038
+    second: neak
+  - first:
+      4: 400040
+    second: tail
+  - first:
+      4: 400042
+    second: tail_1
+  - first:
+      4: 400044
+    second: tail_2
+  - first:
+      4: 400046
+    second: tail_end
+  - first:
+      43: 4300000
+    second: gramma_loreto
+  - first:
+      74: 7400000
+    second: swim
+  - first:
+      74: 7400002
+    second: eat
+  - first:
+      74: 7400004
+    second: idle
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: gramma_loreto
+  externalObjects: {}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 1
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -75,12 +183,15 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
-    animationWrapMode: 0
+    animationWrapMode: 2
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
@@ -88,26 +199,45 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -117,14 +247,16 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 1
   humanoidOversampling: 1
+  avatarSetup: 0
   additionalBone: 0
   userData: 
   assetBundleName: 

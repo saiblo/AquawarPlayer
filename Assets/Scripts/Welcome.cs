@@ -9,6 +9,11 @@ public class Welcome : MonoBehaviour
     public Dialog openFileDialogPrefab;
 
     public Transform fishPrefabSample;
+    public Transform fishPrefabSample2;
+    public Transform fishPrefabSample3;
+    public Transform fishPrefabSample4;
+    public Transform fishPrefabSample5;
+    public Transform fishPrefabSample6;
 
     public Transform bubbleOpenFile;
 
@@ -22,8 +27,15 @@ public class Welcome : MonoBehaviour
 
     private void Awake()
     {
-        for (var i = 0; i < Constants.FishNum; i++)
-            PrefabRefs.FishPrefabs[i] = fishPrefabSample;
+        for (var i = 0; i < Constants.FishNum / 6; i++)
+        {
+            PrefabRefs.FishPrefabs[i * 6] = fishPrefabSample;
+            PrefabRefs.FishPrefabs[i * 6 + 1] = fishPrefabSample2;
+            PrefabRefs.FishPrefabs[i * 6 + 2] = fishPrefabSample3;
+            PrefabRefs.FishPrefabs[i * 6 + 3] = fishPrefabSample4;
+            PrefabRefs.FishPrefabs[i * 6 + 4] = fishPrefabSample5;
+            PrefabRefs.FishPrefabs[i * 6 + 5] = fishPrefabSample6;
+        }
         _bubbleOpenFileOriginalPos = bubbleOpenFile.localPosition;
         _bubbleConnectOriginalPos = bubbleConnect.localPosition;
         _initialTime = DateTime.Now;

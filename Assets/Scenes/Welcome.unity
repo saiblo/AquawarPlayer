@@ -948,6 +948,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openFileDialogPrefab: {fileID: 114000011762028948, guid: b4a5265f6d09fe147bd484dc3b5a18a1, type: 3}
   fishPrefabSample: {fileID: 4611287467837322, guid: 7015b623a04a499409c98dede26fdf1b, type: 3}
+  fishPrefabSample2: {fileID: 4537463728540688, guid: 9edbf20907227f54d8ab4008e2df4fbb, type: 3}
+  fishPrefabSample3: {fileID: 4479264440210766, guid: 47eb81d4d61b7464e994389e615b1393, type: 3}
+  fishPrefabSample4: {fileID: 4678271000222674, guid: 41543ab45c82c8641a606ddf4c52eb0b, type: 3}
+  fishPrefabSample5: {fileID: 4777285209996940, guid: 3c979b709ff19944cac5e88d9b30759d, type: 3}
+  fishPrefabSample6: {fileID: 4201393111718366, guid: b775e94850e3bc24d9d7f5949faa01b4, type: 3}
   bubbleOpenFile: {fileID: 1188565309}
   bubbleConnect: {fileID: 812603502}
 --- !u!114 &1459689401
