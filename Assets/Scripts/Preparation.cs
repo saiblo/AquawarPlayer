@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
+using LitJson;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -50,6 +51,12 @@ public class Preparation : MonoBehaviour
 
     private void Awake()
     {
+        var replay = PlayerPrefs.GetString("replay");
+        if (replay.Length > 0)
+        {
+            var fishAvailable = JsonMapper.ToObject(replay)[1]["players"][0]["my_fish"];
+            Debug.Log(fishAvailable.Count);
+        }
         for (var i = 0; i < Constants.FishNum; i++)
         {
             _entranceSpeedX.Add(_random.Next(-4, 5));
