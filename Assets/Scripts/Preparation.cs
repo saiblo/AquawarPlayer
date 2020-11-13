@@ -49,13 +49,20 @@ public class Preparation : MonoBehaviour
 
     public Button doneButton;
 
+    private Constants.GameMode _mode;
+
     private void Awake()
     {
-        var replay = PlayerPrefs.GetString("replay");
-        if (replay.Length > 0)
+        var replayStr = PlayerPrefs.GetString("replay");
+        if (replayStr.Length > 0)
         {
-            var fishAvailable = JsonMapper.ToObject(replay)[1]["players"][0]["my_fish"];
-            Debug.Log(fishAvailable.Count);
+            var replay = JsonMapper.ToObject(replayStr);
+            Debug.Log(replay.Count);
+            _mode = Constants.GameMode.Offline;
+        }
+        else
+        {
+            _mode = Constants.GameMode.Online;
         }
         for (var i = 0; i < Constants.FishNum; i++)
         {
@@ -127,7 +134,18 @@ public class Preparation : MonoBehaviour
                                 banBubble.localScale = new Vector3(2, 2, 2);
                                 if (id != 5) return;
                                 foreach (var timer in _timers) timer.Dispose();
-                                ActivateFishTriggers();
+                                if (_mode == Constants.GameMode.Offline)
+                                {
+                                    _fishTransforms[2].localScale = new Vector3(4, 4, 4);
+                                    _fishTransforms[6].localScale = new Vector3(4, 4, 4);
+                                    _fishTransforms[7].localScale = new Vector3(4, 4, 4);
+                                    _fishTransforms[12].localScale = new Vector3(4, 4, 4);
+                                    doneButton.interactable = true;
+                                }
+                                else
+                                {
+                                    ActivateFishTriggers();
+                                }
                             });
                         },
                         null, i * 500 + 800, 0);

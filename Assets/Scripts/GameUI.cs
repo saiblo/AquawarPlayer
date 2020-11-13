@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using LitJson;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -26,6 +27,8 @@ public class GameUI : MonoBehaviour
     private readonly Queue<Action> _uiQueue = new Queue<Action>();
 
     private int _internalTick;
+
+    private Constants.GameMode _mode;
 
     private enum SelectStatus
     {
@@ -132,6 +135,17 @@ public class GameUI : MonoBehaviour
 
     private void Awake()
     {
+        var replayStr = PlayerPrefs.GetString("replay");
+        if (replayStr.Length > 0)
+        {
+            var replay = JsonMapper.ToObject(replayStr);
+            Debug.Log(replay.Count);
+            _mode = Constants.GameMode.Offline;
+        }
+        else
+        {
+            _mode = Constants.GameMode.Online;
+        }
         for (var i = 0; i < 4; i++)
         {
             var j = i;
