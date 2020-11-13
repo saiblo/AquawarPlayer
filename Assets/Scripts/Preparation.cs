@@ -154,7 +154,10 @@ public class Preparation : MonoBehaviour
         }
         else
         {
-            doneButton.interactable = _fishSelected.Count(b => b) == 4;
+            if (_mode == Constants.GameMode.Online)
+            {
+                doneButton.interactable = _fishSelected.Count(b => b) == 4;
+            }
             while (_uiQueue.Count > 0)
                 _uiQueue.Dequeue()();
         }

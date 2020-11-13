@@ -157,52 +157,63 @@ public class GameUI : MonoBehaviour
             var myFish = Instantiate(PrefabRefs.FishPrefabs[_myFishId[i]], allFishRoot);
             myFish.localPosition = new Vector3(-3 * (i + 2), 0, 2 - i);
             myFish.localScale = _small;
-            var myFishTrigger = new EventTrigger.Entry();
-            myFishTrigger.callback.AddListener(delegate
+            if (_mode == Constants.GameMode.Online)
             {
-                switch (_selectStatus)
+                var myFishTrigger = new EventTrigger.Entry();
+                myFishTrigger.callback.AddListener(delegate
                 {
-                    case SelectStatus.DoAssertion:
-                        break;
-                    case SelectStatus.SelectMyFish:
-                        _myFishSelected = _myFishSelected == j ? -1 : j;
-                        break;
-                    case SelectStatus.SelectEnemyFish:
-                        _myFishSelectedAsTarget[j] = !_myFishSelectedAsTarget[j];
-                        break;
-                    case SelectStatus.WaitingAnimation:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            });
-            myFish.GetComponent<EventTrigger>().triggers.Add(myFishTrigger);
+                    switch (_selectStatus)
+                    {
+                        case SelectStatus.DoAssertion:
+                            break;
+                        case SelectStatus.SelectMyFish:
+                            _myFishSelected = _myFishSelected == j ? -1 : j;
+                            break;
+                        case SelectStatus.SelectEnemyFish:
+                            _myFishSelectedAsTarget[j] = !_myFishSelectedAsTarget[j];
+                            break;
+                        case SelectStatus.WaitingAnimation:
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                });
+                myFish.GetComponent<EventTrigger>().triggers.Add(myFishTrigger);
+            }
             _myFishTransforms.Add(myFish);
 
             var enemyFish = Instantiate(PrefabRefs.FishPrefabs[_enemyFishId[i]], allFishRoot);
             enemyFish.localPosition = new Vector3(3 * (i + 2), 0, 2 - i);
             enemyFish.localScale = _small;
-            var enemyFishTrigger = new EventTrigger.Entry();
-            enemyFishTrigger.callback.AddListener(delegate
+            if (_mode == Constants.GameMode.Online)
             {
-                switch (_selectStatus)
+                var enemyFishTrigger = new EventTrigger.Entry();
+                enemyFishTrigger.callback.AddListener(delegate
                 {
-                    case SelectStatus.DoAssertion:
-                        _assertion = _assertion == j ? -1 : j;
-                        break;
-                    case SelectStatus.SelectMyFish:
-                        break;
-                    case SelectStatus.SelectEnemyFish:
-                        _enemyFishSelectedAsTarget[j] = !_enemyFishSelectedAsTarget[j];
-                        break;
-                    case SelectStatus.WaitingAnimation:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            });
-            enemyFish.GetComponent<EventTrigger>().triggers.Add(enemyFishTrigger);
+                    switch (_selectStatus)
+                    {
+                        case SelectStatus.DoAssertion:
+                            _assertion = _assertion == j ? -1 : j;
+                            break;
+                        case SelectStatus.SelectMyFish:
+                            break;
+                        case SelectStatus.SelectEnemyFish:
+                            _enemyFishSelectedAsTarget[j] = !_enemyFishSelectedAsTarget[j];
+                            break;
+                        case SelectStatus.WaitingAnimation:
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                });
+                enemyFish.GetComponent<EventTrigger>().triggers.Add(enemyFishTrigger);
+            }
             _enemyFishTransforms.Add(enemyFish);
+        }
+
+        if (_mode == Constants.GameMode.Offline)
+        {
+            // TODO
         }
     }
 
