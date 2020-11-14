@@ -46,6 +46,9 @@ public class GameUI : MonoBehaviour
     private readonly List<Transform> _myFishTransforms = new List<Transform>();
     private readonly List<Transform> _enemyFishTransforms = new List<Transform>();
 
+    private readonly int[] _myFishFullHp = {0, 0, 0, 0};
+    private readonly int[] _enemyFishFullHp = {0, 0, 0, 0};
+
     private int _myFishSelected = -1;
 
     private int _enemyFishSelected = -1;
@@ -54,6 +57,9 @@ public class GameUI : MonoBehaviour
 
     private readonly bool[] _myFishSelectedAsTarget = {false, false, false, false};
     private readonly bool[] _enemyFishSelectedAsTarget = {false, false, false, false};
+
+    private readonly List<Slider> _myStatus = new List<Slider>();
+    private readonly List<Slider> _enemyStatus = new List<Slider>();
 
     private void SetTimeout(Action action, int timeout)
     {
@@ -65,6 +71,15 @@ public class GameUI : MonoBehaviour
                 timer?.Dispose();
             }
             , null, timeout, 0);
+    }
+
+    private void DisplayHp(JsonData players)
+    {
+        for (var i = 0; i < 4; i++)
+        {
+            _myStatus[i].value = (float) players[0]["fight_fish"][i]["hp"] / _myFishFullHp[i];
+            _enemyStatus[i].value = (float) players[1]["fight_fish"][i]["hp"] / _enemyFishFullHp[i];
+        }
     }
 
     private void ProcessOffline()
@@ -95,6 +110,8 @@ public class GameUI : MonoBehaviour
                         ChangeStatus();
                     }
                 }
+                // TODO: what will happen when it ends?
+                DisplayHp(_replay[PlayerPrefs.GetInt("cursor")]["players"]);
                 SetTimeout(ProcessOffline, 4000);
                 break;
             default:
@@ -204,6 +221,12 @@ public class GameUI : MonoBehaviour
         {
             _replay = JsonMapper.ToObject(replayStr);
             _mode = Constants.GameMode.Offline;
+            var curr = _replay[PlayerPrefs.GetInt("cursor")];
+            for (var i = 0; i < 4; i++)
+            {
+                _myFishFullHp[i] = (int) curr["players"][0]["fight_fish"][i]["hp"];
+                _enemyFishFullHp[i] = (int) curr["players"][1]["fight_fish"][i]["hp"];
+            }
         }
         else
         {
@@ -212,10 +235,12 @@ public class GameUI : MonoBehaviour
         for (var i = 0; i < 4; i++)
         {
             var j = i;
-            Instantiate(statusBarPrefab, myStatusRoot)
-                .localPosition = new Vector3(10, -15 * i - 10);
-            Instantiate(statusBarPrefab, enemyStatusRoot)
-                .localPosition = new Vector3(10, -15 * i - 10);
+            var myStatus = Instantiate(statusBarPrefab, myStatusRoot);
+            myStatus.localPosition = new Vector3(10, -15 * i - 10);
+            _myStatus.Add(myStatus.GetComponent<Slider>());
+            var enemyStatus = Instantiate(statusBarPrefab, enemyStatusRoot);
+            enemyStatus.localPosition = new Vector3(10, -15 * i - 10);
+            _enemyStatus.Add(enemyStatus.GetComponent<Slider>());
 
             var myFish = Instantiate(PrefabRefs.FishPrefabs[_myFishId[i]], allFishRoot);
             myFish.localPosition = new Vector3(-3 * (i + 2), 0, 2 - i);

@@ -154,7 +154,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb16c82df9549b143bab43f7dfc2a736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fishPrefab: {fileID: 3950787879464761876, guid: f821d51518fbf664eb90eabd31864c11, type: 3}
   statusBarPrefab: {fileID: 7436594424736310076, guid: a7c45802fd095254486178d8b61113e6, type: 3}
   allFishRoot: {fileID: 735424222}
   myStatusRoot: {fileID: 842206341}
@@ -536,7 +535,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 568479762}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 300, y: 120, z: 0}
+  m_LocalPosition: {x: 220, y: 120, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1539875004}
@@ -596,7 +595,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 842206340}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -320, y: 120, z: 0}
+  m_LocalPosition: {x: -240, y: 120, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1539875004}
