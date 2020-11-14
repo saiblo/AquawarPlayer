@@ -5,6 +5,7 @@ using System.Threading;
 using LitJson;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
@@ -30,6 +31,8 @@ public class GameUI : MonoBehaviour
 
     private Constants.GameMode _mode;
 
+    private JsonData _replay;
+
     private enum SelectStatus
     {
         DoAssertion,
@@ -45,12 +48,63 @@ public class GameUI : MonoBehaviour
 
     private int _myFishSelected = -1;
 
+    private int _enemyFishSelected = -1;
+
     private int _assertion = -1;
 
     private readonly bool[] _myFishSelectedAsTarget = {false, false, false, false};
     private readonly bool[] _enemyFishSelectedAsTarget = {false, false, false, false};
 
-    public void ChangeStatus()
+    private void SetTimeout(Action action, int timeout)
+    {
+        Timer timer = null;
+        timer = new Timer(state =>
+            {
+                _uiQueue.Enqueue(action);
+                // ReSharper disable once AccessToModifiedClosure
+                timer?.Dispose();
+            }
+            , null, timeout, 0);
+    }
+
+    private void ProcessOffline()
+    {
+        var state = _replay[PlayerPrefs.GetInt("cursor")];
+        switch ((int) state["gamestate"])
+        {
+            case 2:
+                SceneManager.LoadScene("Scenes/Preparation");
+                break;
+            case 4:
+                PlayerPrefs.SetInt("cursor", PlayerPrefs.GetInt("cursor") + 1);
+                var operation = state["operation"][0];
+                if ((string) operation["Action"] == "Action")
+                {
+                    if ((int) operation["ID"] == 0)
+                    {
+                        _myFishSelected = (int) operation["MyPos"];
+                        ChangeStatus();
+                        _enemyFishSelectedAsTarget[(int) operation["EnemyPos"]] = true;
+                        ChangeStatus();
+                    }
+                    else
+                    {
+                        _enemyFishSelected = (int) operation["MyPos"];
+                        ChangeStatus();
+                        _myFishSelectedAsTarget[(int) operation["EnemyPos"]] = true;
+                        ChangeStatus();
+                    }
+                }
+                SetTimeout(ProcessOffline, 4000);
+                break;
+            default:
+                PlayerPrefs.SetInt("cursor", PlayerPrefs.GetInt("cursor") + 1);
+                SetTimeout(ProcessOffline, 100);
+                break;
+        }
+    }
+
+    private void ChangeStatus()
     {
         switch (_selectStatus)
         {
@@ -75,12 +129,22 @@ public class GameUI : MonoBehaviour
                     {
                         _uiQueue.Enqueue(() =>
                         {
-                            if (_myFishSelected < 0 || _myFishSelected >= 4) return;
-                            _myFishTransforms[_myFishSelected].localPosition = new Vector3(
-                                -3 * (_myFishSelected + 2),
-                                1 - (_internalTick - 50) * (_internalTick - 50) / 2500f,
-                                2 - _myFishSelected
-                            );
+                            if (_myFishSelected >= 0 && _myFishSelected < 4)
+                            {
+                                _myFishTransforms[_myFishSelected].localPosition = new Vector3(
+                                    -3 * (_myFishSelected + 2),
+                                    1 - (_internalTick - 50) * (_internalTick - 50) / 2500f,
+                                    2 - _myFishSelected
+                                );
+                            }
+                            else if (_enemyFishSelected >= 0 && _enemyFishSelected < 4)
+                            {
+                                _enemyFishTransforms[_enemyFishSelected].localPosition = new Vector3(
+                                    3 * (_enemyFishSelected + 2),
+                                    1 - (_internalTick - 50) * (_internalTick - 50) / 2500f,
+                                    2 - _enemyFishSelected
+                                );
+                            }
                         });
                     }
                     else if (_internalTick < 300)
@@ -138,8 +202,7 @@ public class GameUI : MonoBehaviour
         var replayStr = PlayerPrefs.GetString("replay");
         if (replayStr.Length > 0)
         {
-            var replay = JsonMapper.ToObject(replayStr);
-            Debug.Log(replay.Count);
+            _replay = JsonMapper.ToObject(replayStr);
             _mode = Constants.GameMode.Offline;
         }
         else
@@ -211,9 +274,11 @@ public class GameUI : MonoBehaviour
             _enemyFishTransforms.Add(enemyFish);
         }
 
+        // ReSharper disable once InvertIf
         if (_mode == Constants.GameMode.Offline)
         {
-            // TODO
+            ChangeStatus(); // Process assertion afterwords
+            ProcessOffline();
         }
     }
 
@@ -231,8 +296,12 @@ public class GameUI : MonoBehaviour
             else
                 _myFishTransforms[i].localScale = _small;
 
-            _enemyFishTransforms[i].localScale =
-                _enemyFishSelectedAsTarget[i] || i == _assertion ? _large : _small;
+            if (_enemyFishSelectedAsTarget[i])
+                _enemyFishTransforms[i].localScale = _large;
+            else if (_enemyFishSelected == i)
+                _enemyFishTransforms[i].localScale = _large;
+            else
+                _enemyFishTransforms[i].localScale = _small;
         }
 
         changeStatusButton.interactable =
