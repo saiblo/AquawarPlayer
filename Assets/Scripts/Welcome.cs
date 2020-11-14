@@ -66,6 +66,7 @@ public class Welcome : MonoBehaviour
                                 if (JsonMapper.ToObject(replay).IsArray)
                                 {
                                     PlayerPrefs.SetString("replay", replay);
+                                    PlayerPrefs.SetInt("cursor", 0);
                                     SceneManager.LoadScene("Scenes/Preparation");
                                 }
                                 else

@@ -103,6 +103,15 @@ public class Preparation : MonoBehaviour
         SceneManager.LoadScene("Scenes/Game");
     }
 
+    private void OfflineSelect()
+    {
+        _fishTransforms[2].localScale = new Vector3(4, 4, 4);
+        _fishTransforms[6].localScale = new Vector3(4, 4, 4);
+        _fishTransforms[7].localScale = new Vector3(4, 4, 4);
+        _fishTransforms[12].localScale = new Vector3(4, 4, 4);
+        doneButton.interactable = true;
+    }
+
     private void Update()
     {
         if (!_animationPlayed)
@@ -121,34 +130,41 @@ public class Preparation : MonoBehaviour
             if (timeDiff > EntranceDuration)
             {
                 _animationPlayed = true;
-                for (var i = 0; i < Constants.BanNum; i++)
+                if (PlayerPrefs.GetInt("cursor", 0) == 0)
                 {
-                    var id = i;
-                    _timers[id] = new Timer(
-                        state =>
-                        {
-                            _uiQueue.Enqueue(() =>
+                    if (_mode == Constants.GameMode.Offline)
+                    {
+                        PlayerPrefs.SetInt("cursor", 3);
+                    }
+                    for (var i = 0; i < Constants.BanNum; i++)
+                    {
+                        var id = i;
+                        _timers[id] = new Timer(
+                            state =>
                             {
-                                var banBubble = Instantiate(bubblePrefab, allFishRoot);
-                                banBubble.localPosition = _targetPositions[_bannedIndices[id]];
-                                banBubble.localScale = new Vector3(2, 2, 2);
-                                if (id != 5) return;
-                                foreach (var timer in _timers) timer.Dispose();
-                                if (_mode == Constants.GameMode.Offline)
+                                _uiQueue.Enqueue(() =>
                                 {
-                                    _fishTransforms[2].localScale = new Vector3(4, 4, 4);
-                                    _fishTransforms[6].localScale = new Vector3(4, 4, 4);
-                                    _fishTransforms[7].localScale = new Vector3(4, 4, 4);
-                                    _fishTransforms[12].localScale = new Vector3(4, 4, 4);
-                                    doneButton.interactable = true;
-                                }
-                                else
-                                {
-                                    ActivateFishTriggers();
-                                }
-                            });
-                        },
-                        null, i * 500 + 800, 0);
+                                    var banBubble = Instantiate(bubblePrefab, allFishRoot);
+                                    banBubble.localPosition = _targetPositions[_bannedIndices[id]];
+                                    banBubble.localScale = new Vector3(2, 2, 2);
+                                    if (id != 5) return;
+                                    foreach (var timer in _timers) timer.Dispose();
+                                    if (_mode == Constants.GameMode.Offline)
+                                    {
+                                        OfflineSelect();
+                                    }
+                                    else
+                                    {
+                                        ActivateFishTriggers();
+                                    }
+                                });
+                            },
+                            null, i * 500 + 800, 0);
+                    }
+                }
+                else if (_mode == Constants.GameMode.Offline)
+                {
+                    OfflineSelect();
                 }
             }
         }
