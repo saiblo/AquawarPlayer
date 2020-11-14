@@ -75,6 +75,7 @@ public class Preparation : MonoBehaviour
             {
                 var id = i * 6 + j;
                 _fishTransforms[id] = Instantiate(PrefabRefs.FishPrefabs[id], allFishRoot);
+                _fishTransforms[id].rotation = Quaternion.Euler(new Vector3(0, 180, 0));
                 _targetPositions[id] = new Vector3(j * 3 - 7.5f, -i * 3);
                 _fishEventTriggers[id] = _fishTransforms[id].GetComponent<EventTrigger>();
             }

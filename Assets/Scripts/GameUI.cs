@@ -112,7 +112,7 @@ public class GameUI : MonoBehaviour
                 }
                 // TODO: what will happen when it ends?
                 DisplayHp(_replay[PlayerPrefs.GetInt("cursor")]["players"]);
-                SetTimeout(ProcessOffline, 4000);
+                SetTimeout(ProcessOffline, 3000);
                 break;
             default:
                 PlayerPrefs.SetInt("cursor", PlayerPrefs.GetInt("cursor") + 1);
@@ -199,8 +199,8 @@ public class GameUI : MonoBehaviour
                             for (var i = 0; i < 4; i++)
                             {
                                 _myFishSelectedAsTarget[i] = _enemyFishSelectedAsTarget[i] = false;
-                                _myFishTransforms[i].rotation = new Quaternion();
-                                _enemyFishTransforms[i].rotation = new Quaternion();
+                                _myFishTransforms[i].rotation = Quaternion.Euler(new Vector3(0, 150, 0));
+                                _enemyFishTransforms[i].rotation = Quaternion.Euler(new Vector3(0, 210, 0));
                             }
                         });
                         _selectStatus = SelectStatus.SelectMyFish;
@@ -245,6 +245,7 @@ public class GameUI : MonoBehaviour
             var myFish = Instantiate(PrefabRefs.FishPrefabs[_myFishId[i]], allFishRoot);
             myFish.localPosition = new Vector3(-3 * (i + 2), 0, 2 - i);
             myFish.localScale = _small;
+            myFish.rotation = Quaternion.Euler(new Vector3(0, 150, 0));
             if (_mode == Constants.GameMode.Online)
             {
                 var myFishTrigger = new EventTrigger.Entry();
@@ -273,6 +274,7 @@ public class GameUI : MonoBehaviour
             var enemyFish = Instantiate(PrefabRefs.FishPrefabs[_enemyFishId[i]], allFishRoot);
             enemyFish.localPosition = new Vector3(3 * (i + 2), 0, 2 - i);
             enemyFish.localScale = _small;
+            enemyFish.rotation = Quaternion.Euler(new Vector3(0, 210, 0));
             if (_mode == Constants.GameMode.Online)
             {
                 var enemyFishTrigger = new EventTrigger.Entry();
