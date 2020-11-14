@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using System.Text;
 using LitJson;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -55,12 +56,13 @@ public class Welcome : MonoBehaviour
                             using (var sr = new StreamReader(path))
                             {
                                 string line;
-                                var replay = "";
+                                var replaySb = new StringBuilder();
                                 while ((line = sr.ReadLine()) != null)
                                 {
-                                    replay += line;
-                                    replay += "\n";
+                                    replaySb.Append(line);
+                                    replaySb.Append('\n');
                                 }
+                                var replay = replaySb.ToString();
                                 if (JsonMapper.ToObject(replay).IsArray)
                                 {
                                     PlayerPrefs.SetString("replay", replay);
