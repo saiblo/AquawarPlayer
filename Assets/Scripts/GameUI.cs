@@ -110,9 +110,11 @@ public class GameUI : MonoBehaviour
                         ChangeStatus();
                     }
                 }
-                // TODO: what will happen when it ends?
-                DisplayHp(_replay[PlayerPrefs.GetInt("cursor")]["players"]);
-                SetTimeout(ProcessOffline, 3000);
+                if (_replay[PlayerPrefs.GetInt("cursor")] != null)
+                {
+                    DisplayHp(_replay[PlayerPrefs.GetInt("cursor")]["players"]);
+                    SetTimeout(ProcessOffline, 3000);
+                }
                 break;
             default:
                 PlayerPrefs.SetInt("cursor", PlayerPrefs.GetInt("cursor") + 1);

@@ -165,6 +165,7 @@ public class Preparation : MonoBehaviour
                 }
                 else if (_mode == Constants.GameMode.Offline)
                 {
+                    PlayerPrefs.SetInt("cursor", PlayerPrefs.GetInt("cursor") + 1);
                     OfflineSelect();
                 }
             }
