@@ -160,6 +160,7 @@ MonoBehaviour:
   enemyStatusRoot: {fileID: 568479763}
   changeStatusButton: {fileID: 563319908}
   changeStatusPrompt: {fileID: 555925969}
+  questionPrefab: {fileID: 1703798105641740424, guid: f567635d3fba1a143a2a663e7e4e4eee, type: 3}
 --- !u!114 &253739613
 MonoBehaviour:
   m_ObjectHideFlags: 0

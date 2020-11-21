@@ -33,9 +33,16 @@ public class GameUI : MonoBehaviour
 
     private JsonData _replay;
 
+    public Transform questionPrefab;
+
+    private readonly List<Transform> _myQuestions = new List<Transform>();
+
+    private readonly List<Transform> _enemyQuestions = new List<Transform>();
+
     private enum SelectStatus
     {
         DoAssertion,
+        WaitAssertion,
         SelectMyFish,
         SelectEnemyFish,
         WaitingAnimation
@@ -54,6 +61,8 @@ public class GameUI : MonoBehaviour
     private int _enemyFishSelected = -1;
 
     private int _assertion = -1;
+    private int _assertionPlayer;
+    private int _assertionTarget; // Which fish do you think it is?
 
     private readonly bool[] _myFishSelectedAsTarget = {false, false, false, false};
     private readonly bool[] _enemyFishSelectedAsTarget = {false, false, false, false};
@@ -90,7 +99,37 @@ public class GameUI : MonoBehaviour
             case 2:
                 SceneManager.LoadScene("Scenes/Preparation");
                 break;
+            case 3:
+            {
+                PlayerPrefs.SetInt("cursor", PlayerPrefs.GetInt("cursor") + 1);
+                var operation = state["operation"][0];
+                if ((string) operation["Action"] == "Assert")
+                {
+                    _assertionPlayer = (int) operation["ID"];
+                    _assertion = (int) operation["Pos"];
+                    _assertionTarget = (int) operation["id"];
+                    var guessFish = Instantiate(PrefabRefs.FishPrefabs[_assertionTarget], allFishRoot);
+                    guessFish.localPosition =
+                        (_assertionPlayer == 1 ? _myFishTransforms : _enemyFishTransforms)[_assertion]
+                        .localPosition + new Vector3(0, 6, 0);
+                    SetTimeout(() =>
+                    {
+                        // Any better approach?
+                        guessFish.localPosition = new Vector3(100, 100, 100);
+                        ChangeStatus();
+                    }, 2000);
+                }
+                else
+                {
+                    _assertion = -1;
+                    ChangeStatus();
+                    ChangeStatus();
+                    SetTimeout(ProcessOffline, 400);
+                }
+                break;
+            }
             case 4:
+            {
                 PlayerPrefs.SetInt("cursor", PlayerPrefs.GetInt("cursor") + 1);
                 var operation = state["operation"][0];
                 if ((string) operation["Action"] == "Action")
@@ -116,6 +155,7 @@ public class GameUI : MonoBehaviour
                     SetTimeout(ProcessOffline, 3000);
                 }
                 break;
+            }
             default:
                 PlayerPrefs.SetInt("cursor", PlayerPrefs.GetInt("cursor") + 1);
                 SetTimeout(ProcessOffline, 100);
@@ -128,16 +168,96 @@ public class GameUI : MonoBehaviour
         switch (_selectStatus)
         {
             case SelectStatus.DoAssertion:
+            {
+                _selectStatus = SelectStatus.WaitAssertion;
+                if (_assertion != -1)
+                {
+                    _internalTick = 0;
+                    Timer timer = null;
+                    if (_assertionTarget == (_assertionPlayer == 1 ? _myFishId : _enemyFishId)[_assertion])
+                    {
+                        _uiQueue.Enqueue(() =>
+                        {
+                            // Any better approach?
+                            (_assertionPlayer == 1 ? _myQuestions : _enemyQuestions)[_assertion]
+                                .localPosition = new Vector3(100, 100, 100);
+                        });
+                        timer = new Timer(state =>
+                        {
+                            _internalTick++;
+                            if (_internalTick < 150)
+                            {
+                                _uiQueue.Enqueue(() =>
+                                {
+                                    var size = 8f - (_internalTick - 75) * (_internalTick - 75) / 1875f;
+                                    (_assertionPlayer == 1 ? _myFishTransforms : _enemyFishTransforms)[_assertion]
+                                        .localScale = new Vector3(size, size, size);
+                                });
+                            }
+                            else
+                            {
+                                // ReSharper disable once AccessToModifiedClosure
+                                timer?.Dispose();
+                                _uiQueue.Enqueue(() => { _assertion = -1; });
+                                SetTimeout(() =>
+                                {
+                                    ChangeStatus();
+                                    ProcessOffline();
+                                }, 800);
+                            }
+                        }, null, 0, 10);
+                    }
+                    else
+                    {
+                        timer = new Timer(state =>
+                        {
+                            _internalTick++;
+                            if (_internalTick < 200)
+                            {
+                                _uiQueue.Enqueue(() =>
+                                    {
+                                        var transforms =
+                                            _assertionPlayer == 0 ? _myFishTransforms : _enemyFishTransforms;
+                                        for (var i = 0; i < 4; i++)
+                                        {
+                                            transforms[i].RotateAround(
+                                                transforms[i].localPosition,
+                                                Vector3.up,
+                                                10f
+                                            );
+                                        }
+                                    }
+                                );
+                            }
+                            else
+                            {
+                                // ReSharper disable once AccessToModifiedClosure
+                                timer?.Dispose();
+                                _uiQueue.Enqueue(() =>
+                                {
+                                    for (var i = 0; i < 4; i++)
+                                    {
+                                        _myFishTransforms[i].rotation = Quaternion.Euler(new Vector3(0, 150, 0));
+                                        _enemyFishTransforms[i].rotation = Quaternion.Euler(new Vector3(0, 210, 0));
+                                    }
+                                    _assertion = -1;
+                                    ChangeStatus();
+                                    ProcessOffline();
+                                });
+                            }
+                        }, null, 0, 5);
+                    }
+                }
+                break;
+            }
+            case SelectStatus.WaitAssertion:
                 _selectStatus = SelectStatus.SelectMyFish;
-                // if (_assertion != -1)
-                // {
-                _assertion = -1;
-                // }
                 break;
             case SelectStatus.SelectMyFish:
                 _selectStatus = SelectStatus.SelectEnemyFish;
                 break;
             case SelectStatus.SelectEnemyFish:
+            {
                 _selectStatus = SelectStatus.WaitingAnimation;
                 _internalTick = 0;
                 Timer timer = null;
@@ -206,10 +326,11 @@ public class GameUI : MonoBehaviour
                                 _enemyFishTransforms[i].rotation = Quaternion.Euler(new Vector3(0, 210, 0));
                             }
                         });
-                        _selectStatus = SelectStatus.SelectMyFish;
+                        _selectStatus = SelectStatus.DoAssertion;
                     }
                 }, null, 0, 5);
                 break;
+            }
             case SelectStatus.WaitingAnimation:
                 break;
             default:
@@ -258,6 +379,8 @@ public class GameUI : MonoBehaviour
                     {
                         case SelectStatus.DoAssertion:
                             break;
+                        case SelectStatus.WaitAssertion:
+                            break;
                         case SelectStatus.SelectMyFish:
                             _myFishSelected = _myFishSelected == j ? -1 : j;
                             break;
@@ -274,6 +397,12 @@ public class GameUI : MonoBehaviour
             }
             _myFishTransforms.Add(myFish);
 
+            var myQuestion = Instantiate(questionPrefab, allFishRoot);
+            myQuestion.localPosition = new Vector3(-3 * (i + 1), 4, 2 - i);
+            myQuestion.rotation =
+                Quaternion.Euler(new Vector3(0, -Convert.ToInt32(Math.Atan(3.0 * (i + 1) / (17 - i))), 0));
+            _myQuestions.Add(myQuestion);
+
             var enemyFish = Instantiate(PrefabRefs.FishPrefabs[_enemyFishId[i]], allFishRoot);
             enemyFish.localPosition = new Vector3(3 * (i + 1), 0, 2 - i);
             enemyFish.localScale = _small;
@@ -287,6 +416,8 @@ public class GameUI : MonoBehaviour
                     {
                         case SelectStatus.DoAssertion:
                             _assertion = _assertion == j ? -1 : j;
+                            break;
+                        case SelectStatus.WaitAssertion:
                             break;
                         case SelectStatus.SelectMyFish:
                             break;
@@ -302,14 +433,15 @@ public class GameUI : MonoBehaviour
                 enemyFish.GetComponent<EventTrigger>().triggers.Add(enemyFishTrigger);
             }
             _enemyFishTransforms.Add(enemyFish);
+
+            var enemyQuestion = Instantiate(questionPrefab, allFishRoot);
+            enemyQuestion.localPosition = new Vector3(3 * (i + 1), 4, 2 - i);
+            enemyQuestion.rotation =
+                Quaternion.Euler(new Vector3(0, Convert.ToInt32(Math.Atan(3.0 * (i + 1) / (17 - i))), 0));
+            _enemyQuestions.Add(enemyQuestion);
         }
 
-        // ReSharper disable once InvertIf
-        if (_mode == Constants.GameMode.Offline)
-        {
-            ChangeStatus(); // Process assertion afterwords
-            ProcessOffline();
-        }
+        if (_mode == Constants.GameMode.Offline) ProcessOffline();
     }
 
     private void Update()
@@ -317,21 +449,24 @@ public class GameUI : MonoBehaviour
         while (_uiQueue.Count > 0)
             _uiQueue.Dequeue()();
 
-        for (var i = 0; i < 4; i++)
+        if (_selectStatus != SelectStatus.WaitAssertion)
         {
-            if (_myFishSelectedAsTarget[i])
-                _myFishTransforms[i].localScale = _large;
-            else if (_myFishSelected == i)
-                _myFishTransforms[i].localScale = _large;
-            else
-                _myFishTransforms[i].localScale = _small;
+            for (var i = 0; i < 4; i++)
+            {
+                if (_myFishSelectedAsTarget[i])
+                    _myFishTransforms[i].localScale = _large;
+                else if (_myFishSelected == i)
+                    _myFishTransforms[i].localScale = _large;
+                else
+                    _myFishTransforms[i].localScale = _small;
 
-            if (_enemyFishSelectedAsTarget[i])
-                _enemyFishTransforms[i].localScale = _large;
-            else if (_enemyFishSelected == i)
-                _enemyFishTransforms[i].localScale = _large;
-            else
-                _enemyFishTransforms[i].localScale = _small;
+                if (_enemyFishSelectedAsTarget[i])
+                    _enemyFishTransforms[i].localScale = _large;
+                else if (_enemyFishSelected == i)
+                    _enemyFishTransforms[i].localScale = _large;
+                else
+                    _enemyFishTransforms[i].localScale = _small;
+            }
         }
 
         changeStatusButton.interactable =
@@ -346,6 +481,9 @@ public class GameUI : MonoBehaviour
         {
             case SelectStatus.DoAssertion:
                 title = _assertion == -1 ? "放弃断言" : "进行断言";
+                break;
+            case SelectStatus.WaitAssertion:
+                title = "请等待动画放完";
                 break;
             case SelectStatus.SelectMyFish:
                 title = "选择我方鱼";
