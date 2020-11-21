@@ -29,6 +29,7 @@ public class Welcome : MonoBehaviour
 
     private void Awake()
     {
+        Screen.SetResolution(1920, 1080, true);
         for (var i = 0; i < Constants.FishNum / 6; i++)
         {
             PrefabRefs.FishPrefabs[i * 6] = fishPrefabSample;
