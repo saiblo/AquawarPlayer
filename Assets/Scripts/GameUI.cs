@@ -151,7 +151,7 @@ public class GameUI : MonoBehaviour
                             if (_myFishSelected >= 0 && _myFishSelected < 4)
                             {
                                 _myFishTransforms[_myFishSelected].localPosition = new Vector3(
-                                    -3 * (_myFishSelected + 2),
+                                    -3 * (_myFishSelected + 1),
                                     1 - (_internalTick - 50) * (_internalTick - 50) / 2500f,
                                     2 - _myFishSelected
                                 );
@@ -159,7 +159,7 @@ public class GameUI : MonoBehaviour
                             else if (_enemyFishSelected >= 0 && _enemyFishSelected < 4)
                             {
                                 _enemyFishTransforms[_enemyFishSelected].localPosition = new Vector3(
-                                    3 * (_enemyFishSelected + 2),
+                                    3 * (_enemyFishSelected + 1),
                                     1 - (_internalTick - 50) * (_internalTick - 50) / 2500f,
                                     2 - _enemyFishSelected
                                 );
@@ -196,6 +196,7 @@ public class GameUI : MonoBehaviour
                         // ReSharper disable once AccessToModifiedClosure
                         timer?.Dispose();
                         _myFishSelected = -1;
+                        _enemyFishSelected = -1;
                         _uiQueue.Enqueue(() =>
                         {
                             for (var i = 0; i < 4; i++)
@@ -238,14 +239,14 @@ public class GameUI : MonoBehaviour
         {
             var j = i;
             var myStatus = Instantiate(statusBarPrefab, myStatusRoot);
-            myStatus.localPosition = new Vector3(10, -15 * i - 10);
+            myStatus.localPosition = new Vector3(10, -50 * i - 10);
             _myStatus.Add(myStatus.GetComponent<Slider>());
             var enemyStatus = Instantiate(statusBarPrefab, enemyStatusRoot);
-            enemyStatus.localPosition = new Vector3(10, -15 * i - 10);
+            enemyStatus.localPosition = new Vector3(10, -50 * i - 10);
             _enemyStatus.Add(enemyStatus.GetComponent<Slider>());
 
             var myFish = Instantiate(PrefabRefs.FishPrefabs[_myFishId[i]], allFishRoot);
-            myFish.localPosition = new Vector3(-3 * (i + 2), 0, 2 - i);
+            myFish.localPosition = new Vector3(-3 * (i + 1), 0, 2 - i);
             myFish.localScale = _small;
             myFish.rotation = Quaternion.Euler(new Vector3(0, 150, 0));
             if (_mode == Constants.GameMode.Online)
@@ -274,7 +275,7 @@ public class GameUI : MonoBehaviour
             _myFishTransforms.Add(myFish);
 
             var enemyFish = Instantiate(PrefabRefs.FishPrefabs[_enemyFishId[i]], allFishRoot);
-            enemyFish.localPosition = new Vector3(3 * (i + 2), 0, 2 - i);
+            enemyFish.localPosition = new Vector3(3 * (i + 1), 0, 2 - i);
             enemyFish.localScale = _small;
             enemyFish.rotation = Quaternion.Euler(new Vector3(0, 210, 0));
             if (_mode == Constants.GameMode.Online)
