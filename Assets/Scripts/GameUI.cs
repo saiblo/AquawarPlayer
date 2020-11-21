@@ -202,7 +202,7 @@ public class GameUI : MonoBehaviour
                                 SetTimeout(() =>
                                 {
                                     ChangeStatus();
-                                    ProcessOffline();
+                                    if (_mode == Constants.GameMode.Offline) ProcessOffline();
                                 }, 800);
                             }
                         }, null, 0, 10);
@@ -242,7 +242,7 @@ public class GameUI : MonoBehaviour
                                     }
                                     _assertion = -1;
                                     ChangeStatus();
-                                    ProcessOffline();
+                                    if (_mode == Constants.GameMode.Offline) ProcessOffline();
                                 });
                             }
                         }, null, 0, 5);

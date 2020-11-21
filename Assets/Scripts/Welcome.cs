@@ -42,6 +42,8 @@ public class Welcome : MonoBehaviour
 
     private void Awake()
     {
+        PlayerPrefs.SetString("replay", "");
+        PlayerPrefs.SetInt("cursor", 0);
         Screen.SetResolution(1920, 1080, true);
         for (var i = 0; i < Constants.FishNum / 6; i++)
         {
