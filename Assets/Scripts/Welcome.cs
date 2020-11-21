@@ -5,6 +5,7 @@ using System.Text;
 using LitJson;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = System.Random;
 
 public class Welcome : MonoBehaviour
 {
@@ -21,11 +22,23 @@ public class Welcome : MonoBehaviour
 
     public Transform bubbleConnect;
 
+    public Transform wanderingBubble;
+
     private Vector3 _bubbleOpenFileOriginalPos;
 
     private Vector3 _bubbleConnectOriginalPos;
 
     private DateTime _initialTime;
+
+    private int _wanderingBubbleRound = -1;
+
+    private const int WanderingBubbleInterval = 15000;
+
+    private readonly Random _random = new Random(Convert.ToInt32(DateTime.Now.Ticks % 100000000));
+
+    private float _currRandX;
+
+    private double _timeBias;
 
     private void Awake()
     {
@@ -103,6 +116,27 @@ public class Welcome : MonoBehaviour
         bubble.localScale = new Vector3(5, 5, 5);
     }
 
+    public void WanderingBubbleOnHover()
+    {
+        wanderingBubble.localScale = new Vector3(3, 3, 3);
+    }
+
+    public void WanderingBubbleOnLoseHover()
+    {
+        wanderingBubble.localScale = new Vector3(2, 2, 2);
+    }
+
+    public void WanderingBubbleOnClick()
+    {
+        wanderingBubble.localScale = new Vector3(2, 2, 2);
+        _wanderingBubbleRound++;
+        _currRandX = _random.Next(-54, 54) / 3.0f;
+        var actualSpan = (DateTime.Now - _initialTime).TotalMilliseconds + _timeBias;
+        if (Math.Abs(Math.Floor(actualSpan / WanderingBubbleInterval) -
+                     Math.Floor((actualSpan + 8000) / WanderingBubbleInterval)) < 0.1)
+            _timeBias += 8000;
+    }
+
     private static float GetNewPos(float original, TimeSpan timeSpan, int omega, float a)
     {
         return float.Parse(
@@ -123,5 +157,14 @@ public class Welcome : MonoBehaviour
             GetNewPos(_bubbleConnectOriginalPos.y, timeSpan, 2333, 0.6f),
             GetNewPos(_bubbleConnectOriginalPos.z, timeSpan, 361, 0.1f)
         );
+        var actualSpan = timeSpan.TotalMilliseconds + _timeBias;
+        if (Math.Floor(actualSpan / WanderingBubbleInterval) > _wanderingBubbleRound)
+        {
+            _wanderingBubbleRound = Convert.ToInt32(actualSpan / WanderingBubbleInterval);
+            _currRandX = _random.Next(-54, 54) / 3.0f;
+        }
+        var remainder = float.Parse(
+            (actualSpan - _wanderingBubbleRound * WanderingBubbleInterval).ToString(CultureInfo.InvariantCulture));
+        wanderingBubble.localPosition = new Vector3(_currRandX, remainder * 0.002f - 11f, 6);
     }
 }
