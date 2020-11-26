@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using LitJson;
+using UnityEngine;
 
 public class Client
 {
@@ -28,16 +29,23 @@ public class Client
         _token = tokenEncoded;
     }
 
-    public Task Send(string request, string content = "")
+    public Task Send(string content = null)
     {
         return _ws.SendAsync(
             new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonMapper.ToJson(
-                new Request {token = _token, request = request, content = content}
+                new Request {token = _token, request = content == null ? "connect" : "action", content = content ?? ""}
             ))),
             WebSocketMessageType.Text,
             true,
             CancellationToken.None
         );
+    }
+
+    public async Task<string> Receive()
+    {
+        var buffer = new ArraySegment<byte>(new byte[1024]);
+        await _ws.ReceiveAsync(buffer, CancellationToken.None);
+        return (string) JsonMapper.ToObject(Encoding.UTF8.GetString(buffer.Array ?? Array.Empty<byte>()))["content"];
     }
 
     public static Client GameClient = null;
