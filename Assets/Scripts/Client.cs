@@ -29,11 +29,16 @@ public class Client
         _token = tokenEncoded;
     }
 
-    public Task Send(string content = null)
+    public Task Send(object content = null)
     {
         return _ws.SendAsync(
             new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonMapper.ToJson(
-                new Request {token = _token, request = content == null ? "connect" : "action", content = content ?? ""}
+                new Request
+                {
+                    token = _token,
+                    request = content == null ? "connect" : "action",
+                    content = content == null ? "" : JsonMapper.ToJson(content)
+                }
             ))),
             WebSocketMessageType.Text,
             true,
@@ -41,11 +46,13 @@ public class Client
         );
     }
 
-    public async Task<string> Receive()
+    public async Task<JsonData> Receive()
     {
         var buffer = new ArraySegment<byte>(new byte[1024]);
         await _ws.ReceiveAsync(buffer, CancellationToken.None);
-        return (string) JsonMapper.ToObject(Encoding.UTF8.GetString(buffer.Array ?? Array.Empty<byte>()))["content"];
+        return JsonMapper.ToObject(
+            (string) JsonMapper.ToObject(Encoding.UTF8.GetString(buffer.Array ?? Array.Empty<byte>()))["content"]
+        );
     }
 
     public static Client GameClient = null;

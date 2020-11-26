@@ -30,6 +30,8 @@ public class Preparation : MonoBehaviour
 
     private readonly int[] _bannedIndices = {1, 4, 5, 8, 10, 13};
 
+    private readonly List<int> _availableFish = new List<int>();
+
     private DateTime _initialTime;
 
     private bool _animationPlayed;
@@ -44,8 +46,6 @@ public class Preparation : MonoBehaviour
     };
 
     private readonly Queue<Action> _uiQueue = new Queue<Action>();
-
-    private readonly Timer[] _timers = new Timer[Constants.BanNum];
 
     public Button doneButton;
 
@@ -88,7 +88,7 @@ public class Preparation : MonoBehaviour
         for (var i = 0; i < Constants.FishNum; i++)
         {
             var id = i;
-            if (_bannedIndices.Contains(id)) continue;
+            if (!_availableFish.Contains(id)) continue;
             var trigger = new EventTrigger.Entry();
             trigger.callback.AddListener(delegate
             {
@@ -101,6 +101,14 @@ public class Preparation : MonoBehaviour
 
     public void ConfirmSelection()
     {
+        if (_mode == Constants.GameMode.Online)
+        {
+            var chooseFishs = new List<int>();
+            for (var i = 0; i < Constants.FishNum; i++)
+                if (_fishSelected[i])
+                    chooseFishs.Add(i);
+            Client.GameClient.Send(new Pick {ChooseFishs = chooseFishs});
+        }
         SceneManager.LoadScene("Scenes/Game");
     }
 
@@ -113,7 +121,7 @@ public class Preparation : MonoBehaviour
         doneButton.interactable = true;
     }
 
-    private void Update()
+    private async void Update()
     {
         if (!_animationPlayed)
         {
@@ -137,31 +145,40 @@ public class Preparation : MonoBehaviour
                     {
                         PlayerPrefs.SetInt("cursor", 3);
                     }
-                    for (var i = 0; i < Constants.BanNum; i++)
+                    else
                     {
-                        var id = i;
-                        _timers[id] = new Timer(
-                            state =>
-                            {
-                                _uiQueue.Enqueue(() =>
-                                {
-                                    var banBubble = Instantiate(bubblePrefab, allFishRoot);
-                                    banBubble.localPosition = _targetPositions[_bannedIndices[id]];
-                                    banBubble.localScale = new Vector3(2, 2, 2);
-                                    if (id != 5) return;
-                                    foreach (var timer in _timers) timer.Dispose();
-                                    if (_mode == Constants.GameMode.Offline)
-                                    {
-                                        OfflineSelect();
-                                    }
-                                    else
-                                    {
-                                        ActivateFishTriggers();
-                                    }
-                                });
-                            },
-                            null, i * 500 + 800, 0);
+                        /*var result = await Client.GameClient.Receive();
+                        if ((string) result["Action"] == "Pick")
+                        {
+                            var remaining = result["RemainFishs"];
+                            _availableFish.Clear();
+                            for (var i = 0; i < remaining.Count; i++)
+                                _availableFish.Add((int) remaining[i]);
+                        }*/
+                        _availableFish.Clear();
+                        for (var i = 0; i < 18; i++) _availableFish.Add(i);
                     }
+                    Timer timer = null;
+                    timer = new Timer(state =>
+                        {
+                            _uiQueue.Enqueue(() =>
+                            {
+                                for (var i = 0; i < Constants.FishNum; i++)
+                                {
+                                    if (_availableFish.Contains(i)) continue;
+                                    var banBubble = Instantiate(bubblePrefab, allFishRoot);
+                                    banBubble.localPosition = _targetPositions[_bannedIndices[i]];
+                                    banBubble.localScale = new Vector3(2, 2, 2);
+                                }
+                                // ReSharper disable once AccessToModifiedClosure
+                                timer?.Dispose();
+                                if (_mode == Constants.GameMode.Offline)
+                                    OfflineSelect();
+                                else
+                                    ActivateFishTriggers();
+                            });
+                        },
+                        null, 800, 0);
                 }
                 else if (_mode == Constants.GameMode.Offline)
                 {
