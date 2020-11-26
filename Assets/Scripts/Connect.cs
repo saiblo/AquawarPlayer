@@ -30,15 +30,8 @@ public class Connect : MonoBehaviour
         try
         {
             Debug.Log("连接中……");
-            var ws = new ClientWebSocket();
-            await ws.ConnectAsync(new Uri($"wss://{tokenDecoded}"), CancellationToken.None);
-            var request = new ConnectRequest {token = tokenEncoded, request = "connect"};
-            await ws.SendAsync(
-                new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonMapper.ToJson(request))),
-                WebSocketMessageType.Text,
-                true,
-                CancellationToken.None
-            );
+            Client.GameClient = new Client(tokenDecoded, tokenEncoded);
+            await Client.GameClient.Send("connect");
             Debug.Log("连接成功");
             SceneManager.LoadScene("Scenes/Preparation");
         }
