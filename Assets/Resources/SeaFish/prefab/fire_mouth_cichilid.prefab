@@ -758,8 +758,8 @@ GameObject:
   - component: {fileID: 4201393111718366}
   - component: {fileID: 95512525285551534}
   - component: {fileID: 5128667332624986692}
-  - component: {fileID: 2568765847609223991}
   - component: {fileID: 7581415070875071869}
+  - component: {fileID: 5536697616859874762}
   m_Layer: 0
   m_Name: fire_mouth_cichilid
   m_TagString: Untagged
@@ -818,20 +818,6 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!136 &2568765847609223991
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1945690741461250}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7581415070875071869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -845,6 +831,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates: []
+--- !u!64 &5536697616859874762
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945690741461250}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: a5b82cadf8d9e87459a7efe1010af2e2, type: 3}
 --- !u!1 &1966411715364690
 GameObject:
   m_ObjectHideFlags: 0

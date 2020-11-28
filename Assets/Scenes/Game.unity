@@ -161,6 +161,7 @@ MonoBehaviour:
   changeStatusButton: {fileID: 563319908}
   changeStatusPrompt: {fileID: 555925969}
   questionPrefab: {fileID: 1703798105641740424, guid: f567635d3fba1a143a2a663e7e4e4eee, type: 3}
+  waterProjectile: {fileID: 4971097015990966, guid: 1405f7a46ad73504d8cbe4b7ddd1d552, type: 3}
   explodePrefab: {fileID: 4865135451303388, guid: 9bba9cf244c53c5439505dfc96fdd11c, type: 3}
 --- !u!114 &253739613
 MonoBehaviour:

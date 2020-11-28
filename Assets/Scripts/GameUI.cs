@@ -39,6 +39,18 @@ public class GameUI : MonoBehaviour
 
     private readonly List<Transform> _enemyQuestions = new List<Transform>();
 
+    public Transform waterProjectile;
+
+    private static Vector3 GetMyFishPos(int id)
+    {
+        return new Vector3(-3 * (id + 1), 0, 2 - id);
+    }
+
+    private static Vector3 GetEnemyFishPos(int id)
+    {
+        return new Vector3(3 * (id + 1), 0, 2 - id);
+    }
+
     private enum SelectStatus
     {
         DoAssertion,
@@ -268,76 +280,37 @@ public class GameUI : MonoBehaviour
             case SelectStatus.SelectEnemyFish:
             {
                 _selectStatus = SelectStatus.WaitingAnimation;
-                _internalTick = 0;
-                Timer timer = null;
-                timer = new Timer(state =>
+                if (_myFishSelected >= 0 && _myFishSelected < 4)
                 {
-                    _internalTick++;
-                    if (_internalTick < 100)
+                    Instantiate(
+                        waterProjectile,
+                        GetMyFishPos(_myFishSelected) + new Vector3(1, 0, -1) * 4,
+                        Quaternion.Euler(0, 90, 90)
+                    );
+                }
+                else if (_enemyFishSelected >= 0 && _enemyFishSelected < 4)
+                {
+                    Instantiate(
+                        waterProjectile,
+                        GetEnemyFishPos(_enemyFishSelected) + new Vector3(-1, 0, -1) * 4,
+                        Quaternion.Euler(0, -90, 90)
+                    );
+                }
+                SetTimeout(() =>
+                {
+                    _myFishSelected = -1;
+                    _enemyFishSelected = -1;
+                    _uiQueue.Enqueue(() =>
                     {
-                        _uiQueue.Enqueue(() =>
+                        for (var i = 0; i < 4; i++)
                         {
-                            if (_myFishSelected >= 0 && _myFishSelected < 4)
-                            {
-                                _myFishTransforms[_myFishSelected].localPosition = new Vector3(
-                                    -3 * (_myFishSelected + 1),
-                                    1 - (_internalTick - 50) * (_internalTick - 50) / 2500f,
-                                    2 - _myFishSelected
-                                );
-                            }
-                            else if (_enemyFishSelected >= 0 && _enemyFishSelected < 4)
-                            {
-                                _enemyFishTransforms[_enemyFishSelected].localPosition = new Vector3(
-                                    3 * (_enemyFishSelected + 1),
-                                    1 - (_internalTick - 50) * (_internalTick - 50) / 2500f,
-                                    2 - _enemyFishSelected
-                                );
-                            }
-                        });
-                    }
-                    else if (_internalTick < 300)
-                    {
-                        _uiQueue.Enqueue(() =>
-                        {
-                            for (var i = 0; i < 4; i++)
-                            {
-                                if (_myFishSelectedAsTarget[i])
-                                {
-                                    _myFishTransforms[i].RotateAround(
-                                        _myFishTransforms[i].localPosition,
-                                        Vector3.up,
-                                        10f
-                                    );
-                                }
-                                if (_enemyFishSelectedAsTarget[i])
-                                {
-                                    _enemyFishTransforms[i].RotateAround(
-                                        _enemyFishTransforms[i].localPosition,
-                                        Vector3.up,
-                                        10f
-                                    );
-                                }
-                            }
-                        });
-                    }
-                    else
-                    {
-                        // ReSharper disable once AccessToModifiedClosure
-                        timer?.Dispose();
-                        _myFishSelected = -1;
-                        _enemyFishSelected = -1;
-                        _uiQueue.Enqueue(() =>
-                        {
-                            for (var i = 0; i < 4; i++)
-                            {
-                                _myFishSelectedAsTarget[i] = _enemyFishSelectedAsTarget[i] = false;
-                                _myFishTransforms[i].rotation = Quaternion.Euler(new Vector3(0, 150, 0));
-                                _enemyFishTransforms[i].rotation = Quaternion.Euler(new Vector3(0, 210, 0));
-                            }
-                        });
-                        _selectStatus = SelectStatus.DoAssertion;
-                    }
-                }, null, 0, 5);
+                            _myFishSelectedAsTarget[i] = _enemyFishSelectedAsTarget[i] = false;
+                            _myFishTransforms[i].rotation = Quaternion.Euler(new Vector3(0, 150, 0));
+                            _enemyFishTransforms[i].rotation = Quaternion.Euler(new Vector3(0, 210, 0));
+                        }
+                    });
+                    _selectStatus = SelectStatus.DoAssertion;
+                }, 1000);
                 break;
             }
             case SelectStatus.WaitingAnimation:

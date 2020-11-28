@@ -227,8 +227,8 @@ GameObject:
   - component: {fileID: 4678271000222674}
   - component: {fileID: 95147281790442128}
   - component: {fileID: -473308153567530751}
-  - component: {fileID: 2077559745076118629}
   - component: {fileID: 4275400290682156622}
+  - component: {fileID: 1792150115657383365}
   m_Layer: 0
   m_Name: coral_beauty
   m_TagString: Untagged
@@ -287,20 +287,6 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!136 &2077559745076118629
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1335115589084804}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4275400290682156622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,6 +300,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates: []
+--- !u!64 &1792150115657383365
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335115589084804}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: a63dac4d4a607ba42ae68bb1c1357ea8, type: 3}
 --- !u!1 &1527318814316144
 GameObject:
   m_ObjectHideFlags: 0

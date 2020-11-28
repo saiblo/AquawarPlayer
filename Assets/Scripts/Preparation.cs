@@ -119,7 +119,7 @@ public class Preparation : MonoBehaviour
         doneButton.interactable = true;
     }
 
-    private async void Update()
+    private void Update()
     {
         if (!_animationPlayed)
         {

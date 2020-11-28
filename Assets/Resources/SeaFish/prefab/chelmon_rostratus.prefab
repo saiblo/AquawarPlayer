@@ -195,8 +195,8 @@ GameObject:
   - component: {fileID: 4479264440210766}
   - component: {fileID: 95056216147269692}
   - component: {fileID: 3958071506314668433}
-  - component: {fileID: 25617422639036668}
   - component: {fileID: 1162094610705952517}
+  - component: {fileID: -5435563114744289008}
   m_Layer: 0
   m_Name: chelmon_rostratus
   m_TagString: Untagged
@@ -255,20 +255,6 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!136 &25617422639036668
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1370058809408830}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1162094610705952517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,6 +268,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates: []
+--- !u!64 &-5435563114744289008
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1370058809408830}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 68f261290bd3d8e43ad7c9d6da5a62e9, type: 3}
 --- !u!1 &1372489018354210
 GameObject:
   m_ObjectHideFlags: 0
