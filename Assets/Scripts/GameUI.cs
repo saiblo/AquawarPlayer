@@ -284,16 +284,16 @@ public class GameUI : MonoBehaviour
                 {
                     Instantiate(
                         waterProjectile,
-                        GetMyFishPos(_myFishSelected) + new Vector3(1, 0, -1) * 4,
-                        Quaternion.Euler(0, 90, 90)
+                        GetMyFishPos(_myFishSelected) + new Vector3(1, 0, -1) * 3,
+                        Quaternion.Euler(new Vector3(0, 80, 0))
                     );
                 }
                 else if (_enemyFishSelected >= 0 && _enemyFishSelected < 4)
                 {
                     Instantiate(
                         waterProjectile,
-                        GetEnemyFishPos(_enemyFishSelected) + new Vector3(-1, 0, -1) * 4,
-                        Quaternion.Euler(0, -90, 90)
+                        GetEnemyFishPos(_enemyFishSelected) + new Vector3(-1, 0, -1) * 3,
+                        Quaternion.Euler(new Vector3(0, -80, 0))
                     );
                 }
                 SetTimeout(() =>
