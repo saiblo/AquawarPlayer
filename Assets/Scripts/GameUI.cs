@@ -70,6 +70,8 @@ public class GameUI : MonoBehaviour
     private readonly List<Slider> _myStatus = new List<Slider>();
     private readonly List<Slider> _enemyStatus = new List<Slider>();
 
+    public Transform explodePrefab;
+
     private void SetTimeout(Action action, int timeout)
     {
         Timer timer = null;
@@ -181,18 +183,25 @@ public class GameUI : MonoBehaviour
                             // Any better approach?
                             (_assertionPlayer == 1 ? _myQuestions : _enemyQuestions)[_assertion]
                                 .localPosition = new Vector3(100, 100, 100);
+                            var myFishExplode = Instantiate(explodePrefab, allFishRoot);
+                            myFishExplode.localPosition =
+                                new Vector3(
+                                    (_assertionPlayer == 1 ? -1 : 1) * 3 * (_assertion + 1),
+                                    0,
+                                    2 - _assertion
+                                );
                         });
                         timer = new Timer(state =>
                         {
                             _internalTick++;
                             if (_internalTick < 150)
                             {
-                                _uiQueue.Enqueue(() =>
+                                /*_uiQueue.Enqueue(() =>
                                 {
                                     var size = 8f - (_internalTick - 75) * (_internalTick - 75) / 1875f;
                                     (_assertionPlayer == 1 ? _myFishTransforms : _enemyFishTransforms)[_assertion]
                                         .localScale = new Vector3(size, size, size);
-                                });
+                                });*/
                             }
                             else
                             {

@@ -28,8 +28,6 @@ public class Preparation : MonoBehaviour
 
     private readonly Random _random = new Random(Convert.ToInt32(DateTime.Now.Ticks % 100000000));
 
-    private readonly int[] _bannedIndices = {1, 4, 5, 8, 10, 13};
-
     private readonly List<int> _availableFish = new List<int>();
 
     private DateTime _initialTime;
@@ -136,13 +134,15 @@ public class Preparation : MonoBehaviour
                     );
             }
             // ReSharper disable once InvertIf
-            if (timeDiff > EntranceDuration)
+            if (timeDiff > EntranceDuration && !_animationPlayed)
             {
                 _animationPlayed = true;
                 if (PlayerPrefs.GetInt("cursor", 0) == 0)
                 {
                     if (_mode == Constants.GameMode.Offline)
                     {
+                        _availableFish.Clear();
+                        for (var i = 0; i < 18; i++) _availableFish.Add(i);
                         PlayerPrefs.SetInt("cursor", 3);
                     }
                     else
@@ -167,7 +167,7 @@ public class Preparation : MonoBehaviour
                                 {
                                     if (_availableFish.Contains(i)) continue;
                                     var banBubble = Instantiate(bubblePrefab, allFishRoot);
-                                    banBubble.localPosition = _targetPositions[_bannedIndices[i]];
+                                    banBubble.localPosition = _targetPositions[i];
                                     banBubble.localScale = new Vector3(2, 2, 2);
                                 }
                                 // ReSharper disable once AccessToModifiedClosure
