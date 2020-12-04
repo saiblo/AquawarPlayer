@@ -947,12 +947,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openFileDialogPrefab: {fileID: 114000011762028948, guid: b4a5265f6d09fe147bd484dc3b5a18a1, type: 3}
-  fishPrefabSample: {fileID: 4611287467837322, guid: 7015b623a04a499409c98dede26fdf1b, type: 3}
-  fishPrefabSample2: {fileID: 4537463728540688, guid: 9edbf20907227f54d8ab4008e2df4fbb, type: 3}
-  fishPrefabSample3: {fileID: 4479264440210766, guid: 47eb81d4d61b7464e994389e615b1393, type: 3}
-  fishPrefabSample4: {fileID: 4678271000222674, guid: 41543ab45c82c8641a606ddf4c52eb0b, type: 3}
-  fishPrefabSample5: {fileID: 4777285209996940, guid: 3c979b709ff19944cac5e88d9b30759d, type: 3}
-  fishPrefabSample6: {fileID: 4201393111718366, guid: b775e94850e3bc24d9d7f5949faa01b4, type: 3}
+  fishPrefabSamples:
+  - {fileID: 400014, guid: 1afcf7d7abc5e12489297243fe3a467d, type: 3}
+  - {fileID: 400010, guid: 63af61e6c1254a04494a58e84d437e5f, type: 3}
+  - {fileID: 8228544754377524978, guid: 39b9f14de4ad311429e831ef7afa8593, type: 3}
+  - {fileID: 822685717210106245, guid: 27a75c946909fca4d98da630c8a80d83, type: 3}
+  - {fileID: 400012, guid: 1376d8317dcb8c04683783fce0b7de9a, type: 3}
+  - {fileID: 400012, guid: 1376d8317dcb8c04683783fce0b7de9a, type: 3}
+  - {fileID: 400012, guid: 1376d8317dcb8c04683783fce0b7de9a, type: 3}
+  - {fileID: 1624254683786851628, guid: da66ec50aee46aa4ab0030369af288eb, type: 3}
+  - {fileID: 843567929669406434, guid: 9db40081f86835345bfb340de4be598d, type: 3}
+  - {fileID: 8138386687120816768, guid: c7c2dbd965096374c8126de9d2706b54, type: 3}
+  - {fileID: 400012, guid: 1376d8317dcb8c04683783fce0b7de9a, type: 3}
+  - {fileID: 400012, guid: 1376d8317dcb8c04683783fce0b7de9a, type: 3}
+  - {fileID: 2141228616798229356, guid: 66e94cbf531b1e849a6fb184eabedba2, type: 3}
+  - {fileID: 4904411604239695336, guid: 91ba84464825ac44c89847cb15e2d60f, type: 3}
+  - {fileID: 4231879407333710835, guid: a0ae74dee8ea404498bb18bace4a68d9, type: 3}
+  - {fileID: 400012, guid: 1376d8317dcb8c04683783fce0b7de9a, type: 3}
+  - {fileID: 5273571395004814343, guid: 78ccd2c6c44d33a4ebc41adaf2f14760, type: 3}
+  - {fileID: 400012, guid: 1376d8317dcb8c04683783fce0b7de9a, type: 3}
   bubbleOpenFile: {fileID: 1188565309}
   bubbleConnect: {fileID: 812603502}
   wanderingBubble: {fileID: 1693667365}

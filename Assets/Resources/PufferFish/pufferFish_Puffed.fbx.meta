@@ -1,0 +1,282 @@
+fileFormatVersion: 2
+guid: ed90b1732610940d38fcb142bd2efd08
+timeCreated: 1431722558
+licenseType: Store
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: body_puffed
+    100002: eyeLeft
+    100004: eyeRight
+    100006: //RootNode
+    100008: joint19
+    100010: joint20
+    100012: joint21
+    100014: joint22
+    100016: joint23
+    100018: joint24
+    100020: joint25
+    100022: joint26
+    100024: joint27
+    100026: joint28
+    100028: JointsPuffed
+    100030: huge
+    100032: HugeJoints
+    100034: joint29
+    100036: joint30
+    100038: joint31
+    100040: joint32
+    100042: joint33
+    100044: joint34
+    100046: joint35
+    100048: joint36
+    100050: joint37
+    100052: joint38
+    100054: joint39
+    100056: joint40
+    100058: joint41
+    100060: joint43
+    100062: joint44
+    100064: joint45
+    100066: joint46
+    100068: more
+    100070: teethBottom
+    100072: teethTop
+    100074: tongue
+    400000: body_puffed
+    400002: eyeLeft
+    400004: eyeRight
+    400006: //RootNode
+    400008: joint19
+    400010: joint20
+    400012: joint21
+    400014: joint22
+    400016: joint23
+    400018: joint24
+    400020: joint25
+    400022: joint26
+    400024: joint27
+    400026: joint28
+    400028: JointsPuffed
+    400030: huge
+    400032: HugeJoints
+    400034: joint29
+    400036: joint30
+    400038: joint31
+    400040: joint32
+    400042: joint33
+    400044: joint34
+    400046: joint35
+    400048: joint36
+    400050: joint37
+    400052: joint38
+    400054: joint39
+    400056: joint40
+    400058: joint41
+    400060: joint43
+    400062: joint44
+    400064: joint45
+    400066: joint46
+    400068: more
+    400070: teethBottom
+    400072: teethTop
+    400074: tongue
+    2300000: body_puffed
+    2300002: eyeLeft
+    2300004: eyeRight
+    2300006: teethBottom
+    2300008: teethTop
+    2300010: tongue
+    3300000: body_puffed
+    3300002: eyeLeft
+    3300004: eyeRight
+    3300006: teethBottom
+    3300008: teethTop
+    3300010: tongue
+    4300000: eyeRight
+    4300002: eyeLeft
+    4300004: body_puffed
+    4300006: huge
+    4300008: teethBottom
+    4300010: tongue
+    4300012: teethTop
+    7400000: swimmingHuge
+    7400002: bitingHuge
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: body_puffed
+    13700002: huge
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: swimmingHuge
+      takeName: pufferFish_rig
+      firstFrame: 1
+      lastFrame: 23
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: body_puffed
+        weight: 1
+      - path: eyeLeft
+        weight: 1
+      - path: eyeRight
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: bitingHuge
+      takeName: Take 001
+      firstFrame: 25
+      lastFrame: 35
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: huge
+        weight: 1
+      - path: huge/more
+        weight: 1
+      - path: HugeJoints
+        weight: 1
+      - path: HugeJoints/joint29
+        weight: 1
+      - path: HugeJoints/joint29/joint30
+        weight: 1
+      - path: HugeJoints/joint31
+        weight: 1
+      - path: HugeJoints/joint31/joint32
+        weight: 1
+      - path: HugeJoints/joint33
+        weight: 1
+      - path: HugeJoints/joint33/joint34
+        weight: 1
+      - path: HugeJoints/joint41
+        weight: 1
+      - path: HugeJoints/joint41/joint35
+        weight: 1
+      - path: HugeJoints/joint41/joint35/joint36
+        weight: 1
+      - path: HugeJoints/joint41/joint35/joint36/joint37
+        weight: 1
+      - path: HugeJoints/joint41/joint35/joint36/teethBottom
+        weight: 1
+      - path: HugeJoints/joint41/joint35/tongue
+        weight: 1
+      - path: HugeJoints/joint41/joint38
+        weight: 1
+      - path: HugeJoints/joint41/joint38/eyeLeft
+        weight: 1
+      - path: HugeJoints/joint41/joint38/eyeRight
+        weight: 1
+      - path: HugeJoints/joint41/joint38/joint39
+        weight: 1
+      - path: HugeJoints/joint41/joint38/joint39/joint40
+        weight: 1
+      - path: HugeJoints/joint41/joint38/joint39/teethTop
+        weight: 1
+      - path: HugeJoints/joint43
+        weight: 1
+      - path: HugeJoints/joint43/joint44
+        weight: 1
+      - path: HugeJoints/joint45
+        weight: 1
+      - path: HugeJoints/joint45/joint46
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 1
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

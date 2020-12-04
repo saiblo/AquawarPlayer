@@ -1,0 +1,387 @@
+fileFormatVersion: 2
+guid: 5b6d7c1b94af81d47805432142d1cb85
+timeCreated: 1517225278
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: hammerhead
+    100002: //RootNode
+    100004: hammerhead_AnalFin1_bone
+    100006: hammerhead_AnalFin1_ctrl
+    100008: hammerhead_AnalFin2-nub_bone
+    100010: hammerhead_AnalFin2_bone
+    100012: hammerhead_CaudalFin1_bone
+    100014: hammerhead_CaudalFin2_bone
+    100016: hammerhead_CaudalFin2_ctrl
+    100018: hammerhead_CaudalFin3-nub_bone
+    100020: hammerhead_CaudalFin3_bone
+    100022: hammerhead_CaudalFin4_bone
+    100024: hammerhead_CaudalFin4_ctrl
+    100026: hammerhead_CaudalFin5_bone
+    100028: hammerhead_CaudalFin6_bone
+    100030: hammerhead_CaudalFin6_ctrl
+    100032: hammerhead_CaudalFin7-nub_bone
+    100034: hammerhead_CaudalFin7-nub_ctrl
+    100036: hammerhead_CaudalFin7_bone
+    100038: hammerhead_FirstDorsalFin1_bone
+    100040: hammerhead_FirstDorsalFin1_ctrl
+    100042: hammerhead_FirstDorsalFin2-nub_bone
+    100044: hammerhead_FirstDorsalFin2_bone
+    100046: hammerhead_Head-nub_bone
+    100048: hammerhead_Head_bone
+    100050: hammerhead_Head_ctrl
+    100052: hammerhead_Jaw-nub_bone
+    100054: hammerhead_Jaw_bone
+    100056: hammerhead_Jaw_ctrl
+    100058: hammerhead_l_PectoralFin1_bone
+    100060: hammerhead_l_PectoralFin1_ctrl
+    100062: hammerhead_l_PectoralFin2-nub_bone
+    100064: hammerhead_l_PectoralFin2-nub_ctrl
+    100066: hammerhead_l_PectoralFin2_bone
+    100068: hammerhead_l_PelvicFin1_bone
+    100070: hammerhead_l_PelvicFin1_ctrl
+    100072: hammerhead_l_PelvicFin2-nub_bone
+    100074: hammerhead_l_PelvicFin2-nub_ctrl
+    100076: hammerhead_l_PelvicFin2_bone
+    100078: hammerhead_Main_ctrl
+    100080: hammerhead_r_PectoralFin1_bone
+    100082: hammerhead_r_PectoralFin1_ctrl
+    100084: hammerhead_r_PectoralFin2-nub_bone
+    100086: hammerhead_r_PectoralFin2-nub_ctrl
+    100088: hammerhead_r_PectoralFin2_bone
+    100090: hammerhead_r_PelvicFin1_bone
+    100092: hammerhead_r_PelvicFin1_ctrl
+    100094: hammerhead_r_PelvicFin2-nub_bone
+    100096: hammerhead_r_PelvicFin2-nub_ctrl
+    100098: hammerhead_r_PelvicFin2_bone
+    100100: hammerhead_SecondDorsalFin1_bone
+    100102: hammerhead_SecondDorsalFin1_ctrl
+    100104: hammerhead_SecondDorsalFin2-nub_bone
+    100106: hammerhead_SecondDorsalFin2_bone
+    100108: hammerhead_Spine1_bone
+    100110: hammerhead_Spine1_ctrl
+    100112: hammerhead_Spine2_bone
+    100114: hammerhead_Spine3_bone
+    100116: hammerhead_Spine3_ctrl
+    100118: hammerhead_Spine4_bone
+    100120: hammerhead_Spine5_bone
+    100122: hammerhead_Spine5_ctrl
+    100124: hammerhead_Spine6_bone
+    100126: hammerhead_Spine7_bone
+    100128: hammerhead_Spine7_ctrl
+    100130: hammerhead_Spine8_bone
+    100132: hammerhead_Spine9_bone
+    100134: hammerhead_Spine9_ctrl
+    100136: hammerhead_teeth_mesh
+    100138: hammerhead_teethjaw_mesh
+    400000: hammerhead
+    400002: //RootNode
+    400004: hammerhead_AnalFin1_bone
+    400006: hammerhead_AnalFin1_ctrl
+    400008: hammerhead_AnalFin2-nub_bone
+    400010: hammerhead_AnalFin2_bone
+    400012: hammerhead_CaudalFin1_bone
+    400014: hammerhead_CaudalFin2_bone
+    400016: hammerhead_CaudalFin2_ctrl
+    400018: hammerhead_CaudalFin3-nub_bone
+    400020: hammerhead_CaudalFin3_bone
+    400022: hammerhead_CaudalFin4_bone
+    400024: hammerhead_CaudalFin4_ctrl
+    400026: hammerhead_CaudalFin5_bone
+    400028: hammerhead_CaudalFin6_bone
+    400030: hammerhead_CaudalFin6_ctrl
+    400032: hammerhead_CaudalFin7-nub_bone
+    400034: hammerhead_CaudalFin7-nub_ctrl
+    400036: hammerhead_CaudalFin7_bone
+    400038: hammerhead_FirstDorsalFin1_bone
+    400040: hammerhead_FirstDorsalFin1_ctrl
+    400042: hammerhead_FirstDorsalFin2-nub_bone
+    400044: hammerhead_FirstDorsalFin2_bone
+    400046: hammerhead_Head-nub_bone
+    400048: hammerhead_Head_bone
+    400050: hammerhead_Head_ctrl
+    400052: hammerhead_Jaw-nub_bone
+    400054: hammerhead_Jaw_bone
+    400056: hammerhead_Jaw_ctrl
+    400058: hammerhead_l_PectoralFin1_bone
+    400060: hammerhead_l_PectoralFin1_ctrl
+    400062: hammerhead_l_PectoralFin2-nub_bone
+    400064: hammerhead_l_PectoralFin2-nub_ctrl
+    400066: hammerhead_l_PectoralFin2_bone
+    400068: hammerhead_l_PelvicFin1_bone
+    400070: hammerhead_l_PelvicFin1_ctrl
+    400072: hammerhead_l_PelvicFin2-nub_bone
+    400074: hammerhead_l_PelvicFin2-nub_ctrl
+    400076: hammerhead_l_PelvicFin2_bone
+    400078: hammerhead_Main_ctrl
+    400080: hammerhead_r_PectoralFin1_bone
+    400082: hammerhead_r_PectoralFin1_ctrl
+    400084: hammerhead_r_PectoralFin2-nub_bone
+    400086: hammerhead_r_PectoralFin2-nub_ctrl
+    400088: hammerhead_r_PectoralFin2_bone
+    400090: hammerhead_r_PelvicFin1_bone
+    400092: hammerhead_r_PelvicFin1_ctrl
+    400094: hammerhead_r_PelvicFin2-nub_bone
+    400096: hammerhead_r_PelvicFin2-nub_ctrl
+    400098: hammerhead_r_PelvicFin2_bone
+    400100: hammerhead_SecondDorsalFin1_bone
+    400102: hammerhead_SecondDorsalFin1_ctrl
+    400104: hammerhead_SecondDorsalFin2-nub_bone
+    400106: hammerhead_SecondDorsalFin2_bone
+    400108: hammerhead_Spine1_bone
+    400110: hammerhead_Spine1_ctrl
+    400112: hammerhead_Spine2_bone
+    400114: hammerhead_Spine3_bone
+    400116: hammerhead_Spine3_ctrl
+    400118: hammerhead_Spine4_bone
+    400120: hammerhead_Spine5_bone
+    400122: hammerhead_Spine5_ctrl
+    400124: hammerhead_Spine6_bone
+    400126: hammerhead_Spine7_bone
+    400128: hammerhead_Spine7_ctrl
+    400130: hammerhead_Spine8_bone
+    400132: hammerhead_Spine9_bone
+    400134: hammerhead_Spine9_ctrl
+    400136: hammerhead_teeth_mesh
+    400138: hammerhead_teethjaw_mesh
+    4300000: hammerhead
+    4300002: hammerhead_teethjaw_mesh
+    4300004: hammerhead_teeth_mesh
+    7400000: swim
+    9500000: //RootNode
+    13700000: hammerhead
+    13700002: hammerhead_teeth_mesh
+    13700004: hammerhead_teethjaw_mesh
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: swim
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 48
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: hammerhead
+        weight: 1
+      - path: hammerhead_Main_ctrl
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Head_ctrl
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Head_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Head_bone/hammerhead_Head-nub_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Head_bone/hammerhead_Jaw_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Head_bone/hammerhead_Jaw_bone/hammerhead_Jaw-nub_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Head_bone/hammerhead_Jaw_ctrl
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_l_PectoralFin1_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_l_PectoralFin1_bone/hammerhead_l_PectoralFin2_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_l_PectoralFin1_bone/hammerhead_l_PectoralFin2_bone/hammerhead_l_PectoralFin2-nub_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_l_PectoralFin1_ctrl
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_l_PectoralFin1_ctrl/hammerhead_l_PectoralFin2-nub_ctrl
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_r_PectoralFin1_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_r_PectoralFin1_bone/hammerhead_r_PectoralFin2_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_r_PectoralFin1_bone/hammerhead_r_PectoralFin2_bone/hammerhead_r_PectoralFin2-nub_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_r_PectoralFin1_ctrl
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_r_PectoralFin1_ctrl/hammerhead_r_PectoralFin2-nub_ctrl
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_FirstDorsalFin1_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_FirstDorsalFin1_bone/hammerhead_FirstDorsalFin2_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_FirstDorsalFin1_bone/hammerhead_FirstDorsalFin2_bone/hammerhead_FirstDorsalFin2-nub_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_FirstDorsalFin1_ctrl
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_l_PelvicFin1_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_l_PelvicFin1_bone/hammerhead_l_PelvicFin2_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_l_PelvicFin1_bone/hammerhead_l_PelvicFin2_bone/hammerhead_l_PelvicFin2-nub_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_l_PelvicFin1_ctrl
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_l_PelvicFin1_ctrl/hammerhead_l_PelvicFin2-nub_ctrl
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_r_PelvicFin1_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_r_PelvicFin1_bone/hammerhead_r_PelvicFin2_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_r_PelvicFin1_bone/hammerhead_r_PelvicFin2_bone/hammerhead_r_PelvicFin2-nub_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_r_PelvicFin1_ctrl
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_r_PelvicFin1_ctrl/hammerhead_r_PelvicFin2-nub_ctrl
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_Spine5_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_Spine5_bone/hammerhead_Spine6_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_Spine5_bone/hammerhead_Spine6_bone/hammerhead_Spine7_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_Spine5_bone/hammerhead_Spine6_bone/hammerhead_Spine7_bone/hammerhead_Spine8_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_Spine5_bone/hammerhead_Spine6_bone/hammerhead_Spine7_bone/hammerhead_Spine8_bone/hammerhead_AnalFin1_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_Spine5_bone/hammerhead_Spine6_bone/hammerhead_Spine7_bone/hammerhead_Spine8_bone/hammerhead_AnalFin1_bone/hammerhead_AnalFin2_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_Spine5_bone/hammerhead_Spine6_bone/hammerhead_Spine7_bone/hammerhead_Spine8_bone/hammerhead_AnalFin1_bone/hammerhead_AnalFin2_bone/hammerhead_AnalFin2-nub_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_Spine5_bone/hammerhead_Spine6_bone/hammerhead_Spine7_bone/hammerhead_Spine8_bone/hammerhead_AnalFin1_ctrl
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_Spine5_bone/hammerhead_Spine6_bone/hammerhead_Spine7_bone/hammerhead_Spine8_bone/hammerhead_SecondDorsalFin1_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_Spine5_bone/hammerhead_Spine6_bone/hammerhead_Spine7_bone/hammerhead_Spine8_bone/hammerhead_SecondDorsalFin1_bone/hammerhead_SecondDorsalFin2_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_Spine5_bone/hammerhead_Spine6_bone/hammerhead_Spine7_bone/hammerhead_Spine8_bone/hammerhead_SecondDorsalFin1_bone/hammerhead_SecondDorsalFin2_bone/hammerhead_SecondDorsalFin2-nub_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_Spine5_bone/hammerhead_Spine6_bone/hammerhead_Spine7_bone/hammerhead_Spine8_bone/hammerhead_SecondDorsalFin1_ctrl
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_Spine5_bone/hammerhead_Spine6_bone/hammerhead_Spine7_bone/hammerhead_Spine8_bone/hammerhead_Spine9_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_Spine5_bone/hammerhead_Spine6_bone/hammerhead_Spine7_bone/hammerhead_Spine8_bone/hammerhead_Spine9_bone/hammerhead_CaudalFin1_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_Spine5_bone/hammerhead_Spine6_bone/hammerhead_Spine7_bone/hammerhead_Spine8_bone/hammerhead_Spine9_bone/hammerhead_CaudalFin1_bone/hammerhead_CaudalFin2_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_Spine5_bone/hammerhead_Spine6_bone/hammerhead_Spine7_bone/hammerhead_Spine8_bone/hammerhead_Spine9_bone/hammerhead_CaudalFin1_bone/hammerhead_CaudalFin2_bone/hammerhead_CaudalFin3_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_Spine5_bone/hammerhead_Spine6_bone/hammerhead_Spine7_bone/hammerhead_Spine8_bone/hammerhead_Spine9_bone/hammerhead_CaudalFin1_bone/hammerhead_CaudalFin2_bone/hammerhead_CaudalFin3_bone/hammerhead_CaudalFin3-nub_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_Spine5_bone/hammerhead_Spine6_bone/hammerhead_Spine7_bone/hammerhead_Spine8_bone/hammerhead_Spine9_bone/hammerhead_CaudalFin1_bone/hammerhead_CaudalFin2_ctrl
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_Spine5_bone/hammerhead_Spine6_bone/hammerhead_Spine7_bone/hammerhead_Spine8_bone/hammerhead_Spine9_bone/hammerhead_CaudalFin1_bone/hammerhead_CaudalFin4_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_Spine5_bone/hammerhead_Spine6_bone/hammerhead_Spine7_bone/hammerhead_Spine8_bone/hammerhead_Spine9_bone/hammerhead_CaudalFin1_bone/hammerhead_CaudalFin4_bone/hammerhead_CaudalFin5_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_Spine5_bone/hammerhead_Spine6_bone/hammerhead_Spine7_bone/hammerhead_Spine8_bone/hammerhead_Spine9_bone/hammerhead_CaudalFin1_bone/hammerhead_CaudalFin4_bone/hammerhead_CaudalFin5_bone/hammerhead_CaudalFin6_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_Spine5_bone/hammerhead_Spine6_bone/hammerhead_Spine7_bone/hammerhead_Spine8_bone/hammerhead_Spine9_bone/hammerhead_CaudalFin1_bone/hammerhead_CaudalFin4_bone/hammerhead_CaudalFin5_bone/hammerhead_CaudalFin6_bone/hammerhead_CaudalFin7_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_Spine5_bone/hammerhead_Spine6_bone/hammerhead_Spine7_bone/hammerhead_Spine8_bone/hammerhead_Spine9_bone/hammerhead_CaudalFin1_bone/hammerhead_CaudalFin4_bone/hammerhead_CaudalFin5_bone/hammerhead_CaudalFin6_bone/hammerhead_CaudalFin7_bone/hammerhead_CaudalFin7-nub_bone
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_Spine5_bone/hammerhead_Spine6_bone/hammerhead_Spine7_bone/hammerhead_Spine8_bone/hammerhead_Spine9_bone/hammerhead_CaudalFin4_ctrl
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_Spine5_bone/hammerhead_Spine6_bone/hammerhead_Spine7_bone/hammerhead_Spine8_bone/hammerhead_Spine9_bone/hammerhead_CaudalFin4_ctrl/hammerhead_CaudalFin6_ctrl
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine1_bone/hammerhead_Spine2_bone/hammerhead_Spine3_bone/hammerhead_Spine4_bone/hammerhead_Spine5_bone/hammerhead_Spine6_bone/hammerhead_Spine7_bone/hammerhead_Spine8_bone/hammerhead_Spine9_bone/hammerhead_CaudalFin4_ctrl/hammerhead_CaudalFin6_ctrl/hammerhead_CaudalFin7-nub_ctrl
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine3_ctrl
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine3_ctrl/hammerhead_Spine5_ctrl
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine3_ctrl/hammerhead_Spine5_ctrl/hammerhead_Spine7_ctrl
+        weight: 1
+      - path: hammerhead_Main_ctrl/hammerhead_Spine1_ctrl/hammerhead_Spine3_ctrl/hammerhead_Spine5_ctrl/hammerhead_Spine7_ctrl/hammerhead_Spine9_ctrl
+        weight: 1
+      - path: hammerhead_teeth_mesh
+        weight: 1
+      - path: hammerhead_teethjaw_mesh
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: hammerhead_Main_ctrl
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
