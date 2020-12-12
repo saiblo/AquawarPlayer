@@ -22,8 +22,8 @@ public class GameUI : MonoBehaviour
     public Button changeStatusButton;
     public Text changeStatusPrompt;
 
-    private readonly Vector3 _small = new Vector3(5, 5, 5);
-    private readonly Vector3 _large = new Vector3(8, 8, 8);
+    private readonly Vector3 _small = new Vector3(3, 3, 3);
+    private readonly Vector3 _large = new Vector3(4, 4, 4);
 
     private readonly Queue<Action> _uiQueue = new Queue<Action>();
 
@@ -258,8 +258,8 @@ public class GameUI : MonoBehaviour
                                 {
                                     for (var i = 0; i < 4; i++)
                                     {
-                                        _myFishTransforms[i].rotation = Quaternion.Euler(new Vector3(0, 150, 0));
-                                        _enemyFishTransforms[i].rotation = Quaternion.Euler(new Vector3(0, 210, 0));
+                                        _myFishTransforms[i].rotation = Quaternion.Euler(new Vector3(0, 100, 0));
+                                        _enemyFishTransforms[i].rotation = Quaternion.Euler(new Vector3(0, 260, 0));
                                     }
                                     _assertion = -1;
                                     ChangeStatus();
@@ -305,8 +305,8 @@ public class GameUI : MonoBehaviour
                         for (var i = 0; i < 4; i++)
                         {
                             _myFishSelectedAsTarget[i] = _enemyFishSelectedAsTarget[i] = false;
-                            _myFishTransforms[i].rotation = Quaternion.Euler(new Vector3(0, 150, 0));
-                            _enemyFishTransforms[i].rotation = Quaternion.Euler(new Vector3(0, 210, 0));
+                            _myFishTransforms[i].rotation = Quaternion.Euler(new Vector3(0, 100, 0));
+                            _enemyFishTransforms[i].rotation = Quaternion.Euler(new Vector3(0, 260, 0));
                         }
                     });
                     _selectStatus = SelectStatus.DoAssertion;
@@ -351,7 +351,7 @@ public class GameUI : MonoBehaviour
             var myFish = Instantiate(PrefabRefs.FishPrefabs[_myFishId[i]], allFishRoot);
             myFish.localPosition = new Vector3(-3 * (i + 1), 0, 2 - i);
             myFish.localScale = _small;
-            myFish.rotation = Quaternion.Euler(new Vector3(0, 150, 0));
+            myFish.rotation = Quaternion.Euler(new Vector3(0, 100, 0));
             if (_mode == Constants.GameMode.Online)
             {
                 var myFishTrigger = new EventTrigger.Entry();
@@ -388,7 +388,7 @@ public class GameUI : MonoBehaviour
             var enemyFish = Instantiate(PrefabRefs.FishPrefabs[_enemyFishId[i]], allFishRoot);
             enemyFish.localPosition = new Vector3(3 * (i + 1), 0, 2 - i);
             enemyFish.localScale = _small;
-            enemyFish.rotation = Quaternion.Euler(new Vector3(0, 210, 0));
+            enemyFish.rotation = Quaternion.Euler(new Vector3(0, 260, 0));
             if (_mode == Constants.GameMode.Online)
             {
                 var enemyFishTrigger = new EventTrigger.Entry();
