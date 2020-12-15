@@ -10,8 +10,8 @@ using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
-    private readonly int[] _myFishId = {0, 1, 2, 1};
-    private readonly int[] _enemyFishId = {1, 2, 1, 0};
+    private readonly int[] _myFishId = {1, 4, 6, 9};
+    private readonly int[] _enemyFishId = {9, 4, 6, 1};
 
     public Transform statusBarPrefab;
 
@@ -386,6 +386,41 @@ public class GameUI : MonoBehaviour
                                 // TODO
                                 myFishRecover.localPosition = new Vector3(100, 100, 100);
                             }, 4000);
+                            break;
+                        case 4:
+                        case 6:
+                        case 9:
+                            for (var i = 0; i < 4; i++)
+                            {
+                                // ReSharper disable once InvertIf
+                                if (enemy && _myFishSelectedAsTarget[i] || _enemyFishSelectedAsTarget[i])
+                                {
+                                    var target = i;
+                                    var distance = FishRelativePosition(enemy, attacker) -
+                                                   FishRelativePosition(!enemy, target);
+                                    for (var j = 0; j <= 40; j++)
+                                    {
+                                        var id = j;
+                                        SetTimeout(() =>
+                                        {
+                                            (enemy ? _enemyFishTransforms : _myFishTransforms)[attacker].localPosition =
+                                                FishRelativePosition(!enemy, target) +
+                                                Math.Abs(id - 20f) / 20f * distance;
+                                        }, j * 10);
+                                    }
+                                    SetTimeout(() =>
+                                    {
+                                        var targetExplode = Instantiate(explodePrefab, allFishRoot);
+                                        targetExplode.localPosition = FishRelativePosition(!enemy, target);
+                                        // TODO
+                                        SetTimeout(
+                                            () => { targetExplode.localPosition = new Vector3(100, 100, 100); },
+                                            1000
+                                        );
+                                    }, 200);
+                                    break;
+                                }
+                            }
                             break;
                     }
                 }
