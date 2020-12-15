@@ -10,8 +10,8 @@ using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
-    private readonly int[] _myFishId = {1, 4, 6, 9};
-    private readonly int[] _enemyFishId = {9, 4, 6, 1};
+    private readonly int[] _myFishId = {5, 1, 7, 8};
+    private readonly int[] _enemyFishId = {0, 5, 8, 7};
 
     public Transform statusBarPrefab;
 
@@ -77,6 +77,7 @@ public class GameUI : MonoBehaviour
     public Transform explodePrefab;
     public Transform bigExplosion;
     public Transform recoverEffect;
+    public Transform shieldEffect;
 
     private void SetTimeout(Action action, int timeout)
     {
@@ -335,6 +336,7 @@ public class GameUI : MonoBehaviour
                     {
                         case 0:
                         case 2:
+                        case 10:
                             for (int cnt = 0, i = 0; i < 4; i++)
                             {
                                 if (!attackeeSelected[i]) continue;
@@ -389,6 +391,7 @@ public class GameUI : MonoBehaviour
                             break;
                         case 4:
                         case 6:
+                        case 8:
                         case 9:
                             for (var i = 0; i < 4; i++)
                             {
@@ -421,6 +424,26 @@ public class GameUI : MonoBehaviour
                                     break;
                                 }
                             }
+                            break;
+                        case 5:
+                        case 7:
+                            var friendId = attacker;
+                            for (var i = 0; i < 4; i++)
+                            {
+                                // ReSharper disable once InvertIf
+                                if (attackeeSelected[i])
+                                {
+                                    friendId = i;
+                                    break;
+                                }
+                            }
+                            var shield = Instantiate(shieldEffect, allFishRoot);
+                            shield.localPosition = FishRelativePosition(enemy, friendId);
+                            SetTimeout(() => { shield.localPosition = new Vector3(100, 100, 100); }, 5000);
+
+                            var myselfRecover = Instantiate(recoverEffect, allFishRoot);
+                            myselfRecover.localPosition = FishRelativePosition(enemy, attacker);
+                            SetTimeout(() => { myselfRecover.localPosition = new Vector3(100, 100, 100); }, 4000);
                             break;
                     }
                 }
