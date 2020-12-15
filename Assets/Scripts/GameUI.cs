@@ -31,6 +31,8 @@ public class GameUI : MonoBehaviour
 
     private Constants.GameMode _mode;
 
+    private bool _normalAttack = true;
+
     private JsonData _replay;
 
     public Transform questionPrefab;
@@ -124,8 +126,7 @@ public class GameUI : MonoBehaviour
                     _assertionTarget = (int) operation["id"];
                     var guessFish = Instantiate(PrefabRefs.FishPrefabs[_assertionTarget], allFishRoot);
                     guessFish.localPosition =
-                        (_assertionPlayer == 1 ? _myFishTransforms : _enemyFishTransforms)[_assertion]
-                        .localPosition + new Vector3(0, 6, 0);
+                        FishRelativePosition(_assertionPlayer == 0, _assertion) + new Vector3(0, 6, 0);
                     SetTimeout(() =>
                     {
                         // Any better approach?
@@ -155,6 +156,7 @@ public class GameUI : MonoBehaviour
                         if (operation.ContainsKey("EnemyPos"))
                         {
                             _enemyFishSelectedAsTarget[(int) operation["EnemyPos"]] = true;
+                            _normalAttack = true;
                         }
                         else
                         {
@@ -163,6 +165,7 @@ public class GameUI : MonoBehaviour
                             {
                                 _enemyFishSelectedAsTarget[(int) enemyList[i]] = true;
                             }
+                            _normalAttack = false;
                         }
                         ChangeStatus();
                     }
@@ -173,6 +176,7 @@ public class GameUI : MonoBehaviour
                         if (operation.ContainsKey("EnemyPos"))
                         {
                             _myFishSelectedAsTarget[(int) operation["EnemyPos"]] = true;
+                            _normalAttack = true;
                         }
                         else
                         {
@@ -181,6 +185,7 @@ public class GameUI : MonoBehaviour
                             {
                                 _myFishSelectedAsTarget[(int) enemyList[i]] = true;
                             }
+                            _normalAttack = false;
                         }
                         ChangeStatus();
                     }
@@ -218,12 +223,7 @@ public class GameUI : MonoBehaviour
                             (_assertionPlayer == 1 ? _myQuestions : _enemyQuestions)[_assertion]
                                 .localPosition = new Vector3(100, 100, 100);
                             var myFishExplode = Instantiate(explodePrefab, allFishRoot);
-                            myFishExplode.localPosition =
-                                new Vector3(
-                                    (_assertionPlayer == 1 ? -1 : 1) * 3 * (_assertion + 1),
-                                    0,
-                                    2 - _assertion
-                                );
+                            myFishExplode.localPosition = FishRelativePosition(_assertionPlayer == 0, _assertion);
                         });
                         timer = new Timer(state =>
                         {
@@ -291,6 +291,11 @@ public class GameUI : MonoBehaviour
                         }, null, 0, 5);
                     }
                 }
+                else
+                {
+                    // ReSharper disable once TailRecursiveCall
+                    ChangeStatus();
+                }
                 break;
             }
             case SelectStatus.WaitAssertion:
@@ -302,21 +307,46 @@ public class GameUI : MonoBehaviour
             case SelectStatus.SelectEnemyFish:
             {
                 _selectStatus = SelectStatus.WaitingAnimation;
-                if (_myFishSelected >= 0 && _myFishSelected < 4)
+                /* if (_myFishSelected >= 0 && _myFishSelected < 4)
                 {
                     Instantiate(
                         waterProjectile,
-                        GetMyFishPos(_myFishSelected) + new Vector3(1, 0, -1) * 3,
-                        Quaternion.Euler(new Vector3(0, 80, 0))
+                        FishRelativePosition(false, _myFishSelected) + new Vector3(3, 0, 0),
+                        Quaternion.Euler(new Vector3(0, 90, 0))
                     );
                 }
                 else if (_enemyFishSelected >= 0 && _enemyFishSelected < 4)
                 {
                     Instantiate(
                         waterProjectile,
-                        GetEnemyFishPos(_enemyFishSelected) + new Vector3(-1, 0, -1) * 3,
-                        Quaternion.Euler(new Vector3(0, -80, 0))
+                        FishRelativePosition(true, _enemyFishSelected) + new Vector3(-3, 0, 0),
+                        Quaternion.Euler(new Vector3(0, -90, 0))
                     );
+                } */
+                if (_normalAttack)
+                {
+                    var enemy = _enemyFishSelected >= 0 && _enemyFishSelected < 4;
+                    var selected = enemy ? _enemyFishSelected : _myFishSelected;
+                    var target = 0;
+                    for (var i = 0; i < 4; i++)
+                    {
+                        // ReSharper disable once InvertIf
+                        if (enemy && _myFishSelectedAsTarget[i] || _enemyFishSelectedAsTarget[i])
+                        {
+                            target = i;
+                            break;
+                        }
+                    }
+                    var distance = FishRelativePosition(enemy, selected) - FishRelativePosition(!enemy, target);
+                    for (var i = 0; i <= 80; i++)
+                    {
+                        var id = i;
+                        SetTimeout(() =>
+                        {
+                            (enemy ? _enemyFishTransforms : _myFishTransforms)[selected].localPosition =
+                                FishRelativePosition(!enemy, target) + Math.Abs(id - 40f) / 40f * distance;
+                        }, i * 10);
+                    }
                 }
                 SetTimeout(() =>
                 {
@@ -369,9 +399,8 @@ public class GameUI : MonoBehaviour
             var enemyStatus = Instantiate(statusBarPrefab, enemyStatusRoot);
             enemyStatus.localPosition = new Vector3(10, -50 * i - 10);
             _enemyStatus.Add(enemyStatus.GetComponent<Slider>());
-
             var myFish = Instantiate(PrefabRefs.FishPrefabs[_myFishId[i]], allFishRoot);
-            myFish.localPosition = new Vector3(-3 * (i + 1), 0, 2 - i);
+            myFish.localPosition = FishRelativePosition(false, i);
             myFish.localScale = _small;
             myFish.rotation = Quaternion.Euler(new Vector3(0, 100, 0));
             if (_mode == Constants.GameMode.Online)
@@ -402,13 +431,13 @@ public class GameUI : MonoBehaviour
             _myFishTransforms.Add(myFish);
 
             var myQuestion = Instantiate(questionPrefab, allFishRoot);
-            myQuestion.localPosition = new Vector3(-3 * (i + 1), 4, 2 - i);
+            myQuestion.localPosition = FishRelativePosition(false, i) + new Vector3(0, 4, 0);
             myQuestion.rotation =
                 Quaternion.Euler(new Vector3(0, -Convert.ToInt32(Math.Atan(3.0 * (i + 1) / (17 - i))), 0));
             _myQuestions.Add(myQuestion);
 
             var enemyFish = Instantiate(PrefabRefs.FishPrefabs[_enemyFishId[i]], allFishRoot);
-            enemyFish.localPosition = new Vector3(3 * (i + 1), 0, 2 - i);
+            enemyFish.localPosition = FishRelativePosition(true, i);
             enemyFish.localScale = _small;
             enemyFish.rotation = Quaternion.Euler(new Vector3(0, 260, 0));
             if (_mode == Constants.GameMode.Online)
@@ -439,7 +468,7 @@ public class GameUI : MonoBehaviour
             _enemyFishTransforms.Add(enemyFish);
 
             var enemyQuestion = Instantiate(questionPrefab, allFishRoot);
-            enemyQuestion.localPosition = new Vector3(3 * (i + 1), 4, 2 - i);
+            enemyQuestion.localPosition = FishRelativePosition(true, i) + new Vector3(0, 4, 0);
             enemyQuestion.rotation =
                 Quaternion.Euler(new Vector3(0, Convert.ToInt32(Math.Atan(3.0 * (i + 1) / (17 - i))), 0));
             _enemyQuestions.Add(enemyQuestion);
@@ -502,5 +531,14 @@ public class GameUI : MonoBehaviour
                 throw new ArgumentOutOfRangeException();
         }
         changeStatusPrompt.text = title;
+    }
+
+    private Vector3 FishRelativePosition(bool enemy, int id)
+    {
+        return new Vector3(
+            (enemy ? 1 : -1) * 3 * (id + 1),
+            0,
+            2 - id
+        );
     }
 }
