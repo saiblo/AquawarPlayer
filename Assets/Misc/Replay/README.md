@@ -1,1 +1,1 @@
-﻿基于[1da9fd34@wang-zd19/aquawarlogic](https://git.tsinghua.edu.cn/wang-zd19/aquawarlogic/commit/1da9fd349e155c3a26e2fb239f133d6b2172058f)得到`replay.json`。
+﻿是317259号对战的回放文件

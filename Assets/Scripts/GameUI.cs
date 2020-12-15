@@ -152,14 +152,36 @@ public class GameUI : MonoBehaviour
                     {
                         _myFishSelected = (int) operation["MyPos"];
                         ChangeStatus();
-                        _enemyFishSelectedAsTarget[(int) operation["EnemyPos"]] = true;
+                        if (operation.ContainsKey("EnemyPos"))
+                        {
+                            _enemyFishSelectedAsTarget[(int) operation["EnemyPos"]] = true;
+                        }
+                        else
+                        {
+                            var enemyList = operation["EnemyList"];
+                            for (var i = 0; i < enemyList.Count; i++)
+                            {
+                                _enemyFishSelectedAsTarget[(int) enemyList[i]] = true;
+                            }
+                        }
                         ChangeStatus();
                     }
                     else
                     {
                         _enemyFishSelected = (int) operation["MyPos"];
                         ChangeStatus();
-                        _myFishSelectedAsTarget[(int) operation["EnemyPos"]] = true;
+                        if (operation.ContainsKey("EnemyPos"))
+                        {
+                            _myFishSelectedAsTarget[(int) operation["EnemyPos"]] = true;
+                        }
+                        else
+                        {
+                            var enemyList = operation["EnemyList"];
+                            for (var i = 0; i < enemyList.Count; i++)
+                            {
+                                _myFishSelectedAsTarget[(int) enemyList[i]] = true;
+                            }
+                        }
                         ChangeStatus();
                     }
                 }
