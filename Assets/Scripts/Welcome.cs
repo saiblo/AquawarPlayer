@@ -51,9 +51,9 @@ public class Welcome : MonoBehaviour
     {
         Instantiate(openFileDialogPrefab)
             .OpenFileDialog("打开文件", "~", ".json",
-                (isSucessful, path) =>
+                (isSuccessful, path) =>
                 {
-                    if (isSucessful)
+                    if (isSuccessful)
                     {
                         try
                         {

@@ -32,7 +32,7 @@ public class Connect : MonoBehaviour
             Debug.Log("连接中……");
             Client.GameClient = new Client(tokenDecoded, tokenEncoded);
             await Client.GameClient.Send();
-            // Debug.Log(await Client.GameClient.Receive());
+            // Debug.Log(JsonMapper.ToJson(await Client.GameClient.Receive()));
             Debug.Log("连接成功");
             SceneManager.LoadScene("Scenes/Preparation");
         }

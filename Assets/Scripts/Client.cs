@@ -51,7 +51,9 @@ public class Client
         var buffer = new ArraySegment<byte>(new byte[1024]);
         await _ws.ReceiveAsync(buffer, CancellationToken.None);
         return JsonMapper.ToObject(
-            (string) JsonMapper.ToObject(Encoding.UTF8.GetString(buffer.Array ?? Array.Empty<byte>()))["content"]
+            (string) JsonMapper.ToObject(
+                Encoding.UTF8.GetString(buffer.Array ?? Array.Empty<byte>()).TrimEnd('\0')
+            )["content"]
         );
     }
 
