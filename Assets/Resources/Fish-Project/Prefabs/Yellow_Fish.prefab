@@ -164,6 +164,7 @@ GameObject:
   - component: {fileID: 400010}
   - component: {fileID: 11100000}
   - component: {fileID: 5457075834581379355}
+  - component: {fileID: 8737284390668049550}
   m_Layer: 0
   m_Name: Yellow_Fish
   m_TagString: Untagged
@@ -216,8 +217,21 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.22199644, y: 0.86505556, z: 1.123126}
-  m_Center: {x: -0.1083219, y: 0.09794891, z: 0.093848705}
+  m_Size: {x: 0.18193118, y: 0.7494661, z: 0.7925452}
+  m_Center: {x: 0.011042893, y: 0.17229101, z: -0.18158142}
+--- !u!114 &8737284390668049550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &100012
 GameObject:
   m_ObjectHideFlags: 0

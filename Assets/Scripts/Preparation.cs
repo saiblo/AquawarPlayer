@@ -69,12 +69,12 @@ public class Preparation : MonoBehaviour
         }
         for (var i = 0; i < 3; i++)
         {
-            for (var j = 0; j < 6; j++)
+            for (var j = 0; j < 4; j++)
             {
-                var id = i * 6 + j;
+                var id = i * 4 + j;
                 _fishTransforms[id] = Instantiate(PrefabRefs.FishPrefabs[id], allFishRoot);
                 _fishTransforms[id].rotation = Quaternion.Euler(new Vector3(0, 180, 0));
-                _targetPositions[id] = new Vector3(j * 3 - 7.5f, -i * 3);
+                _targetPositions[id] = new Vector3(j * 4 - 6, -i * 3);
                 _fishEventTriggers[id] = _fishTransforms[id].GetComponent<EventTrigger>();
             }
         }
@@ -115,7 +115,7 @@ public class Preparation : MonoBehaviour
         _fishTransforms[2].localScale = new Vector3(4, 4, 4);
         _fishTransforms[6].localScale = new Vector3(4, 4, 4);
         _fishTransforms[7].localScale = new Vector3(4, 4, 4);
-        _fishTransforms[12].localScale = new Vector3(4, 4, 4);
+        _fishTransforms[9].localScale = new Vector3(4, 4, 4);
         doneButton.interactable = true;
     }
 
@@ -142,7 +142,7 @@ public class Preparation : MonoBehaviour
                     if (_mode == Constants.GameMode.Offline)
                     {
                         _availableFish.Clear();
-                        for (var i = 0; i < 18; i++) _availableFish.Add(i);
+                        for (var i = 0; i < 12; i++) _availableFish.Add(i);
                         PlayerPrefs.SetInt("cursor", 3);
                     }
                     else
@@ -156,7 +156,7 @@ public class Preparation : MonoBehaviour
                                 _availableFish.Add((int) remaining[i]);
                         }*/
                         _availableFish.Clear();
-                        for (var i = 0; i < 18; i++) _availableFish.Add(i);
+                        for (var i = 0; i < 12; i++) _availableFish.Add(i);
                     }
                     Timer timer = null;
                     timer = new Timer(state =>

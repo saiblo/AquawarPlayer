@@ -229,6 +229,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4226064674576653277}
   - component: {fileID: 8004834951901838026}
+  - component: {fileID: 4303047071405409670}
   m_Layer: 0
   m_Name: xiaochouyu
   m_TagString: Untagged
@@ -244,7 +245,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3597865666197553511}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 0.07, y: 0.07, z: 0.07}
   m_Children:
   - {fileID: 8680556070732799437}
@@ -269,6 +270,19 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!65 &4303047071405409670
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3597865666197553511}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6.9697556, y: 4.7256794, z: 4.1971226}
+  m_Center: {x: -0.5718941, y: -0.048535567, z: 0.34979725}
 --- !u!1 &3796182958437960792
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,6 +384,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5273571395004814343}
+  - component: {fileID: 139914942919923320}
   m_Layer: 0
   m_Name: CrownFish
   m_TagString: Untagged
@@ -392,6 +407,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &139914942919923320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4573437857678394522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &5669886468463679011
 GameObject:
   m_ObjectHideFlags: 0
