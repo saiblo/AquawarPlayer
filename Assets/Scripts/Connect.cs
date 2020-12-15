@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Net.WebSockets;
 using System.Text;
-using System.Threading;
 using LitJson;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -32,7 +30,9 @@ public class Connect : MonoBehaviour
             Debug.Log("连接中……");
             Client.GameClient = new Client(tokenDecoded, tokenEncoded);
             await Client.GameClient.Send();
-            // Debug.Log(JsonMapper.ToJson(await Client.GameClient.Receive()));
+            Debug.Log(JsonMapper.ToJson(await Client.GameClient.Receive()));
+            await Client.GameClient.Send(new Ok());
+            Debug.Log(JsonMapper.ToJson(await Client.GameClient.Receive()));
             Debug.Log("连接成功");
             SceneManager.LoadScene("Scenes/Preparation");
         }
