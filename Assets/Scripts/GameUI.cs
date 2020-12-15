@@ -60,6 +60,8 @@ public class GameUI : MonoBehaviour
     private readonly int[] _myFishFullHp = {0, 0, 0, 0};
     private readonly int[] _enemyFishFullHp = {0, 0, 0, 0};
 
+    private readonly List<int> _passiveList = new List<int>();
+
     private int _myFishSelected = -1;
 
     private int _enemyFishSelected = -1;
@@ -300,6 +302,7 @@ public class GameUI : MonoBehaviour
             case SelectStatus.SelectEnemyFish:
             {
                 _selectStatus = SelectStatus.WaitingAnimation;
+                _passiveList.Clear();
                 var enemy = _enemyFishSelected >= 0 && _enemyFishSelected < 4;
                 if (_normalAttack)
                 {
@@ -324,6 +327,7 @@ public class GameUI : MonoBehaviour
                                 FishRelativePosition(!enemy, target) + Math.Abs(id - 40f) / 40f * distance;
                         }, i * 10);
                     }
+                    _passiveList.Add(target);
                 }
                 else
                 {
@@ -359,6 +363,7 @@ public class GameUI : MonoBehaviour
                                         )
                                     );
                                 }, cnt * 120);
+                                _passiveList.Add(i);
                                 cnt++;
                             }
                             break;
@@ -421,6 +426,7 @@ public class GameUI : MonoBehaviour
                                             1000
                                         );
                                     }, 200);
+                                    _passiveList.Add(i);
                                     break;
                                 }
                             }
@@ -447,6 +453,7 @@ public class GameUI : MonoBehaviour
                             break;
                     }
                 }
+                var shouldProcessPassiveAttack = _passiveList.Count > 0;
                 SetTimeout(() =>
                 {
                     _myFishSelected = -1;
@@ -462,6 +469,16 @@ public class GameUI : MonoBehaviour
                     });
                     _selectStatus = SelectStatus.DoAssertion;
                 }, 1000);
+                // }, shouldProcessPassiveAttack ? 2000 : 1000);
+                /* _passiveList.ForEach((id) =>
+                {
+                    switch (id)
+                    {
+                        case 0:
+                        case 1:
+                            break;
+                    }
+                }); */
                 break;
             }
             case SelectStatus.WaitingAnimation:
