@@ -10,8 +10,8 @@ using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
-    private readonly int[] _myFishId = {0, 2, 0, 2};
-    private readonly int[] _enemyFishId = {2, 0, 2, 0};
+    private readonly int[] _myFishId = {0, 1, 2, 1};
+    private readonly int[] _enemyFishId = {1, 2, 1, 0};
 
     public Transform statusBarPrefab;
 
@@ -75,6 +75,8 @@ public class GameUI : MonoBehaviour
     private readonly List<Slider> _enemyStatus = new List<Slider>();
 
     public Transform explodePrefab;
+    public Transform bigExplosion;
+    public Transform recoverEffect;
 
     private void SetTimeout(Action action, int timeout)
     {
@@ -357,6 +359,33 @@ public class GameUI : MonoBehaviour
                                 }, cnt * 120);
                                 cnt++;
                             }
+                            break;
+                        case 1:
+                        case 3:
+                            var poorFish = 0;
+                            for (var i = 0; i < 4; i++)
+                            {
+                                // ReSharper disable once InvertIf
+                                if (attackerSelected[i])
+                                {
+                                    poorFish = i;
+                                    break;
+                                }
+                            }
+                            var myFishExplode = Instantiate(bigExplosion, allFishRoot);
+                            myFishExplode.localPosition = FishRelativePosition(enemy, poorFish);
+                            SetTimeout(() =>
+                            {
+                                // TODO
+                                myFishExplode.localPosition = new Vector3(100, 100, 100);
+                            }, 2000);
+                            var myFishRecover = Instantiate(recoverEffect, allFishRoot);
+                            myFishRecover.localPosition = FishRelativePosition(enemy, attacker);
+                            SetTimeout(() =>
+                            {
+                                // TODO
+                                myFishRecover.localPosition = new Vector3(100, 100, 100);
+                            }, 4000);
                             break;
                     }
                 }

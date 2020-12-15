@@ -163,6 +163,8 @@ MonoBehaviour:
   questionPrefab: {fileID: 1703798105641740424, guid: f567635d3fba1a143a2a663e7e4e4eee, type: 3}
   waterProjectile: {fileID: 4954839870579734, guid: f10d307d7517d034aa17196a92fa17eb, type: 3}
   explodePrefab: {fileID: 4865135451303388, guid: 9bba9cf244c53c5439505dfc96fdd11c, type: 3}
+  bigExplosion: {fileID: 4388947112716342, guid: e1b08032bec16ba4eb1ae23cbd572664, type: 3}
+  recoverEffect: {fileID: 73997518336562243, guid: 3db5015adfb2b7e4cbfb05ffcec71881, type: 3}
 --- !u!114 &253739613
 MonoBehaviour:
   m_ObjectHideFlags: 0
