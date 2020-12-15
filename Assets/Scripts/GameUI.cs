@@ -10,8 +10,8 @@ using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
-    private readonly int[] _myFishId = {1, 3, 4, 5};
-    private readonly int[] _enemyFishId = {3, 6, 7, 8};
+    private readonly int[] _myFishId = {0, 2, 0, 2};
+    private readonly int[] _enemyFishId = {2, 0, 2, 0};
 
     public Transform statusBarPrefab;
 
@@ -42,16 +42,6 @@ public class GameUI : MonoBehaviour
     private readonly List<Transform> _enemyQuestions = new List<Transform>();
 
     public Transform waterProjectile;
-
-    private static Vector3 GetMyFishPos(int id)
-    {
-        return new Vector3(-3 * (id + 1), 0, 2 - id);
-    }
-
-    private static Vector3 GetEnemyFishPos(int id)
-    {
-        return new Vector3(3 * (id + 1), 0, 2 - id);
-    }
 
     private enum SelectStatus
     {
@@ -307,25 +297,9 @@ public class GameUI : MonoBehaviour
             case SelectStatus.SelectEnemyFish:
             {
                 _selectStatus = SelectStatus.WaitingAnimation;
-                /* if (_myFishSelected >= 0 && _myFishSelected < 4)
-                {
-                    Instantiate(
-                        waterProjectile,
-                        FishRelativePosition(false, _myFishSelected) + new Vector3(3, 0, 0),
-                        Quaternion.Euler(new Vector3(0, 90, 0))
-                    );
-                }
-                else if (_enemyFishSelected >= 0 && _enemyFishSelected < 4)
-                {
-                    Instantiate(
-                        waterProjectile,
-                        FishRelativePosition(true, _enemyFishSelected) + new Vector3(-3, 0, 0),
-                        Quaternion.Euler(new Vector3(0, -90, 0))
-                    );
-                } */
+                var enemy = _enemyFishSelected >= 0 && _enemyFishSelected < 4;
                 if (_normalAttack)
                 {
-                    var enemy = _enemyFishSelected >= 0 && _enemyFishSelected < 4;
                     var selected = enemy ? _enemyFishSelected : _myFishSelected;
                     var target = 0;
                     for (var i = 0; i < 4; i++)
@@ -346,6 +320,44 @@ public class GameUI : MonoBehaviour
                             (enemy ? _enemyFishTransforms : _myFishTransforms)[selected].localPosition =
                                 FishRelativePosition(!enemy, target) + Math.Abs(id - 40f) / 40f * distance;
                         }, i * 10);
+                    }
+                }
+                else
+                {
+                    var attackerTransforms = enemy ? _enemyFishTransforms : _myFishTransforms;
+                    var attackeeTransforms = enemy ? _myFishTransforms : _enemyFishTransforms;
+                    var attackerSelected = enemy ? _enemyFishSelectedAsTarget : _myFishSelectedAsTarget;
+                    var attackeeSelected = enemy ? _myFishSelectedAsTarget : _enemyFishSelectedAsTarget;
+                    var attacker = enemy ? _enemyFishSelected : _myFishSelected;
+                    switch (enemy ? _enemyFishId[_enemyFishSelected] : _myFishId[_myFishSelected])
+                    {
+                        case 0:
+                        case 2:
+                            for (int cnt = 0, i = 0; i < 4; i++)
+                            {
+                                if (!attackeeSelected[i]) continue;
+                                var id = i;
+                                SetTimeout(() =>
+                                {
+                                    var originalDistance = FishRelativePosition(!enemy, id) -
+                                                           FishRelativePosition(enemy, attacker);
+                                    var distance = originalDistance.x < 0
+                                        ? originalDistance + new Vector3(4.5f, 0, 0)
+                                        : originalDistance - new Vector3(4.5f, 0, 0);
+                                    Instantiate(
+                                        waterProjectile,
+                                        FishRelativePosition(enemy, attacker) + new Vector3(3, 0, 0) *
+                                        (enemy ? -1 : 1),
+                                        Quaternion.Euler(
+                                            new Vector3(0,
+                                                Convert.ToInt32(Math.Atan(distance.x / distance.z) / Math.PI * 180.0),
+                                                0)
+                                        )
+                                    );
+                                }, cnt * 120);
+                                cnt++;
+                            }
+                            break;
                     }
                 }
                 SetTimeout(() =>
