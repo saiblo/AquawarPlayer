@@ -45,9 +45,10 @@ public class GameUI : MonoBehaviour
     private int _dissolveShaderProperty;
     public AnimationCurve fadeIn;
 
-    private void Dissolve(Renderer meshRenderer)
+    private void Dissolve(Renderer meshRenderer, ParticleSystem ps)
     {
         meshRenderer.material = dissolveEffect;
+        ps.Play();
         Timer timer = null;
         var internalTick = 0;
         timer = new Timer(state =>
@@ -58,7 +59,7 @@ public class GameUI : MonoBehaviour
                 {
                     meshRenderer.material.SetFloat(_dissolveShaderProperty,
                         // ReSharper disable once AccessToModifiedClosure
-                        fadeIn.Evaluate(Mathf.InverseLerp(0, 3, internalTick / 100f)));    
+                        fadeIn.Evaluate(Mathf.InverseLerp(0, 3, internalTick / 100f)));
                 });
             }
             else
@@ -87,6 +88,9 @@ public class GameUI : MonoBehaviour
 
     private readonly List<Renderer> _myFishRenderers = new List<Renderer>();
     private readonly List<Renderer> _enemyFishRenderers = new List<Renderer>();
+
+    private readonly List<ParticleSystem> _myFishParticleSystems = new List<ParticleSystem>();
+    private readonly List<ParticleSystem> _enemyFishParticleSystems = new List<ParticleSystem>();
 
     private readonly int[] _myFishFullHp = {0, 0, 0, 0};
     private readonly int[] _enemyFishFullHp = {0, 0, 0, 0};
@@ -222,10 +226,10 @@ public class GameUI : MonoBehaviour
                     {
                         if ((float) players[0]["fight_fish"][i]["hp"] <= 0 &&
                             (float) _replay[PlayerPrefs.GetInt("cursor") - 2]["players"][0]["fight_fish"][i]["hp"] > 0)
-                            Dissolve(_myFishRenderers[i]);
+                            Dissolve(_myFishRenderers[i], _myFishParticleSystems[i]);
                         if ((float) players[1]["fight_fish"][i]["hp"] <= 0 &&
                             (float) _replay[PlayerPrefs.GetInt("cursor") - 2]["players"][1]["fight_fish"][i]["hp"] > 0)
-                            Dissolve(_enemyFishRenderers[i]);
+                            Dissolve(_enemyFishRenderers[i], _enemyFishParticleSystems[i]);
                     }
                     DisplayHp(players);
                     SetTimeout(ProcessOffline, 3000);
@@ -525,6 +529,7 @@ public class GameUI : MonoBehaviour
             }
             _myFishTransforms.Add(myFish);
             _myFishRenderers.Add(myFish.GetComponentInChildren<Renderer>());
+            _myFishParticleSystems.Add(myFish.GetComponentInChildren<ParticleSystem>());
 
             var myQuestion = Instantiate(questionPrefab, allFishRoot);
             myQuestion.localPosition = FishRelativePosition(false, i) + new Vector3(0, 4, 0);
@@ -563,6 +568,7 @@ public class GameUI : MonoBehaviour
             }
             _enemyFishTransforms.Add(enemyFish);
             _enemyFishRenderers.Add(enemyFish.GetComponentInChildren<Renderer>());
+            _enemyFishParticleSystems.Add(enemyFish.GetComponentInChildren<ParticleSystem>());
 
             var enemyQuestion = Instantiate(questionPrefab, allFishRoot);
             enemyQuestion.localPosition = FishRelativePosition(true, i) + new Vector3(0, 4, 0);
