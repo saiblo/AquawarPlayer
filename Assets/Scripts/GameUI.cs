@@ -122,8 +122,7 @@ public class GameUI : MonoBehaviour
                         FishRelativePosition(_assertionPlayer == 0, _assertion) + new Vector3(0, 6, 0);
                     SetTimeout(() =>
                     {
-                        // Any better approach?
-                        guessFish.localPosition = new Vector3(100, 100, 100);
+                        Destroy(guessFish.gameObject);
                         ChangeStatus();
                     }, 2000);
                 }
@@ -209,9 +208,7 @@ public class GameUI : MonoBehaviour
                     var hit = _assertionTarget == (_assertionPlayer == 1 ? _myFishId : _enemyFishId)[_assertion];
                     if (hit)
                     {
-                        // Any better approach?
-                        (_assertionPlayer == 1 ? _myQuestions : _enemyQuestions)[_assertion]
-                            .localPosition = new Vector3(100, 100, 100);
+                        Destroy((_assertionPlayer == 1 ? _myQuestions : _enemyQuestions)[_assertion].gameObject);
                     }
                     for (var i = 0; i < 4; i++)
                     {
@@ -320,18 +317,10 @@ public class GameUI : MonoBehaviour
                             }
                             var myFishExplode = Instantiate(bigExplosion, allFishRoot);
                             myFishExplode.localPosition = FishRelativePosition(enemy, poorFish);
-                            SetTimeout(() =>
-                            {
-                                // TODO
-                                myFishExplode.localPosition = new Vector3(100, 100, 100);
-                            }, 2000);
+                            SetTimeout(() => { Destroy(myFishExplode.gameObject); }, 2000);
                             var myFishRecover = Instantiate(recoverEffect, allFishRoot);
                             myFishRecover.localPosition = FishRelativePosition(enemy, attacker);
-                            SetTimeout(() =>
-                            {
-                                // TODO
-                                myFishRecover.localPosition = new Vector3(100, 100, 100);
-                            }, 4000);
+                            SetTimeout(() => { Destroy(myFishRecover.gameObject); }, 4000);
                             break;
                         case 4:
                         case 6:
@@ -359,11 +348,7 @@ public class GameUI : MonoBehaviour
                                     {
                                         var targetExplode = Instantiate(explodePrefab, allFishRoot);
                                         targetExplode.localPosition = FishRelativePosition(!enemy, target);
-                                        // TODO
-                                        SetTimeout(
-                                            () => { targetExplode.localPosition = new Vector3(100, 100, 100); },
-                                            1000
-                                        );
+                                        SetTimeout(() => { Destroy(targetExplode.gameObject); }, 1000);
                                     }, 200);
                                     _passiveList.Add(i);
                                     break;
@@ -384,11 +369,11 @@ public class GameUI : MonoBehaviour
                             }
                             var shield = Instantiate(shieldEffect, allFishRoot);
                             shield.localPosition = FishRelativePosition(enemy, friendId);
-                            SetTimeout(() => { shield.localPosition = new Vector3(100, 100, 100); }, 5000);
+                            SetTimeout(() => { Destroy(shield.gameObject); }, 5000);
 
                             var myselfRecover = Instantiate(recoverEffect, allFishRoot);
                             myselfRecover.localPosition = FishRelativePosition(enemy, attacker);
-                            SetTimeout(() => { myselfRecover.localPosition = new Vector3(100, 100, 100); }, 4000);
+                            SetTimeout(() => { Destroy(myselfRecover.gameObject); }, 4000);
                             break;
                     }
                 }
