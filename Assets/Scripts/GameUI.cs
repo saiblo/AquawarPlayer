@@ -27,8 +27,6 @@ public class GameUI : MonoBehaviour
 
     private readonly Queue<Action> _uiQueue = new Queue<Action>();
 
-    private int _internalTick;
-
     private Constants.GameMode _mode;
 
     private bool _normalAttack = true;
@@ -208,83 +206,24 @@ public class GameUI : MonoBehaviour
                 _selectStatus = SelectStatus.WaitAssertion;
                 if (_assertion != -1)
                 {
-                    _internalTick = 0;
-                    Timer timer = null;
-                    if (_assertionTarget == (_assertionPlayer == 1 ? _myFishId : _enemyFishId)[_assertion])
+                    var hit = _assertionTarget == (_assertionPlayer == 1 ? _myFishId : _enemyFishId)[_assertion];
+                    if (hit)
                     {
-                        _uiQueue.Enqueue(() =>
-                        {
-                            // Any better approach?
-                            (_assertionPlayer == 1 ? _myQuestions : _enemyQuestions)[_assertion]
-                                .localPosition = new Vector3(100, 100, 100);
-                            var myFishExplode = Instantiate(explodePrefab, allFishRoot);
-                            myFishExplode.localPosition = FishRelativePosition(_assertionPlayer == 0, _assertion);
-                        });
-                        timer = new Timer(state =>
-                        {
-                            _internalTick++;
-                            if (_internalTick < 150)
-                            {
-                                /*_uiQueue.Enqueue(() =>
-                                {
-                                    var size = 8f - (_internalTick - 75) * (_internalTick - 75) / 1875f;
-                                    (_assertionPlayer == 1 ? _myFishTransforms : _enemyFishTransforms)[_assertion]
-                                        .localScale = new Vector3(size, size, size);
-                                });*/
-                            }
-                            else
-                            {
-                                // ReSharper disable once AccessToModifiedClosure
-                                timer?.Dispose();
-                                _uiQueue.Enqueue(() => { _assertion = -1; });
-                                SetTimeout(() =>
-                                {
-                                    ChangeStatus();
-                                    if (_mode == Constants.GameMode.Offline) ProcessOffline();
-                                }, 800);
-                            }
-                        }, null, 0, 10);
+                        // Any better approach?
+                        (_assertionPlayer == 1 ? _myQuestions : _enemyQuestions)[_assertion]
+                            .localPosition = new Vector3(100, 100, 100);
                     }
-                    else
+                    for (var i = 0; i < 4; i++)
                     {
-                        timer = new Timer(state =>
-                        {
-                            _internalTick++;
-                            if (_internalTick < 200)
-                            {
-                                _uiQueue.Enqueue(() =>
-                                    {
-                                        var transforms =
-                                            _assertionPlayer == 0 ? _myFishTransforms : _enemyFishTransforms;
-                                        for (var i = 0; i < 4; i++)
-                                        {
-                                            transforms[i].RotateAround(
-                                                transforms[i].localPosition,
-                                                Vector3.up,
-                                                10f
-                                            );
-                                        }
-                                    }
-                                );
-                            }
-                            else
-                            {
-                                // ReSharper disable once AccessToModifiedClosure
-                                timer?.Dispose();
-                                _uiQueue.Enqueue(() =>
-                                {
-                                    for (var i = 0; i < 4; i++)
-                                    {
-                                        _myFishTransforms[i].rotation = Quaternion.Euler(new Vector3(0, 100, 0));
-                                        _enemyFishTransforms[i].rotation = Quaternion.Euler(new Vector3(0, 260, 0));
-                                    }
-                                    _assertion = -1;
-                                    ChangeStatus();
-                                    if (_mode == Constants.GameMode.Offline) ProcessOffline();
-                                });
-                            }
-                        }, null, 0, 5);
+                        Instantiate(explodePrefab, allFishRoot).localPosition =
+                            FishRelativePosition((_assertionPlayer == 1) ^ hit, i);
                     }
+                    SetTimeout(() =>
+                    {
+                        _assertion = -1;
+                        ChangeStatus();
+                        if (_mode == Constants.GameMode.Offline) ProcessOffline();
+                    }, 1000);
                 }
                 else
                 {
