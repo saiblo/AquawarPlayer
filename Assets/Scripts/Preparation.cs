@@ -164,7 +164,7 @@ public class Preparation : MonoBehaviour
                     if (_availableFish.Contains(i)) continue;
                     var banBubble = Instantiate(bubblePrefab, allFishRoot);
                     banBubble.localPosition = _targetPositions[i];
-                    banBubble.localScale = new Vector3(4, 4, 4);
+                    banBubble.localScale = new Vector3(3, 3, 3);
                 }
                 if (_mode == Constants.GameMode.Offline)
                     OfflineSelect();

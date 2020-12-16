@@ -41,6 +41,36 @@ public class GameUI : MonoBehaviour
 
     public Transform waterProjectile;
 
+    public Material dissolveEffect;
+    private int _dissolveShaderProperty;
+    public AnimationCurve fadeIn;
+
+    private void Dissolve(Renderer meshRenderer)
+    {
+        meshRenderer.material = dissolveEffect;
+        Timer timer = null;
+        var internalTick = 0;
+        timer = new Timer(state =>
+        {
+            if (internalTick <= 300)
+            {
+                _uiQueue.Enqueue(() =>
+                {
+                    meshRenderer.material.SetFloat(_dissolveShaderProperty,
+                        // ReSharper disable once AccessToModifiedClosure
+                        fadeIn.Evaluate(Mathf.InverseLerp(0, 3, internalTick / 100f)));    
+                });
+            }
+            else
+            {
+                // ReSharper disable once AccessToModifiedClosure
+                timer?.Dispose();
+                // Destroy(meshRenderer.gameObject);
+            }
+            internalTick++;
+        }, null, 0, 10);
+    }
+
     private enum SelectStatus
     {
         DoAssertion,
@@ -54,6 +84,9 @@ public class GameUI : MonoBehaviour
 
     private readonly List<Transform> _myFishTransforms = new List<Transform>();
     private readonly List<Transform> _enemyFishTransforms = new List<Transform>();
+
+    private readonly List<Renderer> _myFishRenderers = new List<Renderer>();
+    private readonly List<Renderer> _enemyFishRenderers = new List<Renderer>();
 
     private readonly int[] _myFishFullHp = {0, 0, 0, 0};
     private readonly int[] _enemyFishFullHp = {0, 0, 0, 0};
@@ -184,7 +217,17 @@ public class GameUI : MonoBehaviour
                 }
                 if (_replay[PlayerPrefs.GetInt("cursor")] != null)
                 {
-                    DisplayHp(_replay[PlayerPrefs.GetInt("cursor")]["players"]);
+                    var players = _replay[PlayerPrefs.GetInt("cursor")]["players"];
+                    for (var i = 0; i < 4; i++)
+                    {
+                        if ((float) players[0]["fight_fish"][i]["hp"] <= 0 &&
+                            (float) _replay[PlayerPrefs.GetInt("cursor") - 2]["players"][0]["fight_fish"][i]["hp"] > 0)
+                            Dissolve(_myFishRenderers[i]);
+                        if ((float) players[1]["fight_fish"][i]["hp"] <= 0 &&
+                            (float) _replay[PlayerPrefs.GetInt("cursor") - 2]["players"][1]["fight_fish"][i]["hp"] > 0)
+                            Dissolve(_enemyFishRenderers[i]);
+                    }
+                    DisplayHp(players);
                     SetTimeout(ProcessOffline, 3000);
                 }
                 break;
@@ -481,6 +524,7 @@ public class GameUI : MonoBehaviour
                 myFish.GetComponent<EventTrigger>().triggers.Add(myFishTrigger);
             }
             _myFishTransforms.Add(myFish);
+            _myFishRenderers.Add(myFish.GetComponentInChildren<Renderer>());
 
             var myQuestion = Instantiate(questionPrefab, allFishRoot);
             myQuestion.localPosition = FishRelativePosition(false, i) + new Vector3(0, 4, 0);
@@ -518,6 +562,7 @@ public class GameUI : MonoBehaviour
                 enemyFish.GetComponent<EventTrigger>().triggers.Add(enemyFishTrigger);
             }
             _enemyFishTransforms.Add(enemyFish);
+            _enemyFishRenderers.Add(enemyFish.GetComponentInChildren<Renderer>());
 
             var enemyQuestion = Instantiate(questionPrefab, allFishRoot);
             enemyQuestion.localPosition = FishRelativePosition(true, i) + new Vector3(0, 4, 0);
@@ -525,6 +570,8 @@ public class GameUI : MonoBehaviour
                 Quaternion.Euler(new Vector3(0, Convert.ToInt32(Math.Atan(3.0 * (i + 1) / (17 - i))), 0));
             _enemyQuestions.Add(enemyQuestion);
         }
+
+        _dissolveShaderProperty = Shader.PropertyToID("_cutoff");
 
         if (_mode == Constants.GameMode.Offline) ProcessOffline();
     }
