@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Threading;
 using LitJson;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -49,13 +48,14 @@ public class Preparation : MonoBehaviour
 
     private Constants.GameMode _mode;
 
+    private JsonData _replay;
+
     private void Awake()
     {
         var replayStr = PlayerPrefs.GetString("replay");
         if (replayStr.Length > 0)
         {
-            var replay = JsonMapper.ToObject(replayStr);
-            Debug.Log(replay.Count);
+            _replay = JsonMapper.ToObject(replayStr);
             _mode = Constants.GameMode.Offline;
         }
         else
@@ -137,53 +137,39 @@ public class Preparation : MonoBehaviour
             if (timeDiff > EntranceDuration && !_animationPlayed)
             {
                 _animationPlayed = true;
-                if (PlayerPrefs.GetInt("cursor", 0) == 0)
+                if (_mode == Constants.GameMode.Offline)
                 {
-                    if (_mode == Constants.GameMode.Offline)
-                    {
-                        _availableFish.Clear();
-                        for (var i = 0; i < 12; i++) _availableFish.Add(i);
-                        PlayerPrefs.SetInt("cursor", 2);
-                    }
-                    else
-                    {
-                        /*var result = await Client.GameClient.Receive();
-                        if ((string) result["Action"] == "Pick")
-                        {
-                            var remaining = result["RemainFishs"];
-                            _availableFish.Clear();
-                            for (var i = 0; i < remaining.Count; i++)
-                                _availableFish.Add((int) remaining[i]);
-                        }*/
-                        _availableFish.Clear();
-                        for (var i = 0; i < 12; i++) _availableFish.Add(i);
-                    }
-                    Timer timer = null;
-                    timer = new Timer(state =>
-                        {
-                            _uiQueue.Enqueue(() =>
-                            {
-                                for (var i = 0; i < Constants.FishNum; i++)
-                                {
-                                    if (_availableFish.Contains(i)) continue;
-                                    var banBubble = Instantiate(bubblePrefab, allFishRoot);
-                                    banBubble.localPosition = _targetPositions[i];
-                                    banBubble.localScale = new Vector3(2, 2, 2);
-                                }
-                                // ReSharper disable once AccessToModifiedClosure
-                                timer?.Dispose();
-                                if (_mode == Constants.GameMode.Offline)
-                                    OfflineSelect();
-                                else
-                                    ActivateFishTriggers();
-                            });
-                        },
-                        null, 800, 0);
+                    var currentCursor = PlayerPrefs.GetInt("cursor", 0);
+                    _availableFish.Clear();
+                    var remainingFish = _replay[currentCursor == 0 ? 1 : currentCursor - 1]["players"][0]["my_fish"];
+                    for (var i = 0; i < remainingFish.Count; i++)
+                        _availableFish.Add((int) remainingFish[i]["id"] - 1);
+                    if (currentCursor == 0) PlayerPrefs.SetInt("cursor", 2);
                 }
-                else if (_mode == Constants.GameMode.Offline)
+                else
                 {
+                    /*var result = await Client.GameClient.Receive();
+                    if ((string) result["Action"] == "Pick")
+                    {
+                        var remaining = result["RemainFishs"];
+                        _availableFish.Clear();
+                        for (var i = 0; i < remaining.Count; i++)
+                            _availableFish.Add((int) remaining[i]);
+                    }*/
+                    _availableFish.Clear();
+                    for (var i = 0; i < 12; i++) _availableFish.Add(i);
+                }
+                for (var i = 0; i < Constants.FishNum; i++)
+                {
+                    if (_availableFish.Contains(i)) continue;
+                    var banBubble = Instantiate(bubblePrefab, allFishRoot);
+                    banBubble.localPosition = _targetPositions[i];
+                    banBubble.localScale = new Vector3(4, 4, 4);
+                }
+                if (_mode == Constants.GameMode.Offline)
                     OfflineSelect();
-                }
+                else
+                    ActivateFishTriggers();
             }
         }
         else
