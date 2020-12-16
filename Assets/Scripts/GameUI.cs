@@ -10,8 +10,8 @@ using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
-    private readonly int[] _myFishId = {5, 1, 7, 8};
-    private readonly int[] _enemyFishId = {0, 5, 8, 7};
+    private readonly int[] _myFishId = {0, 0, 0, 0};
+    private readonly int[] _enemyFishId = {0, 0, 0, 0};
 
     public Transform statusBarPrefab;
 
@@ -118,7 +118,7 @@ public class GameUI : MonoBehaviour
                 {
                     _assertionPlayer = (int) operation["ID"];
                     _assertion = (int) operation["Pos"];
-                    _assertionTarget = (int) operation["id"];
+                    _assertionTarget = (int) operation["id"] - 1;
                     var guessFish = Instantiate(PrefabRefs.FishPrefabs[_assertionTarget], allFishRoot);
                     guessFish.localPosition =
                         FishRelativePosition(_assertionPlayer == 0, _assertion) + new Vector3(0, 6, 0);
@@ -495,17 +495,29 @@ public class GameUI : MonoBehaviour
         {
             _replay = JsonMapper.ToObject(replayStr);
             _mode = Constants.GameMode.Offline;
-            var curr = _replay[PlayerPrefs.GetInt("cursor")];
-            for (var i = 0; i < 4; i++)
-            {
-                _myFishFullHp[i] = (int) curr["players"][0]["fight_fish"][i]["hp"];
-                _enemyFishFullHp[i] = (int) curr["players"][1]["fight_fish"][i]["hp"];
-            }
         }
         else
         {
             _mode = Constants.GameMode.Online;
         }
+        var pickFish = _replay[PlayerPrefs.GetInt("cursor")]["operation"][0]["Fish"];
+        var next = _replay[PlayerPrefs.GetInt("cursor") + 1];
+        for (var i = 0; i < 4; i++)
+        {
+            _myFishId[i] = (int) pickFish[0][i]["id"] - 1;
+            _enemyFishId[i] = (int) pickFish[1][i]["id"] - 1;
+            if (_myFishId[i] > 11)
+            {
+                _myFishId[i] = 11;
+            }
+            if (_enemyFishId[i] > 11)
+            {
+                _enemyFishId[i] = 11;
+            }
+            _myFishFullHp[i] = (int) next["players"][0]["fight_fish"][i]["hp"];
+            _enemyFishFullHp[i] = (int) next["players"][1]["fight_fish"][i]["hp"];
+        }
+        PlayerPrefs.SetInt("cursor", PlayerPrefs.GetInt("cursor") + 1);
         for (var i = 0; i < 4; i++)
         {
             var j = i;

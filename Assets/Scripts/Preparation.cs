@@ -143,7 +143,7 @@ public class Preparation : MonoBehaviour
                     {
                         _availableFish.Clear();
                         for (var i = 0; i < 12; i++) _availableFish.Add(i);
-                        PlayerPrefs.SetInt("cursor", 3);
+                        PlayerPrefs.SetInt("cursor", 2);
                     }
                     else
                     {
@@ -182,7 +182,6 @@ public class Preparation : MonoBehaviour
                 }
                 else if (_mode == Constants.GameMode.Offline)
                 {
-                    PlayerPrefs.SetInt("cursor", PlayerPrefs.GetInt("cursor") + 1);
                     OfflineSelect();
                 }
             }
