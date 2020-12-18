@@ -179,7 +179,7 @@ public class GameUI : MonoBehaviour
                 _myTurn = false;
                 _selectStatus = SelectStatus.DoAssertion;
                 _assertion = (int) (result["AssertPos"] ?? -1);
-                ChangeStatus();
+                _uiQueue.Enqueue(ChangeStatus);
             }
         }
         else
@@ -313,7 +313,8 @@ public class GameUI : MonoBehaviour
                 }
                 if (_assertion != -1)
                 {
-                    var hit = _assertionTarget == (_assertionPlayer == 1 ? _myFishId : _enemyFishId)[_assertion];
+                    var hit = _mode == Constants.GameMode.Offline && _assertionTarget ==
+                        (_assertionPlayer == 1 ? _myFishId : _enemyFishId)[_assertion];
                     if (hit)
                     {
                         Destroy((_assertionPlayer == 1 ? _myQuestions : _enemyQuestions)[_assertion].gameObject);
@@ -323,11 +324,21 @@ public class GameUI : MonoBehaviour
                         Instantiate(explodePrefab, allFishRoot).localPosition =
                             FishRelativePosition((_assertionPlayer == 1) ^ hit, i);
                     }
-                    SetTimeout(() =>
+                    SetTimeout(async () =>
                     {
                         _assertion = -1;
                         ChangeStatus();
-                        if (_mode == Constants.GameMode.Offline) ProcessOffline();
+                        if (_mode == Constants.GameMode.Offline)
+                        {
+                            ProcessOffline();
+                        }
+                        else if (!_myTurn)
+                        {
+                            await Client.GameClient.Receive(); // SUCCESS
+                            await Client.GameClient.Send(new Ok());
+                            ChangeStatus();
+                            ChangeStatus();
+                        }
                     }, 1000);
                 }
                 else
@@ -341,6 +352,10 @@ public class GameUI : MonoBehaviour
                 break;
             }
             case SelectStatus.WaitAssertion:
+                if (_mode == Constants.GameMode.Online && _myTurn)
+                {
+                    await Client.GameClient.Receive(); // ACTION
+                }
                 _selectStatus = SelectStatus.SelectMyFish;
                 break;
             case SelectStatus.SelectMyFish:
@@ -488,19 +503,6 @@ public class GameUI : MonoBehaviour
                             break;
                     }
                 }
-                SetTimeout(ReturnAssertion, _passiveList.Count > 0 ? 1100 : 1000);
-                /* _passiveList.ForEach((id) =>
-                {
-                    switch (id)
-                    {
-                        case 0:
-                        case 1:
-                            break;
-                    }
-                }); */
-                break;
-            }
-            case SelectStatus.WaitingAnimation:
                 if (_mode == Constants.GameMode.Online && _myTurn)
                 {
                     if (_normalAttack)
@@ -539,6 +541,19 @@ public class GameUI : MonoBehaviour
                     }
                     await Client.GameClient.Receive(); // ACTION
                 }
+                SetTimeout(ReturnAssertion, _passiveList.Count > 0 ? 1100 : 1000);
+                /* _passiveList.ForEach((id) =>
+                {
+                    switch (id)
+                    {
+                        case 0:
+                        case 1:
+                            break;
+                    }
+                }); */
+                break;
+            }
+            case SelectStatus.WaitingAnimation:
                 break;
             default:
                 throw new ArgumentOutOfRangeException();

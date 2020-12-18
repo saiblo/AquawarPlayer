@@ -106,7 +106,7 @@ public class Preparation : MonoBehaviour
             var chooseFishs = new List<int>();
             for (var i = 0; i < Constants.FishNum; i++)
                 if (_fishSelected[i])
-                    chooseFishs.Add(i);
+                    chooseFishs.Add(i + 1);
             Client.GameClient.Send(
                 _fishSelected[11]
                     ? new Pick {ChooseFishs = chooseFishs, ImitateFish = Convert.ToInt32(imitate.text)}
@@ -160,7 +160,7 @@ public class Preparation : MonoBehaviour
                         var remaining = result["RemainFishs"];
                         _availableFish.Clear();
                         for (var i = 0; i < remaining.Count; i++)
-                            _availableFish.Add((int) remaining[i]);
+                            _availableFish.Add((int) remaining[i] - 1);
                     }
                 }
                 for (var i = 0; i < Constants.FishNum; i++)
