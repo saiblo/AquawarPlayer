@@ -125,7 +125,7 @@ public class Preparation : MonoBehaviour
         doneButton.interactable = true;
     }
 
-    private void Update()
+    private async void Update()
     {
         if (!_animationPlayed)
         {
@@ -154,16 +154,14 @@ public class Preparation : MonoBehaviour
                 }
                 else
                 {
-                    /*var result = await Client.GameClient.Receive();
+                    var result = await Client.GameClient.Receive();
                     if ((string) result["Action"] == "Pick")
                     {
                         var remaining = result["RemainFishs"];
                         _availableFish.Clear();
                         for (var i = 0; i < remaining.Count; i++)
                             _availableFish.Add((int) remaining[i]);
-                    }*/
-                    _availableFish.Clear();
-                    for (var i = 0; i < 12; i++) _availableFish.Add(i);
+                    }
                 }
                 for (var i = 0; i < Constants.FishNum; i++)
                 {
