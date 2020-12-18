@@ -286,7 +286,7 @@ public class GameUI : MonoBehaviour
                 }
                 else
                 {
-                    ChangeStatus();
+                    _uiQueue.Enqueue(ChangeStatus);
                 }
                 if (_myTurn)
                 {
@@ -337,8 +337,8 @@ public class GameUI : MonoBehaviour
                 }
                 else
                 {
-                    var attackerTransforms = enemy ? _enemyFishTransforms : _myFishTransforms;
-                    var attackeeTransforms = enemy ? _myFishTransforms : _enemyFishTransforms;
+                    // var attackerTransforms = enemy ? _enemyFishTransforms : _myFishTransforms;
+                    // var attackeeTransforms = enemy ? _myFishTransforms : _enemyFishTransforms;
                     var attackerSelected = enemy ? _enemyFishSelectedAsTarget : _myFishSelectedAsTarget;
                     var attackeeSelected = enemy ? _myFishSelectedAsTarget : _enemyFishSelectedAsTarget;
                     var attacker = enemy ? _enemyFishSelected : _myFishSelected;
@@ -447,7 +447,6 @@ public class GameUI : MonoBehaviour
                             break;
                     }
                 }
-                var shouldProcessPassiveAttack = _passiveList.Count > 0;
                 SetTimeout(() =>
                 {
                     _myFishSelected = -1;
@@ -462,8 +461,7 @@ public class GameUI : MonoBehaviour
                         }
                     });
                     _selectStatus = SelectStatus.DoAssertion;
-                }, 1000);
-                // }, shouldProcessPassiveAttack ? 2000 : 1000);
+                }, _passiveList.Count > 0 ? 1100 : 1000);
                 /* _passiveList.ForEach((id) =>
                 {
                     switch (id)
@@ -528,29 +526,29 @@ public class GameUI : MonoBehaviour
         {
             _replay = JsonMapper.ToObject(replayStr);
             _mode = Constants.GameMode.Offline;
+            var pickFish = _replay[PlayerPrefs.GetInt("cursor")]["operation"][0]["Fish"];
+            var next = _replay[PlayerPrefs.GetInt("cursor") + 1];
+            for (var i = 0; i < 4; i++)
+            {
+                _myFishId[i] = (int) pickFish[0][i]["id"] - 1;
+                _enemyFishId[i] = (int) pickFish[1][i]["id"] - 1;
+                if (_myFishId[i] > 11)
+                {
+                    _myFishId[i] = 11;
+                }
+                if (_enemyFishId[i] > 11)
+                {
+                    _enemyFishId[i] = 11;
+                }
+                _myFishFullHp[i] = (int) next["players"][0]["fight_fish"][i]["hp"];
+                _enemyFishFullHp[i] = (int) next["players"][1]["fight_fish"][i]["hp"];
+            }
+            PlayerPrefs.SetInt("cursor", PlayerPrefs.GetInt("cursor") + 1);
         }
         else
         {
             _mode = Constants.GameMode.Online;
         }
-        var pickFish = _replay[PlayerPrefs.GetInt("cursor")]["operation"][0]["Fish"];
-        var next = _replay[PlayerPrefs.GetInt("cursor") + 1];
-        for (var i = 0; i < 4; i++)
-        {
-            _myFishId[i] = (int) pickFish[0][i]["id"] - 1;
-            _enemyFishId[i] = (int) pickFish[1][i]["id"] - 1;
-            if (_myFishId[i] > 11)
-            {
-                _myFishId[i] = 11;
-            }
-            if (_enemyFishId[i] > 11)
-            {
-                _enemyFishId[i] = 11;
-            }
-            _myFishFullHp[i] = (int) next["players"][0]["fight_fish"][i]["hp"];
-            _enemyFishFullHp[i] = (int) next["players"][1]["fight_fish"][i]["hp"];
-        }
-        PlayerPrefs.SetInt("cursor", PlayerPrefs.GetInt("cursor") + 1);
         for (var i = 0; i < 4; i++)
         {
             var j = i;
