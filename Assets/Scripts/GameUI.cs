@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using LitJson;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -152,6 +153,41 @@ public class GameUI : MonoBehaviour
         }
     }
 
+    private async void ReturnAssertion()
+    {
+        _myFishSelected = -1;
+        _enemyFishSelected = -1;
+        _uiQueue.Enqueue(() =>
+        {
+            for (var i = 0; i < 4; i++)
+            {
+                _myFishSelectedAsTarget[i] = _enemyFishSelectedAsTarget[i] = false;
+                _myFishTransforms[i].rotation = Quaternion.Euler(new Vector3(0, 100, 0));
+                _enemyFishTransforms[i].rotation = Quaternion.Euler(new Vector3(0, 260, 0));
+            }
+        });
+        if (_mode == Constants.GameMode.Online)
+        {
+            var result = await Client.GameClient.Receive();
+            if ((string) result["Action"] == "Assert")
+            {
+                _myTurn = true;
+                _selectStatus = SelectStatus.DoAssertion;
+            }
+            else
+            {
+                _myTurn = false;
+                _selectStatus = SelectStatus.DoAssertion;
+                _assertion = (int) (result["AssertPos"] ?? -1);
+                ChangeStatus();
+            }
+        }
+        else
+        {
+            _selectStatus = SelectStatus.DoAssertion;
+        }
+    }
+
     private void ProcessOffline()
     {
         var state = _replay[PlayerPrefs.GetInt("cursor")];
@@ -265,6 +301,16 @@ public class GameUI : MonoBehaviour
             case SelectStatus.DoAssertion:
             {
                 _selectStatus = SelectStatus.WaitAssertion;
+                if (_mode == Constants.GameMode.Offline && _myTurn)
+                {
+                    if (_assertion == -1)
+                        await Client.GameClient.Send(new Null());
+                    else
+                        await Client.GameClient.Send(
+                            new Assert {Pos = _assertion, Id = Convert.ToInt32(assertion.text)}
+                        );
+                    await Client.GameClient.Receive(); // ASSERT_REPLY
+                }
                 if (_assertion != -1)
                 {
                     var hit = _assertionTarget == (_assertionPlayer == 1 ? _myFishId : _enemyFishId)[_assertion];
@@ -288,14 +334,9 @@ public class GameUI : MonoBehaviour
                 {
                     _uiQueue.Enqueue(ChangeStatus);
                 }
-                if (_myTurn)
+                if (_mode == Constants.GameMode.Online)
                 {
-                    if (_assertion == -1)
-                        await Client.GameClient.Send(new Null());
-                    else
-                        await Client.GameClient.Send(
-                            new Assert {Pos = _assertion, Id = Convert.ToInt32(assertion.text)}
-                        );
+                    await Client.GameClient.Send(new Ok());
                 }
                 break;
             }
@@ -447,21 +488,7 @@ public class GameUI : MonoBehaviour
                             break;
                     }
                 }
-                SetTimeout(() =>
-                {
-                    _myFishSelected = -1;
-                    _enemyFishSelected = -1;
-                    _uiQueue.Enqueue(() =>
-                    {
-                        for (var i = 0; i < 4; i++)
-                        {
-                            _myFishSelectedAsTarget[i] = _enemyFishSelectedAsTarget[i] = false;
-                            _myFishTransforms[i].rotation = Quaternion.Euler(new Vector3(0, 100, 0));
-                            _enemyFishTransforms[i].rotation = Quaternion.Euler(new Vector3(0, 260, 0));
-                        }
-                    });
-                    _selectStatus = SelectStatus.DoAssertion;
-                }, _passiveList.Count > 0 ? 1100 : 1000);
+                SetTimeout(ReturnAssertion, _passiveList.Count > 0 ? 1100 : 1000);
                 /* _passiveList.ForEach((id) =>
                 {
                     switch (id)
@@ -512,7 +539,6 @@ public class GameUI : MonoBehaviour
                     }
                     await Client.GameClient.Receive(); // ACTION
                 }
-                _myTurn = !_myTurn;
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -639,7 +665,15 @@ public class GameUI : MonoBehaviour
 
         _dissolveShaderProperty = Shader.PropertyToID("_cutoff");
 
-        if (_mode == Constants.GameMode.Offline) ProcessOffline();
+        if (_mode == Constants.GameMode.Offline)
+        {
+            ProcessOffline();
+        }
+        else
+        {
+            _selectStatus = SelectStatus.WaitingAnimation;
+            Task.Run(ReturnAssertion);
+        }
     }
 
     private void Update()
