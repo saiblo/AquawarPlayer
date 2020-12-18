@@ -44,6 +44,8 @@ public class Preparation : MonoBehaviour
 
     private readonly Queue<Action> _uiQueue = new Queue<Action>();
 
+    public InputField imitate;
+
     public Button doneButton;
 
     private Constants.GameMode _mode;
@@ -105,7 +107,11 @@ public class Preparation : MonoBehaviour
             for (var i = 0; i < Constants.FishNum; i++)
                 if (_fishSelected[i])
                     chooseFishs.Add(i);
-            Client.GameClient.Send(new Pick {ChooseFishs = chooseFishs});
+            Client.GameClient.Send(
+                _fishSelected[11]
+                    ? new Pick {ChooseFishs = chooseFishs, ImitateFish = Convert.ToInt32(imitate.text)}
+                    : new Pick {ChooseFishs = chooseFishs}
+            );
         }
         SceneManager.LoadScene("Scenes/Game");
     }
@@ -176,7 +182,8 @@ public class Preparation : MonoBehaviour
         {
             if (_mode == Constants.GameMode.Online)
             {
-                doneButton.interactable = _fishSelected.Count(b => b) == 4;
+                doneButton.interactable = _fishSelected.Count(b => b) == 4 &&
+                                          (!_fishSelected[11] || Convert.ToInt32(imitate.text) < 11);
             }
             while (_uiQueue.Count > 0)
                 _uiQueue.Dequeue()();
