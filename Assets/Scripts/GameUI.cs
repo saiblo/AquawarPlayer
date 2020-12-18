@@ -301,7 +301,7 @@ public class GameUI : MonoBehaviour
             case SelectStatus.DoAssertion:
             {
                 _selectStatus = SelectStatus.WaitAssertion;
-                if (_mode == Constants.GameMode.Offline && _myTurn)
+                if (_mode == Constants.GameMode.Online && _myTurn)
                 {
                     if (_assertion == -1)
                         await Client.GameClient.Send(new Null());
