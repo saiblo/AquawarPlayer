@@ -13,11 +13,18 @@ public class GameUI : MonoBehaviour
     private readonly int[] _myFishId = {0, 0, 0, 0};
     private readonly int[] _enemyFishId = {0, 0, 0, 0};
 
+    private bool _myTurn = true;
+    private bool _normalAttack = true;
+
     public Transform statusBarPrefab;
 
     public Transform allFishRoot;
     public Transform myStatusRoot;
     public Transform enemyStatusRoot;
+
+    public InputField assertion;
+    public Image normalButton;
+    public Image skillButton;
 
     public Button changeStatusButton;
     public Text changeStatusPrompt;
@@ -28,8 +35,6 @@ public class GameUI : MonoBehaviour
     private readonly Queue<Action> _uiQueue = new Queue<Action>();
 
     private Constants.GameMode _mode;
-
-    private bool _normalAttack = true;
 
     private JsonData _replay;
 
@@ -94,6 +99,16 @@ public class GameUI : MonoBehaviour
 
     private readonly int[] _myFishFullHp = {0, 0, 0, 0};
     private readonly int[] _enemyFishFullHp = {0, 0, 0, 0};
+
+    public void SwitchToNormal()
+    {
+        _normalAttack = true;
+    }
+
+    public void SwitchToSkill()
+    {
+        _normalAttack = false;
+    }
 
     private readonly List<int> _passiveList = new List<int>();
 
@@ -243,7 +258,7 @@ public class GameUI : MonoBehaviour
         }
     }
 
-    private void ChangeStatus()
+    private async void ChangeStatus()
     {
         switch (_selectStatus)
         {
@@ -271,8 +286,16 @@ public class GameUI : MonoBehaviour
                 }
                 else
                 {
-                    // ReSharper disable once TailRecursiveCall
                     ChangeStatus();
+                }
+                if (_myTurn)
+                {
+                    if (_assertion == -1)
+                        await Client.GameClient.Send(new Null());
+                    else
+                        await Client.GameClient.Send(
+                            new Assert {Pos = _assertion, Id = Convert.ToInt32(assertion.text)}
+                        );
                 }
                 break;
             }
@@ -453,6 +476,10 @@ public class GameUI : MonoBehaviour
                 break;
             }
             case SelectStatus.WaitingAnimation:
+                if (_mode == Constants.GameMode.Online && _myTurn)
+                {
+                    await Client.GameClient.Receive(); // ACTION
+                }
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -636,9 +663,12 @@ public class GameUI : MonoBehaviour
                 throw new ArgumentOutOfRangeException();
         }
         changeStatusPrompt.text = title;
+
+        (_normalAttack ? normalButton : skillButton).color = Color.green;
+        (_normalAttack ? skillButton : normalButton).color = Color.blue;
     }
 
-    private Vector3 FishRelativePosition(bool enemy, int id)
+    private static Vector3 FishRelativePosition(bool enemy, int id)
     {
         return new Vector3(
             (enemy ? 1 : -1) * 3 * (id + 1),
