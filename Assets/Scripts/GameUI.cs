@@ -307,7 +307,7 @@ public class GameUI : MonoBehaviour
                         await Client.GameClient.Send(new Null());
                     else
                         await Client.GameClient.Send(
-                            new Assert {Pos = _assertion, Id = Convert.ToInt32(assertion.text)}
+                            new Assert {Pos = _assertion, Id = Convert.ToInt32(assertion.text) + 1}
                         );
                     await Client.GameClient.Receive(); // ASSERT_REPLY
                 }

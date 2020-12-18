@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using LitJson;
+using UnityEngine;
 
 public class Client
 {
@@ -52,7 +53,9 @@ public class Client
         var data = (string) JsonMapper.ToObject(
             Encoding.UTF8.GetString(buffer.Array ?? Array.Empty<byte>()).TrimEnd('\0')
         )["content"];
-        return JsonMapper.ToObject(data);
+        var result = JsonMapper.ToObject(data);
+        Debug.Log(JsonMapper.ToJson(result));
+        return result;
     }
 
     public static Client GameClient = null;
