@@ -150,7 +150,7 @@ public class Preparation : MonoBehaviour
                     var remainingFish = _replay[currentCursor == 0 ? 1 : currentCursor - 1]["players"][0]["my_fish"];
                     for (var i = 0; i < remainingFish.Count; i++)
                         _availableFish.Add((int) remainingFish[i]["id"] - 1);
-                    if (currentCursor == 0) PlayerPrefs.SetInt("cursor", 2);
+                    if (currentCursor == 0) PlayerPrefs.SetInt("cursor", 1);
                 }
                 else
                 {
