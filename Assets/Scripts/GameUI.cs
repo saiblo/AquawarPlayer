@@ -478,8 +478,43 @@ public class GameUI : MonoBehaviour
             case SelectStatus.WaitingAnimation:
                 if (_mode == Constants.GameMode.Online && _myTurn)
                 {
+                    if (_normalAttack)
+                    {
+                        var enemyPos = 0;
+                        for (var i = 0; i < 4; i++)
+                        {
+                            // ReSharper disable once InvertIf
+                            if (_enemyFishSelectedAsTarget[i])
+                            {
+                                enemyPos = i;
+                                break;
+                            }
+                        }
+                        await Client.GameClient.Send(new NormalAction
+                        {
+                            MyPos = _myFishSelected,
+                            EnemyPos = enemyPos
+                        });
+                    }
+                    else
+                    {
+                        var myList = new List<int>();
+                        var enemyList = new List<int>();
+                        for (var i = 0; i < 4; i++)
+                        {
+                            if (_myFishSelectedAsTarget[i]) myList.Add(i);
+                            if (_enemyFishSelectedAsTarget[i]) enemyList.Add(i);
+                        }
+                        await Client.GameClient.Send(new SkillAction
+                        {
+                            MyPos = _myFishSelected,
+                            EnemyList = enemyList,
+                            MyList = myList
+                        });
+                    }
                     await Client.GameClient.Receive(); // ACTION
                 }
+                _myTurn = !_myTurn;
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
