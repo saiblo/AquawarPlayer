@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using LitJson;
-using UnityEngine;
 
 public class Client
 {
@@ -50,11 +49,10 @@ public class Client
     {
         var buffer = new ArraySegment<byte>(new byte[1024]);
         await _ws.ReceiveAsync(buffer, CancellationToken.None);
-        return JsonMapper.ToObject(
-            (string) JsonMapper.ToObject(
-                Encoding.UTF8.GetString(buffer.Array ?? Array.Empty<byte>()).TrimEnd('\0')
-            )["content"]
-        );
+        var data = (string) JsonMapper.ToObject(
+            Encoding.UTF8.GetString(buffer.Array ?? Array.Empty<byte>()).TrimEnd('\0')
+        )["content"];
+        return JsonMapper.ToObject(data);
     }
 
     public static Client GameClient = null;

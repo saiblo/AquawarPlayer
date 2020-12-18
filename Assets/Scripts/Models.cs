@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+// ReSharper disable UnusedMember.Global
+// ReSharper disable UnusedAutoPropertyAccessor.Global
 
 public class Ok
 {

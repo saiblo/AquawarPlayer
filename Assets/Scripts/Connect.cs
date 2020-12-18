@@ -1,21 +1,11 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Text;
-using LitJson;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Connect : MonoBehaviour
 {
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
-    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
-    private class ConnectRequest
-    {
-        public string token { get; set; }
-        public string request { get; set; }
-    }
-
     public async void ConnectRoom(InputField tokenInputField)
     {
         var tokenEncoded = tokenInputField.text;
@@ -39,7 +29,6 @@ public class Connect : MonoBehaviour
         }
         catch (Exception)
         {
-            // ReSharper disable once Unity.InefficientPropertyAccess
             Debug.Log("连接失败");
         }
     }
