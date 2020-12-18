@@ -1,1 +1,1 @@
-﻿基于https://git.tsinghua.edu.cn/wang-zd19/aquawarlogic/commit/5d2eb1e4cea9864254dec0103e66c567522dd818得到的回放文件
+﻿这是317275号对局的回放文件
