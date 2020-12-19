@@ -18,7 +18,7 @@ public class Assert
 {
     public static string Action = "Assert";
     public int Pos { get; set; }
-    public int Id { get; set; }
+    public int ID { get; set; }
 }
 
 public class Null

@@ -307,7 +307,7 @@ public class GameUI : MonoBehaviour
                         await Client.GameClient.Send(new Null());
                     else
                         await Client.GameClient.Send(
-                            new Assert {Pos = _assertion, Id = Convert.ToInt32(assertion.text) + 1}
+                            new Assert {Pos = _assertion, ID = Convert.ToInt32(assertion.text) + 1}
                         );
                     await Client.GameClient.Receive(); // ASSERT_REPLY
                 }
@@ -316,9 +316,7 @@ public class GameUI : MonoBehaviour
                     var hit = _mode == Constants.GameMode.Offline && _assertionTarget ==
                         (_assertionPlayer == 1 ? _myFishId : _enemyFishId)[_assertion];
                     if (hit)
-                    {
                         Destroy((_assertionPlayer == 1 ? _myQuestions : _enemyQuestions)[_assertion].gameObject);
-                    }
                     for (var i = 0; i < 4; i++)
                     {
                         Instantiate(explodePrefab, allFishRoot).localPosition =
@@ -540,6 +538,7 @@ public class GameUI : MonoBehaviour
                         });
                     }
                     await Client.GameClient.Receive(); // ACTION
+                    await Client.GameClient.Send(new Ok());
                 }
                 SetTimeout(ReturnAssertion, _passiveList.Count > 0 ? 1100 : 1000);
                 /* _passiveList.ForEach((id) =>
