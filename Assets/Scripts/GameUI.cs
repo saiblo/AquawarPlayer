@@ -478,6 +478,55 @@ public class GameUI : MonoBehaviour
             case SelectStatus.SelectEnemyFish:
             {
                 _selectStatus = SelectStatus.WaitingAnimation;
+                if (_mode == Constants.GameMode.Online && _myTurn)
+                {
+                    if (_normalAttack)
+                    {
+                        var enemyPos = 0;
+                        for (var i = 0; i < 4; i++)
+                        {
+                            // ReSharper disable once InvertIf
+                            if (_enemyFishSelectedAsTarget[i])
+                            {
+                                enemyPos = i;
+                                break;
+                            }
+                        }
+                        await Client.GameClient.Send(new NormalAction
+                        {
+                            MyPos = _myFishSelected,
+                            EnemyPos = enemyPos
+                        });
+                    }
+                    else
+                    {
+                        var myList = new List<int>();
+                        var enemyList = new List<int>();
+                        for (var i = 0; i < 4; i++)
+                        {
+                            if (_myFishSelectedAsTarget[i]) myList.Add(i);
+                            if (_enemyFishSelectedAsTarget[i]) enemyList.Add(i);
+                        }
+                        await Client.GameClient.Send(new SkillAction
+                        {
+                            MyPos = _myFishSelected,
+                            EnemyList = enemyList,
+                            MyList = myList
+                        });
+                    }
+                    var result = await Client.GameClient.Receive(); // SUCCESS/FAIL
+                    if ((string) result["Action"] == "Success")
+                    {
+                        await Client.GameClient.Send(new Ok());
+                    }
+                    else
+                    {
+                        _myFishSelected = -1;
+                        _enemyFishSelected = -1;
+                        _selectStatus = SelectStatus.SelectMyFish;
+                        return;
+                    }
+                }
                 _passiveList.Clear();
                 var enemy = _enemyFishSelected >= 0 && _enemyFishSelected < 4;
                 if (_normalAttack)
@@ -616,45 +665,6 @@ public class GameUI : MonoBehaviour
                             SetTimeout(() => { Destroy(myselfRecover.gameObject); }, 4000);
                             break;
                     }
-                }
-                if (_mode == Constants.GameMode.Online && _myTurn)
-                {
-                    if (_normalAttack)
-                    {
-                        var enemyPos = 0;
-                        for (var i = 0; i < 4; i++)
-                        {
-                            // ReSharper disable once InvertIf
-                            if (_enemyFishSelectedAsTarget[i])
-                            {
-                                enemyPos = i;
-                                break;
-                            }
-                        }
-                        await Client.GameClient.Send(new NormalAction
-                        {
-                            MyPos = _myFishSelected,
-                            EnemyPos = enemyPos
-                        });
-                    }
-                    else
-                    {
-                        var myList = new List<int>();
-                        var enemyList = new List<int>();
-                        for (var i = 0; i < 4; i++)
-                        {
-                            if (_myFishSelectedAsTarget[i]) myList.Add(i);
-                            if (_enemyFishSelectedAsTarget[i]) enemyList.Add(i);
-                        }
-                        await Client.GameClient.Send(new SkillAction
-                        {
-                            MyPos = _myFishSelected,
-                            EnemyList = enemyList,
-                            MyList = myList
-                        });
-                    }
-                    await Client.GameClient.Receive(); // ACTION
-                    await Client.GameClient.Send(new Ok());
                 }
                 SetTimeout(ReturnAssertion, _passiveList.Count > 0 ? 1100 : 1000);
                 /* _passiveList.ForEach((id) =>
