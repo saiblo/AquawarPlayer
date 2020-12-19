@@ -121,6 +121,8 @@ public class GameUI : MonoBehaviour
     private int _assertionPlayer;
     private int _assertionTarget; // Which fish do you think it is?
 
+    private bool _onlineAssertionHit;
+
     private readonly bool[] _myFishSelectedAsTarget = {false, false, false, false};
     private readonly bool[] _enemyFishSelectedAsTarget = {false, false, false, false};
 
@@ -174,12 +176,23 @@ public class GameUI : MonoBehaviour
                 _myTurn = true;
                 _selectStatus = SelectStatus.DoAssertion;
             }
-            else
+            else // ASSERT_REPLY
             {
                 _myTurn = false;
                 _selectStatus = SelectStatus.DoAssertion;
                 _assertion = (int) (result["AssertPos"] ?? -1);
                 _uiQueue.Enqueue(ChangeStatus);
+                _assertionPlayer = 1;
+                _onlineAssertionHit = (bool) (result["AssertResult"] ?? false);
+                // do not know `_assertionTarget`
+                var guessFish = Instantiate(PrefabRefs.FishPrefabs[_assertionTarget], allFishRoot);
+                guessFish.localPosition =
+                    FishRelativePosition(_assertionPlayer == 0, _assertion) + new Vector3(0, 6, 0);
+                SetTimeout(() =>
+                {
+                    Destroy(guessFish.gameObject);
+                    ChangeStatus();
+                }, 2000);
             }
         }
         else
@@ -309,12 +322,16 @@ public class GameUI : MonoBehaviour
                         await Client.GameClient.Send(
                             new Assert {Pos = _assertion, ID = Convert.ToInt32(assertion.text) + 1}
                         );
-                    await Client.GameClient.Receive(); // ASSERT_REPLY
+                    var reply = await Client.GameClient.Receive(); // ASSERT_REPLY
+                    _assertionPlayer = 0;
+                    _onlineAssertionHit = (bool) (reply["AssertResult"] ?? false);
                 }
                 if (_assertion != -1)
                 {
-                    var hit = _mode == Constants.GameMode.Offline && _assertionTarget ==
-                        (_assertionPlayer == 1 ? _myFishId : _enemyFishId)[_assertion];
+                    var hit =
+                        _mode == Constants.GameMode.Offline && _assertionTarget ==
+                        (_assertionPlayer == 1 ? _myFishId : _enemyFishId)[_assertion]
+                        || _mode == Constants.GameMode.Online && _onlineAssertionHit;
                     if (hit)
                         Destroy((_assertionPlayer == 1 ? _myQuestions : _enemyQuestions)[_assertion].gameObject);
                     for (var i = 0; i < 4; i++)
