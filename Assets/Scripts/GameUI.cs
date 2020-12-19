@@ -78,6 +78,94 @@ public class GameUI : MonoBehaviour
         }, null, 0, 10);
     }
 
+    private bool _initialized;
+
+    private void InitFishAndQuestion()
+    {
+        for (var i = 0; i < 4; i++)
+        {
+            var j = i;
+            var myFish = Instantiate(PrefabRefs.FishPrefabs[_myFishId[i]], allFishRoot);
+            myFish.localPosition = FishRelativePosition(false, i);
+            myFish.localScale = _small;
+            myFish.rotation = Quaternion.Euler(new Vector3(0, 100, 0));
+            if (_mode == Constants.GameMode.Online)
+            {
+                var myFishTrigger = new EventTrigger.Entry();
+                myFishTrigger.callback.AddListener(delegate
+                {
+                    switch (_selectStatus)
+                    {
+                        case SelectStatus.DoAssertion:
+                            break;
+                        case SelectStatus.WaitAssertion:
+                            break;
+                        case SelectStatus.SelectMyFish:
+                            _myFishSelected = _myFishSelected == j ? -1 : j;
+                            break;
+                        case SelectStatus.SelectEnemyFish:
+                            _myFishSelectedAsTarget[j] = !_myFishSelectedAsTarget[j];
+                            break;
+                        case SelectStatus.WaitingAnimation:
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                });
+                myFish.GetComponent<EventTrigger>().triggers.Add(myFishTrigger);
+            }
+            _myFishTransforms.Add(myFish);
+            _myFishRenderers.Add(myFish.GetComponentInChildren<Renderer>());
+            _myFishParticleSystems.Add(myFish.GetComponentInChildren<ParticleSystem>());
+
+            var myQuestion = Instantiate(questionPrefab, allFishRoot);
+            myQuestion.localPosition = FishRelativePosition(false, i) + new Vector3(0, 4, 0);
+            myQuestion.rotation =
+                Quaternion.Euler(new Vector3(0, -Convert.ToInt32(Math.Atan(3.0 * (i + 1) / (17 - i))), 0));
+            _myQuestions.Add(myQuestion);
+
+            var enemyFish = Instantiate(PrefabRefs.FishPrefabs[_enemyFishId[i]], allFishRoot);
+            enemyFish.localPosition = FishRelativePosition(true, i);
+            enemyFish.localScale = _small;
+            enemyFish.rotation = Quaternion.Euler(new Vector3(0, 260, 0));
+            if (_mode == Constants.GameMode.Online)
+            {
+                var enemyFishTrigger = new EventTrigger.Entry();
+                enemyFishTrigger.callback.AddListener(delegate
+                {
+                    switch (_selectStatus)
+                    {
+                        case SelectStatus.DoAssertion:
+                            _assertion = _assertion == j ? -1 : j;
+                            break;
+                        case SelectStatus.WaitAssertion:
+                            break;
+                        case SelectStatus.SelectMyFish:
+                            break;
+                        case SelectStatus.SelectEnemyFish:
+                            _enemyFishSelectedAsTarget[j] = !_enemyFishSelectedAsTarget[j];
+                            break;
+                        case SelectStatus.WaitingAnimation:
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                });
+                enemyFish.GetComponent<EventTrigger>().triggers.Add(enemyFishTrigger);
+            }
+            _enemyFishTransforms.Add(enemyFish);
+            _enemyFishRenderers.Add(enemyFish.GetComponentInChildren<Renderer>());
+            _enemyFishParticleSystems.Add(enemyFish.GetComponentInChildren<ParticleSystem>());
+
+            var enemyQuestion = Instantiate(questionPrefab, allFishRoot);
+            enemyQuestion.localPosition = FishRelativePosition(true, i) + new Vector3(0, 4, 0);
+            enemyQuestion.rotation =
+                Quaternion.Euler(new Vector3(0, Convert.ToInt32(Math.Atan(3.0 * (i + 1) / (17 - i))), 0));
+            _enemyQuestions.Add(enemyQuestion);
+        }
+        _initialized = true;
+    }
+
     private enum SelectStatus
     {
         DoAssertion,
@@ -161,6 +249,7 @@ public class GameUI : MonoBehaviour
         _enemyFishSelected = -1;
         _uiQueue.Enqueue(() =>
         {
+            if (!_initialized) return;
             for (var i = 0; i < 4; i++)
             {
                 _myFishSelectedAsTarget[i] = _enemyFishSelectedAsTarget[i] = false;
@@ -171,6 +260,13 @@ public class GameUI : MonoBehaviour
         if (_mode == Constants.GameMode.Online)
         {
             var result = await Client.GameClient.Receive();
+            for (var i = 0; i < 4; i++)
+            {
+                _myFishId[i] = (int) result["MyFish"][i] - 1;
+                if ((int) result["EnemyFish"][i] > 0)
+                    _enemyFishId[i] = (int) result["EnemyFish"][i] - 1;
+            }
+            if (!_initialized) _uiQueue.Enqueue(InitFishAndQuestion);
             if ((string) result["Action"] == "Assert")
             {
                 _myTurn = true;
@@ -351,6 +447,9 @@ public class GameUI : MonoBehaviour
                         {
                             await Client.GameClient.Receive(); // SUCCESS
                             await Client.GameClient.Send(new Ok());
+                            _enemyFishSelected = 0;
+                            _normalAttack = true;
+                            _myFishSelectedAsTarget[0] = true;
                             ChangeStatus();
                             ChangeStatus();
                         }
@@ -600,6 +699,7 @@ public class GameUI : MonoBehaviour
                 _myFishFullHp[i] = (int) next["players"][0]["fight_fish"][i]["hp"];
                 _enemyFishFullHp[i] = (int) next["players"][1]["fight_fish"][i]["hp"];
             }
+            InitFishAndQuestion();
             PlayerPrefs.SetInt("cursor", PlayerPrefs.GetInt("cursor") + 1);
         }
         else
@@ -608,90 +708,12 @@ public class GameUI : MonoBehaviour
         }
         for (var i = 0; i < 4; i++)
         {
-            var j = i;
             var myStatus = Instantiate(statusBarPrefab, myStatusRoot);
             myStatus.localPosition = new Vector3(10, -50 * i - 10);
             _myStatus.Add(myStatus.GetComponent<Slider>());
             var enemyStatus = Instantiate(statusBarPrefab, enemyStatusRoot);
             enemyStatus.localPosition = new Vector3(10, -50 * i - 10);
             _enemyStatus.Add(enemyStatus.GetComponent<Slider>());
-            var myFish = Instantiate(PrefabRefs.FishPrefabs[_myFishId[i]], allFishRoot);
-            myFish.localPosition = FishRelativePosition(false, i);
-            myFish.localScale = _small;
-            myFish.rotation = Quaternion.Euler(new Vector3(0, 100, 0));
-            if (_mode == Constants.GameMode.Online)
-            {
-                var myFishTrigger = new EventTrigger.Entry();
-                myFishTrigger.callback.AddListener(delegate
-                {
-                    switch (_selectStatus)
-                    {
-                        case SelectStatus.DoAssertion:
-                            break;
-                        case SelectStatus.WaitAssertion:
-                            break;
-                        case SelectStatus.SelectMyFish:
-                            _myFishSelected = _myFishSelected == j ? -1 : j;
-                            break;
-                        case SelectStatus.SelectEnemyFish:
-                            _myFishSelectedAsTarget[j] = !_myFishSelectedAsTarget[j];
-                            break;
-                        case SelectStatus.WaitingAnimation:
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                });
-                myFish.GetComponent<EventTrigger>().triggers.Add(myFishTrigger);
-            }
-            _myFishTransforms.Add(myFish);
-            _myFishRenderers.Add(myFish.GetComponentInChildren<Renderer>());
-            _myFishParticleSystems.Add(myFish.GetComponentInChildren<ParticleSystem>());
-
-            var myQuestion = Instantiate(questionPrefab, allFishRoot);
-            myQuestion.localPosition = FishRelativePosition(false, i) + new Vector3(0, 4, 0);
-            myQuestion.rotation =
-                Quaternion.Euler(new Vector3(0, -Convert.ToInt32(Math.Atan(3.0 * (i + 1) / (17 - i))), 0));
-            _myQuestions.Add(myQuestion);
-
-            var enemyFish = Instantiate(PrefabRefs.FishPrefabs[_enemyFishId[i]], allFishRoot);
-            enemyFish.localPosition = FishRelativePosition(true, i);
-            enemyFish.localScale = _small;
-            enemyFish.rotation = Quaternion.Euler(new Vector3(0, 260, 0));
-            if (_mode == Constants.GameMode.Online)
-            {
-                var enemyFishTrigger = new EventTrigger.Entry();
-                enemyFishTrigger.callback.AddListener(delegate
-                {
-                    switch (_selectStatus)
-                    {
-                        case SelectStatus.DoAssertion:
-                            _assertion = _assertion == j ? -1 : j;
-                            break;
-                        case SelectStatus.WaitAssertion:
-                            break;
-                        case SelectStatus.SelectMyFish:
-                            break;
-                        case SelectStatus.SelectEnemyFish:
-                            _enemyFishSelectedAsTarget[j] = !_enemyFishSelectedAsTarget[j];
-                            break;
-                        case SelectStatus.WaitingAnimation:
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                });
-                enemyFish.GetComponent<EventTrigger>().triggers.Add(enemyFishTrigger);
-            }
-            _enemyFishTransforms.Add(enemyFish);
-            _enemyFishRenderers.Add(enemyFish.GetComponentInChildren<Renderer>());
-            _enemyFishParticleSystems.Add(enemyFish.GetComponentInChildren<ParticleSystem>());
-
-            var enemyQuestion = Instantiate(questionPrefab, allFishRoot);
-            enemyQuestion.localPosition = FishRelativePosition(true, i) + new Vector3(0, 4, 0);
-            enemyQuestion.rotation =
-                Quaternion.Euler(new Vector3(0, Convert.ToInt32(Math.Atan(3.0 * (i + 1) / (17 - i))), 0));
-            _enemyQuestions.Add(enemyQuestion);
         }
 
         _dissolveShaderProperty = Shader.PropertyToID("_cutoff");
@@ -712,7 +734,7 @@ public class GameUI : MonoBehaviour
         while (_uiQueue.Count > 0)
             _uiQueue.Dequeue()();
 
-        if (_selectStatus != SelectStatus.WaitAssertion)
+        if (_initialized && _selectStatus != SelectStatus.WaitAssertion)
         {
             for (var i = 0; i < 4; i++)
             {
