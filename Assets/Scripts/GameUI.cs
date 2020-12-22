@@ -277,10 +277,9 @@ public class GameUI : MonoBehaviour
                 _myTurn = false;
                 _selectStatus = SelectStatus.DoAssertion;
                 _assertion = (int) (result["AssertPos"] ?? -1);
-                _uiQueue.Enqueue(ChangeStatus);
                 _assertionPlayer = 1;
                 _onlineAssertionHit = (bool) (result["AssertResult"] ?? false);
-                // do not know `_assertionTarget`
+                _assertionTarget = (int) (result["AssertContent"] ?? 0);
                 var guessFish = Instantiate(PrefabRefs.FishPrefabs[_assertionTarget], allFishRoot);
                 guessFish.localPosition =
                     FishRelativePosition(_assertionPlayer == 0, _assertion) + new Vector3(0, 6, 0);
@@ -289,6 +288,7 @@ public class GameUI : MonoBehaviour
                     Destroy(guessFish.gameObject);
                     ChangeStatus();
                 }, 2000);
+                _uiQueue.Enqueue(ChangeStatus);
             }
         }
         else
@@ -741,8 +741,9 @@ public class GameUI : MonoBehaviour
 
     private void Update()
     {
-        while (_uiQueue.Count > 0)
-            _uiQueue.Dequeue()();
+        if (_initialized)
+            while (_uiQueue.Count > 0)
+                _uiQueue.Dequeue()();
 
         if (_initialized && _selectStatus != SelectStatus.WaitAssertion)
         {
