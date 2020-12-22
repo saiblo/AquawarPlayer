@@ -51,7 +51,7 @@ public class GameUI : MonoBehaviour
     private int _dissolveShaderProperty;
     public AnimationCurve fadeIn;
 
-    private void Dissolve(Renderer meshRenderer, ParticleSystem ps)
+    private void Dissolve(Renderer meshRenderer, ParticleSystem ps, Component fish, Component question)
     {
         meshRenderer.material = dissolveEffect;
         ps.Play();
@@ -72,7 +72,11 @@ public class GameUI : MonoBehaviour
             {
                 // ReSharper disable once AccessToModifiedClosure
                 timer?.Dispose();
-                // Destroy(meshRenderer.gameObject);
+                _uiQueue.Enqueue(() =>
+                {
+                    if (fish != null) Destroy(fish.gameObject);
+                    if (question != null) Destroy(question.gameObject);
+                });
             }
             internalTick++;
         }, null, 0, 10);
@@ -214,6 +218,12 @@ public class GameUI : MonoBehaviour
     private readonly bool[] _myFishSelectedAsTarget = {false, false, false, false};
     private readonly bool[] _enemyFishSelectedAsTarget = {false, false, false, false};
 
+    private readonly bool[] _myFishAlive = {true, true, true, true};
+    private readonly bool[] _enemyFishAlive = {true, true, true, true};
+
+    private readonly bool[] _myFishExpose = {false, false, false, false};
+    private readonly bool[] _enemyFishExpose = {false, false, false, false};
+
     private readonly List<Slider> _myStatus = new List<Slider>();
     private readonly List<Slider> _enemyStatus = new List<Slider>();
 
@@ -251,11 +261,7 @@ public class GameUI : MonoBehaviour
         {
             if (!_initialized) return;
             for (var i = 0; i < 4; i++)
-            {
                 _myFishSelectedAsTarget[i] = _enemyFishSelectedAsTarget[i] = false;
-                _myFishTransforms[i].rotation = Quaternion.Euler(new Vector3(0, 100, 0));
-                _enemyFishTransforms[i].rotation = Quaternion.Euler(new Vector3(0, 260, 0));
-            }
         });
         if (_mode == Constants.GameMode.Online)
         {
@@ -386,10 +392,27 @@ public class GameUI : MonoBehaviour
                     {
                         if ((float) players[0]["fight_fish"][i]["hp"] <= 0 &&
                             (float) _replay[PlayerPrefs.GetInt("cursor") - 2]["players"][0]["fight_fish"][i]["hp"] > 0)
-                            Dissolve(_myFishRenderers[i], _myFishParticleSystems[i]);
+                        {
+                            _myFishAlive[i] = false;
+                            Dissolve(
+                                _myFishRenderers[i],
+                                _myFishParticleSystems[i],
+                                _myFishTransforms[i],
+                                _myQuestions[i]
+                            );
+                        }
+                        // ReSharper disable once InvertIf
                         if ((float) players[1]["fight_fish"][i]["hp"] <= 0 &&
                             (float) _replay[PlayerPrefs.GetInt("cursor") - 2]["players"][1]["fight_fish"][i]["hp"] > 0)
-                            Dissolve(_enemyFishRenderers[i], _enemyFishParticleSystems[i]);
+                        {
+                            _enemyFishAlive[i] = false;
+                            Dissolve(
+                                _enemyFishRenderers[i],
+                                _enemyFishParticleSystems[i],
+                                _enemyFishTransforms[i],
+                                _enemyQuestions[i]
+                            );
+                        }
                     }
                     DisplayHp(players);
                     SetTimeout(ProcessOffline, 3000);
@@ -429,12 +452,14 @@ public class GameUI : MonoBehaviour
                         (_assertionPlayer == 1 ? _myFishId : _enemyFishId)[_assertion]
                         || _mode == Constants.GameMode.Online && _onlineAssertionHit;
                     if (hit)
-                        Destroy((_assertionPlayer == 1 ? _myQuestions : _enemyQuestions)[_assertion].gameObject);
-                    for (var i = 0; i < 4; i++)
                     {
-                        Instantiate(explodePrefab, allFishRoot).localPosition =
-                            FishRelativePosition((_assertionPlayer == 1) ^ hit, i);
+                        Destroy((_assertionPlayer == 1 ? _myQuestions : _enemyQuestions)[_assertion].gameObject);
+                        (_assertionPlayer == 1 ? _myFishExpose : _enemyFishExpose)[_assertion] = true;
                     }
+                    for (var i = 0; i < 4; i++)
+                        if (((_assertionPlayer == 1) ^ hit ? _enemyFishAlive : _myFishAlive)[i])
+                            Instantiate(explodePrefab, allFishRoot).localPosition =
+                                FishRelativePosition((_assertionPlayer == 1) ^ hit, i);
                     SetTimeout(async () =>
                     {
                         _assertion = -1;
@@ -749,19 +774,26 @@ public class GameUI : MonoBehaviour
         {
             for (var i = 0; i < 4; i++)
             {
-                if (_myFishSelectedAsTarget[i])
-                    _myFishTransforms[i].localScale = _large;
-                else if (_myFishSelected == i)
-                    _myFishTransforms[i].localScale = _large;
-                else
-                    _myFishTransforms[i].localScale = _small;
+                if (_myFishAlive[i])
+                {
+                    if (_myFishSelectedAsTarget[i])
+                        _myFishTransforms[i].localScale = _large;
+                    else if (_myFishSelected == i)
+                        _myFishTransforms[i].localScale = _large;
+                    else
+                        _myFishTransforms[i].localScale = _small;
+                }
 
-                if (_enemyFishSelectedAsTarget[i])
-                    _enemyFishTransforms[i].localScale = _large;
-                else if (_enemyFishSelected == i)
-                    _enemyFishTransforms[i].localScale = _large;
-                else
-                    _enemyFishTransforms[i].localScale = _small;
+                // ReSharper disable once InvertIf
+                if (_enemyFishAlive[i])
+                {
+                    if (_enemyFishSelectedAsTarget[i])
+                        _enemyFishTransforms[i].localScale = _large;
+                    else if (_enemyFishSelected == i)
+                        _enemyFishTransforms[i].localScale = _large;
+                    else
+                        _enemyFishTransforms[i].localScale = _small;
+                }
             }
         }
 
