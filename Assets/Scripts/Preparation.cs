@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using LitJson;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -50,20 +49,9 @@ public class Preparation : MonoBehaviour
 
     private Constants.GameMode _mode;
 
-    private JsonData _replay;
-
     private void Awake()
     {
-        var replayStr = PlayerPrefs.GetString("replay");
-        if (replayStr.Length > 0)
-        {
-            _replay = JsonMapper.ToObject(replayStr);
-            _mode = Constants.GameMode.Offline;
-        }
-        else
-        {
-            _mode = Constants.GameMode.Online;
-        }
+        _mode = SharedRefs.ReplayJson == null ? Constants.GameMode.Online : Constants.GameMode.Offline;
         for (var i = 0; i < Constants.FishNum; i++)
         {
             _entranceSpeedX.Add(_random.Next(-4, 5));
@@ -74,7 +62,7 @@ public class Preparation : MonoBehaviour
             for (var j = 0; j < 4; j++)
             {
                 var id = i * 4 + j;
-                _fishTransforms[id] = Instantiate(PrefabRefs.FishPrefabs[id], allFishRoot);
+                _fishTransforms[id] = Instantiate(SharedRefs.FishPrefabs[id], allFishRoot);
                 _fishTransforms[id].rotation = Quaternion.Euler(new Vector3(0, 180, 0));
                 _targetPositions[id] = new Vector3(j * 4 - 6, -i * 3);
                 _fishEventTriggers[id] = _fishTransforms[id].GetComponent<EventTrigger>();
@@ -145,12 +133,13 @@ public class Preparation : MonoBehaviour
                 _animationPlayed = true;
                 if (_mode == Constants.GameMode.Offline)
                 {
-                    var currentCursor = PlayerPrefs.GetInt("cursor", 0);
                     _availableFish.Clear();
-                    var remainingFish = _replay[currentCursor == 0 ? 1 : currentCursor - 1]["players"][0]["my_fish"];
+                    var remainingFish =
+                        SharedRefs.ReplayJson[SharedRefs.ReplayCursor == 0 ? 1 : SharedRefs.ReplayCursor - 1]["players"]
+                            [0]["my_fish"];
                     for (var i = 0; i < remainingFish.Count; i++)
                         _availableFish.Add((int) remainingFish[i]["id"] - 1);
-                    if (currentCursor == 0) PlayerPrefs.SetInt("cursor", 1);
+                    if (SharedRefs.ReplayCursor == 0) SharedRefs.ReplayCursor = 1;
                 }
                 else
                 {

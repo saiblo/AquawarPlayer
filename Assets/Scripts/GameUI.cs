@@ -39,8 +39,6 @@ public class GameUI : MonoBehaviour
 
     private Constants.GameMode _mode;
 
-    private JsonData _replay;
-
     public Transform questionPrefab;
 
     private readonly List<Transform> _myQuestions = new List<Transform>();
@@ -91,7 +89,7 @@ public class GameUI : MonoBehaviour
         var fishTransform = Instantiate(
             _mode == Constants.GameMode.Online && enemy && !_enemyFishExpose[j]
                 ? unkFishPrefab
-                : PrefabRefs.FishPrefabs[(enemy ? _enemyFishId : _myFishId)[j]],
+                : SharedRefs.FishPrefabs[(enemy ? _enemyFishId : _myFishId)[j]],
             allFishRoot);
         fishTransform.localPosition = FishRelativePosition(enemy, j);
         fishTransform.localScale = _small;
@@ -275,7 +273,7 @@ public class GameUI : MonoBehaviour
                 // _assertionTarget = (int) (result["AssertContent"] ?? 0);
                 _uiQueue.Enqueue(() =>
                 {
-                    var guessFish = Instantiate(PrefabRefs.FishPrefabs[_assertionTarget], allFishRoot);
+                    var guessFish = Instantiate(SharedRefs.FishPrefabs[_assertionTarget], allFishRoot);
                     guessFish.localPosition =
                         FishRelativePosition(_assertionPlayer == 0, _assertion) + new Vector3(0, 6, 0);
                     SetTimeout(() =>
@@ -295,7 +293,7 @@ public class GameUI : MonoBehaviour
 
     private void ProcessOffline()
     {
-        var state = _replay[PlayerPrefs.GetInt("cursor")];
+        var state = SharedRefs.ReplayJson[SharedRefs.ReplayCursor];
         switch ((int) state["gamestate"])
         {
             case 2:
@@ -303,14 +301,14 @@ public class GameUI : MonoBehaviour
                 break;
             case 3:
             {
-                PlayerPrefs.SetInt("cursor", PlayerPrefs.GetInt("cursor") + 1);
+                SharedRefs.ReplayCursor++;
                 var operation = state["operation"][0];
                 if ((string) operation["Action"] == "Assert")
                 {
                     _assertionPlayer = (int) operation["ID"];
                     _assertion = (int) operation["Pos"];
                     _assertionTarget = (int) operation["id"] - 1;
-                    var guessFish = Instantiate(PrefabRefs.FishPrefabs[_assertionTarget], allFishRoot);
+                    var guessFish = Instantiate(SharedRefs.FishPrefabs[_assertionTarget], allFishRoot);
                     guessFish.localPosition =
                         FishRelativePosition(_assertionPlayer == 0, _assertion) + new Vector3(0, 6, 0);
                     SetTimeout(() =>
@@ -330,7 +328,7 @@ public class GameUI : MonoBehaviour
             }
             case 4:
             {
-                PlayerPrefs.SetInt("cursor", PlayerPrefs.GetInt("cursor") + 1);
+                SharedRefs.ReplayCursor++;
                 var operation = state["operation"][0];
                 if ((string) operation["Action"] == "Action")
                 {
@@ -375,13 +373,14 @@ public class GameUI : MonoBehaviour
                         ChangeStatus();
                     }
                 }
-                if (_replay[PlayerPrefs.GetInt("cursor")] != null)
+                if (SharedRefs.ReplayJson[SharedRefs.ReplayCursor] != null)
                 {
-                    var players = _replay[PlayerPrefs.GetInt("cursor")]["players"];
+                    var players = SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["players"];
+                    var lastPlayers = SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 2]["players"];
                     for (var i = 0; i < 4; i++)
                     {
                         if ((float) players[0]["fight_fish"][i]["hp"] <= 0 &&
-                            (float) _replay[PlayerPrefs.GetInt("cursor") - 2]["players"][0]["fight_fish"][i]["hp"] > 0)
+                            (float) lastPlayers[0]["fight_fish"][i]["hp"] > 0)
                         {
                             _myFishAlive[i] = false;
                             Dissolve(
@@ -393,7 +392,7 @@ public class GameUI : MonoBehaviour
                         }
                         // ReSharper disable once InvertIf
                         if ((float) players[1]["fight_fish"][i]["hp"] <= 0 &&
-                            (float) _replay[PlayerPrefs.GetInt("cursor") - 2]["players"][1]["fight_fish"][i]["hp"] > 0)
+                            (float) lastPlayers[1]["fight_fish"][i]["hp"] > 0)
                         {
                             _enemyFishAlive[i] = false;
                             Dissolve(
@@ -410,7 +409,7 @@ public class GameUI : MonoBehaviour
                 break;
             }
             default:
-                PlayerPrefs.SetInt("cursor", PlayerPrefs.GetInt("cursor") + 1);
+                SharedRefs.ReplayCursor++;
                 SetTimeout(ProcessOffline, 100);
                 break;
         }
@@ -709,34 +708,24 @@ public class GameUI : MonoBehaviour
 
     private void Awake()
     {
-        var replayStr = PlayerPrefs.GetString("replay");
-        if (replayStr.Length > 0)
+        if (SharedRefs.ReplayJson == null)
         {
-            _replay = JsonMapper.ToObject(replayStr);
+            _mode = Constants.GameMode.Online;
+        }
+        else
+        {
             _mode = Constants.GameMode.Offline;
-            var pickFish = _replay[PlayerPrefs.GetInt("cursor")]["operation"][0]["Fish"];
-            var next = _replay[PlayerPrefs.GetInt("cursor") + 1];
+            var pickFish = SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["operation"][0]["Fish"];
+            var next = SharedRefs.ReplayJson[SharedRefs.ReplayCursor + 1];
             for (var i = 0; i < 4; i++)
             {
                 _myFishId[i] = (int) pickFish[0][i]["id"] - 1;
                 _enemyFishId[i] = (int) pickFish[1][i]["id"] - 1;
-                if (_myFishId[i] > 11)
-                {
-                    _myFishId[i] = 11;
-                }
-                if (_enemyFishId[i] > 11)
-                {
-                    _enemyFishId[i] = 11;
-                }
                 _myFishFullHp[i] = (int) next["players"][0]["fight_fish"][i]["hp"];
                 _enemyFishFullHp[i] = (int) next["players"][1]["fight_fish"][i]["hp"];
             }
             InitFishAndQuestion();
-            PlayerPrefs.SetInt("cursor", PlayerPrefs.GetInt("cursor") + 1);
-        }
-        else
-        {
-            _mode = Constants.GameMode.Online;
+            SharedRefs.ReplayCursor++;
         }
         for (var i = 0; i < 4; i++)
         {

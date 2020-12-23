@@ -37,11 +37,9 @@ public class Welcome : MonoBehaviour
 
     private void Awake()
     {
-        PlayerPrefs.SetString("replay", "");
-        PlayerPrefs.SetInt("cursor", 0);
         Screen.SetResolution(1920, 1080, true);
         for (var i = 0; i < Constants.FishNum; i++)
-            PrefabRefs.FishPrefabs[i] = fishPrefabSamples[i];
+            SharedRefs.FishPrefabs[i] = fishPrefabSamples[i];
         _bubbleOpenFileOriginalPos = bubbleOpenFile.localPosition;
         _bubbleConnectOriginalPos = bubbleConnect.localPosition;
         _initialTime = DateTime.Now;
@@ -67,11 +65,11 @@ public class Welcome : MonoBehaviour
                                     replaySb.Append('\n');
                                 }
                                 var replay = replaySb.ToString();
-                                if (JsonMapper.ToObject(replay).IsArray)
+                                var replayJson = JsonMapper.ToObject(replaySb.ToString());
+                                if (replayJson.IsArray)
                                 {
-                                    PlayerPrefs.SetString("replay", replay);
-                                    PlayerPrefs.SetInt("cursor", 0);
-                                    SceneManager.LoadScene("Scenes/Preparation");
+                                    SharedRefs.ReplayCursor = 0;
+                                    SharedRefs.ReplayJson = replayJson;
                                 }
                                 else
                                 {
