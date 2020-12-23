@@ -413,6 +413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb16c82df9549b143bab43f7dfc2a736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unkFishPrefab: {fileID: 400012, guid: 1376d8317dcb8c04683783fce0b7de9a, type: 3}
   statusBarPrefab: {fileID: 7436594424736310076, guid: a7c45802fd095254486178d8b61113e6, type: 3}
   allFishRoot: {fileID: 735424222}
   myStatusRoot: {fileID: 842206341}

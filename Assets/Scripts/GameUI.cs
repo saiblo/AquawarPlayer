@@ -17,6 +17,8 @@ public class GameUI : MonoBehaviour
     private bool _myTurn = true;
     private bool _normalAttack = true;
 
+    public Transform unkFishPrefab;
+
     public Transform statusBarPrefab;
 
     public Transform allFishRoot;
@@ -86,7 +88,11 @@ public class GameUI : MonoBehaviour
 
     private Transform GenFish(bool enemy, int j)
     {
-        var fishTransform = Instantiate(PrefabRefs.FishPrefabs[(enemy ? _enemyFishId : _myFishId)[j]], allFishRoot);
+        var fishTransform = Instantiate(
+            _mode == Constants.GameMode.Online && enemy && !_enemyFishExpose[j]
+                ? unkFishPrefab
+                : PrefabRefs.FishPrefabs[(enemy ? _enemyFishId : _myFishId)[j]],
+            allFishRoot);
         fishTransform.localPosition = FishRelativePosition(enemy, j);
         fishTransform.localScale = _small;
         fishTransform.rotation = Quaternion.Euler(new Vector3(0, enemy ? 260 : 100, 0));
@@ -439,7 +445,13 @@ public class GameUI : MonoBehaviour
                     {
                         Destroy((_assertionPlayer == 1 ? _myQuestions : _enemyQuestions)[_assertion].gameObject);
                         (_assertionPlayer == 1 ? _myFishExpose : _enemyFishExpose)[_assertion] = true;
-                        // Destroy((_assertionPlayer == 1 ? _myFishTransforms : _enemyFishTransforms)[_assertion].gameObject);
+                        if (_mode == Constants.GameMode.Online)
+                        {
+                            (_assertionPlayer == 1 ? _myFishId : _enemyFishId)[_assertion] = _assertionTarget;
+                            Destroy((_assertionPlayer == 1 ? _myFishTransforms : _enemyFishTransforms)
+                                [_assertion].gameObject);
+                            GenFish(_assertionPlayer == 0, _assertion);
+                        }
                     }
                     for (var i = 0; i < 4; i++)
                         if (((_assertionPlayer == 1) ^ hit ? _enemyFishAlive : _myFishAlive)[i])
