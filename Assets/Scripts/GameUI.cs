@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using LitJson;
 using UnityEngine;
@@ -14,38 +13,28 @@ public class GameUI : GameBridge
 
     private readonly GameObjectManager _gom;
 
+    // Dissolve effect
+
     private int _dissolveShaderProperty;
 
     private void Dissolve(Renderer meshRenderer, ParticleSystem ps, Component fish, Component question)
     {
         meshRenderer.material = dissolveEffect;
         ps.Play();
-        Timer timer = null;
-        var internalTick = 0;
-        timer = new Timer(state =>
-        {
-            if (internalTick <= 300)
+        Repeat(cnt =>
             {
-                RunOnUiThread(() =>
-                {
-                    meshRenderer.material.SetFloat(_dissolveShaderProperty,
-                        // ReSharper disable once AccessToModifiedClosure
-                        fadeIn.Evaluate(Mathf.InverseLerp(0, 3, internalTick / 100f)));
-                });
-            }
-            else
+                meshRenderer.material.SetFloat(_dissolveShaderProperty,
+                    fadeIn.Evaluate(Mathf.InverseLerp(0, 3, cnt / 100f)));
+            },
+            () =>
             {
-                // ReSharper disable once AccessToModifiedClosure
-                timer?.Dispose();
-                RunOnUiThread(() =>
-                {
-                    if (fish != null) Destroy(fish.gameObject);
-                    if (question != null) Destroy(question.gameObject);
-                });
-            }
-            internalTick++;
-        }, null, 0, 10);
+                if (fish != null) Destroy(fish.gameObject);
+                if (question != null) Destroy(question.gameObject);
+            },
+            300, 0, 10);
     }
+
+    // UI related
 
     public void SwitchToNormal()
     {
@@ -408,17 +397,12 @@ public class GameUI : GameBridge
                     var distance =
                         GameObjectManager.FishRelativePosition(enemy, selected) -
                         GameObjectManager.FishRelativePosition(!enemy, target);
-                    for (var i = 0; i <= 80; i++)
+                    Repeat(cnt =>
                     {
-                        var id = i;
-                        SetTimeout(
-                            () =>
-                            {
-                                (enemy ? _gom.EnemyFishTransforms : _gom.MyFishTransforms)[selected].localPosition =
-                                    GameObjectManager.FishRelativePosition(!enemy, target) +
-                                    Math.Abs(id - 40f) / 40f * distance;
-                            }, i * 10);
-                    }
+                        (enemy ? _gom.EnemyFishTransforms : _gom.MyFishTransforms)[selected].localPosition =
+                            GameObjectManager.FishRelativePosition(!enemy, target) +
+                            Math.Abs(cnt - 40f) / 40f * distance;
+                    }, () => { }, 81, 0, 10);
                     _gameStates.PassiveList.Add(target);
                 }
                 else
@@ -498,17 +482,13 @@ public class GameUI : GameBridge
                                     var distance =
                                         GameObjectManager.FishRelativePosition(enemy, attacker) -
                                         GameObjectManager.FishRelativePosition(!enemy, target);
-                                    for (var j = 0; j <= 40; j++)
+                                    Repeat(cnt =>
                                     {
-                                        var id = j;
-                                        SetTimeout(() =>
-                                        {
-                                            (enemy ? _gom.EnemyFishTransforms : _gom.MyFishTransforms)[attacker]
-                                                .localPosition =
-                                                GameObjectManager.FishRelativePosition(!enemy, target) +
-                                                Math.Abs(id - 20f) / 20f * distance;
-                                        }, j * 10);
-                                    }
+                                        (enemy ? _gom.EnemyFishTransforms : _gom.MyFishTransforms)[attacker]
+                                            .localPosition =
+                                            GameObjectManager.FishRelativePosition(!enemy, target) +
+                                            Math.Abs(cnt - 20f) / 20f * distance;
+                                    }, () => { }, 41, 0, 10);
                                     SetTimeout(() =>
                                     {
                                         var targetExplode = Instantiate(explodePrefab, allFishRoot);

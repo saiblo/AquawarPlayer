@@ -9,14 +9,42 @@ public abstract class EnhancedMonoBehaviour : MonoBehaviour
 
     protected void SetTimeout(Action action, int timeout)
     {
-        Timer timer = null;
-        timer = new Timer(state =>
-            {
-                _uiQueue.Enqueue(action);
-                // ReSharper disable once AccessToModifiedClosure
-                timer?.Dispose();
-            }
-            , null, timeout, 0);
+        new Thread(() =>
+        {
+            var autoEvent = new AutoResetEvent(false);
+            var timer = new Timer(stateInfo =>
+                {
+                    _uiQueue.Enqueue(action);
+                    ((AutoResetEvent) stateInfo).Set();
+                }
+                , autoEvent, timeout, 0);
+            autoEvent.WaitOne();
+            timer.Dispose();
+        }).Start();
+    }
+
+    private TimerCallback Counter(int total, Action<int> repeatedAction)
+    {
+        var count = 0;
+        return stateInfo =>
+        {
+            var i = count;
+            ++count;
+            _uiQueue.Enqueue(() => { repeatedAction(i); });
+            if (count >= total) ((AutoResetEvent) stateInfo).Set();
+        };
+    }
+
+    protected void Repeat(Action<int> repeatedAction, Action cleanup, int totalTimes, int dueTime, int period)
+    {
+        new Thread(() =>
+        {
+            var autoEvent = new AutoResetEvent(false);
+            var timer = new Timer(Counter(totalTimes, repeatedAction), autoEvent, dueTime, period);
+            autoEvent.WaitOne();
+            timer.Dispose();
+            RunOnUiThread(cleanup);
+        }).Start();
     }
 
     protected void RunOnUiThread(Action action)

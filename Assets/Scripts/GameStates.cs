@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 
+/// <summary>
+///   <para>Records the transient states of the game.</para>
+/// </summary>
 public class GameStates
 {
     public readonly int[] MyFishId = {0, 0, 0, 0};

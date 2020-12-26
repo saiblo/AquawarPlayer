@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+/// <summary>
+///   <para>Manages the references and initializations of the game objects.</para>
+/// </summary>
 public class GameObjectManager
 {
     // Holds some necessary references
