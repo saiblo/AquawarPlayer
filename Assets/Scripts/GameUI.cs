@@ -276,8 +276,8 @@ public class GameUI : MonoBehaviour
                     {
                         Destroy(guessFish.gameObject);
                         ChangeStatus();
-                    }, 2000);
-                    ChangeStatus();
+                    }, 1200);
+                    SetTimeout(ChangeStatus, 3000);
                 });
             }
         }
@@ -424,7 +424,7 @@ public class GameUI : MonoBehaviour
                         await Client.GameClient.Send(new Null());
                     else
                         await Client.GameClient.Send(
-                            new Assert {Pos = _assertion, ID = Convert.ToInt32(assertion.text) + 1}
+                            new Assert {Pos = _assertion, ID = Convert.ToInt32(assertion.text)}
                         );
                     var reply = await Client.GameClient.Receive(); // ASSERT_REPLY
                     _assertionPlayer = 0;
