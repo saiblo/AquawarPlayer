@@ -538,20 +538,6 @@ public class GameUI : GameBridge
 
     private void Awake()
     {
-        if (SharedRefs.Mode == Constants.GameMode.Offline)
-        {
-            var pickFish = SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["operation"][0]["Fish"];
-            var next = SharedRefs.ReplayJson[SharedRefs.ReplayCursor + 1];
-            for (var i = 0; i < 4; i++)
-            {
-                _gameStates.MyFishId[i] = (int) pickFish[0][i]["id"] - 1;
-                _gameStates.EnemyFishId[i] = (int) pickFish[1][i]["id"] - 1;
-                _gameStates.MyFishFullHp[i] = (int) next["players"][0]["fight_fish"][i]["hp"];
-                _gameStates.EnemyFishFullHp[i] = (int) next["players"][1]["fight_fish"][i]["hp"];
-            }
-            _gom.Init(unkFishPrefab, allFishRoot);
-            SharedRefs.ReplayCursor++;
-        }
         for (var i = 0; i < 4; i++)
         {
             var myStatus = Instantiate(statusBarPrefab, myStatusRoot);
@@ -577,6 +563,15 @@ public class GameUI : GameBridge
 
         if (SharedRefs.Mode == Constants.GameMode.Offline)
         {
+            var pickFish = SharedRefs.ReplayJson[SharedRefs.ReplayCursor++]["operation"][0]["Fish"];
+            for (var i = 0; i < 4; i++)
+            {
+                _gameStates.MyFishId[i] = (int) pickFish[0][i]["id"] - 1;
+                _gameStates.EnemyFishId[i] = (int) pickFish[1][i]["id"] - 1;
+                _gameStates.MyFishFullHp[i] = (int) pickFish[0][i]["hp"];
+                _gameStates.EnemyFishFullHp[i] = (int) pickFish[1][i]["hp"];
+            }
+            _gom.Init(unkFishPrefab, allFishRoot);
             MoveCursor();
         }
         else
@@ -593,34 +588,26 @@ public class GameUI : GameBridge
             for (var i = 0; i < 4; i++)
             {
                 if (_gameStates.MyFishAlive[i])
-                {
-                    if (_gameStates.MyFishSelectedAsTarget[i])
-                        _gom.MyFishTransforms[i].localScale = _gom.Large;
-                    else if (_gameStates.MyFishSelected == i)
-                        _gom.MyFishTransforms[i].localScale = _gom.Large;
-                    else
-                        _gom.MyFishTransforms[i].localScale = _gom.Small;
-                }
+                    _gom.MyFishTransforms[i].localScale =
+                        _gameStates.MyFishSelectedAsTarget[i] || _gameStates.MyFishSelected == i
+                            ? _gom.Large
+                            : _gom.Small;
 
-                // ReSharper disable once InvertIf
                 if (_gameStates.EnemyFishAlive[i])
-                {
-                    if (_gameStates.EnemyFishSelectedAsTarget[i])
-                        _gom.EnemyFishTransforms[i].localScale = _gom.Large;
-                    else if (_gameStates.EnemyFishSelected == i)
-                        _gom.EnemyFishTransforms[i].localScale = _gom.Large;
-                    else
-                        _gom.EnemyFishTransforms[i].localScale = _gom.Small;
-                }
+                    _gom.EnemyFishTransforms[i].localScale =
+                        _gameStates.EnemyFishSelectedAsTarget[i] || _gameStates.EnemyFishSelected == i
+                            ? _gom.Large
+                            : _gom.Small;
             }
         }
 
         changeStatusButton.interactable =
-            _gameStates.GameStatus == Constants.GameStatus.DoAssertion ||
-            _gameStates.GameStatus == Constants.GameStatus.SelectMyFish && _gameStates.MyFishSelected != -1 ||
-            _gameStates.GameStatus == Constants.GameStatus.SelectEnemyFish &&
-            (_gameStates.MyFishSelectedAsTarget.Any(b => b) ||
-             _gameStates.EnemyFishSelectedAsTarget.Any(b => b));
+            SharedRefs.Mode == Constants.GameMode.Online &&
+            (_gameStates.GameStatus == Constants.GameStatus.DoAssertion ||
+             _gameStates.GameStatus == Constants.GameStatus.SelectMyFish && _gameStates.MyFishSelected != -1 ||
+             _gameStates.GameStatus == Constants.GameStatus.SelectEnemyFish &&
+             (_gameStates.MyFishSelectedAsTarget.Any(b => b) ||
+              _gameStates.EnemyFishSelectedAsTarget.Any(b => b)));
 
         string title;
         switch (_gameStates.GameStatus)
