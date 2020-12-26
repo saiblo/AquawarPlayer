@@ -17,10 +17,17 @@ public class GameUI : GameBridge
 
     private int _dissolveShaderProperty;
 
-    private void Dissolve(Renderer meshRenderer, ParticleSystem ps, Component fish, Component question)
+    private void Dissolve(bool enemy, int pos)
     {
+        if (enemy) _gameStates.EnemyFishAlive[pos] = false;
+        else _gameStates.MyFishAlive[pos] = false;
+
+        var meshRenderer = (enemy ? _gom.EnemyFishRenderers : _gom.MyFishRenderers)[pos];
+        var fish = (enemy ? _gom.EnemyFishTransforms : _gom.MyFishTransforms)[pos];
+        var question = (enemy ? _gom.EnemyQuestions : _gom.MyQuestions)[pos];
+        (enemy ? _gom.EnemyFishParticleSystems : _gom.MyFishParticleSystems)[pos].Play();
+
         meshRenderer.material = dissolveEffect;
-        ps.Play();
         Repeat(cnt =>
             {
                 meshRenderer.material.SetFloat(_dissolveShaderProperty,
@@ -53,6 +60,25 @@ public class GameUI : GameBridge
             _gom.MyStatus[i].value = (float) players[0]["fight_fish"][i]["hp"] / _gameStates.MyFishFullHp[i];
             _gom.EnemyStatus[i].value = (float) players[1]["fight_fish"][i]["hp"] / _gameStates.EnemyFishFullHp[i];
         }
+    }
+
+    /// <summary>
+    ///   <para>Currently shows a fish on the top of the asserted fish.</para>
+    /// </summary>
+    /// <param name="enemy">Whether the fish is shown on the enemy side</param>
+    /// <param name="timeout">How long the fish will be shown</param>
+    private void MakeAGuess(bool enemy, int timeout)
+    {
+        var guessFish = Instantiate(
+            SharedRefs.FishPrefabs[_gameStates.AssertionTarget],
+            GameObjectManager.FishRelativePosition(enemy, _gameStates.Assertion) + new Vector3(0, 6, 0),
+            Quaternion.Euler(new Vector3(0, 180, 0)),
+            allFishRoot);
+        SetTimeout(() =>
+        {
+            Destroy(guessFish.gameObject);
+            ChangeStatus();
+        }, timeout);
     }
 
     /// <summary>
@@ -105,32 +131,25 @@ public class GameUI : GameBridge
             _gameStates.Assertion = (int) result["AssertPos"];
             _gameStates.OnlineAssertionHit = (bool) result["AssertResult"];
             // _gameStates.AssertionTarget = (int) result["AssertContent"];
-            RunOnUiThread(() =>
-            {
-                var guessFish = Instantiate(
-                    SharedRefs.FishPrefabs[_gameStates.AssertionTarget],
-                    GameObjectManager.FishRelativePosition(false, _gameStates.Assertion) + new Vector3(0, 6, 0),
-                    Quaternion.Euler(new Vector3(0, 180, 0)),
-                    allFishRoot);
-                SetTimeout(() =>
-                {
-                    Destroy(guessFish.gameObject);
-                    ChangeStatus(); // As if the enemy have decided which fish to assert
-                }, 1200);
-            });
+            RunOnUiThread(() => { MakeAGuess(false, 1200); });
             SetTimeout(ChangeStatus, 3000); // Just waits for the assertion animation to finish
         }
     }
 
-    private void ProcessOffline()
+    /// <summary>
+    ///   <remarks>OFFLINE ONLY!</remarks>
+    ///   <para>The method basically reads one record of replay data, handles
+    /// it and increment the cursor by one.</para>
+    /// </summary>
+    private void MoveCursor()
     {
         var state = SharedRefs.ReplayJson[SharedRefs.ReplayCursor];
         switch ((int) state["gamestate"])
         {
-            case 2:
+            case 2: // Current round is over, go back to preparation
                 SceneManager.LoadScene("Scenes/Preparation");
                 break;
-            case 3:
+            case 3: // Process Assertion
             {
                 SharedRefs.ReplayCursor++;
                 var operation = state["operation"][0];
@@ -139,73 +158,49 @@ public class GameUI : GameBridge
                     _gameStates.AssertionPlayer = (int) operation["ID"];
                     _gameStates.Assertion = (int) operation["Pos"];
                     _gameStates.AssertionTarget = (int) operation["id"] - 1;
-                    var guessFish = Instantiate(SharedRefs.FishPrefabs[_gameStates.AssertionTarget], allFishRoot);
-                    guessFish.localPosition = GameObjectManager.FishRelativePosition(
-                        _gameStates.AssertionPlayer == 0,
-                        _gameStates.Assertion
-                    ) + new Vector3(0, 6, 0);
-                    SetTimeout(() =>
-                    {
-                        Destroy(guessFish.gameObject);
-                        ChangeStatus();
-                    }, 2000);
+                    MakeAGuess(_gameStates.AssertionPlayer == 0, 2000);
                 }
                 else
                 {
                     _gameStates.Assertion = -1;
                     ChangeStatus();
                     ChangeStatus();
-                    SetTimeout(ProcessOffline, 400);
+                    SetTimeout(MoveCursor, 400);
                 }
                 break;
             }
-            case 4:
+            case 4: // Process Action
             {
                 SharedRefs.ReplayCursor++;
                 var operation = state["operation"][0];
                 if ((string) operation["Action"] == "Action")
                 {
-                    if ((int) operation["ID"] == 0)
+                    // Set attacher
+                    var iAmAttacker = (int) operation["ID"] == 0;
+                    if (iAmAttacker) _gameStates.MyFishSelected = (int) operation["MyPos"];
+                    else _gameStates.EnemyFishSelected = (int) operation["MyPos"];
+                    ChangeStatus();
+
+                    // Set attackee
+                    var enemyListRef = iAmAttacker
+                        ? _gameStates.EnemyFishSelectedAsTarget
+                        : _gameStates.MyFishSelectedAsTarget;
+                    if (operation.ContainsKey("EnemyPos"))
                     {
-                        _gameStates.MyFishSelected = (int) operation["MyPos"];
-                        ChangeStatus();
-                        if (operation.ContainsKey("EnemyPos"))
-                        {
-                            _gameStates.EnemyFishSelectedAsTarget[(int) operation["EnemyPos"]] = true;
-                            _gameStates.NormalAttack = true;
-                        }
-                        else
-                        {
-                            var enemyList = operation["EnemyList"];
-                            for (var i = 0; i < enemyList.Count; i++)
-                            {
-                                _gameStates.EnemyFishSelectedAsTarget[(int) enemyList[i]] = true;
-                            }
-                            _gameStates.NormalAttack = false;
-                        }
-                        ChangeStatus();
+                        enemyListRef[(int) operation["EnemyPos"]] = true;
+                        _gameStates.NormalAttack = true;
                     }
                     else
                     {
-                        _gameStates.EnemyFishSelected = (int) operation["MyPos"];
-                        ChangeStatus();
-                        if (operation.ContainsKey("EnemyPos"))
-                        {
-                            _gameStates.MyFishSelectedAsTarget[(int) operation["EnemyPos"]] = true;
-                            _gameStates.NormalAttack = true;
-                        }
-                        else
-                        {
-                            var enemyList = operation["EnemyList"];
-                            for (var i = 0; i < enemyList.Count; i++)
-                            {
-                                _gameStates.MyFishSelectedAsTarget[(int) enemyList[i]] = true;
-                            }
-                            _gameStates.NormalAttack = false;
-                        }
-                        ChangeStatus();
+                        var enemyList = operation["EnemyList"];
+                        for (var i = 0; i < enemyList.Count; i++)
+                            enemyListRef[(int) enemyList[i]] = true;
+                        _gameStates.NormalAttack = false;
                     }
+                    ChangeStatus();
                 }
+
+                // Process hp and death
                 if (SharedRefs.ReplayJson[SharedRefs.ReplayCursor] != null)
                 {
                     var players = SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["players"];
@@ -214,36 +209,19 @@ public class GameUI : GameBridge
                     {
                         if ((float) players[0]["fight_fish"][i]["hp"] <= 0 &&
                             (float) lastPlayers[0]["fight_fish"][i]["hp"] > 0)
-                        {
-                            _gameStates.MyFishAlive[i] = false;
-                            Dissolve(
-                                _gom.MyFishRenderers[i],
-                                _gom.MyFishParticleSystems[i],
-                                _gom.MyFishTransforms[i],
-                                _gom.MyQuestions[i]
-                            );
-                        }
-                        // ReSharper disable once InvertIf
+                            Dissolve(false, i);
                         if ((float) players[1]["fight_fish"][i]["hp"] <= 0 &&
                             (float) lastPlayers[1]["fight_fish"][i]["hp"] > 0)
-                        {
-                            _gameStates.EnemyFishAlive[i] = false;
-                            Dissolve(
-                                _gom.EnemyFishRenderers[i],
-                                _gom.EnemyFishParticleSystems[i],
-                                _gom.EnemyFishTransforms[i],
-                                _gom.EnemyQuestions[i]
-                            );
-                        }
+                            Dissolve(true, i);
                     }
                     DisplayHp(players);
-                    SetTimeout(ProcessOffline, 3000);
+                    SetTimeout(MoveCursor, 3000);
                 }
                 break;
             }
-            default:
+            default: // Something should be wrong
                 SharedRefs.ReplayCursor++;
-                SetTimeout(ProcessOffline, 100);
+                SetTimeout(MoveCursor, 100);
                 break;
         }
     }
@@ -307,7 +285,7 @@ public class GameUI : GameBridge
                         ChangeStatus();
                         if (SharedRefs.Mode == Constants.GameMode.Offline)
                         {
-                            ProcessOffline();
+                            MoveCursor();
                         }
                         else if (!_gameStates.MyTurn)
                         {
@@ -599,7 +577,7 @@ public class GameUI : GameBridge
 
         if (SharedRefs.Mode == Constants.GameMode.Offline)
         {
-            ProcessOffline();
+            MoveCursor();
         }
         else
         {
