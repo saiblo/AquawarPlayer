@@ -55,54 +55,70 @@ public class GameUI : GameBridge
         }
     }
 
-    private async void ReturnAssertion()
+    /// <summary>
+    ///   <para>First, resets the game states.<br/>
+    /// After that, for online mode, listens to message from remote
+    /// and determine what to show next; for offline mode, simply resets
+    /// <code>_gameStatus</code> to <code>DoAssertion</code>.</para>
+    /// </summary>
+    private async void NewRound()
     {
         _gameStates.MyFishSelected = -1;
         _gameStates.EnemyFishSelected = -1;
         for (var i = 0; i < 4; i++)
             _gameStates.MyFishSelectedAsTarget[i] = _gameStates.EnemyFishSelectedAsTarget[i] = false;
-        if (SharedRefs.Mode == Constants.GameMode.Online)
+
+        if (SharedRefs.Mode == Constants.GameMode.Offline)
+        {
+            _gameStates.GameStatus = Constants.GameStatus.DoAssertion;
+        }
+        else
         {
             var result = await Client.GameClient.Receive();
+            _gameStates.GameStatus = Constants.GameStatus.DoAssertion;
             for (var i = 0; i < 4; i++)
             {
                 _gameStates.MyFishId[i] = (int) result["MyFish"][i] - 1;
                 if ((int) result["EnemyFish"][i] > 0)
                     _gameStates.EnemyFishId[i] = (int) result["EnemyFish"][i] - 1;
             }
+
             if (!_gom.Initialized) RunOnUiThread(() => { _gom.Init(unkFishPrefab, allFishRoot); });
-            if ((string) result["Action"] == "Assert")
+
+            _gameStates.MyTurn = (string) result["Action"] == "Assert";
+            if (_gameStates.MyTurn) return;
+
+            _gameStates.AssertionPlayer = 1;
+            if (result["AssertPos"] == null)
             {
-                _gameStates.MyTurn = true;
-                _gameStates.GameStatus = Constants.GameStatus.DoAssertion;
-            }
-            else // ASSERT_REPLY
-            {
-                _gameStates.MyTurn = false;
-                _gameStates.GameStatus = Constants.GameStatus.DoAssertion;
-                _gameStates.Assertion = (int) (result["AssertPos"] ?? -1);
-                _gameStates.AssertionPlayer = 1;
-                _gameStates.OnlineAssertionHit = (bool) (result["AssertResult"] ?? false);
-                // _gameStates.AssertionTarget = (int) (result["AssertContent"] ?? 0);
+                _gameStates.Assertion = -1;
+                _gameStates.OnlineAssertionHit = false;
+                _gameStates.AssertionTarget = 0;
                 RunOnUiThread(() =>
                 {
-                    var guessFish = Instantiate(SharedRefs.FishPrefabs[_gameStates.AssertionTarget], allFishRoot);
-                    guessFish.localPosition = GameObjectManager.FishRelativePosition(
-                        _gameStates.AssertionPlayer == 0,
-                        _gameStates.Assertion
-                    ) + new Vector3(0, 6, 0);
-                    SetTimeout(() =>
-                    {
-                        Destroy(guessFish.gameObject);
-                        ChangeStatus();
-                    }, 1200);
-                    SetTimeout(ChangeStatus, 3000);
+                    ChangeStatus(); // Skips the next two stages
+                    ChangeStatus();
                 });
+                return;
             }
-        }
-        else
-        {
-            _gameStates.GameStatus = Constants.GameStatus.DoAssertion;
+
+            _gameStates.Assertion = (int) result["AssertPos"];
+            _gameStates.OnlineAssertionHit = (bool) result["AssertResult"];
+            // _gameStates.AssertionTarget = (int) result["AssertContent"];
+            RunOnUiThread(() =>
+            {
+                var guessFish = Instantiate(
+                    SharedRefs.FishPrefabs[_gameStates.AssertionTarget],
+                    GameObjectManager.FishRelativePosition(false, _gameStates.Assertion) + new Vector3(0, 6, 0),
+                    Quaternion.Euler(new Vector3(0, 180, 0)),
+                    allFishRoot);
+                SetTimeout(() =>
+                {
+                    Destroy(guessFish.gameObject);
+                    ChangeStatus(); // As if the enemy have decided which fish to assert
+                }, 1200);
+            });
+            SetTimeout(ChangeStatus, 3000); // Just waits for the assertion animation to finish
         }
     }
 
@@ -523,7 +539,7 @@ public class GameUI : GameBridge
                             break;
                     }
                 }
-                SetTimeout(ReturnAssertion, _gameStates.PassiveList.Count > 0 ? 1100 : 1000);
+                SetTimeout(NewRound, _gameStates.PassiveList.Count > 0 ? 1100 : 1000);
                 /* _gameStates.PassiveList.ForEach((id) =>
                 {
                     switch (id)
@@ -588,7 +604,7 @@ public class GameUI : GameBridge
         else
         {
             _gameStates.GameStatus = Constants.GameStatus.WaitingAnimation;
-            Task.Run(ReturnAssertion);
+            Task.Run(NewRound);
         }
     }
 
