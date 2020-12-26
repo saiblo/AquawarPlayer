@@ -170,7 +170,7 @@ public class Preparation : MonoBehaviour
             if (_mode == Constants.GameMode.Online)
             {
                 doneButton.interactable = _fishSelected.Count(b => b) == 4 &&
-                                          (!_fishSelected[11] || Convert.ToInt32(imitate.text) < 11);
+                                          (!_fishSelected[11] || Convert.ToInt32(imitate.text) < 12);
             }
             while (_uiQueue.Count > 0)
                 _uiQueue.Dequeue()();
