@@ -242,12 +242,8 @@ public class GameUI : MonoBehaviour
     {
         _myFishSelected = -1;
         _enemyFishSelected = -1;
-        _uiQueue.Enqueue(() =>
-        {
-            if (!_initialized) return;
-            for (var i = 0; i < 4; i++)
-                _myFishSelectedAsTarget[i] = _enemyFishSelectedAsTarget[i] = false;
-        });
+        for (var i = 0; i < 4; i++)
+            _myFishSelectedAsTarget[i] = _enemyFishSelectedAsTarget[i] = false;
         if (_mode == Constants.GameMode.Online)
         {
             var result = await Client.GameClient.Receive();
@@ -447,9 +443,9 @@ public class GameUI : MonoBehaviour
                         if (_mode == Constants.GameMode.Online)
                         {
                             (_assertionPlayer == 1 ? _myFishId : _enemyFishId)[_assertion] = _assertionTarget;
-                            Destroy((_assertionPlayer == 1 ? _myFishTransforms : _enemyFishTransforms)
-                                [_assertion].gameObject);
-                            GenFish(_assertionPlayer == 0, _assertion);
+                            var transforms = _assertionPlayer == 1 ? _myFishTransforms : _enemyFishTransforms;
+                            Destroy(transforms[_assertion].gameObject);
+                            transforms[_assertion] = GenFish(_assertionPlayer == 0, _assertion);
                         }
                     }
                     for (var i = 0; i < 4; i++)
@@ -544,6 +540,8 @@ public class GameUI : MonoBehaviour
                     {
                         _myFishSelected = -1;
                         _enemyFishSelected = -1;
+                        for (var i = 0; i < 4; i++)
+                            _myFishSelectedAsTarget[i] = _enemyFishSelectedAsTarget[i] = false;
                         _selectStatus = SelectStatus.SelectMyFish;
                         return;
                     }

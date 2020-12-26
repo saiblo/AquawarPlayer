@@ -64,7 +64,6 @@ public class Welcome : MonoBehaviour
                                     replaySb.Append(line);
                                     replaySb.Append('\n');
                                 }
-                                var replay = replaySb.ToString();
                                 var replayJson = JsonMapper.ToObject(replaySb.ToString());
                                 if (replayJson.IsArray)
                                 {
