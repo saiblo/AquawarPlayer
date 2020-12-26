@@ -69,6 +69,8 @@ public class Welcome : MonoBehaviour
                                 {
                                     SharedRefs.ReplayCursor = 0;
                                     SharedRefs.ReplayJson = replayJson;
+                                    SharedRefs.Mode = Constants.GameMode.Offline;
+                                    SceneManager.LoadScene("Scenes/Preparation");
                                 }
                                 else
                                 {

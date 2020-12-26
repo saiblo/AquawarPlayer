@@ -8,4 +8,6 @@ public static class SharedRefs
     public static int ReplayCursor = 0;
 
     public static JsonData ReplayJson = null;
+
+    public static Constants.GameMode Mode = Constants.GameMode.Online;
 }

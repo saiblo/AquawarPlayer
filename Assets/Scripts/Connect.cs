@@ -25,6 +25,7 @@ public class Connect : MonoBehaviour
             statusText.text = "连接成功，等待对手中……";
             await Client.GameClient.Receive(); // NOTICE
             await Client.GameClient.Send(new Ok());
+            SharedRefs.Mode = Constants.GameMode.Online;
             SceneManager.LoadScene("Scenes/Preparation");
         }
         catch (Exception)

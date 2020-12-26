@@ -9,7 +9,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameUI : MonoBehaviour
+public class GameUI : GameBridge
 {
     private readonly int[] _myFishId = {0, 0, 0, 0};
     private readonly int[] _enemyFishId = {0, 0, 0, 0};
@@ -17,39 +17,12 @@ public class GameUI : MonoBehaviour
     private bool _myTurn = true;
     private bool _normalAttack = true;
 
-    public Transform unkFishPrefab;
-
-    public Transform statusBarPrefab;
-
-    public Transform allFishRoot;
-    public Transform myStatusRoot;
-    public Transform enemyStatusRoot;
-
-    public InputField assertion;
-    public Image normalButton;
-    public Image skillButton;
-
-    public Button changeStatusButton;
-    public Text changeStatusPrompt;
-
     private readonly Vector3 _small = new Vector3(3, 3, 3);
     private readonly Vector3 _large = new Vector3(4, 4, 4);
-
-    private readonly Queue<Action> _uiQueue = new Queue<Action>();
-
-    private Constants.GameMode _mode;
-
-    public Transform questionPrefab;
 
     private readonly List<Transform> _myQuestions = new List<Transform>();
 
     private readonly List<Transform> _enemyQuestions = new List<Transform>();
-
-    public Transform waterProjectile;
-
-    public Material dissolveEffect;
-    private int _dissolveShaderProperty;
-    public AnimationCurve fadeIn;
 
     private void Dissolve(Renderer meshRenderer, ParticleSystem ps, Component fish, Component question)
     {
@@ -61,9 +34,9 @@ public class GameUI : MonoBehaviour
         {
             if (internalTick <= 300)
             {
-                _uiQueue.Enqueue(() =>
+                RunOnUiThread(() =>
                 {
-                    meshRenderer.material.SetFloat(_dissolveShaderProperty,
+                    meshRenderer.material.SetFloat(DissolveShaderProperty,
                         // ReSharper disable once AccessToModifiedClosure
                         fadeIn.Evaluate(Mathf.InverseLerp(0, 3, internalTick / 100f)));
                 });
@@ -72,7 +45,7 @@ public class GameUI : MonoBehaviour
             {
                 // ReSharper disable once AccessToModifiedClosure
                 timer?.Dispose();
-                _uiQueue.Enqueue(() =>
+                RunOnUiThread(() =>
                 {
                     if (fish != null) Destroy(fish.gameObject);
                     if (question != null) Destroy(question.gameObject);
@@ -87,14 +60,14 @@ public class GameUI : MonoBehaviour
     private Transform GenFish(bool enemy, int j)
     {
         var fishTransform = Instantiate(
-            _mode == Constants.GameMode.Online && enemy && !_enemyFishExpose[j]
+            SharedRefs.Mode == Constants.GameMode.Online && enemy && !_enemyFishExpose[j]
                 ? unkFishPrefab
                 : SharedRefs.FishPrefabs[(enemy ? _enemyFishId : _myFishId)[j]],
             allFishRoot);
         fishTransform.localPosition = FishRelativePosition(enemy, j);
         fishTransform.localScale = _small;
         fishTransform.rotation = Quaternion.Euler(new Vector3(0, enemy ? 260 : 100, 0));
-        if (_mode == Constants.GameMode.Offline) return fishTransform;
+        if (SharedRefs.Mode == Constants.GameMode.Offline) return fishTransform;
 
         var fishTrigger = new EventTrigger.Entry();
         fishTrigger.callback.AddListener(delegate
@@ -155,15 +128,6 @@ public class GameUI : MonoBehaviour
         _initialized = true;
     }
 
-    private enum SelectStatus
-    {
-        DoAssertion,
-        WaitAssertion,
-        SelectMyFish,
-        SelectEnemyFish,
-        WaitingAnimation
-    }
-
     private SelectStatus _selectStatus = SelectStatus.DoAssertion;
 
     private readonly List<Transform> _myFishTransforms = new List<Transform>();
@@ -212,23 +176,6 @@ public class GameUI : MonoBehaviour
     private readonly List<Slider> _myStatus = new List<Slider>();
     private readonly List<Slider> _enemyStatus = new List<Slider>();
 
-    public Transform explodePrefab;
-    public Transform bigExplosion;
-    public Transform recoverEffect;
-    public Transform shieldEffect;
-
-    private void SetTimeout(Action action, int timeout)
-    {
-        Timer timer = null;
-        timer = new Timer(state =>
-            {
-                _uiQueue.Enqueue(action);
-                // ReSharper disable once AccessToModifiedClosure
-                timer?.Dispose();
-            }
-            , null, timeout, 0);
-    }
-
     private void DisplayHp(JsonData players)
     {
         for (var i = 0; i < 4; i++)
@@ -244,7 +191,7 @@ public class GameUI : MonoBehaviour
         _enemyFishSelected = -1;
         for (var i = 0; i < 4; i++)
             _myFishSelectedAsTarget[i] = _enemyFishSelectedAsTarget[i] = false;
-        if (_mode == Constants.GameMode.Online)
+        if (SharedRefs.Mode == Constants.GameMode.Online)
         {
             var result = await Client.GameClient.Receive();
             for (var i = 0; i < 4; i++)
@@ -253,7 +200,7 @@ public class GameUI : MonoBehaviour
                 if ((int) result["EnemyFish"][i] > 0)
                     _enemyFishId[i] = (int) result["EnemyFish"][i] - 1;
             }
-            if (!_initialized) _uiQueue.Enqueue(InitFishAndQuestion);
+            if (!_initialized) RunOnUiThread(InitFishAndQuestion);
             if ((string) result["Action"] == "Assert")
             {
                 _myTurn = true;
@@ -267,7 +214,7 @@ public class GameUI : MonoBehaviour
                 _assertionPlayer = 1;
                 _onlineAssertionHit = (bool) (result["AssertResult"] ?? false);
                 // _assertionTarget = (int) (result["AssertContent"] ?? 0);
-                _uiQueue.Enqueue(() =>
+                RunOnUiThread(() =>
                 {
                     var guessFish = Instantiate(SharedRefs.FishPrefabs[_assertionTarget], allFishRoot);
                     guessFish.localPosition =
@@ -418,7 +365,7 @@ public class GameUI : MonoBehaviour
             case SelectStatus.DoAssertion:
             {
                 _selectStatus = SelectStatus.WaitAssertion;
-                if (_mode == Constants.GameMode.Online && _myTurn)
+                if (SharedRefs.Mode == Constants.GameMode.Online && _myTurn)
                 {
                     if (_assertion == -1)
                         await Client.GameClient.Send(new Null());
@@ -433,14 +380,14 @@ public class GameUI : MonoBehaviour
                 if (_assertion != -1)
                 {
                     var hit =
-                        _mode == Constants.GameMode.Offline && _assertionTarget ==
+                        SharedRefs.Mode == Constants.GameMode.Offline && _assertionTarget ==
                         (_assertionPlayer == 1 ? _myFishId : _enemyFishId)[_assertion]
-                        || _mode == Constants.GameMode.Online && _onlineAssertionHit;
+                        || SharedRefs.Mode == Constants.GameMode.Online && _onlineAssertionHit;
                     if (hit)
                     {
                         Destroy((_assertionPlayer == 1 ? _myQuestions : _enemyQuestions)[_assertion].gameObject);
                         (_assertionPlayer == 1 ? _myFishExpose : _enemyFishExpose)[_assertion] = true;
-                        if (_mode == Constants.GameMode.Online)
+                        if (SharedRefs.Mode == Constants.GameMode.Online)
                         {
                             (_assertionPlayer == 1 ? _myFishId : _enemyFishId)[_assertion] = _assertionTarget;
                             var transforms = _assertionPlayer == 1 ? _myFishTransforms : _enemyFishTransforms;
@@ -456,7 +403,7 @@ public class GameUI : MonoBehaviour
                     {
                         _assertion = -1;
                         ChangeStatus();
-                        if (_mode == Constants.GameMode.Offline)
+                        if (SharedRefs.Mode == Constants.GameMode.Offline)
                         {
                             ProcessOffline();
                         }
@@ -474,16 +421,16 @@ public class GameUI : MonoBehaviour
                 }
                 else
                 {
-                    _uiQueue.Enqueue(ChangeStatus);
+                    RunOnUiThread(ChangeStatus);
                 }
-                if (_mode == Constants.GameMode.Online)
+                if (SharedRefs.Mode == Constants.GameMode.Online)
                 {
                     await Client.GameClient.Send(new Ok());
                 }
                 break;
             }
             case SelectStatus.WaitAssertion:
-                if (_mode == Constants.GameMode.Online && _myTurn)
+                if (SharedRefs.Mode == Constants.GameMode.Online && _myTurn)
                 {
                     await Client.GameClient.Receive(); // ACTION
                 }
@@ -495,7 +442,7 @@ public class GameUI : MonoBehaviour
             case SelectStatus.SelectEnemyFish:
             {
                 _selectStatus = SelectStatus.WaitingAnimation;
-                if (_mode == Constants.GameMode.Online && _myTurn)
+                if (SharedRefs.Mode == Constants.GameMode.Online && _myTurn)
                 {
                     if (_normalAttack)
                     {
@@ -706,13 +653,8 @@ public class GameUI : MonoBehaviour
 
     private void Awake()
     {
-        if (SharedRefs.ReplayJson == null)
+        if (SharedRefs.Mode == Constants.GameMode.Offline)
         {
-            _mode = Constants.GameMode.Online;
-        }
-        else
-        {
-            _mode = Constants.GameMode.Offline;
             var pickFish = SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["operation"][0]["Fish"];
             var next = SharedRefs.ReplayJson[SharedRefs.ReplayCursor + 1];
             for (var i = 0; i < 4; i++)
@@ -735,9 +677,9 @@ public class GameUI : MonoBehaviour
             _enemyStatus.Add(enemyStatus.GetComponent<Slider>());
         }
 
-        _dissolveShaderProperty = Shader.PropertyToID("_cutoff");
+        DissolveShaderProperty = Shader.PropertyToID("_cutoff");
 
-        if (_mode == Constants.GameMode.Offline)
+        if (SharedRefs.Mode == Constants.GameMode.Offline)
         {
             ProcessOffline();
         }
@@ -748,11 +690,8 @@ public class GameUI : MonoBehaviour
         }
     }
 
-    private void Update()
+    protected override void RunPerFrame()
     {
-        while (_uiQueue.Count > 0)
-            _uiQueue.Dequeue()();
-
         if (_initialized && _selectStatus != SelectStatus.WaitAssertion)
         {
             for (var i = 0; i < 4; i++)

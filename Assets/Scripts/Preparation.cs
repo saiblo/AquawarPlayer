@@ -47,11 +47,8 @@ public class Preparation : MonoBehaviour
 
     public Button doneButton;
 
-    private Constants.GameMode _mode;
-
     private void Awake()
     {
-        _mode = SharedRefs.ReplayJson == null ? Constants.GameMode.Online : Constants.GameMode.Offline;
         for (var i = 0; i < Constants.FishNum; i++)
         {
             _entranceSpeedX.Add(_random.Next(-4, 5));
@@ -89,7 +86,7 @@ public class Preparation : MonoBehaviour
 
     public void ConfirmSelection()
     {
-        if (_mode == Constants.GameMode.Online)
+        if (SharedRefs.Mode == Constants.GameMode.Online)
         {
             var chooseFishs = new List<int>();
             for (var i = 0; i < Constants.FishNum; i++)
@@ -131,7 +128,7 @@ public class Preparation : MonoBehaviour
             if (timeDiff > EntranceDuration && !_animationPlayed)
             {
                 _animationPlayed = true;
-                if (_mode == Constants.GameMode.Offline)
+                if (SharedRefs.Mode == Constants.GameMode.Offline)
                 {
                     _availableFish.Clear();
                     var remainingFish =
@@ -159,7 +156,7 @@ public class Preparation : MonoBehaviour
                     banBubble.localPosition = _targetPositions[i];
                     banBubble.localScale = new Vector3(3, 3, 3);
                 }
-                if (_mode == Constants.GameMode.Offline)
+                if (SharedRefs.Mode == Constants.GameMode.Offline)
                     OfflineSelect();
                 else
                     ActivateFishTriggers();
@@ -167,7 +164,7 @@ public class Preparation : MonoBehaviour
         }
         else
         {
-            if (_mode == Constants.GameMode.Online)
+            if (SharedRefs.Mode == Constants.GameMode.Online)
             {
                 doneButton.interactable = _fishSelected.Count(b => b) == 4 &&
                                           (!_fishSelected[11] || Convert.ToInt32(imitate.text) < 12);
