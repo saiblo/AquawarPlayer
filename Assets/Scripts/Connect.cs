@@ -3,6 +3,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Utils;
 
 public class Connect : MonoBehaviour
 {
@@ -20,11 +21,11 @@ public class Connect : MonoBehaviour
         try
         {
             statusText.text = "连接中……";
-            Client.GameClient = new Client(tokenDecoded, tokenEncoded);
-            await Client.GameClient.Send();
+            SharedRefs.GameClient = new Client(tokenDecoded, tokenEncoded);
+            await SharedRefs.GameClient.Send();
             statusText.text = "连接成功，等待对手中……";
-            await Client.GameClient.Receive(); // NOTICE
-            await Client.GameClient.Send(new Ok());
+            await SharedRefs.GameClient.Receive(); // NOTICE
+            await SharedRefs.GameClient.Send(new Ok());
             SharedRefs.Mode = Constants.GameMode.Online;
             SceneManager.LoadScene("Scenes/Preparation");
         }

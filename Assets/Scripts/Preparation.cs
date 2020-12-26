@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameHelper;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Utils;
 using Random = System.Random;
 
 public class Preparation : EnhancedMonoBehaviour
@@ -86,7 +88,7 @@ public class Preparation : EnhancedMonoBehaviour
                 }
                 else
                 {
-                    var result = await Client.GameClient.Receive();
+                    var result = await SharedRefs.GameClient.Receive();
                     if ((string) result["Action"] == "Pick")
                     {
                         var remaining = result["RemainFishs"];
@@ -133,7 +135,7 @@ public class Preparation : EnhancedMonoBehaviour
             for (var i = 0; i < Constants.FishNum; i++)
                 if (_fishSelected[i])
                     chooseFishs.Add(i + 1);
-            Client.GameClient.Send(
+            SharedRefs.GameClient.Send(
                 _fishSelected[11]
                     ? new Pick {ChooseFishs = chooseFishs, ImitateFish = Convert.ToInt32(imitate.text)}
                     : new Pick {ChooseFishs = chooseFishs}

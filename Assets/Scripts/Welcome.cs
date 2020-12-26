@@ -5,6 +5,7 @@ using System.Text;
 using LitJson;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Utils;
 using Random = System.Random;
 
 public class Welcome : MonoBehaviour

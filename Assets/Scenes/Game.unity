@@ -415,16 +415,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unkFishPrefab: {fileID: 400012, guid: 1376d8317dcb8c04683783fce0b7de9a, type: 3}
   statusBarPrefab: {fileID: 7436594424736310076, guid: a7c45802fd095254486178d8b61113e6, type: 3}
-  allFishRoot: {fileID: 735424222}
-  myStatusRoot: {fileID: 842206341}
-  enemyStatusRoot: {fileID: 568479763}
-  assertion: {fileID: 472588764}
-  normalButton: {fileID: 596019419}
-  skillButton: {fileID: 1634124376}
-  changeStatusButton: {fileID: 563319908}
-  changeStatusPrompt: {fileID: 555925969}
   questionPrefab: {fileID: 1703798105641740424, guid: f567635d3fba1a143a2a663e7e4e4eee, type: 3}
   waterProjectile: {fileID: 4954839870579734, guid: f10d307d7517d034aa17196a92fa17eb, type: 3}
+  explodePrefab: {fileID: 4865135451303388, guid: 9bba9cf244c53c5439505dfc96fdd11c, type: 3}
+  bigExplosion: {fileID: 4388947112716342, guid: e1b08032bec16ba4eb1ae23cbd572664, type: 3}
+  recoverEffect: {fileID: 73997518336562243, guid: 3db5015adfb2b7e4cbfb05ffcec71881, type: 3}
+  shieldEffect: {fileID: 6127195766654070787, guid: ffa684c7615d4d74e85dafeb54f07d27, type: 3}
   dissolveEffect: {fileID: 2100000, guid: 8385f0e712bb65b428cf18e6ab1c29c6, type: 2}
   fadeIn:
     serializedVersion: 2
@@ -450,10 +446,14 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  explodePrefab: {fileID: 4865135451303388, guid: 9bba9cf244c53c5439505dfc96fdd11c, type: 3}
-  bigExplosion: {fileID: 4388947112716342, guid: e1b08032bec16ba4eb1ae23cbd572664, type: 3}
-  recoverEffect: {fileID: 73997518336562243, guid: 3db5015adfb2b7e4cbfb05ffcec71881, type: 3}
-  shieldEffect: {fileID: 6127195766654070787, guid: ffa684c7615d4d74e85dafeb54f07d27, type: 3}
+  allFishRoot: {fileID: 735424222}
+  myStatusRoot: {fileID: 842206341}
+  enemyStatusRoot: {fileID: 568479763}
+  assertion: {fileID: 472588764}
+  normalButton: {fileID: 596019419}
+  skillButton: {fileID: 1634124376}
+  changeStatusButton: {fileID: 563319908}
+  changeStatusPrompt: {fileID: 555925969}
 --- !u!114 &253739613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1520,7 +1520,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 253739612}
         m_TargetAssemblyTypeName: GameUI, Assembly-CSharp
-        m_MethodName: ChangeStatus
+        m_MethodName: DummyChangeStatus
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
