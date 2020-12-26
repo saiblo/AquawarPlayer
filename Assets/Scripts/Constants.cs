@@ -7,4 +7,14 @@
         Online,
         Offline
     }
+    
+    public enum GameStatus
+    {
+        DoAssertion,
+        WaitAssertion,
+        SelectMyFish,
+        SelectEnemyFish,
+        WaitingAnimation
+    }
+
 }

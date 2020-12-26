@@ -11,11 +11,7 @@ using UnityEngine.UI;
 
 public class GameUI : GameBridge
 {
-    private readonly int[] _myFishId = {0, 0, 0, 0};
-    private readonly int[] _enemyFishId = {0, 0, 0, 0};
-
-    private bool _myTurn = true;
-    private bool _normalAttack = true;
+    private readonly GameStates _gameStates = new GameStates();
 
     private readonly Vector3 _small = new Vector3(3, 3, 3);
     private readonly Vector3 _large = new Vector3(4, 4, 4);
@@ -23,6 +19,8 @@ public class GameUI : GameBridge
     private readonly List<Transform> _myQuestions = new List<Transform>();
 
     private readonly List<Transform> _enemyQuestions = new List<Transform>();
+
+    private int _dissolveShaderProperty;
 
     private void Dissolve(Renderer meshRenderer, ParticleSystem ps, Component fish, Component question)
     {
@@ -36,7 +34,7 @@ public class GameUI : GameBridge
             {
                 RunOnUiThread(() =>
                 {
-                    meshRenderer.material.SetFloat(DissolveShaderProperty,
+                    meshRenderer.material.SetFloat(_dissolveShaderProperty,
                         // ReSharper disable once AccessToModifiedClosure
                         fadeIn.Evaluate(Mathf.InverseLerp(0, 3, internalTick / 100f)));
                 });
@@ -62,7 +60,7 @@ public class GameUI : GameBridge
         var fishTransform = Instantiate(
             SharedRefs.Mode == Constants.GameMode.Online && enemy && !_enemyFishExpose[j]
                 ? unkFishPrefab
-                : SharedRefs.FishPrefabs[(enemy ? _enemyFishId : _myFishId)[j]],
+                : SharedRefs.FishPrefabs[(enemy ? _gameStates.EnemyFishId : _gameStates.MyFishId)[j]],
             allFishRoot);
         fishTransform.localPosition = FishRelativePosition(enemy, j);
         fishTransform.localScale = _small;
@@ -72,23 +70,23 @@ public class GameUI : GameBridge
         var fishTrigger = new EventTrigger.Entry();
         fishTrigger.callback.AddListener(delegate
         {
-            switch (_selectStatus)
+            switch (_gameStates.GameStatus)
             {
-                case SelectStatus.DoAssertion:
+                case Constants.GameStatus.DoAssertion:
                     if (enemy) _assertion = _assertion == j ? -1 : j;
                     break;
-                case SelectStatus.WaitAssertion:
+                case Constants.GameStatus.WaitAssertion:
                     break;
-                case SelectStatus.SelectMyFish:
-                    if (!enemy) _myFishSelected = _myFishSelected == j ? -1 : j;
+                case Constants.GameStatus.SelectMyFish:
+                    if (!enemy) _gameStates.MyFishSelected = _gameStates.MyFishSelected == j ? -1 : j;
                     break;
-                case SelectStatus.SelectEnemyFish:
+                case Constants.GameStatus.SelectEnemyFish:
                     if (enemy)
                         _enemyFishSelectedAsTarget[j] = !_enemyFishSelectedAsTarget[j];
                     else
                         _myFishSelectedAsTarget[j] = !_myFishSelectedAsTarget[j];
                     break;
-                case SelectStatus.WaitingAnimation:
+                case Constants.GameStatus.WaitingAnimation:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -102,33 +100,32 @@ public class GameUI : GameBridge
     {
         for (var i = 0; i < 4; i++)
         {
-            var j = i;
-            var myFish = GenFish(false, j);
+            var myFish = GenFish(false, i);
             _myFishTransforms.Add(myFish);
             _myFishRenderers.Add(myFish.GetComponentInChildren<Renderer>());
             _myFishParticleSystems.Add(myFish.GetComponentInChildren<ParticleSystem>());
 
-            var myQuestion = Instantiate(questionPrefab, allFishRoot);
-            myQuestion.localPosition = FishRelativePosition(false, i) + new Vector3(0, 4, 0);
-            myQuestion.rotation =
-                Quaternion.Euler(new Vector3(0, -Convert.ToInt32(Math.Atan(3.0 * (i + 1) / (17 - i))), 0));
-            _myQuestions.Add(myQuestion);
+            _myQuestions.Add(Instantiate(
+                questionPrefab,
+                FishRelativePosition(false, i) + new Vector3(0, 4, 0),
+                Quaternion.Euler(new Vector3(0, -Convert.ToInt32(Math.Atan(3.0 * (i + 1) / (17 - i))), 0)),
+                allFishRoot
+            ));
 
-            var enemyFish = GenFish(true, j);
+            var enemyFish = GenFish(true, i);
             _enemyFishTransforms.Add(enemyFish);
             _enemyFishRenderers.Add(enemyFish.GetComponentInChildren<Renderer>());
             _enemyFishParticleSystems.Add(enemyFish.GetComponentInChildren<ParticleSystem>());
 
-            var enemyQuestion = Instantiate(questionPrefab, allFishRoot);
-            enemyQuestion.localPosition = FishRelativePosition(true, i) + new Vector3(0, 4, 0);
-            enemyQuestion.rotation =
-                Quaternion.Euler(new Vector3(0, Convert.ToInt32(Math.Atan(3.0 * (i + 1) / (17 - i))), 0));
-            _enemyQuestions.Add(enemyQuestion);
+            _enemyQuestions.Add(Instantiate(
+                questionPrefab,
+                FishRelativePosition(true, i) + new Vector3(0, 4, 0),
+                Quaternion.Euler(new Vector3(0, Convert.ToInt32(Math.Atan(3.0 * (i + 1) / (17 - i))), 0)),
+                allFishRoot)
+            );
         }
         _initialized = true;
     }
-
-    private SelectStatus _selectStatus = SelectStatus.DoAssertion;
 
     private readonly List<Transform> _myFishTransforms = new List<Transform>();
     private readonly List<Transform> _enemyFishTransforms = new List<Transform>();
@@ -139,24 +136,17 @@ public class GameUI : GameBridge
     private readonly List<ParticleSystem> _myFishParticleSystems = new List<ParticleSystem>();
     private readonly List<ParticleSystem> _enemyFishParticleSystems = new List<ParticleSystem>();
 
-    private readonly int[] _myFishFullHp = {0, 0, 0, 0};
-    private readonly int[] _enemyFishFullHp = {0, 0, 0, 0};
-
     public void SwitchToNormal()
     {
-        _normalAttack = true;
+        _gameStates.NormalAttack = true;
     }
 
     public void SwitchToSkill()
     {
-        _normalAttack = false;
+        _gameStates.NormalAttack = false;
     }
 
     private readonly List<int> _passiveList = new List<int>();
-
-    private int _myFishSelected = -1;
-
-    private int _enemyFishSelected = -1;
 
     private int _assertion = -1;
     private int _assertionPlayer;
@@ -180,15 +170,15 @@ public class GameUI : GameBridge
     {
         for (var i = 0; i < 4; i++)
         {
-            _myStatus[i].value = (float) players[0]["fight_fish"][i]["hp"] / _myFishFullHp[i];
-            _enemyStatus[i].value = (float) players[1]["fight_fish"][i]["hp"] / _enemyFishFullHp[i];
+            _myStatus[i].value = (float) players[0]["fight_fish"][i]["hp"] / _gameStates.MyFishFullHp[i];
+            _enemyStatus[i].value = (float) players[1]["fight_fish"][i]["hp"] / _gameStates.EnemyFishFullHp[i];
         }
     }
 
     private async void ReturnAssertion()
     {
-        _myFishSelected = -1;
-        _enemyFishSelected = -1;
+        _gameStates.MyFishSelected = -1;
+        _gameStates.EnemyFishSelected = -1;
         for (var i = 0; i < 4; i++)
             _myFishSelectedAsTarget[i] = _enemyFishSelectedAsTarget[i] = false;
         if (SharedRefs.Mode == Constants.GameMode.Online)
@@ -196,20 +186,20 @@ public class GameUI : GameBridge
             var result = await Client.GameClient.Receive();
             for (var i = 0; i < 4; i++)
             {
-                _myFishId[i] = (int) result["MyFish"][i] - 1;
+                _gameStates.MyFishId[i] = (int) result["MyFish"][i] - 1;
                 if ((int) result["EnemyFish"][i] > 0)
-                    _enemyFishId[i] = (int) result["EnemyFish"][i] - 1;
+                    _gameStates.EnemyFishId[i] = (int) result["EnemyFish"][i] - 1;
             }
             if (!_initialized) RunOnUiThread(InitFishAndQuestion);
             if ((string) result["Action"] == "Assert")
             {
-                _myTurn = true;
-                _selectStatus = SelectStatus.DoAssertion;
+                _gameStates.MyTurn = true;
+                _gameStates.GameStatus = Constants.GameStatus.DoAssertion;
             }
             else // ASSERT_REPLY
             {
-                _myTurn = false;
-                _selectStatus = SelectStatus.DoAssertion;
+                _gameStates.MyTurn = false;
+                _gameStates.GameStatus = Constants.GameStatus.DoAssertion;
                 _assertion = (int) (result["AssertPos"] ?? -1);
                 _assertionPlayer = 1;
                 _onlineAssertionHit = (bool) (result["AssertResult"] ?? false);
@@ -230,7 +220,7 @@ public class GameUI : GameBridge
         }
         else
         {
-            _selectStatus = SelectStatus.DoAssertion;
+            _gameStates.GameStatus = Constants.GameStatus.DoAssertion;
         }
     }
 
@@ -277,12 +267,12 @@ public class GameUI : GameBridge
                 {
                     if ((int) operation["ID"] == 0)
                     {
-                        _myFishSelected = (int) operation["MyPos"];
+                        _gameStates.MyFishSelected = (int) operation["MyPos"];
                         ChangeStatus();
                         if (operation.ContainsKey("EnemyPos"))
                         {
                             _enemyFishSelectedAsTarget[(int) operation["EnemyPos"]] = true;
-                            _normalAttack = true;
+                            _gameStates.NormalAttack = true;
                         }
                         else
                         {
@@ -291,18 +281,18 @@ public class GameUI : GameBridge
                             {
                                 _enemyFishSelectedAsTarget[(int) enemyList[i]] = true;
                             }
-                            _normalAttack = false;
+                            _gameStates.NormalAttack = false;
                         }
                         ChangeStatus();
                     }
                     else
                     {
-                        _enemyFishSelected = (int) operation["MyPos"];
+                        _gameStates.EnemyFishSelected = (int) operation["MyPos"];
                         ChangeStatus();
                         if (operation.ContainsKey("EnemyPos"))
                         {
                             _myFishSelectedAsTarget[(int) operation["EnemyPos"]] = true;
-                            _normalAttack = true;
+                            _gameStates.NormalAttack = true;
                         }
                         else
                         {
@@ -311,7 +301,7 @@ public class GameUI : GameBridge
                             {
                                 _myFishSelectedAsTarget[(int) enemyList[i]] = true;
                             }
-                            _normalAttack = false;
+                            _gameStates.NormalAttack = false;
                         }
                         ChangeStatus();
                     }
@@ -360,12 +350,12 @@ public class GameUI : GameBridge
 
     private async void ChangeStatus()
     {
-        switch (_selectStatus)
+        switch (_gameStates.GameStatus)
         {
-            case SelectStatus.DoAssertion:
+            case Constants.GameStatus.DoAssertion:
             {
-                _selectStatus = SelectStatus.WaitAssertion;
-                if (SharedRefs.Mode == Constants.GameMode.Online && _myTurn)
+                _gameStates.GameStatus = Constants.GameStatus.WaitAssertion;
+                if (SharedRefs.Mode == Constants.GameMode.Online && _gameStates.MyTurn)
                 {
                     if (_assertion == -1)
                         await Client.GameClient.Send(new Null());
@@ -381,7 +371,7 @@ public class GameUI : GameBridge
                 {
                     var hit =
                         SharedRefs.Mode == Constants.GameMode.Offline && _assertionTarget ==
-                        (_assertionPlayer == 1 ? _myFishId : _enemyFishId)[_assertion]
+                        (_assertionPlayer == 1 ? _gameStates.MyFishId : _gameStates.EnemyFishId)[_assertion]
                         || SharedRefs.Mode == Constants.GameMode.Online && _onlineAssertionHit;
                     if (hit)
                     {
@@ -389,7 +379,8 @@ public class GameUI : GameBridge
                         (_assertionPlayer == 1 ? _myFishExpose : _enemyFishExpose)[_assertion] = true;
                         if (SharedRefs.Mode == Constants.GameMode.Online)
                         {
-                            (_assertionPlayer == 1 ? _myFishId : _enemyFishId)[_assertion] = _assertionTarget;
+                            (_assertionPlayer == 1 ? _gameStates.MyFishId : _gameStates.EnemyFishId)[_assertion] =
+                                _assertionTarget;
                             var transforms = _assertionPlayer == 1 ? _myFishTransforms : _enemyFishTransforms;
                             Destroy(transforms[_assertion].gameObject);
                             transforms[_assertion] = GenFish(_assertionPlayer == 0, _assertion);
@@ -407,12 +398,12 @@ public class GameUI : GameBridge
                         {
                             ProcessOffline();
                         }
-                        else if (!_myTurn)
+                        else if (!_gameStates.MyTurn)
                         {
                             await Client.GameClient.Receive(); // SUCCESS
                             await Client.GameClient.Send(new Ok());
-                            _enemyFishSelected = 0;
-                            _normalAttack = true;
+                            _gameStates.EnemyFishSelected = 0;
+                            _gameStates.NormalAttack = true;
                             _myFishSelectedAsTarget[0] = true;
                             ChangeStatus();
                             ChangeStatus();
@@ -429,22 +420,22 @@ public class GameUI : GameBridge
                 }
                 break;
             }
-            case SelectStatus.WaitAssertion:
-                if (SharedRefs.Mode == Constants.GameMode.Online && _myTurn)
+            case Constants.GameStatus.WaitAssertion:
+                if (SharedRefs.Mode == Constants.GameMode.Online && _gameStates.MyTurn)
                 {
                     await Client.GameClient.Receive(); // ACTION
                 }
-                _selectStatus = SelectStatus.SelectMyFish;
+                _gameStates.GameStatus = Constants.GameStatus.SelectMyFish;
                 break;
-            case SelectStatus.SelectMyFish:
-                _selectStatus = SelectStatus.SelectEnemyFish;
+            case Constants.GameStatus.SelectMyFish:
+                _gameStates.GameStatus = Constants.GameStatus.SelectEnemyFish;
                 break;
-            case SelectStatus.SelectEnemyFish:
+            case Constants.GameStatus.SelectEnemyFish:
             {
-                _selectStatus = SelectStatus.WaitingAnimation;
-                if (SharedRefs.Mode == Constants.GameMode.Online && _myTurn)
+                _gameStates.GameStatus = Constants.GameStatus.WaitingAnimation;
+                if (SharedRefs.Mode == Constants.GameMode.Online && _gameStates.MyTurn)
                 {
-                    if (_normalAttack)
+                    if (_gameStates.NormalAttack)
                     {
                         var enemyPos = 0;
                         for (var i = 0; i < 4; i++)
@@ -458,7 +449,7 @@ public class GameUI : GameBridge
                         }
                         await Client.GameClient.Send(new NormalAction
                         {
-                            MyPos = _myFishSelected,
+                            MyPos = _gameStates.MyFishSelected,
                             EnemyPos = enemyPos
                         });
                     }
@@ -473,7 +464,7 @@ public class GameUI : GameBridge
                         }
                         await Client.GameClient.Send(new SkillAction
                         {
-                            MyPos = _myFishSelected,
+                            MyPos = _gameStates.MyFishSelected,
                             EnemyList = enemyList,
                             MyList = myList
                         });
@@ -485,19 +476,19 @@ public class GameUI : GameBridge
                     }
                     else
                     {
-                        _myFishSelected = -1;
-                        _enemyFishSelected = -1;
+                        _gameStates.MyFishSelected = -1;
+                        _gameStates.EnemyFishSelected = -1;
                         for (var i = 0; i < 4; i++)
                             _myFishSelectedAsTarget[i] = _enemyFishSelectedAsTarget[i] = false;
-                        _selectStatus = SelectStatus.SelectMyFish;
+                        _gameStates.GameStatus = Constants.GameStatus.SelectMyFish;
                         return;
                     }
                 }
                 _passiveList.Clear();
-                var enemy = _enemyFishSelected >= 0 && _enemyFishSelected < 4;
-                if (_normalAttack)
+                var enemy = _gameStates.EnemyFishSelected >= 0 && _gameStates.EnemyFishSelected < 4;
+                if (_gameStates.NormalAttack)
                 {
-                    var selected = enemy ? _enemyFishSelected : _myFishSelected;
+                    var selected = enemy ? _gameStates.EnemyFishSelected : _gameStates.MyFishSelected;
                     var target = 0;
                     for (var i = 0; i < 4; i++)
                     {
@@ -526,8 +517,10 @@ public class GameUI : GameBridge
                     // var attackeeTransforms = enemy ? _myFishTransforms : _enemyFishTransforms;
                     var attackerSelected = enemy ? _enemyFishSelectedAsTarget : _myFishSelectedAsTarget;
                     var attackeeSelected = enemy ? _myFishSelectedAsTarget : _enemyFishSelectedAsTarget;
-                    var attacker = enemy ? _enemyFishSelected : _myFishSelected;
-                    switch (enemy ? _enemyFishId[_enemyFishSelected] : _myFishId[_myFishSelected])
+                    var attacker = enemy ? _gameStates.EnemyFishSelected : _gameStates.MyFishSelected;
+                    switch (enemy
+                        ? _gameStates.EnemyFishId[_gameStates.EnemyFishSelected]
+                        : _gameStates.MyFishId[_gameStates.MyFishSelected])
                     {
                         case 0:
                         case 2:
@@ -644,7 +637,7 @@ public class GameUI : GameBridge
                 }); */
                 break;
             }
-            case SelectStatus.WaitingAnimation:
+            case Constants.GameStatus.WaitingAnimation:
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -659,10 +652,10 @@ public class GameUI : GameBridge
             var next = SharedRefs.ReplayJson[SharedRefs.ReplayCursor + 1];
             for (var i = 0; i < 4; i++)
             {
-                _myFishId[i] = (int) pickFish[0][i]["id"] - 1;
-                _enemyFishId[i] = (int) pickFish[1][i]["id"] - 1;
-                _myFishFullHp[i] = (int) next["players"][0]["fight_fish"][i]["hp"];
-                _enemyFishFullHp[i] = (int) next["players"][1]["fight_fish"][i]["hp"];
+                _gameStates.MyFishId[i] = (int) pickFish[0][i]["id"] - 1;
+                _gameStates.EnemyFishId[i] = (int) pickFish[1][i]["id"] - 1;
+                _gameStates.MyFishFullHp[i] = (int) next["players"][0]["fight_fish"][i]["hp"];
+                _gameStates.EnemyFishFullHp[i] = (int) next["players"][1]["fight_fish"][i]["hp"];
             }
             InitFishAndQuestion();
             SharedRefs.ReplayCursor++;
@@ -677,7 +670,7 @@ public class GameUI : GameBridge
             _enemyStatus.Add(enemyStatus.GetComponent<Slider>());
         }
 
-        DissolveShaderProperty = Shader.PropertyToID("_cutoff");
+        _dissolveShaderProperty = Shader.PropertyToID("_cutoff");
 
         if (SharedRefs.Mode == Constants.GameMode.Offline)
         {
@@ -685,14 +678,14 @@ public class GameUI : GameBridge
         }
         else
         {
-            _selectStatus = SelectStatus.WaitingAnimation;
+            _gameStates.GameStatus = Constants.GameStatus.WaitingAnimation;
             Task.Run(ReturnAssertion);
         }
     }
 
     protected override void RunPerFrame()
     {
-        if (_initialized && _selectStatus != SelectStatus.WaitAssertion)
+        if (_initialized && _gameStates.GameStatus != Constants.GameStatus.WaitAssertion)
         {
             for (var i = 0; i < 4; i++)
             {
@@ -700,7 +693,7 @@ public class GameUI : GameBridge
                 {
                     if (_myFishSelectedAsTarget[i])
                         _myFishTransforms[i].localScale = _large;
-                    else if (_myFishSelected == i)
+                    else if (_gameStates.MyFishSelected == i)
                         _myFishTransforms[i].localScale = _large;
                     else
                         _myFishTransforms[i].localScale = _small;
@@ -711,7 +704,7 @@ public class GameUI : GameBridge
                 {
                     if (_enemyFishSelectedAsTarget[i])
                         _enemyFishTransforms[i].localScale = _large;
-                    else if (_enemyFishSelected == i)
+                    else if (_gameStates.EnemyFishSelected == i)
                         _enemyFishTransforms[i].localScale = _large;
                     else
                         _enemyFishTransforms[i].localScale = _small;
@@ -720,28 +713,28 @@ public class GameUI : GameBridge
         }
 
         changeStatusButton.interactable =
-            _selectStatus == SelectStatus.DoAssertion ||
-            _selectStatus == SelectStatus.SelectMyFish && _myFishSelected != -1 ||
-            _selectStatus == SelectStatus.SelectEnemyFish &&
+            _gameStates.GameStatus == Constants.GameStatus.DoAssertion ||
+            _gameStates.GameStatus == Constants.GameStatus.SelectMyFish && _gameStates.MyFishSelected != -1 ||
+            _gameStates.GameStatus == Constants.GameStatus.SelectEnemyFish &&
             (_myFishSelectedAsTarget.Any(b => b) ||
              _enemyFishSelectedAsTarget.Any(b => b));
 
         string title;
-        switch (_selectStatus)
+        switch (_gameStates.GameStatus)
         {
-            case SelectStatus.DoAssertion:
+            case Constants.GameStatus.DoAssertion:
                 title = _assertion == -1 ? "放弃断言" : "进行断言";
                 break;
-            case SelectStatus.WaitAssertion:
+            case Constants.GameStatus.WaitAssertion:
                 title = "请等待动画放完";
                 break;
-            case SelectStatus.SelectMyFish:
+            case Constants.GameStatus.SelectMyFish:
                 title = "选择我方鱼";
                 break;
-            case SelectStatus.SelectEnemyFish:
+            case Constants.GameStatus.SelectEnemyFish:
                 title = "选择作用对象";
                 break;
-            case SelectStatus.WaitingAnimation:
+            case Constants.GameStatus.WaitingAnimation:
                 title = "请等待动画放完";
                 break;
             default:
@@ -749,8 +742,8 @@ public class GameUI : GameBridge
         }
         changeStatusPrompt.text = title;
 
-        (_normalAttack ? normalButton : skillButton).color = Color.green;
-        (_normalAttack ? skillButton : normalButton).color = Color.blue;
+        (_gameStates.NormalAttack ? normalButton : skillButton).color = Color.green;
+        (_gameStates.NormalAttack ? skillButton : normalButton).color = Color.blue;
     }
 
     private static Vector3 FishRelativePosition(bool enemy, int id)

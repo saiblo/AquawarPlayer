@@ -13,7 +13,7 @@ public abstract class GameBridge : EnhancedMonoBehaviour
     public Transform statusBarPrefab;
 
     public Transform questionPrefab;
-    
+
     // Particle system
 
     public Transform waterProjectile;
@@ -24,7 +24,6 @@ public abstract class GameBridge : EnhancedMonoBehaviour
     public Transform shieldEffect;
 
     public Material dissolveEffect;
-    protected int DissolveShaderProperty;
     public AnimationCurve fadeIn;
 
     // Root transforms
@@ -41,14 +40,4 @@ public abstract class GameBridge : EnhancedMonoBehaviour
 
     public Button changeStatusButton;
     public Text changeStatusPrompt;
-    
-    protected enum SelectStatus
-    {
-        DoAssertion,
-        WaitAssertion,
-        SelectMyFish,
-        SelectEnemyFish,
-        WaitingAnimation
-    }
-
 }
