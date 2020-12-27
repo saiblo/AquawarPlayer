@@ -49,7 +49,7 @@ namespace Utils
 
         public async Task<JsonData> Receive()
         {
-            var buffer = new ArraySegment<byte>(new byte[1024]);
+            var buffer = new ArraySegment<byte>(new byte[32768]);
             await _ws.ReceiveAsync(buffer, CancellationToken.None);
             var data = (string) JsonMapper.ToObject(
                 Encoding.UTF8.GetString(buffer.Array ?? Array.Empty<byte>()).TrimEnd('\0')

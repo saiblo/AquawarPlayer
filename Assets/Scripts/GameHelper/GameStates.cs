@@ -19,6 +19,11 @@ namespace GameHelper
         public readonly int[] MyFishFullHp = {0, 0, 0, 0};
         public readonly int[] EnemyFishFullHp = {0, 0, 0, 0};
 
+        public readonly int[] MyFishOnlineHp = {0, 0, 0, 0};
+        public readonly int[] EnemyFishOnlineHp = {0, 0, 0, 0};
+
+        public Constants.Skill ActionSkill = Constants.Skill.Subtle;
+
         public int MyFishSelected = -1;
 
         public int EnemyFishSelected = -1;

@@ -51,7 +51,11 @@ namespace GameImpl
                             await SharedRefs.GameClient.Send(new Null());
                         else
                             await SharedRefs.GameClient.Send(
-                                new Assert {Pos = gameUI.GameState.Assertion, ID = Convert.ToInt32(gameUI.assertion.text)}
+                                new Assert
+                                {
+                                    Pos = gameUI.GameState.Assertion,
+                                    ID = Convert.ToInt32(gameUI.assertion.text)
+                                }
                             );
                         var reply = await SharedRefs.GameClient.Receive(); // ASSERT_REPLY
                         gameUI.GameState.AssertionPlayer = 0;
@@ -83,17 +87,16 @@ namespace GameImpl
                     }
                     else
                     {
-                        await SharedRefs.GameClient.Receive(); // SUCCESS
+                        var actionInfo = (await SharedRefs.GameClient.Receive())["ActionInfo"]; // SUCCESS
                         await SharedRefs.GameClient.Send(new Ok());
 
-                        // Just doing the fake thing. Have to be implemented later on.
-                        gameUI.GameState.EnemyFishSelected = 0;
-                        gameUI.GameState.NormalAttack = true;
-                        gameUI.GameState.MyFishSelectedAsTarget[0] = true;
+                        gameUI.ProcessActionInfo(actionInfo);
+
                         gameUI.RunOnUiThread(() =>
                         {
                             gameUI.ChangeStatus();
                             gameUI.ChangeStatus();
+                            gameUI.DisplayHpOnline();
                         });
                     }
                     break;
@@ -145,6 +148,7 @@ namespace GameImpl
                         if ((string) result["Action"] == "Success")
                         {
                             await SharedRefs.GameClient.Send(new Ok());
+                            gameUI.ProcessActionInfo(result["ActionInfo"]);
                         }
                         else
                         {

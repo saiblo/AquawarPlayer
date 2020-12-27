@@ -54,12 +54,21 @@ public class GameUI : GameBridge
         this.ChangeStatus();
     }
 
-    public void DisplayHp(JsonData players)
+    public void DisplayHpOffline(JsonData players)
     {
         for (var i = 0; i < 4; i++)
         {
             Gom.MyStatus[i].value = (float) players[0]["fight_fish"][i]["hp"] / GameState.MyFishFullHp[i];
             Gom.EnemyStatus[i].value = (float) players[1]["fight_fish"][i]["hp"] / GameState.EnemyFishFullHp[i];
+        }
+    }
+
+    public void DisplayHpOnline()
+    {
+        for (var i = 0; i < 4; i++)
+        {
+            Gom.MyStatus[i].value = (float) GameState.MyFishOnlineHp[i] / GameState.MyFishFullHp[i];
+            Gom.EnemyStatus[i].value = (float) GameState.EnemyFishOnlineHp[i] / GameState.EnemyFishFullHp[i];
         }
     }
 

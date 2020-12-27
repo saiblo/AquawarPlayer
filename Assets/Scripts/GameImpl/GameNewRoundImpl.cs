@@ -1,4 +1,5 @@
-﻿using Utils;
+﻿using System;
+using Utils;
 
 namespace GameImpl
 {
@@ -14,6 +15,7 @@ namespace GameImpl
         {
             gameUI.GameState.MyFishSelected = -1;
             gameUI.GameState.EnemyFishSelected = -1;
+            gameUI.GameState.NormalAttack = true;
             for (var i = 0; i < 4; i++)
                 gameUI.GameState.MyFishSelectedAsTarget[i] = gameUI.GameState.EnemyFishSelectedAsTarget[i] = false;
 
@@ -27,15 +29,21 @@ namespace GameImpl
                 gameUI.GameState.GameStatus = Constants.GameStatus.DoAssertion;
                 for (var i = 0; i < 4; i++)
                 {
-                    gameUI.GameState.MyFishId[i] = (int) result["MyFish"][i] - 1;
+                    gameUI.GameState.MyFishId[i] = Math.Abs((int) result["MyFish"][i]) - 1;
                     if ((int) result["EnemyFish"][i] > 0)
                         gameUI.GameState.EnemyFishId[i] = (int) result["EnemyFish"][i] - 1;
+                    gameUI.GameState.MyFishOnlineHp[i] = (int) result["MyHP"][i];
+                    gameUI.GameState.EnemyFishOnlineHp[i] = (int) result["EnemyHP"][i];
+                    if (!gameUI.Gom.Initialized)
+                    {
+                        gameUI.GameState.MyFishFullHp[i] = (int) result["MyHP"][i];
+                        gameUI.GameState.EnemyFishFullHp[i] = (int) result["EnemyHP"][i];
+                    }
+                    gameUI.RunOnUiThread(gameUI.DisplayHpOnline);
                 }
 
-                if (!gameUI.Gom.Initialized) gameUI.RunOnUiThread(() =>
-                {
-                    gameUI.Gom.Init(gameUI.unkFishPrefab, gameUI.allFishRoot);
-                });
+                if (!gameUI.Gom.Initialized)
+                    gameUI.RunOnUiThread(() => { gameUI.Gom.Init(gameUI.unkFishPrefab, gameUI.allFishRoot); });
 
                 gameUI.GameState.MyTurn = (string) result["Action"] == "Assert";
                 if (gameUI.GameState.MyTurn) return;

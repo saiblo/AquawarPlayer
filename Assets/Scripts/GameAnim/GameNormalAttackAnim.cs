@@ -5,8 +5,9 @@ namespace GameAnim
 {
     public static class GameNormalAttackAnim
     {
-        public static void NormalAttackAnim(this GameUI gameUI, bool enemy)
+        public static void NormalAttackAnim(this GameUI gameUI)
         {
+            var enemy = !gameUI.GameState.MyTurn;
             var selected = enemy ? gameUI.GameState.EnemyFishSelected : gameUI.GameState.MyFishSelected;
             var target = 0;
             for (var i = 0; i < 4; i++)

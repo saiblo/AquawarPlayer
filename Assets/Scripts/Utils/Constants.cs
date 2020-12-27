@@ -18,5 +18,14 @@
             SelectEnemyFish,
             WaitingAnimation
         }
+
+        public enum Skill
+        {
+            Aoe,
+            Infight,
+            CritValue,
+            CritPercent,
+            Subtle
+        }
     }
 }

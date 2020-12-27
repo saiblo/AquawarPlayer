@@ -6,9 +6,9 @@
         {
             gameUI.GameState.PassiveList.Clear();
             if (gameUI.GameState.NormalAttack)
-                gameUI.NormalAttackAnim(gameUI.GameState.EnemyFishSelected >= 0 && gameUI.GameState.EnemyFishSelected < 4);
+                gameUI.NormalAttackAnim();
             else
-                gameUI.SkillAttackAnim(gameUI.GameState.EnemyFishSelected >= 0 && gameUI.GameState.EnemyFishSelected < 4);
+                gameUI.SkillAttackAnim();
             gameUI.PassiveAnim();
         }
     }

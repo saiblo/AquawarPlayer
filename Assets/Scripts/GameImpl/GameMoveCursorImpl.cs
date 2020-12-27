@@ -81,7 +81,7 @@ namespace GameImpl
                                 (float) lastPlayers[1]["fight_fish"][i]["hp"] > 0)
                                 gameUI.Dissolve(true, i);
                         }
-                        gameUI.DisplayHp(players);
+                        gameUI.DisplayHpOffline(players);
                         gameUI.SetTimeout(gameUI.MoveCursor, 3000);
                     }
                     break;

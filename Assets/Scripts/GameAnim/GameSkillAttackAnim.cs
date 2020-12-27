@@ -1,13 +1,15 @@
 ﻿using System;
 using GameHelper;
 using UnityEngine;
+using Utils;
 
 namespace GameAnim
 {
     public static class GameSkillAttackAnim
     {
-        public static void SkillAttackAnim(this GameUI gameUI, bool enemy)
+        public static void SkillAttackAnim(this GameUI gameUI)
         {
+            var enemy = !gameUI.GameState.MyTurn;
             // var attackerTransforms = enemy ? _gameUI.Gom.EnemyFishTransforms : _gameUI.Gom.MyFishTransforms;
             // var attackeeTransforms = enemy ? _gameUI.Gom.MyFishTransforms : _gameUI.Gom.EnemyFishTransforms;
             var attackerSelected =
@@ -15,13 +17,9 @@ namespace GameAnim
             var attackeeSelected =
                 enemy ? gameUI.GameState.MyFishSelectedAsTarget : gameUI.GameState.EnemyFishSelectedAsTarget;
             var attacker = enemy ? gameUI.GameState.EnemyFishSelected : gameUI.GameState.MyFishSelected;
-            switch (enemy
-                ? gameUI.GameState.EnemyFishId[gameUI.GameState.EnemyFishSelected]
-                : gameUI.GameState.MyFishId[gameUI.GameState.MyFishSelected])
+            switch (gameUI.GameState.ActionSkill)
             {
-                case 0:
-                case 2:
-                case 10:
+                case Constants.Skill.Aoe:
                     for (int cnt = 0, i = 0; i < 4; i++)
                     {
                         if (!attackeeSelected[i]) continue;
@@ -50,8 +48,7 @@ namespace GameAnim
                         cnt++;
                     }
                     break;
-                case 1:
-                case 3:
+                case Constants.Skill.Infight:
                     var poorFish = 0;
                     for (var i = 0; i < 4; i++)
                     {
@@ -69,10 +66,8 @@ namespace GameAnim
                     myFishRecover.localPosition = GameObjectManager.FishRelativePosition(enemy, attacker);
                     gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(myFishRecover.gameObject); }, 4000);
                     break;
-                case 4:
-                case 6:
-                case 8:
-                case 9:
+                case Constants.Skill.CritValue:
+                case Constants.Skill.CritPercent:
                     for (var i = 0; i < 4; i++)
                     {
                         // ReSharper disable once InvertIf
@@ -104,8 +99,7 @@ namespace GameAnim
                         }
                     }
                     break;
-                case 5:
-                case 7:
+                case Constants.Skill.Subtle:
                     var friendId = attacker;
                     for (var i = 0; i < 4; i++)
                     {
@@ -124,6 +118,8 @@ namespace GameAnim
                     myselfRecover.localPosition = GameObjectManager.FishRelativePosition(enemy, attacker);
                     gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(myselfRecover.gameObject); }, 4000);
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }
