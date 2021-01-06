@@ -34,4 +34,9 @@ public class Connect : MonoBehaviour
             statusText.text = "连接失败";
         }
     }
+
+    public void BackToHome()
+    {
+        SceneManager.LoadScene("Scenes/Welcome");
+    }
 }
