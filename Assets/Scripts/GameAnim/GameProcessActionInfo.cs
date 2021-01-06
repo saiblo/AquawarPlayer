@@ -13,7 +13,7 @@ namespace GameAnim
                 gameUI.GameState.EnemyFishSelected = (int) actionInfo["ActionFish"]; */
             if (!gameUI.GameState.MyTurn)
                 gameUI.GameState.EnemyFishSelected = 0;
-            
+
             gameUI.GameState.NormalAttack = !actionInfo.ContainsKey("skill");
             gameUI.GameState.MyFishSelectedAsTarget[0] = true;
 
@@ -64,7 +64,7 @@ namespace GameAnim
                         break;
                 }
             }
-            
+
             gameUI.RunOnUiThread(gameUI.DisplayHpOnline);
         }
     }

@@ -43,13 +43,13 @@ namespace GameImpl
                     if ((string) operation["Action"] == "Action")
                     {
                         // Set attacher
-                        var iAmAttacker = (int) operation["ID"] == 0;
-                        if (iAmAttacker) gameUI.GameState.MyFishSelected = (int) operation["MyPos"];
+                        gameUI.GameState.MyTurn = (int) operation["ID"] == 0;
+                        if (gameUI.GameState.MyTurn) gameUI.GameState.MyFishSelected = (int) operation["MyPos"];
                         else gameUI.GameState.EnemyFishSelected = (int) operation["MyPos"];
                         gameUI.ChangeStatus();
 
                         // Set attackee
-                        var enemyListRef = iAmAttacker
+                        var enemyListRef = gameUI.GameState.MyTurn
                             ? gameUI.GameState.EnemyFishSelectedAsTarget
                             : gameUI.GameState.MyFishSelectedAsTarget;
                         if (operation.ContainsKey("EnemyPos"))
