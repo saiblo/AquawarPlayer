@@ -22,17 +22,23 @@ namespace GameImpl
                 {
                     SharedRefs.ReplayCursor++;
                     var operation = state["operation"][0];
+                    var subject = (int) state["cur_turn"] == 0 ? "我方" : "敌方";
+                    var target = (int) state["cur_turn"] == 0 ? "敌方" : "我方";
                     if ((string) operation["Action"] == "Assert")
                     {
                         gameUI.GameState.AssertionPlayer = (int) operation["ID"];
                         gameUI.GameState.Assertion = (int) operation["Pos"];
                         gameUI.GameState.AssertionTarget = (int) operation["id"] - 1;
                         gameUI.MakeAGuess(gameUI.GameState.AssertionPlayer == 0, 2000);
+                        gameUI.GameState.Logs.Enqueue(
+                            $"{subject}断言{target}{operation["Pos"]}号位置鱼为{(int) operation["id"] - 1}。"
+                        );
                     }
                     else
                     {
                         gameUI.GameState.Assertion = -1;
                         gameUI.ChangeStatus();
+                        gameUI.GameState.Logs.Enqueue($"{subject}放弃断言。");
                     }
                     break;
                 }
