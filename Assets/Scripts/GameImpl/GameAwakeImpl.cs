@@ -33,6 +33,17 @@ namespace GameImpl
                 );
             }
 
+            for (var i = 0; i < 4; i++)
+            {
+                gameUI.Gom.MyQuestions[i].gameObject.SetActive(false);
+                gameUI.Gom.EnemyQuestions[i].gameObject.SetActive(false);
+            }
+            
+            gameUI.normalButton.gameObject.SetActive(false);
+            gameUI.skillButton.gameObject.SetActive(false);
+            gameUI.assertion.gameObject.SetActive(false);
+            gameUI.changeStatusButton.gameObject.SetActive(false);
+
             gameUI.DissolveShaderProperty = Shader.PropertyToID("_cutoff");
 
             if (SharedRefs.Mode == Constants.GameMode.Offline)

@@ -40,10 +40,11 @@ namespace GameHelper
 
         public static Vector3 FishRelativePosition(bool enemy, int id)
         {
+            if (!enemy && id == 0) return new Vector3(6, 0, 6);
             return new Vector3(
-                (enemy ? 1 : -1) * 3 * (id + 1),
+                (enemy ? -1 : 1) * 7 - 1,
                 0,
-                2 - id
+                5 - id * 3
             );
         }
 
@@ -60,7 +61,7 @@ namespace GameHelper
                 allFishRoot);
             fishTransform.localPosition = GameObjectManager.FishRelativePosition(enemy, j);
             fishTransform.localScale = Small;
-            fishTransform.rotation = Quaternion.Euler(new Vector3(0, enemy ? 260 : 100, 0));
+            fishTransform.rotation = Quaternion.Euler(new Vector3(0, enemy ? 100 : 260, 0));
             if (SharedRefs.Mode == Constants.GameMode.Offline) return fishTransform;
 
             var fishTrigger = new EventTrigger.Entry();
