@@ -51,11 +51,7 @@ namespace GameImpl
                             await SharedRefs.GameClient.Send(new Null());
                         else
                             await SharedRefs.GameClient.Send(
-                                new Assert
-                                {
-                                    Pos = gameUI.GameState.Assertion,
-                                    ID = Convert.ToInt32(gameUI.assertion.text)
-                                }
+                                new Assert {Pos = gameUI.GameState.Assertion, ID = 0}
                             );
                         var reply = await SharedRefs.GameClient.Receive(); // ASSERT_REPLY
                         gameUI.GameState.AssertionPlayer = 0;

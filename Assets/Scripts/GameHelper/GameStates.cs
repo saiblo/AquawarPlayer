@@ -44,5 +44,7 @@ namespace GameHelper
 
         public readonly bool[] MyFishExpose = {false, false, false, false};
         public readonly bool[] EnemyFishExpose = {false, false, false, false};
+
+        public readonly Queue<string> Logs = new Queue<string>();
     }
 }

@@ -36,11 +36,6 @@ namespace GameHelper
 
         // UI objects
 
-        public InputField assertion;
-        public Image normalButton;
-        public Image skillButton;
-
-        public Button changeStatusButton;
-        public Text changeStatusPrompt;
+        public Text logText;
     }
 }

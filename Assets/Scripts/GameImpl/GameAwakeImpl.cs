@@ -38,11 +38,6 @@ namespace GameImpl
                 gameUI.Gom.MyQuestions[i].gameObject.SetActive(false);
                 gameUI.Gom.EnemyQuestions[i].gameObject.SetActive(false);
             }
-            
-            gameUI.normalButton.gameObject.SetActive(false);
-            gameUI.skillButton.gameObject.SetActive(false);
-            gameUI.assertion.gameObject.SetActive(false);
-            gameUI.changeStatusButton.gameObject.SetActive(false);
 
             gameUI.DissolveShaderProperty = Shader.PropertyToID("_cutoff");
 
