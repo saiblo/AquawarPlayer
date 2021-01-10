@@ -27,5 +27,21 @@
             CritPercent,
             Subtle
         }
+
+        public static readonly string[] FishName =
+        {
+            "射水鱼",
+            "喷火鱼",
+            "电鳗",
+            "翻车鱼",
+            "海狼鱼",
+            "蝠鲼",
+            "海龟",
+            "章鱼",
+            "大白鲨",
+            "锤头鲨",
+            "小丑鱼",
+            "拟态鱼"
+        };
     }
 }
