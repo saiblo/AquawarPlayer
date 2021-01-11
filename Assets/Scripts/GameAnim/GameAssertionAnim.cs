@@ -48,12 +48,15 @@ namespace GameAnim
                 if (((gameUI.GameState.AssertionPlayer == 1) ^ hit
                     ? gameUI.GameState.EnemyFishAlive
                     : gameUI.GameState.MyFishAlive)[i])
-                    Object.Instantiate(
+                {
+                    var explosionObj = Object.Instantiate(
                         gameUI.explodePrefab,
                         GameObjectManager.FishRelativePosition(
                             (gameUI.GameState.AssertionPlayer == 1) ^ hit, i),
                         Quaternion.identity,
-                        gameUI.allFishRoot);
+                        gameUI.allFishRoot).gameObject;
+                    gameUI.SetTimeout(() => { Object.Destroy(explosionObj); }, 2000);
+                }
         }
     }
 }
