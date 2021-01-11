@@ -49,6 +49,11 @@ namespace GameImpl
                     gameUI.myProfiles[i].SetAtk((int) pickFish[0][i]["atk"]);
                     gameUI.enemyProfiles[i].SetAtk((int) pickFish[1][i]["atk"]);
                 }
+                for (var i = 0; i < Constants.FishNum; i++)
+                {
+                    gameUI.myGlance.SetupFish(i, Constants.FishState.Using);
+                    gameUI.enemyGlance.SetupFish(i, Constants.FishState.Using);
+                }
                 gameUI.roundText.text = $"回合数：{(int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["rounds"] + 1}/3";
                 gameUI.scoreText.text = $"我方得分：{(int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["score"]}";
                 gameUI.resultText.gameObject.SetActive(false);

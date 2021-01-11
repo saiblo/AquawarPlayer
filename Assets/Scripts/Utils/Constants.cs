@@ -19,6 +19,13 @@
             WaitingAnimation
         }
 
+        public enum FishState
+        {
+            Used,
+            Using,
+            Free
+        }
+
         public enum Skill
         {
             Aoe,

@@ -47,5 +47,8 @@ namespace GameHelper
 
         public GameProfile[] myProfiles;
         public GameProfile[] enemyProfiles;
+
+        public Glance myGlance;
+        public Glance enemyGlance;
     }
 }
