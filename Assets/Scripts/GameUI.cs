@@ -1,6 +1,5 @@
 ﻿using GameHelper;
 using GameImpl;
-using LitJson;
 using UnityEngine;
 
 public class GameUI : GameBridge
@@ -37,38 +36,12 @@ public class GameUI : GameBridge
             300, 0, 10);
     }
 
-    // UI related
-
-    public void SwitchToNormal()
-    {
-        GameState.NormalAttack = true;
-    }
-
-    public void SwitchToSkill()
-    {
-        GameState.NormalAttack = false;
-    }
-
-    public void DummyChangeStatus()
-    {
-        this.ChangeStatus();
-    }
-
-    public void DisplayHpOffline(JsonData players)
-    {
-        for (var i = 0; i < 4; i++)
-        {
-            Gom.MyStatus[i].value = (float) players[0]["fight_fish"][i]["hp"] / GameState.MyFishFullHp[i];
-            Gom.EnemyStatus[i].value = (float) players[1]["fight_fish"][i]["hp"] / GameState.EnemyFishFullHp[i];
-        }
-    }
-
     public void DisplayHpOnline()
     {
         for (var i = 0; i < 4; i++)
         {
-            Gom.MyStatus[i].value = (float) GameState.MyFishOnlineHp[i] / GameState.MyFishFullHp[i];
-            Gom.EnemyStatus[i].value = (float) GameState.EnemyFishOnlineHp[i] / GameState.EnemyFishFullHp[i];
+            myStatus[i].Current = GameState.MyFishOnlineHp[i];
+            enemyStatus[i].Current = GameState.EnemyFishOnlineHp[i];
         }
     }
 

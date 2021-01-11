@@ -107,8 +107,9 @@ namespace GameImpl
                             if ((float) players[1]["fight_fish"][i]["hp"] <= 0 &&
                                 (float) lastPlayers[1]["fight_fish"][i]["hp"] > 0)
                                 gameUI.Dissolve(true, i);
+                            gameUI.myStatus[i].Current = (int) players[0]["fight_fish"][i]["hp"];
+                            gameUI.enemyStatus[i].Current = (int) players[1]["fight_fish"][i]["hp"];
                         }
-                        gameUI.DisplayHpOffline(players);
                         gameUI.SetTimeout(gameUI.MoveCursor, 3000);
                     }
                     break;

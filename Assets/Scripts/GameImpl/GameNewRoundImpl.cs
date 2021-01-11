@@ -36,8 +36,8 @@ namespace GameImpl
                     gameUI.GameState.EnemyFishOnlineHp[i] = (int) result["EnemyHP"][i];
                     if (!gameUI.Gom.Initialized)
                     {
-                        gameUI.GameState.MyFishFullHp[i] = (int) result["MyHP"][i];
-                        gameUI.GameState.EnemyFishFullHp[i] = (int) result["EnemyHP"][i];
+                        gameUI.myStatus[i].Full = (int) result["MyHP"][i];
+                        gameUI.enemyStatus[i].Full = (int) result["EnemyHP"][i];
                     }
                     gameUI.RunOnUiThread(gameUI.DisplayHpOnline);
                 }

@@ -16,9 +16,6 @@ namespace GameHelper
         public bool MyTurn = true;
         public bool NormalAttack = true;
 
-        public readonly int[] MyFishFullHp = {0, 0, 0, 0};
-        public readonly int[] EnemyFishFullHp = {0, 0, 0, 0};
-
         public readonly int[] MyFishOnlineHp = {0, 0, 0, 0};
         public readonly int[] EnemyFishOnlineHp = {0, 0, 0, 0};
 

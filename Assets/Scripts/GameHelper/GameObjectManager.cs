@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 using Utils;
 using Object = UnityEngine.Object;
 
@@ -19,10 +18,6 @@ namespace GameHelper
         // The question mark
         public readonly List<Transform> MyQuestions = new List<Transform>();
         public readonly List<Transform> EnemyQuestions = new List<Transform>();
-
-        // The slider
-        public readonly List<Slider> MyStatus = new List<Slider>();
-        public readonly List<Slider> EnemyStatus = new List<Slider>();
 
         // Fish-object related
         public readonly List<Transform> MyFishTransforms = new List<Transform>();

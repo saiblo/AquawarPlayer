@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Components;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace GameHelper
@@ -11,8 +12,6 @@ namespace GameHelper
         // Prefabs
 
         public Transform unkFishPrefab;
-
-        public Transform statusBarPrefab;
 
         public Transform questionPrefab;
 
@@ -31,11 +30,12 @@ namespace GameHelper
         // Root transforms
 
         public Transform allFishRoot;
-        public Transform myStatusRoot;
-        public Transform enemyStatusRoot;
 
         // UI objects
 
         public Text logText;
+
+        public Hp[] myStatus;
+        public Hp[] enemyStatus;
     }
 }
