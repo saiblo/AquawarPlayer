@@ -54,6 +54,11 @@ public class GameUI : GameBridge
         SceneManager.LoadScene("Scenes/Preparation");
     }
 
+    public void ToggleLog(GameObject logObj)
+    {
+        logObj.SetActive(!logObj.activeSelf);
+    }
+
     // Extension methods
 
     // void MakeAGuess(bool enemy, int timeout)

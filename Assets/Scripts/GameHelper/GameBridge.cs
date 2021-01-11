@@ -42,5 +42,7 @@ namespace GameHelper
         public Text scoreText;
         public Text resultText;
         public Button doneNextRoundButton;
+
+        public GameObject logObject;
     }
 }

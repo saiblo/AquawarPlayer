@@ -47,6 +47,7 @@ namespace GameImpl
                 gameUI.scoreText.text = $"我方得分：{(int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["score"]}";
                 gameUI.resultText.gameObject.SetActive(false);
                 gameUI.doneNextRoundButton.gameObject.SetActive(false);
+                gameUI.logObject.SetActive(false);
                 gameUI.Gom.Init(gameUI.unkFishPrefab, gameUI.allFishRoot);
                 gameUI.MoveCursor();
             }
