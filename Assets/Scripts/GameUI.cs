@@ -78,7 +78,10 @@ public class GameUI : GameBridge
     {
         SharedRefs.ReplayCursor -= 2;
         if ((int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 1]["gamestate"] == 2)
+        {
             prevStepButton.interactable = false;
+            replayStepButton.interactable = false;
+        }
         UpdateFishStatus(SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["players"]);
     }
 
@@ -86,7 +89,14 @@ public class GameUI : GameBridge
     {
         prevStepButton.interactable = false;
         nextStepButton.interactable = false;
+        replayStepButton.interactable = false;
         this.MoveCursor();
+    }
+
+    public void ReplayStep()
+    {
+        PrevStep();
+        NextStep();
     }
 
     public void ToggleAutoPlay()

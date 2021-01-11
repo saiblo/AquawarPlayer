@@ -120,6 +120,7 @@ namespace GameImpl
                             {
                                 gameUI.nextStepButton.interactable = true;
                                 gameUI.prevStepButton.interactable = true;
+                                gameUI.replayStepButton.interactable = true;
                             }
                         }, 3000);
                     }
