@@ -7,10 +7,24 @@ namespace Components
     public class GameProfile : MonoBehaviour
     {
         public Text fishName;
+        public Text hp;
+        public Text atk;
+        public Text skill;
 
         public void SetupFish(int id)
         {
             fishName.text = Constants.FishName[id];
+            skill.text = Constants.SkillTable[id];
+        }
+
+        public void SetHp(int hpVal)
+        {
+            hp.text = $"Hp: {hpVal}";
+        }
+
+        public void SetAtk(int atkVal)
+        {
+            atk.text = $"Atk: {atkVal}";
         }
     }
 }

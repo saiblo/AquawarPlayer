@@ -110,6 +110,10 @@ namespace GameImpl
                                 gameUI.Dissolve(true, i);
                             gameUI.myStatus[i].Current = (int) players[0]["fight_fish"][i]["hp"];
                             gameUI.enemyStatus[i].Current = (int) players[1]["fight_fish"][i]["hp"];
+                            gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Current);
+                            gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Current);
+                            gameUI.myProfiles[i].SetAtk((int) players[0]["fight_fish"][i]["atk"]);
+                            gameUI.enemyProfiles[i].SetAtk((int) players[1]["fight_fish"][i]["atk"]);
                         }
                         gameUI.SetTimeout(gameUI.MoveCursor, 3000);
                     }
