@@ -42,6 +42,8 @@ namespace GameImpl
                     gameUI.GameState.EnemyFishId[i] = (int) pickFish[1][i]["id"] - 1;
                     gameUI.myStatus[i].Full = (int) pickFish[0][i]["hp"];
                     gameUI.enemyStatus[i].Full = (int) pickFish[1][i]["hp"];
+                    gameUI.myProfiles[i].SetupFish(gameUI.GameState.MyFishId[i]);
+                    gameUI.enemyProfiles[i].SetupFish(gameUI.GameState.EnemyFishId[i]);
                 }
                 gameUI.roundText.text = $"回合数：{(int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["rounds"] + 1}/3";
                 gameUI.scoreText.text = $"我方得分：{(int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["score"]}";

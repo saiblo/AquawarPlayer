@@ -44,5 +44,8 @@ namespace GameHelper
         public Button doneNextRoundButton;
 
         public GameObject logObject;
+
+        public GameProfile[] myProfiles;
+        public GameProfile[] enemyProfiles;
     }
 }
