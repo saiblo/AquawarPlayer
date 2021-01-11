@@ -8,6 +8,8 @@ namespace GameImpl
         {
             gameUI.logText.text = string.Join("\n", gameUI.GameState.Logs);
 
+            gameUI.playButtonText.text = SharedRefs.AutoPlay ? "暂停" : "播放";
+
             if (!gameUI.Gom.Initialized || gameUI.GameState.GameStatus == Constants.GameStatus.WaitAssertion) return;
 
             for (var i = 0; i < 4; i++)

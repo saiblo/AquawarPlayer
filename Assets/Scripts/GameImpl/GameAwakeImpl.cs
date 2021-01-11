@@ -82,7 +82,8 @@ namespace GameImpl
                 gameUI.doneNextRoundButton.gameObject.SetActive(false);
                 gameUI.logObject.SetActive(false);
                 gameUI.Gom.Init(gameUI.unkFishPrefab, gameUI.allFishRoot);
-                gameUI.nextStepButton.interactable = true;
+                if (SharedRefs.AutoPlay) gameUI.MoveCursor();
+                else gameUI.nextStepButton.interactable = true;
             }
             else
             {

@@ -2,6 +2,7 @@
 using GameImpl;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Utils;
 
 public class GameUI : GameBridge
 {
@@ -63,6 +64,12 @@ public class GameUI : GameBridge
     {
         nextStepButton.interactable = false;
         this.MoveCursor();
+    }
+
+    public void ToggleAutoPlay()
+    {
+        SharedRefs.AutoPlay = !SharedRefs.AutoPlay;
+        if (SharedRefs.AutoPlay && nextStepButton.interactable) NextStep();
     }
 
     // Extension methods

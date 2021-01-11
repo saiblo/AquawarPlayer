@@ -51,7 +51,7 @@ namespace GameHelper
         public Glance myGlance;
         public Glance enemyGlance;
 
-        public Button playButton;
+        public Text playButtonText;
         public Button nextStepButton;
     }
 }

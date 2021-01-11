@@ -511,7 +511,7 @@ MonoBehaviour:
   - {fileID: 1689161019}
   myGlance: {fileID: 713877546}
   enemyGlance: {fileID: 1338642383}
-  playButton: {fileID: 914447297}
+  playButtonText: {fileID: 1999676293}
   nextStepButton: {fileID: 1636496900}
 --- !u!114 &253739613
 MonoBehaviour:
@@ -2451,7 +2451,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 914447298}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 253739612}
+        m_TargetAssemblyTypeName: GameUI, Assembly-CSharp
+        m_MethodName: ToggleAutoPlay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &914447298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6477,7 +6489,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u64AD\u653E\u6682\u505C"
+  m_Text: "\u64AD\u653E"
 --- !u!222 &1999676294
 CanvasRenderer:
   m_ObjectHideFlags: 0
