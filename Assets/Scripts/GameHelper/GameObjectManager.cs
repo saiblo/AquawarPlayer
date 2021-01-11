@@ -35,7 +35,6 @@ namespace GameHelper
 
         public static Vector3 FishRelativePosition(bool enemy, int id)
         {
-            if (!enemy && id == 0) return new Vector3(6, 0, 6);
             return new Vector3(
                 (enemy ? -1 : 1) * 7 - 1,
                 0,
