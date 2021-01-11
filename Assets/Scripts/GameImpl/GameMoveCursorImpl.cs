@@ -108,17 +108,19 @@ namespace GameImpl
                             if ((float) players[1]["fight_fish"][i]["hp"] <= 0 &&
                                 (float) lastPlayers[1]["fight_fish"][i]["hp"] > 0)
                                 gameUI.Dissolve(true, i);
-                            gameUI.myStatus[i].Current = (int) players[0]["fight_fish"][i]["hp"];
-                            gameUI.enemyStatus[i].Current = (int) players[1]["fight_fish"][i]["hp"];
-                            gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Current);
-                            gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Current);
-                            gameUI.myProfiles[i].SetAtk((int) players[0]["fight_fish"][i]["atk"]);
-                            gameUI.enemyProfiles[i].SetAtk((int) players[1]["fight_fish"][i]["atk"]);
                         }
+                        gameUI.UpdateFishStatus(players);
                         gameUI.SetTimeout(() =>
                         {
-                            if (SharedRefs.AutoPlay) gameUI.MoveCursor();
-                            else gameUI.nextStepButton.interactable = true;
+                            if (SharedRefs.AutoPlay)
+                            {
+                                gameUI.MoveCursor();
+                            }
+                            else
+                            {
+                                gameUI.nextStepButton.interactable = true;
+                                gameUI.prevStepButton.interactable = true;
+                            }
                         }, 3000);
                     }
                     break;

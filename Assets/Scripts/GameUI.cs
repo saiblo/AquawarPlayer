@@ -1,5 +1,6 @@
 ﻿using GameHelper;
 using GameImpl;
+using LitJson;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;
@@ -47,6 +48,19 @@ public class GameUI : GameBridge
         }
     }
 
+    public void UpdateFishStatus(JsonData players)
+    {
+        for (var i = 0; i < 4; i++)
+        {
+            myStatus[i].Current = (int) players[0]["fight_fish"][i]["hp"];
+            enemyStatus[i].Current = (int) players[1]["fight_fish"][i]["hp"];
+            myProfiles[i].SetHp(myStatus[i].Current);
+            enemyProfiles[i].SetHp(enemyStatus[i].Current);
+            myProfiles[i].SetAtk((int) players[0]["fight_fish"][i]["atk"]);
+            enemyProfiles[i].SetAtk((int) players[1]["fight_fish"][i]["atk"]);
+        }
+    }
+
     /// <summary>
     ///   WARNING: NO CURSOR MOVEMENT INVOLVED!
     /// </summary>
@@ -60,8 +74,17 @@ public class GameUI : GameBridge
         logObj.SetActive(!logObj.activeSelf);
     }
 
+    public void PrevStep()
+    {
+        SharedRefs.ReplayCursor -= 2;
+        if ((int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 1]["gamestate"] == 2)
+            prevStepButton.interactable = false;
+        UpdateFishStatus(SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["players"]);
+    }
+
     public void NextStep()
     {
+        prevStepButton.interactable = false;
         nextStepButton.interactable = false;
         this.MoveCursor();
     }
