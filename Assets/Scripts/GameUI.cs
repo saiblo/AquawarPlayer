@@ -59,6 +59,12 @@ public class GameUI : GameBridge
         logObj.SetActive(!logObj.activeSelf);
     }
 
+    public void NextStep()
+    {
+        nextStepButton.interactable = false;
+        this.MoveCursor();
+    }
+
     // Extension methods
 
     // void MakeAGuess(bool enemy, int timeout)

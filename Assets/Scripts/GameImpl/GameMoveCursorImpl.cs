@@ -115,7 +115,7 @@ namespace GameImpl
                             gameUI.myProfiles[i].SetAtk((int) players[0]["fight_fish"][i]["atk"]);
                             gameUI.enemyProfiles[i].SetAtk((int) players[1]["fight_fish"][i]["atk"]);
                         }
-                        gameUI.SetTimeout(gameUI.MoveCursor, 3000);
+                        gameUI.SetTimeout(() => { gameUI.nextStepButton.interactable = true; }, 3000);
                     }
                     break;
                 }
