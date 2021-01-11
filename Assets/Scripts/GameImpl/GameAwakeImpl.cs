@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using GameHelper;
 using UnityEngine;
@@ -35,7 +36,12 @@ namespace GameImpl
 
             if (SharedRefs.Mode == Constants.GameMode.Offline)
             {
+                var players = SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["players"];
                 var pickFish = SharedRefs.ReplayJson[SharedRefs.ReplayCursor++]["operation"][0]["Fish"];
+                var myFishPicked = new List<int>();
+                var enemyFishPicked = new List<int>();
+                var myFishAvailable = new List<int>();
+                var enemyFishAvailable = new List<int>();
                 for (var i = 0; i < 4; i++)
                 {
                     gameUI.GameState.MyFishId[i] = (int) pickFish[0][i]["id"] - 1;
@@ -48,11 +54,27 @@ namespace GameImpl
                     gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Full);
                     gameUI.myProfiles[i].SetAtk((int) pickFish[0][i]["atk"]);
                     gameUI.enemyProfiles[i].SetAtk((int) pickFish[1][i]["atk"]);
+                    myFishPicked.Add(gameUI.GameState.MyFishId[i]);
+                    enemyFishPicked.Add(gameUI.GameState.EnemyFishId[i]);
                 }
+                for (var i = 0; i < players[0]["my_fish"].Count; i++)
+                    myFishAvailable.Add((int) players[0]["my_fish"][i]["id"] - 1);
+                for (var i = 0; i < players[1]["my_fish"].Count; i++)
+                    enemyFishAvailable.Add((int) players[1]["my_fish"][i]["id"] - 1);
                 for (var i = 0; i < Constants.FishNum; i++)
                 {
-                    gameUI.myGlance.SetupFish(i, Constants.FishState.Using);
-                    gameUI.enemyGlance.SetupFish(i, Constants.FishState.Using);
+                    gameUI.myGlance.SetupFish(i,
+                        myFishPicked.Contains(i)
+                            ? Constants.FishState.Using
+                            : myFishAvailable.Contains(i)
+                                ? Constants.FishState.Free
+                                : Constants.FishState.Used);
+                    gameUI.enemyGlance.SetupFish(i,
+                        enemyFishPicked.Contains(i)
+                            ? Constants.FishState.Using
+                            : enemyFishAvailable.Contains(i)
+                                ? Constants.FishState.Free
+                                : Constants.FishState.Used);
                 }
                 gameUI.roundText.text = $"回合数：{(int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["rounds"] + 1}/3";
                 gameUI.scoreText.text = $"我方得分：{(int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["score"]}";
