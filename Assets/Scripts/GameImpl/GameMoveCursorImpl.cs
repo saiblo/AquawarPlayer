@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 using Utils;
 
 namespace GameImpl
@@ -17,7 +16,9 @@ namespace GameImpl
             switch ((int) state["gamestate"])
             {
                 case 2: // Current round is over, go back to preparation
-                    SceneManager.LoadScene("Scenes/Preparation");
+                    gameUI.resultText.gameObject.SetActive(true);
+                    gameUI.resultText.text = "需与逻辑商议获胜";
+                    gameUI.doneNextRoundButton.gameObject.SetActive(true);
                     break;
                 case 3: // Process Assertion
                 {

@@ -39,5 +39,8 @@ namespace GameHelper
         public Hp[] enemyStatus;
 
         public Text roundText;
+        public Text scoreText;
+        public Text resultText;
+        public Button doneNextRoundButton;
     }
 }

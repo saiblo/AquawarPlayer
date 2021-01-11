@@ -44,6 +44,9 @@ namespace GameImpl
                     gameUI.enemyStatus[i].Full = (int) pickFish[1][i]["hp"];
                 }
                 gameUI.roundText.text = $"回合数：{(int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["rounds"] + 1}/3";
+                gameUI.scoreText.text = $"我方得分：{(int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["score"]}";
+                gameUI.resultText.gameObject.SetActive(false);
+                gameUI.doneNextRoundButton.gameObject.SetActive(false);
                 gameUI.Gom.Init(gameUI.unkFishPrefab, gameUI.allFishRoot);
                 gameUI.MoveCursor();
             }

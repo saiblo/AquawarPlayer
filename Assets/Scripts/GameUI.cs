@@ -1,6 +1,7 @@
 ﻿using GameHelper;
 using GameImpl;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameUI : GameBridge
 {
@@ -43,6 +44,14 @@ public class GameUI : GameBridge
             myStatus[i].Current = GameState.MyFishOnlineHp[i];
             enemyStatus[i].Current = GameState.EnemyFishOnlineHp[i];
         }
+    }
+
+    /// <summary>
+    ///   WARNING: NO CURSOR MOVEMENT INVOLVED!
+    /// </summary>
+    public void DoneAndGoBackToPreparation()
+    {
+        SceneManager.LoadScene("Scenes/Preparation");
     }
 
     // Extension methods
