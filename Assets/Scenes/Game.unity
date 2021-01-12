@@ -533,6 +533,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  fogPrefab: {fileID: 4698746462902476479, guid: e92ea4e2740475249bf57167c9334c13, type: 3}
   allFishRoot: {fileID: 735424222}
   logText: {fileID: 1067736092}
   myStatus:

@@ -15,9 +15,9 @@ namespace GameHelper
         // Holds some necessary references
         private readonly GameStates _gameStates;
 
-        // The question mark
-        public readonly List<Transform> MyQuestions = new List<Transform>();
-        public readonly List<Transform> EnemyQuestions = new List<Transform>();
+        // The fog
+        public readonly List<Transform> MyFogs = new List<Transform>();
+        public readonly List<Transform> EnemyFogs = new List<Transform>();
 
         // Fish-object related
         public readonly List<Transform> MyFishTransforms = new List<Transform>();

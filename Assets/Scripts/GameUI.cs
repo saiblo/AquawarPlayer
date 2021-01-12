@@ -22,7 +22,7 @@ public class GameUI : GameBridge
 
         var meshRenderers = (enemy ? Gom.EnemyFishMeshRenderers : Gom.MyFishMeshRenderers)[pos];
         var fish = (enemy ? Gom.EnemyFishTransforms : Gom.MyFishTransforms)[pos];
-        var question = (enemy ? Gom.EnemyQuestions : Gom.MyQuestions)[pos];
+        var fog = (enemy ? Gom.EnemyFogs : Gom.MyFogs)[pos];
         (enemy ? Gom.EnemyFishParticleSystems : Gom.MyFishParticleSystems)[pos].Play();
 
         foreach (var meshRenderer in meshRenderers) meshRenderer.material = dissolveEffect;
@@ -35,7 +35,7 @@ public class GameUI : GameBridge
             () =>
             {
                 if (fish != null) Destroy(fish.gameObject);
-                if (question != null) Destroy(question.gameObject);
+                if (fog != null) Destroy(fog.gameObject);
             },
             300, 0, 10);
     }

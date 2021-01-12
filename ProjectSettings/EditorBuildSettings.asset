@@ -9,9 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Welcome.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/Connect.unity
-    guid: cfc36ccede3b32d4187feb6791489cb1
-  - enabled: 1
     path: Assets/Scenes/Preparation.unity
     guid: 59e309d27d1f1ea4d8ec4591315eff6f
   - enabled: 1

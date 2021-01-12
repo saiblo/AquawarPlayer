@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using GameHelper;
 using UnityEngine;
@@ -14,22 +13,22 @@ namespace GameImpl
         {
             for (var i = 0; i < 4; i++)
             {
-                gameUI.Gom.MyQuestions.Add(Object.Instantiate(
-                    gameUI.questionPrefab, GameObjectManager.FishRelativePosition(false, i) + new Vector3(0, 4, 0),
-                    Quaternion.Euler(new Vector3(0, -Convert.ToInt32(Math.Atan(3.0 * (i + 1) / (17 - i))), 0)),
-                    gameUI.allFishRoot
-                ));
-                gameUI.Gom.EnemyQuestions.Add(Object.Instantiate(
-                    gameUI.questionPrefab, GameObjectManager.FishRelativePosition(true, i) + new Vector3(0, 4, 0),
-                    Quaternion.Euler(new Vector3(0, Convert.ToInt32(Math.Atan(3.0 * (i + 1) / (17 - i))), 0)),
-                    gameUI.allFishRoot)
+                gameUI.Gom.MyFogs.Add(
+                    Object.Instantiate(
+                        gameUI.fogPrefab,
+                        GameObjectManager.FishRelativePosition(false, i),
+                        Quaternion.identity,
+                        gameUI.allFishRoot
+                    )
                 );
-            }
-
-            for (var i = 0; i < 4; i++)
-            {
-                gameUI.Gom.MyQuestions[i].gameObject.SetActive(false);
-                gameUI.Gom.EnemyQuestions[i].gameObject.SetActive(false);
+                gameUI.Gom.EnemyFogs.Add(
+                    Object.Instantiate(
+                        gameUI.fogPrefab,
+                        GameObjectManager.FishRelativePosition(true, i),
+                        Quaternion.identity,
+                        gameUI.allFishRoot
+                    )
+                );
             }
 
             gameUI.DissolveShaderProperty = Shader.PropertyToID("_cutoff");
