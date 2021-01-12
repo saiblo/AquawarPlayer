@@ -39,7 +39,7 @@ public class Welcome : MonoBehaviour
                                     replaySb.Append('\n');
                                 }
                                 var replayJson = JsonMapper.ToObject(replaySb.ToString());
-                                if (replayJson.IsArray)
+                                if (Validators.ValidateJson(replayJson))
                                 {
                                     SharedRefs.ReplayCursor = 0;
                                     SharedRefs.ReplayJson = replayJson;
