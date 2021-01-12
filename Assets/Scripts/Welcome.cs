@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using GameHelper;
 using LitJson;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,13 +8,21 @@ using UnityEditor;
 using UnityEngine.UI;
 using Utils;
 
-public class Welcome : MonoBehaviour
+public class Welcome : EnhancedMonoBehaviour
 {
     public Transform[] fishPrefabSamples;
 
     public Sprite[] fishAvatars;
 
-    public InputField pathInputField;
+    public Transform offlineButton;
+    public Transform onlineButton;
+    public Transform exitButton;
+    public InputField inputField;
+    public Text inputPlaceholder;
+    public Transform goButton;
+    public Transform backButton;
+
+    private bool _offline;
 
     private void Awake()
     {
@@ -23,17 +32,61 @@ public class Welcome : MonoBehaviour
             SharedRefs.FishPrefabs[i] = fishPrefabSamples[i];
             SharedRefs.FishAvatars[i] = fishAvatars[i];
         }
+        SetIgb(false, true);
     }
 
-    public void OpenFile()
+    private void SetOoe(bool active)
+    {
+        offlineButton.gameObject.SetActive(active);
+        onlineButton.gameObject.SetActive(active);
+        exitButton.gameObject.SetActive(active);
+    }
+
+    private void SetIgb(bool active, bool offline)
+    {
+        if (active)
+        {
+            inputPlaceholder.text = offline ? "请输入回放文件路径..." : "请输入Token...";
+            inputField.text = "";
+            _offline = offline;
+        }
+        inputField.gameObject.SetActive(active);
+        goButton.gameObject.SetActive(active);
+        backButton.gameObject.SetActive(active);
+    }
+
+    public void OfflineButtonPressed()
     {
 #if UNITY_EDITOR
-        var path = pathInputField.text.Trim() == ""
-            ? EditorUtility.OpenFilePanel("选择回放文件", "", "json")
-            : pathInputField.text.Trim();
+        ProcessFile(EditorUtility.OpenFilePanel("选择回放文件", "", "json"));
 #else
-        var path = pathInputField.text.Trim();
+        SetOoe(false);
+        SetIgb(true, true);
 #endif
+    }
+
+    public void OnlineButtonPressed()
+    {
+        SetOoe(false);
+        SetIgb(true, false);
+    }
+
+    public void BackButtonPressed()
+    {
+        SetIgb(false, false);
+        SetOoe(true);
+    }
+
+    public void ConfirmButtonPressed()
+    {
+        if (_offline)
+        {
+            ProcessFile(inputField.text.Trim());
+        }
+    }
+
+    private static void ProcessFile(string path)
+    {
         try
         {
             using (var reader = new StreamReader(path))
@@ -65,5 +118,9 @@ public class Welcome : MonoBehaviour
     public void GoConnect()
     {
         SceneManager.LoadScene("Scenes/Connect");
+    }
+
+    protected override void RunPerFrame()
+    {
     }
 }
