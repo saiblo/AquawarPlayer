@@ -1376,6 +1376,19 @@ MonoBehaviour:
   - {fileID: 8138386687120816768, guid: c7c2dbd965096374c8126de9d2706b54, type: 3}
   - {fileID: 5273571395004814343, guid: 78ccd2c6c44d33a4ebc41adaf2f14760, type: 3}
   - {fileID: 8285721703817384782, guid: 95d384455481df644888dec7d2a16ba0, type: 3}
+  fishAvatars:
+  - {fileID: 21300000, guid: 1451d4b42005f1841b0ce283f4d1fdb5, type: 3}
+  - {fileID: 21300000, guid: f6f5c38512f627645b2ad9a805e6cc91, type: 3}
+  - {fileID: 21300000, guid: 9a652cb67b62229419c97e80b8079054, type: 3}
+  - {fileID: 21300000, guid: 9d82cbfe58d6006479238914d22caaeb, type: 3}
+  - {fileID: 21300000, guid: 4b2c05af64302604daca93a1bef791f4, type: 3}
+  - {fileID: 21300000, guid: 2065d13fc046f1547a2a4a4d4e271650, type: 3}
+  - {fileID: 21300000, guid: 758081addf56fb74b9d9f23fda58a239, type: 3}
+  - {fileID: 21300000, guid: d0944061abc0a69439049963a08d469e, type: 3}
+  - {fileID: 21300000, guid: b2c5bccb9d0bd39438132c3b94596cfb, type: 3}
+  - {fileID: 21300000, guid: e1529a509e89f0b40852483ae8beddab, type: 3}
+  - {fileID: 21300000, guid: 91880dc44f7938c468a5c855bd3c3505, type: 3}
+  - {fileID: 21300000, guid: 472a17388cdcfab4894649c5c1ba66d3, type: 3}
   pathInputField: {fileID: 733629664}
 --- !u!114 &1459689401
 MonoBehaviour:

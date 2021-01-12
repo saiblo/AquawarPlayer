@@ -11,13 +11,18 @@ public class Welcome : MonoBehaviour
 {
     public Transform[] fishPrefabSamples;
 
+    public Sprite[] fishAvatars;
+
     public InputField pathInputField;
 
     private void Awake()
     {
         Screen.SetResolution(1920, 1080, true);
         for (var i = 0; i < Constants.FishNum; i++)
+        {
             SharedRefs.FishPrefabs[i] = fishPrefabSamples[i];
+            SharedRefs.FishAvatars[i] = fishAvatars[i];
+        }
     }
 
     public void OpenFile()
