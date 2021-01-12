@@ -23,9 +23,11 @@ public class Welcome : MonoBehaviour
     public void OpenFile()
     {
 #if UNITY_EDITOR
-        var path = EditorUtility.OpenFilePanel("选择回放文件", "", "json");
+        var path = pathInputField.text.Trim() == ""
+            ? EditorUtility.OpenFilePanel("选择回放文件", "", "json")
+            : pathInputField.text.Trim();
 #else
-        var path = pathInputField.text;
+        var path = pathInputField.text.Trim();
 #endif
         try
         {
