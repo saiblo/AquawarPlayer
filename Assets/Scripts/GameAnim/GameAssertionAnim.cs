@@ -18,8 +18,8 @@ namespace GameAnim
             if (hit)
             {
                 Object.Destroy((gameUI.GameState.AssertionPlayer == 1
-                    ? gameUI.Gom.MyQuestions
-                    : gameUI.Gom.EnemyQuestions)[gameUI.GameState.Assertion].gameObject);
+                    ? gameUI.Gom.MyFogs
+                    : gameUI.Gom.EnemyFogs)[gameUI.GameState.Assertion].gameObject);
                 (gameUI.GameState.AssertionPlayer == 1
                     ? gameUI.GameState.MyFishExpose
                     : gameUI.GameState.EnemyFishExpose)[gameUI.GameState.Assertion] = true;

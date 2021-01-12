@@ -27,7 +27,7 @@ namespace GameHelper
         public Material dissolveEffect;
         public AnimationCurve fadeIn;
 
-        public Transform fog;
+        public Transform fogPrefab;
 
         // Root transforms
 
