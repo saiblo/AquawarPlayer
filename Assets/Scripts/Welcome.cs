@@ -1,17 +1,17 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using LitJson;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor;
+using UnityEngine.UI;
 using Utils;
 
 public class Welcome : MonoBehaviour
 {
-    public Dialog openFileDialogPrefab;
-
     public Transform[] fishPrefabSamples;
+
+    public InputField pathInputField;
 
     private void Awake()
     {
@@ -22,20 +22,16 @@ public class Welcome : MonoBehaviour
 
     public void OpenFile()
     {
-        
-        string path = EditorUtility.OpenFilePanel("选择回放文件", "", "json");
+#if UNITY_EDITOR
+        var path = EditorUtility.OpenFilePanel("选择回放文件", "", "json");
+#else
+        var path = pathInputField.text;
+#endif
         try
         {
-            using (var sr = new StreamReader(path))
+            using (var reader = new StreamReader(path))
             {
-                string line;
-                var replaySb = new StringBuilder();
-                while ((line = sr.ReadLine()) != null)
-                {
-                    replaySb.Append(line);
-                    replaySb.Append('\n');
-                }
-                var replayJson = JsonMapper.ToObject(replaySb.ToString());
+                var replayJson = JsonMapper.ToObject(reader.ReadToEnd());
                 if (Validators.ValidateJson(replayJson))
                 {
                     SharedRefs.ReplayCursor = 0;
@@ -45,14 +41,17 @@ public class Welcome : MonoBehaviour
                 }
                 else
                 {
-                    UnityEditor.EditorUtility.DisplayDialog("Error", "文件解析失败，请确认json文件格式是否正确。", "确认");
-                    Debug.Log("文件解析失败");
+#if UNITY_EDITOR
+                    EditorUtility.DisplayDialog("Error", "文件解析失败，请确认json文件格式是否正确。", "确认");
+#endif
                 }
             }
         }
         catch (Exception e)
         {
-            UnityEditor.EditorUtility.DisplayDialog("Error", e.Message.ToString(), "确认");
+#if UNITY_EDITOR
+            EditorUtility.DisplayDialog("Error", e.Message, "确认");
+#endif
         }
     }
 
