@@ -16,13 +16,13 @@ namespace Components
             switch (state)
             {
                 case Constants.FishState.Used:
-                    mask.color = new Color(1, 0, 0, 0.4f);
+                    mask.color = new Color(1, 0, 0, 0.3f);
                     break;
                 case Constants.FishState.Using:
-                    mask.color = new Color(0, 0, 0, 0.4f);
+                    mask.color = new Color(0, 0, 0, 0);
                     break;
                 case Constants.FishState.Free:
-                    mask.color = new Color(0, 1, 0, 0.4f);
+                    mask.color = new Color(0, 0, 0, 0.6f);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(state), state, null);
