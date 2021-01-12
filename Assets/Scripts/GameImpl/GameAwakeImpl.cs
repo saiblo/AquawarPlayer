@@ -76,14 +76,20 @@ namespace GameImpl
                                 ? Constants.FishState.Free
                                 : Constants.FishState.Used);
                 }
-                gameUI.roundText.text = $"回合数：{(int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["rounds"] + 1}/3";
+                var rounds = (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["rounds"] + 1;
+                gameUI.roundText.text = $"回合数：{rounds}/3";
                 gameUI.scoreText.text = $"我方得分：{(int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["score"]}";
                 gameUI.resultText.gameObject.SetActive(false);
                 gameUI.doneNextRoundButton.gameObject.SetActive(false);
                 gameUI.logObject.SetActive(false);
                 gameUI.Gom.Init(gameUI.unkFishPrefab, gameUI.allFishRoot);
                 if (SharedRefs.AutoPlay) gameUI.MoveCursor();
-                else gameUI.nextStepButton.interactable = true;
+                else
+                {
+                    gameUI.prevRoundButton.interactable = true;
+                    gameUI.nextRoundButton.interactable = rounds < 3;
+                    gameUI.nextStepButton.interactable = true;
+                }
             }
             else
             {

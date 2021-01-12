@@ -121,6 +121,9 @@ namespace GameImpl
                                 gameUI.nextStepButton.interactable = true;
                                 gameUI.prevStepButton.interactable = true;
                                 gameUI.replayStepButton.interactable = true;
+                                gameUI.prevRoundButton.interactable = true;
+                                gameUI.nextRoundButton.interactable =
+                                    (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["rounds"] < 2;
                             }
                         }, 3000);
                     }

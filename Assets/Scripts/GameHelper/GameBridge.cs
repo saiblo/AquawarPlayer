@@ -55,5 +55,7 @@ namespace GameHelper
         public Button prevStepButton;
         public Button nextStepButton;
         public Button replayStepButton;
+        public Button prevRoundButton;
+        public Button nextRoundButton;
     }
 }

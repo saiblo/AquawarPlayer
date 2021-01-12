@@ -61,9 +61,6 @@ public class GameUI : GameBridge
         }
     }
 
-    /// <summary>
-    ///   WARNING: NO CURSOR MOVEMENT INVOLVED!
-    /// </summary>
     public void DoneAndGoBackToPreparation()
     {
         SceneManager.LoadScene("Scenes/Preparation");
@@ -90,7 +87,23 @@ public class GameUI : GameBridge
         prevStepButton.interactable = false;
         nextStepButton.interactable = false;
         replayStepButton.interactable = false;
+        prevRoundButton.interactable = false;
+        nextRoundButton.interactable = false;
         this.MoveCursor();
+    }
+
+    public void PrevRound()
+    {
+        while ((int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["gamestate"] != 2)
+            --SharedRefs.ReplayCursor;
+        DoneAndGoBackToPreparation();
+    }
+
+    public void NextRound()
+    {
+        while ((int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["gamestate"] != 2)
+            ++SharedRefs.ReplayCursor;
+        DoneAndGoBackToPreparation();
     }
 
     public void ReplayStep()
