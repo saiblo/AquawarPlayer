@@ -7,28 +7,26 @@ namespace Components
 {
     public class GlanceFish : MonoBehaviour
     {
-        public Text fishName;
-        public Text fishState;
+        public Image fishAvatar;
+        public Image mask;
 
         public void SetupFish(int id, Constants.FishState state)
         {
-            fishName.text = Constants.FishName[id];
+            fishAvatar.overrideSprite = SharedRefs.FishAvatars[id];
             switch (state)
             {
                 case Constants.FishState.Used:
-                    fishState.text = "已使用";
+                    mask.color = new Color(1, 0, 0, 0.4f);
                     break;
                 case Constants.FishState.Using:
-                    fishState.text = "在场上";
+                    mask.color = new Color(0, 0, 0, 0.4f);
                     break;
                 case Constants.FishState.Free:
-                    fishState.text = "未使用";
+                    mask.color = new Color(0, 1, 0, 0.4f);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(state), state, null);
             }
-            
         }
-
     }
 }
