@@ -27,6 +27,8 @@ namespace GameHelper
         public Material dissolveEffect;
         public AnimationCurve fadeIn;
 
+        public Transform fog;
+
         // Root transforms
 
         public Transform allFishRoot;

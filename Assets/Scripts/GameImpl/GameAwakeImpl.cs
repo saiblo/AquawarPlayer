@@ -83,6 +83,21 @@ namespace GameImpl
                 gameUI.doneNextRoundButton.gameObject.SetActive(false);
                 gameUI.logObject.SetActive(false);
                 gameUI.Gom.Init(gameUI.unkFishPrefab, gameUI.allFishRoot);
+                for (var i = 0; i < 4; i++)
+                {
+                    Object.Instantiate(
+                        gameUI.fog,
+                        GameObjectManager.FishRelativePosition(true, i),
+                        Quaternion.identity,
+                        gameUI.allFishRoot
+                    );
+                    Object.Instantiate(
+                        gameUI.fog,
+                        GameObjectManager.FishRelativePosition(false, i),
+                        Quaternion.identity,
+                        gameUI.allFishRoot
+                    );
+                }
                 if (SharedRefs.AutoPlay) gameUI.MoveCursor();
                 else
                 {
