@@ -20,16 +20,17 @@ public class GameUI : GameBridge
         if (enemy) GameState.EnemyFishAlive[pos] = false;
         else GameState.MyFishAlive[pos] = false;
 
-        var meshRenderer = (enemy ? Gom.EnemyFishRenderers : Gom.MyFishRenderers)[pos];
+        var meshRenderers = (enemy ? Gom.EnemyFishMeshRenderers : Gom.MyFishMeshRenderers)[pos];
         var fish = (enemy ? Gom.EnemyFishTransforms : Gom.MyFishTransforms)[pos];
         var question = (enemy ? Gom.EnemyQuestions : Gom.MyQuestions)[pos];
         (enemy ? Gom.EnemyFishParticleSystems : Gom.MyFishParticleSystems)[pos].Play();
 
-        meshRenderer.material = dissolveEffect;
+        foreach (var meshRenderer in meshRenderers) meshRenderer.material = dissolveEffect;
         Repeat(cnt =>
             {
-                meshRenderer.material.SetFloat(DissolveShaderProperty,
-                    fadeIn.Evaluate(Mathf.InverseLerp(0, 3, cnt / 100f)));
+                foreach (var meshRenderer in meshRenderers)
+                    meshRenderer.material.SetFloat(DissolveShaderProperty,
+                        fadeIn.Evaluate(Mathf.InverseLerp(0, 3, cnt / 100f)));
             },
             () =>
             {
