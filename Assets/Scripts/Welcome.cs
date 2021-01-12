@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using GameHelper;
 using LitJson;
 using UnityEngine;
@@ -23,6 +24,8 @@ public class Welcome : EnhancedMonoBehaviour
     public Transform backButton;
 
     private bool _offline;
+
+    public Text statusText;
 
     private void Awake()
     {
@@ -79,13 +82,12 @@ public class Welcome : EnhancedMonoBehaviour
 
     public void ConfirmButtonPressed()
     {
-        if (_offline)
-        {
-            ProcessFile(inputField.text.Trim());
-        }
+        if (_offline) ProcessFile(inputField.text.Trim());
+        else ConnectRoom(inputField.text.Trim());
     }
 
-    private static void ProcessFile(string path)
+    // ReSharper disable once MemberCanBeMadeStatic.Local
+    private void ProcessFile(string path)
     {
         try
         {
@@ -103,6 +105,8 @@ public class Welcome : EnhancedMonoBehaviour
                 {
 #if UNITY_EDITOR
                     EditorUtility.DisplayDialog("Error", "文件解析失败，请确认json文件格式是否正确。", "确认");
+#else
+                    statusText.text = "文件解析失败，请确认json文件格式是否正确。";
 #endif
                 }
             }
@@ -111,13 +115,35 @@ public class Welcome : EnhancedMonoBehaviour
         {
 #if UNITY_EDITOR
             EditorUtility.DisplayDialog("Error", e.Message, "确认");
+#else
+            statusText.text = e.Message;
 #endif
         }
     }
 
-    public void GoConnect()
+    private async void ConnectRoom(string tokenEncoded)
     {
-        SceneManager.LoadScene("Scenes/Connect");
+        var tokenDecoded = Encoding.UTF8.GetString(Convert.FromBase64String(tokenEncoded));
+        if (tokenDecoded == tokenEncoded)
+        {
+            statusText.text = "Token解码失败";
+            return;
+        }
+        try
+        {
+            statusText.text = "连接中……";
+            SharedRefs.GameClient = new Client(tokenDecoded, tokenEncoded);
+            await SharedRefs.GameClient.Send();
+            statusText.text = "连接成功，等待对手中……";
+            await SharedRefs.GameClient.Receive(); // NOTICE
+            await SharedRefs.GameClient.Send(new Ok());
+            SharedRefs.Mode = Constants.GameMode.Online;
+            SceneManager.LoadScene("Scenes/Preparation");
+        }
+        catch (Exception)
+        {
+            statusText.text = "连接失败";
+        }
     }
 
     protected override void RunPerFrame()
