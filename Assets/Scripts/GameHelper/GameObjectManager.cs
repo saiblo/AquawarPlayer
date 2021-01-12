@@ -23,8 +23,8 @@ namespace GameHelper
         public readonly List<Transform> MyFishTransforms = new List<Transform>();
         public readonly List<Transform> EnemyFishTransforms = new List<Transform>();
 
-        public readonly List<Renderer> MyFishRenderers = new List<Renderer>();
-        public readonly List<Renderer> EnemyFishRenderers = new List<Renderer>();
+        public readonly List<SkinnedMeshRenderer[]> MyFishMeshRenderers = new List<SkinnedMeshRenderer[]>();
+        public readonly List<SkinnedMeshRenderer[]> EnemyFishMeshRenderers = new List<SkinnedMeshRenderer[]>();
 
         public readonly List<ParticleSystem> MyFishParticleSystems = new List<ParticleSystem>();
         public readonly List<ParticleSystem> EnemyFishParticleSystems = new List<ParticleSystem>();
@@ -53,7 +53,7 @@ namespace GameHelper
                     ? unkFishPrefab
                     : SharedRefs.FishPrefabs[(enemy ? _gameStates.EnemyFishId : _gameStates.MyFishId)[j]],
                 allFishRoot);
-            fishTransform.localPosition = GameObjectManager.FishRelativePosition(enemy, j);
+            fishTransform.localPosition = FishRelativePosition(enemy, j);
             fishTransform.localScale = Small;
             fishTransform.rotation = Quaternion.Euler(new Vector3(0, enemy ? 100 : 260, 0));
             if (SharedRefs.Mode == Constants.GameMode.Offline) return fishTransform;
@@ -93,12 +93,12 @@ namespace GameHelper
             {
                 var myFish = GenFish(false, i, unkFishPrefab, allFishRoot);
                 MyFishTransforms.Add(myFish);
-                MyFishRenderers.Add(myFish.GetComponentInChildren<Renderer>());
+                MyFishMeshRenderers.Add(myFish.GetComponentsInChildren<SkinnedMeshRenderer>());
                 MyFishParticleSystems.Add(myFish.GetComponentInChildren<ParticleSystem>());
 
                 var enemyFish = GenFish(true, i, unkFishPrefab, allFishRoot);
                 EnemyFishTransforms.Add(enemyFish);
-                EnemyFishRenderers.Add(enemyFish.GetComponentInChildren<Renderer>());
+                EnemyFishMeshRenderers.Add(enemyFish.GetComponentsInChildren<SkinnedMeshRenderer>());
                 EnemyFishParticleSystems.Add(enemyFish.GetComponentInChildren<ParticleSystem>());
             }
             Initialized = true;
