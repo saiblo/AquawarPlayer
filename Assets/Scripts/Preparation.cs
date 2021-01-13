@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Components;
-using GameHelper;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Utils;
 
-public class Preparation : EnhancedMonoBehaviour
+public class Preparation : MonoBehaviour
 {
     private enum SelectStatus
     {
@@ -40,13 +39,15 @@ public class Preparation : EnhancedMonoBehaviour
 
     public Button doneButton;
 
+    public Button turnButton;
+
     public GameProfile[] profiles;
 
     public FishDetail fishDetailPrefab;
 
     public Transform backgroundBase;
 
-    private int _playerId = 0;
+    private int _playerId;
 
     private void Awake()
     {
@@ -56,9 +57,11 @@ public class Preparation : EnhancedMonoBehaviour
             var myFish = SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["players"][_playerId]["my_fish"];
             for (var i = 0; i < myFish.Count; i++)
                 _fishSelectStatus[(int) myFish[i]["id"] - 1] = SelectStatus.Available;
+            turnButton.interactable = true;
         }
         else
         {
+            turnButton.gameObject.SetActive(false);
             /* var result = await SharedRefs.GameClient.Receive();
             if ((string) result["Action"] == "Pick")
             {
@@ -96,7 +99,17 @@ public class Preparation : EnhancedMonoBehaviour
         SceneManager.LoadScene("Scenes/Game");
     }
 
-    protected override void RunPerFrame()
+    public void BackToWelcome()
+    {
+        SceneManager.LoadScene("Scenes/Welcome");
+    }
+
+    public void SwitchPlayer()
+    {
+        _playerId = 1 - _playerId;
+    }
+
+    private void Update()
     {
         doneButton.interactable = SharedRefs.Mode == Constants.GameMode.Offline ||
                                   _fishSelectStatus.Count(status => status == SelectStatus.Selected) == 4;
