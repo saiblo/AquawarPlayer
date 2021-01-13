@@ -5,7 +5,17 @@ namespace Components
 {
     public class Hp : MonoBehaviour
     {
-        public int Current { get; set; }
+        public int Current
+        {
+            get => _current;
+            set
+            {
+                _current = value;
+                text.text = $"{value}/{Full}";
+                slider.value = (float) value / Full;
+                gameObject.SetActive(value > 0);
+            }
+        }
 
         public int Full
         {
@@ -18,20 +28,9 @@ namespace Components
         }
 
         public Text text;
+        public Slider slider;
 
-        private Slider _slider;
         private int _full;
-
-        private void Awake()
-        {
-            _slider = GetComponent<Slider>();
-        }
-
-        private void Update()
-        {
-            text.text = $"{Current}/{Full}";
-            _slider.value = (float) Current / Full;
-            if (Current <= 0) gameObject.SetActive(false);
-        }
+        private int _current;
     }
 }
