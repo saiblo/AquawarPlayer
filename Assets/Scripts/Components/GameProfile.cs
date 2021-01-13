@@ -20,7 +20,7 @@ namespace Components
             skill.text = Constants.SkillTable[id];
             avatar.overrideSprite = SharedRefs.FishAvatars[id];
             _extension = extension;
-            _extension.UpdateText($"{Constants.FishName[id]}\n主动技能：{Constants.SkillTable[id]}");
+            _extension.UpdateText($"{Constants.FishName[id]}\n主动：{Constants.SkillTable[id]}");
         }
 
         public void SetHp(int hpVal)
