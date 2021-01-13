@@ -43,20 +43,26 @@ namespace GameImpl
                 var enemyFishAvailable = new List<int>();
                 for (var i = 0; i < 4; i++)
                 {
-                    gameUI.GameState.MyFishId[i] = (int) pickFish[0][i]["id"] - 1;
-                    gameUI.GameState.EnemyFishId[i] = (int) pickFish[1][i]["id"] - 1;
+                    var myFishId = (int) pickFish[0][i]["id"] - 1;
+                    var enemyFishId = (int) pickFish[1][i]["id"] - 1;
+                    gameUI.GameState.MyFishId[i] = myFishId;
+                    gameUI.GameState.EnemyFishId[i] = enemyFishId;
                     gameUI.myStatus[i].Full = (int) pickFish[0][i]["hp"];
                     gameUI.enemyStatus[i].Full = (int) pickFish[1][i]["hp"];
-                    gameUI.myProfiles[i].SetupFish(gameUI.GameState.MyFishId[i], gameUI.myExtensions[i]);
-                    gameUI.enemyProfiles[i].SetupFish(gameUI.GameState.EnemyFishId[i], gameUI.enemyExtensions[i]);
+                    gameUI.myProfiles[i].SetupFish(myFishId, gameUI.myExtensions[i]);
+                    gameUI.enemyProfiles[i].SetupFish(enemyFishId, gameUI.enemyExtensions[i]);
+                    gameUI.myExtensions[i]
+                        .UpdateText($"{Constants.FishName[myFishId]}\n主动：{Constants.SkillTable[myFishId]}");
+                    gameUI.enemyExtensions[i]
+                        .UpdateText($"{Constants.FishName[enemyFishId]}\n主动：{Constants.SkillTable[enemyFishId]}");
                     gameUI.myExtensions[i].gameObject.SetActive(false);
                     gameUI.enemyExtensions[i].gameObject.SetActive(false);
                     gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Full);
                     gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Full);
                     gameUI.myProfiles[i].SetAtk((int) pickFish[0][i]["atk"]);
                     gameUI.enemyProfiles[i].SetAtk((int) pickFish[1][i]["atk"]);
-                    myFishPicked.Add(gameUI.GameState.MyFishId[i]);
-                    enemyFishPicked.Add(gameUI.GameState.EnemyFishId[i]);
+                    myFishPicked.Add(myFishId);
+                    enemyFishPicked.Add(enemyFishId);
                 }
                 for (var i = 0; i < players[0]["my_fish"].Count; i++)
                     myFishAvailable.Add((int) players[0]["my_fish"][i]["id"] - 1);

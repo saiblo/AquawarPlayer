@@ -2,6 +2,7 @@
 using System.Linq;
 using Components;
 using GameHelper;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Utils;
@@ -15,7 +16,9 @@ public class Preparation : EnhancedMonoBehaviour
 
     public GameProfile[] profiles;
 
-    public ProfileExtension ext;
+    public FishDetail fishDetailPrefab;
+
+    public Transform backgroundBase;
 
     private void Awake()
     {
@@ -33,7 +36,11 @@ public class Preparation : EnhancedMonoBehaviour
         }
         for (var i = 0; i < Constants.FishNum; i++)
         {
-            profiles[i].SetupFish(i, ext);
+            var detail = Instantiate(fishDetailPrefab, backgroundBase);
+            detail.GetComponent<Transform>().localPosition = new Vector3(1470, 410);
+            detail.SetupFish(i);
+            detail.gameObject.SetActive(false);
+            profiles[i].SetupFish(i, detail);
             profiles[i].SetHp(400);
             profiles[i].SetAtk(100);
         }
