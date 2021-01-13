@@ -20,11 +20,17 @@ public class Preparation : EnhancedMonoBehaviour
 
     public Transform backgroundBase;
 
+    private int _playerId = 0;
+
     private void Awake()
     {
+        var availableFishList = new List<int>();
         if (SharedRefs.Mode == Constants.GameMode.Offline)
         {
             if (SharedRefs.ReplayCursor == 0) SharedRefs.ReplayCursor = 1;
+            var myFish = SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["players"][_playerId]["my_fish"];
+            for (var i = 0; i < myFish.Count; i++)
+                availableFishList.Add((int) myFish[i]["id"] - 1);
         }
         else
         {
@@ -43,6 +49,8 @@ public class Preparation : EnhancedMonoBehaviour
             profiles[i].SetupFish(i, detail);
             profiles[i].SetHp(400);
             profiles[i].SetAtk(100);
+            if (!availableFishList.Contains(i))
+                profiles[i].GetComponent<Image>().color = new Color(1, 0, 0, 0.8f);
         }
     }
 
