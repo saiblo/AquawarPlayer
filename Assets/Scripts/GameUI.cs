@@ -35,7 +35,7 @@ public class GameUI : GameBridge
             () =>
             {
                 if (fish != null) Destroy(fish.gameObject);
-                if (fog != null) Destroy(fog.gameObject);
+                fog.gameObject.SetActive(false);
             },
             300, 0, 10);
     }
@@ -74,6 +74,7 @@ public class GameUI : GameBridge
 
     public void PrevStep()
     {
+        Gom.CheckReviveOnBackwards();
         SharedRefs.ReplayCursor -= 2;
         if ((int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 1]["gamestate"] == 2)
         {

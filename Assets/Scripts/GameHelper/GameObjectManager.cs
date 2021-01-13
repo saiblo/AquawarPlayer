@@ -14,6 +14,8 @@ namespace GameHelper
     {
         // Holds some necessary references
         private readonly GameStates _gameStates;
+        private Transform _unkFishPrefab;
+        private Transform _allFishRoot;
 
         // The fog
         public readonly List<Transform> MyFogs = new List<Transform>();
@@ -102,6 +104,23 @@ namespace GameHelper
                 EnemyFishParticleSystems.Add(enemyFish.GetComponentInChildren<ParticleSystem>());
             }
             Initialized = true;
+            _unkFishPrefab = unkFishPrefab;
+            _allFishRoot = allFishRoot;
+        }
+
+        public void CheckReviveOnBackwards()
+        {
+            var players = SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["players"];
+            var lastPlayers = SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 2]["players"];
+            for (var i = 0; i < 4; i++)
+            {
+                if ((float) players[0]["fight_fish"][i]["hp"] <= 0 &&
+                    (float) lastPlayers[0]["fight_fish"][i]["hp"] > 0)
+                    MyFishTransforms[i] = GenFish(false, i, _unkFishPrefab, _allFishRoot);
+                if ((float) players[1]["fight_fish"][i]["hp"] <= 0 &&
+                    (float) lastPlayers[1]["fight_fish"][i]["hp"] > 0)
+                    EnemyFishTransforms[i] = GenFish(true, i, _unkFishPrefab, _allFishRoot);
+            }
         }
 
         public GameObjectManager(GameStates gameStates)
