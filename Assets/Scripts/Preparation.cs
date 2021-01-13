@@ -62,11 +62,13 @@ public class Preparation : MonoBehaviour
         else
         {
             turnButton.gameObject.SetActive(false);
-            /* var result = await SharedRefs.GameClient.Receive();
+            var result = SharedRefs.FirstPick; // TODO: REALLY?
             if ((string) result["Action"] == "Pick")
             {
                 var remaining = result["RemainFishs"];
-            } */
+                for (var i = 0; i < remaining.Count; i++)
+                    _fishSelectStatus[(int) remaining[i] - 1] = SelectStatus.Available;
+            }
         }
         for (var i = 0; i < Constants.FishNum; i++)
         {
@@ -92,7 +94,7 @@ public class Preparation : MonoBehaviour
                     chooseFishs.Add(i + 1);
             SharedRefs.GameClient.Send(
                 _fishSelectStatus[11] == SelectStatus.Selected
-                    ? new Pick {ChooseFishs = chooseFishs, ImitateFish = 1}
+                    ? new PickWithImitate {ChooseFishs = chooseFishs, ImitateFish = 1}
                     : new Pick {ChooseFishs = chooseFishs}
             );
         }

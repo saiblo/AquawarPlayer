@@ -135,8 +135,7 @@ public class Welcome : EnhancedMonoBehaviour
             SharedRefs.GameClient = new Client(tokenDecoded, tokenEncoded);
             await SharedRefs.GameClient.Send();
             statusText.text = "连接成功，等待对手中……";
-            await SharedRefs.GameClient.Receive(); // NOTICE
-            await SharedRefs.GameClient.Send(new Ok());
+            SharedRefs.FirstPick = await SharedRefs.GameClient.Receive(); // PICK
             SharedRefs.Mode = Constants.GameMode.Online;
             SceneManager.LoadScene("Scenes/Preparation");
         }

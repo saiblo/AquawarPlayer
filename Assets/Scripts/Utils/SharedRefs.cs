@@ -18,5 +18,7 @@ namespace Utils
         public static bool AutoPlay = false;
 
         public static Client GameClient = null;
+
+        public static JsonData FirstPick = null; // The first message from remote, shared by Welcome and Preparation
     }
 }
