@@ -9,8 +9,34 @@ using Utils;
 
 public class Preparation : EnhancedMonoBehaviour
 {
-    private readonly bool[] _fishSelected =
-        {false, false, false, false, false, false, false, false, false, false, false, false};
+    private enum SelectStatus
+    {
+        Available,
+        Selected,
+        Unavailable
+    }
+
+    private readonly SelectStatus[] _fishSelectStatus =
+    {
+        SelectStatus.Unavailable,
+        SelectStatus.Unavailable,
+        SelectStatus.Unavailable,
+        SelectStatus.Unavailable,
+        SelectStatus.Unavailable,
+        SelectStatus.Unavailable,
+        SelectStatus.Unavailable,
+        SelectStatus.Unavailable,
+        SelectStatus.Unavailable,
+        SelectStatus.Unavailable,
+        SelectStatus.Unavailable,
+        SelectStatus.Unavailable,
+        SelectStatus.Unavailable,
+        SelectStatus.Unavailable,
+        SelectStatus.Unavailable,
+        SelectStatus.Unavailable,
+        SelectStatus.Unavailable,
+        SelectStatus.Unavailable
+    };
 
     public Button doneButton;
 
@@ -24,13 +50,12 @@ public class Preparation : EnhancedMonoBehaviour
 
     private void Awake()
     {
-        var availableFishList = new List<int>();
         if (SharedRefs.Mode == Constants.GameMode.Offline)
         {
             if (SharedRefs.ReplayCursor == 0) SharedRefs.ReplayCursor = 1;
             var myFish = SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["players"][_playerId]["my_fish"];
             for (var i = 0; i < myFish.Count; i++)
-                availableFishList.Add((int) myFish[i]["id"] - 1);
+                _fishSelectStatus[(int) myFish[i]["id"] - 1] = SelectStatus.Available;
         }
         else
         {
@@ -49,7 +74,7 @@ public class Preparation : EnhancedMonoBehaviour
             profiles[i].SetupFish(i, detail);
             profiles[i].SetHp(400);
             profiles[i].SetAtk(100);
-            if (!availableFishList.Contains(i))
+            if (_fishSelectStatus[i] == SelectStatus.Unavailable)
                 profiles[i].GetComponent<Image>().color = new Color(1, 0, 0, 0.8f);
         }
     }
@@ -60,10 +85,10 @@ public class Preparation : EnhancedMonoBehaviour
         {
             var chooseFishs = new List<int>();
             for (var i = 0; i < Constants.FishNum; i++)
-                if (_fishSelected[i])
+                if (_fishSelectStatus[i] == SelectStatus.Selected)
                     chooseFishs.Add(i + 1);
             SharedRefs.GameClient.Send(
-                _fishSelected[11]
+                _fishSelectStatus[11] == SelectStatus.Selected
                     ? new Pick {ChooseFishs = chooseFishs, ImitateFish = 1}
                     : new Pick {ChooseFishs = chooseFishs}
             );
@@ -73,6 +98,7 @@ public class Preparation : EnhancedMonoBehaviour
 
     protected override void RunPerFrame()
     {
-        doneButton.interactable = SharedRefs.Mode == Constants.GameMode.Offline || _fishSelected.Count(b => b) == 4;
+        doneButton.interactable = SharedRefs.Mode == Constants.GameMode.Offline ||
+                                  _fishSelectStatus.Count(status => status == SelectStatus.Selected) == 4;
     }
 }
