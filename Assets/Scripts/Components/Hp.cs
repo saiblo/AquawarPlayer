@@ -22,8 +22,8 @@ namespace Components
             get => _full;
             set
             {
-                Current = value;
                 _full = value;
+                Current = value;
             }
         }
 
