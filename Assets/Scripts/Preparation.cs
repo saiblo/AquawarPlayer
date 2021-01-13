@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Components;
 using GameHelper;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,6 +12,10 @@ public class Preparation : EnhancedMonoBehaviour
         {false, false, false, false, false, false, false, false, false, false, false, false};
 
     public Button doneButton;
+
+    public GameProfile[] profiles;
+
+    public ProfileExtension ext;
 
     private void Awake()
     {
@@ -25,6 +30,12 @@ public class Preparation : EnhancedMonoBehaviour
             {
                 var remaining = result["RemainFishs"];
             } */
+        }
+        for (var i = 0; i < Constants.FishNum; i++)
+        {
+            profiles[i].SetupFish(i, ext);
+            profiles[i].SetHp(400);
+            profiles[i].SetAtk(100);
         }
     }
 
