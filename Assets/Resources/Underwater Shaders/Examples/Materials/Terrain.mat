@@ -104,7 +104,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Animation: 0.26766667
+    - _Animation: 0.6148701
     - _BumpScale: 1
     - _CausticsBoost: 0
     - _CausticsIntensity0: 0.35
