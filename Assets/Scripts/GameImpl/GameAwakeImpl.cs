@@ -47,8 +47,10 @@ namespace GameImpl
                     gameUI.GameState.EnemyFishId[i] = (int) pickFish[1][i]["id"] - 1;
                     gameUI.myStatus[i].Full = (int) pickFish[0][i]["hp"];
                     gameUI.enemyStatus[i].Full = (int) pickFish[1][i]["hp"];
-                    gameUI.myProfiles[i].SetupFish(gameUI.GameState.MyFishId[i]);
-                    gameUI.enemyProfiles[i].SetupFish(gameUI.GameState.EnemyFishId[i]);
+                    gameUI.myProfiles[i].SetupFish(gameUI.GameState.MyFishId[i], gameUI.myExtensions[i]);
+                    gameUI.enemyProfiles[i].SetupFish(gameUI.GameState.EnemyFishId[i], gameUI.enemyExtensions[i]);
+                    gameUI.myExtensions[i].gameObject.SetActive(false);
+                    gameUI.enemyExtensions[i].gameObject.SetActive(false);
                     gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Full);
                     gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Full);
                     gameUI.myProfiles[i].SetAtk((int) pickFish[0][i]["atk"]);

@@ -50,6 +50,9 @@ namespace GameHelper
         public GameProfile[] myProfiles;
         public GameProfile[] enemyProfiles;
 
+        public ProfileExtension[] myExtensions;
+        public ProfileExtension[] enemyExtensions;
+
         public Glance myGlance;
         public Glance enemyGlance;
 

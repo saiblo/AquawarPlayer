@@ -12,11 +12,15 @@ namespace Components
         public Text skill;
         public Image avatar;
 
-        public void SetupFish(int id)
+        private ProfileExtension _extension;
+
+        public void SetupFish(int id, ProfileExtension extension)
         {
             fishName.text = Constants.FishName[id];
             skill.text = Constants.SkillTable[id];
             avatar.overrideSprite = SharedRefs.FishAvatars[id];
+            _extension = extension;
+            _extension.UpdateText($"{Constants.FishName[id]}\n主动技能：{Constants.SkillTable[id]}");
         }
 
         public void SetHp(int hpVal)
@@ -27,6 +31,16 @@ namespace Components
         public void SetAtk(int atkVal)
         {
             atk.text = $"Atk: {atkVal}";
+        }
+
+        public void ShowExt()
+        {
+            _extension.gameObject.SetActive(true);
+        }
+
+        public void HideExt()
+        {
+            _extension.gameObject.SetActive(false);
         }
     }
 }
