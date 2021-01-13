@@ -65,50 +65,49 @@ public class Preparation : EnhancedMonoBehaviour
         }
 
         Repeat(cnt =>
+        {
+            for (var i = 0; i < Constants.FishNum; i++)
+                _fishTransforms[i].localPosition =
+                    _targetPositions[i] - new Vector3(
+                        (199 - cnt) / 33f * (_entranceSpeedX[i] - 0.5f),
+                        (199 - cnt) / 33f * (_entranceSpeedY[i] - 0.5f)
+                    );
+        }, () =>
+        {
+            _animationPlayed = true;
+            if (SharedRefs.Mode == Constants.GameMode.Offline)
             {
-                for (var i = 0; i < Constants.FishNum; i++)
-                    _fishTransforms[i].localPosition =
-                        _targetPositions[i] - new Vector3(
-                            (199 - cnt) / 33f * (_entranceSpeedX[i] - 0.5f),
-                            (199 - cnt) / 33f * (_entranceSpeedY[i] - 0.5f)
-                        );
-            },
-            async () =>
+                _availableFish.Clear();
+                var remainingFish =
+                    SharedRefs.ReplayJson[SharedRefs.ReplayCursor == 0 ? 1 : SharedRefs.ReplayCursor - 1]["players"]
+                        [0]["my_fish"];
+                for (var i = 0; i < remainingFish.Count; i++)
+                    _availableFish.Add((int) remainingFish[i]["id"] - 1);
+                if (SharedRefs.ReplayCursor == 0) SharedRefs.ReplayCursor = 1;
+            }
+            else
             {
-                _animationPlayed = true;
-                if (SharedRefs.Mode == Constants.GameMode.Offline)
+                var result = SharedRefs.FirstPick; // TODO: REALLY?
+                if ((string) result["Action"] == "Pick")
                 {
+                    var remaining = result["RemainFishs"];
                     _availableFish.Clear();
-                    var remainingFish =
-                        SharedRefs.ReplayJson[SharedRefs.ReplayCursor == 0 ? 1 : SharedRefs.ReplayCursor - 1]["players"]
-                            [0]["my_fish"];
-                    for (var i = 0; i < remainingFish.Count; i++)
-                        _availableFish.Add((int) remainingFish[i]["id"] - 1);
-                    if (SharedRefs.ReplayCursor == 0) SharedRefs.ReplayCursor = 1;
+                    for (var i = 0; i < remaining.Count; i++)
+                        _availableFish.Add((int) remaining[i] - 1);
                 }
-                else
-                {
-                    var result = await SharedRefs.GameClient.Receive();
-                    if ((string) result["Action"] == "Pick")
-                    {
-                        var remaining = result["RemainFishs"];
-                        _availableFish.Clear();
-                        for (var i = 0; i < remaining.Count; i++)
-                            _availableFish.Add((int) remaining[i] - 1);
-                    }
-                }
-                for (var i = 0; i < Constants.FishNum; i++)
-                {
-                    if (_availableFish.Contains(i)) continue;
-                    var banBubble = Instantiate(bubblePrefab, allFishRoot);
-                    banBubble.localPosition = _targetPositions[i];
-                    banBubble.localScale = new Vector3(3, 3, 3);
-                }
-                if (SharedRefs.Mode == Constants.GameMode.Offline)
-                    OfflineSelect();
-                else
-                    ActivateFishTriggers();
-            }, 200, 0, 6);
+            }
+            for (var i = 0; i < Constants.FishNum; i++)
+            {
+                if (_availableFish.Contains(i)) continue;
+                var banBubble = Instantiate(bubblePrefab, allFishRoot);
+                banBubble.localPosition = _targetPositions[i];
+                banBubble.localScale = new Vector3(3, 3, 3);
+            }
+            if (SharedRefs.Mode == Constants.GameMode.Offline)
+                OfflineSelect();
+            else
+                ActivateFishTriggers();
+        }, 200, 0, 6);
     }
 
     private void ActivateFishTriggers()
@@ -137,7 +136,7 @@ public class Preparation : EnhancedMonoBehaviour
                     chooseFishs.Add(i + 1);
             SharedRefs.GameClient.Send(
                 _fishSelected[11]
-                    ? new Pick {ChooseFishs = chooseFishs, ImitateFish = Convert.ToInt32(imitate.text)}
+                    ? new PickWithImitate {ChooseFishs = chooseFishs, ImitateFish = Convert.ToInt32(imitate.text)}
                     : new Pick {ChooseFishs = chooseFishs}
             );
         }
