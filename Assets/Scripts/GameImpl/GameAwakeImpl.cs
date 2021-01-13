@@ -69,14 +69,20 @@ namespace GameImpl
                             ? Constants.FishState.Using
                             : myFishAvailable.Contains(i)
                                 ? Constants.FishState.Free
-                                : Constants.FishState.Used);
+                                : Constants.FishState.Used,
+                        gameUI.myGlanceExt
+                    );
                     gameUI.enemyGlance.SetupFish(i,
                         enemyFishPicked.Contains(i)
                             ? Constants.FishState.Using
                             : enemyFishAvailable.Contains(i)
                                 ? Constants.FishState.Free
-                                : Constants.FishState.Used);
+                                : Constants.FishState.Used,
+                        gameUI.enemyGlanceExt
+                    );
                 }
+                gameUI.myGlanceExt.gameObject.SetActive(false);
+                gameUI.enemyGlanceExt.gameObject.SetActive(false);
                 var rounds = (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["rounds"] + 1;
                 gameUI.roundText.text = $"回合数：{rounds}/3";
                 gameUI.scoreText.text = $"我方得分：{(int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["score"]}";

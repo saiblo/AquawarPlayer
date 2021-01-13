@@ -10,7 +10,10 @@ namespace Components
         public Image fishAvatar;
         public Image mask;
 
-        public void SetupFish(int id, Constants.FishState state)
+        private int _id;
+        private ProfileExtension _extension;
+
+        public void SetupFish(int id, Constants.FishState state, ProfileExtension extension)
         {
             fishAvatar.overrideSprite = SharedRefs.FishAvatars[id];
             switch (state)
@@ -27,6 +30,19 @@ namespace Components
                 default:
                     throw new ArgumentOutOfRangeException(nameof(state), state, null);
             }
+            _extension = extension;
+            _id = id;
+        }
+
+        public void ShowExt()
+        {
+            _extension.UpdateText($"{Constants.FishName[_id]}\n主动：{Constants.SkillTable[_id]}");
+            _extension.gameObject.SetActive(true);
+        }
+
+        public void HideExt()
+        {
+            _extension.gameObject.SetActive(false);
         }
     }
 }
