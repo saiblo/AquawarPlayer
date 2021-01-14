@@ -12,12 +12,15 @@ namespace GameAnim
             else
                 gameUI.GameState.EnemyFishSelected = (int) actionInfo["ActionFish"];
 
-            var hitList = actionInfo["hit"];
-            for (var i = 0; i < hitList.Count; i++)
+            if (actionInfo.ContainsKey("hit"))
             {
-                var target = (int) hitList[i]["target"];
-                ((bool) hitList[i]["isEnemy"] ? gameUI.enemyStatus[target] : gameUI.myStatus[target])
-                    .Current -= (int) hitList[i]["value"];
+                var hitList = actionInfo["hit"];
+                for (var i = 0; i < hitList.Count; i++)
+                {
+                    var target = (int) hitList[i]["target"];
+                    ((bool) hitList[i]["isEnemy"] ? gameUI.enemyStatus[target] : gameUI.myStatus[target])
+                        .Current -= (int) hitList[i]["value"];
+                }
             }
 
             gameUI.GameState.NormalAttack = !actionInfo.ContainsKey("skill");

@@ -35,6 +35,7 @@ namespace GameImpl
                     gameUI.enemyStatus[i].Current = (int) gameInfo["EnemyHP"][i];
                     gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Current);
                     gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Current);
+                    gameUI.myProfiles[i].SetAtk((int) gameInfo["MyATK"][i]);
                 }
 
                 if (!gameUI.Gom.Initialized) gameUI.Gom.Init(gameUI);

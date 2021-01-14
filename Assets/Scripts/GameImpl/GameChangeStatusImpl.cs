@@ -53,8 +53,11 @@ namespace GameImpl
                         if (gameUI.GameState.Assertion == -1)
                             await SharedRefs.GameClient.Send(new Null());
                         else
-                            await SharedRefs.GameClient.Send(
-                                new Assert {Pos = gameUI.GameState.Assertion, ID = gameUI.GameState.AssertionTarget}
+                            await SharedRefs.GameClient.Send(new Assert
+                                {
+                                    Pos = gameUI.GameState.Assertion,
+                                    ID = gameUI.GameState.AssertionTarget + 1
+                                }
                             );
                         var reply = await SharedRefs.GameClient.Receive(); // ACTION
                         if ((string) reply["Action"] == "Finish") // You assert your way to death
@@ -72,6 +75,7 @@ namespace GameImpl
                                 gameUI.enemyStatus[i].Current = (int) info["EnemyHP"][i];
                                 gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Current);
                                 gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Current);
+                                gameUI.myProfiles[i].SetAtk((int) info["MyATK"][i]);
                             }
                         }
                         gameUI.GameState.AssertionPlayer = 0;
