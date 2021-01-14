@@ -126,8 +126,8 @@ public class GameUI : GameBridge
     public void SetAttackType(bool normal)
     {
         GameState.NormalAttack = normal;
-        this.ChangeStatus();
-        confirmAttackButton.interactable = true; // TODO: fix this
+        GameState.GameStatus = Constants.GameStatus.SelectEnemyFish;
+        confirmAttackButton.interactable = true;
     }
 
     public void ConfirmAttack()
