@@ -3,13 +3,7 @@
 namespace Utils
 {
     // ReSharper disable UnusedMember.Global
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-
-    public class Ok
-    {
-        public static string Action = "OK";
-    }
-
+    // ReSharper disable UnusedAutoPropertyAccessor.Global
     public class Pick
     {
         public static string Action = "Pick";
