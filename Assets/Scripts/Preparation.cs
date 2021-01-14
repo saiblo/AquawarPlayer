@@ -5,15 +5,13 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Utils;
 
-// using System.Linq;
-
 public class Preparation : MonoBehaviour
 {
     private enum SelectStatus
     {
+        Unavailable,
         Available,
-        Selected,
-        Unavailable
+        Selected
     }
 
     private readonly SelectStatus[] _fishSelectStatus = new SelectStatus[Constants.FishNum];
