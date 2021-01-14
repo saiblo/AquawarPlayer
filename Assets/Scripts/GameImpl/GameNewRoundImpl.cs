@@ -24,8 +24,7 @@ namespace GameImpl
             }
             else
             {
-                var result = SharedRefs.ActionInfo;
-                var gameInfo = result["GameInfo"];
+                var gameInfo = SharedRefs.ActionInfo["GameInfo"];
                 gameUI.GameState.GameStatus = Constants.GameStatus.DoAssertion;
                 for (var i = 0; i < 4; i++)
                 {
@@ -45,7 +44,8 @@ namespace GameImpl
                 }
 
                 gameUI.GameState.AssertionPlayer = 1;
-                if (result["AssertPos"] == null)
+                var enemyAssert = SharedRefs.ActionInfo["EnemyAssert"];
+                if (enemyAssert["AssertPos"] == null)
                 {
                     gameUI.GameState.Assertion = -1;
                     gameUI.GameState.OnlineAssertionHit = false;
@@ -55,9 +55,9 @@ namespace GameImpl
                     return;
                 }
 
-                gameUI.GameState.Assertion = (int) result["AssertPos"];
-                gameUI.GameState.OnlineAssertionHit = (bool) result["AssertResult"];
-                // gameUI._gameStates.AssertionTarget = (int) result["AssertContent"];
+                gameUI.GameState.Assertion = (int) enemyAssert["AssertPos"];
+                gameUI.GameState.OnlineAssertionHit = (bool) enemyAssert["AssertResult"];
+                gameUI.GameState.AssertionTarget = (int) enemyAssert["AssertContent"];
                 gameUI.MakeAGuess(false, 1200);
                 gameUI.SetTimeout(gameUI.ChangeStatus, 3000); // Just waits for the assertion animation to finish
             }

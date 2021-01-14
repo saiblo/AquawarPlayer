@@ -79,10 +79,7 @@ namespace GameImpl
                     }
                     else if (!gameUI.GameState.MyTurn)
                     {
-                        var actionInfo = (await SharedRefs.GameClient.Receive())["ActionInfo"]; // SUCCESS
-                        await SharedRefs.GameClient.Send(new Ok());
-
-                        gameUI.ProcessActionInfo(actionInfo);
+                        gameUI.ProcessActionInfo(SharedRefs.ActionInfo["EnemyAction"]);
 
                         gameUI.RunOnUiThread(() =>
                         {
@@ -144,6 +141,7 @@ namespace GameImpl
                     gameUI.ActionAnim();
 
                     // Now go for a new round
+                    gameUI.GameState.MyTurn = !gameUI.GameState.MyTurn;
                     gameUI.SetTimeout(gameUI.NewRound, gameUI.GameState.PassiveList.Count > 0 ? 1100 : 1000);
                     break;
                 }
