@@ -12,15 +12,14 @@ namespace Components
         public Text skill;
         public Image avatar;
 
-        private ProfileExtension _extension;
+        private MonoBehaviour _extension;
 
-        public void SetupFish(int id, ProfileExtension extension)
+        public void SetupFish(int id, MonoBehaviour extension)
         {
             fishName.text = Constants.FishName[id];
             skill.text = Constants.SkillTable[id];
             avatar.overrideSprite = SharedRefs.FishAvatars[id];
             _extension = extension;
-            _extension.UpdateText($"{Constants.FishName[id]}\n主动：{Constants.SkillTable[id]}");
         }
 
         public void SetHp(int hpVal)
