@@ -136,8 +136,8 @@ namespace GameImpl
                                 MyList = myList
                             });
                         }
-                        var result = await SharedRefs.GameClient.Receive(); // ASSERT
-                        gameUI.ProcessActionInfo(result["MyAction"]);
+                        SharedRefs.ActionInfo = await SharedRefs.GameClient.Receive(); // ASSERT
+                        gameUI.ProcessActionInfo(SharedRefs.ActionInfo["MyAction"]);
                     }
 
                     // And now the animation part

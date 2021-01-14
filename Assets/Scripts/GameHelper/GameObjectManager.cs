@@ -120,6 +120,8 @@ namespace GameHelper
                     gameUI.enemyExtensions[i].UpdateText("隐藏");
                 }
 
+                gameUI.myStatus[i].Full = Constants.DefaultHp;
+                gameUI.enemyStatus[i].Full = Constants.DefaultHp;
                 gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Full);
                 gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Full);
                 gameUI.myProfiles[i].SetAtk(Constants.DefaultAtk);

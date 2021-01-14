@@ -68,7 +68,8 @@ namespace GameImpl
                 gameUI.GameState.GameStatus = Constants.GameStatus.WaitingAnimation;
                 gameUI.RunOnUiThread(async () =>
                 {
-                    SharedRefs.ActionInfo = await SharedRefs.GameClient.Receive(); // ASSERT 
+                    SharedRefs.ActionInfo = await SharedRefs.GameClient.Receive(); // ASSERT
+                    gameUI.GameState.MyTurn = SharedRefs.ActionInfo["EnemyAction"] == null;
                     gameUI.NewRound();
                 });
             }

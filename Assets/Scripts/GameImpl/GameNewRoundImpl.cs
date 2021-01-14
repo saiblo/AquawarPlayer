@@ -32,19 +32,12 @@ namespace GameImpl
                     gameUI.GameState.MyFishId[i] = SharedRefs.FishChosen[i];
                     if ((int) gameInfo["EnemyFish"][i] > 0)
                         gameUI.GameState.EnemyFishId[i] = (int) gameInfo["EnemyFish"][i] - 1;
-                    gameUI.GameState.MyFishOnlineHp[i] = Constants.DefaultHp; // TODO: REALLY?
-                    gameUI.GameState.EnemyFishOnlineHp[i] = (int) gameInfo["EnemyHP"][i];
-                    if (!gameUI.Gom.Initialized)
-                    {
-                        gameUI.myStatus[i].Full = Constants.DefaultHp;
-                        gameUI.enemyStatus[i].Full = Constants.DefaultHp;
-                    }
-                    gameUI.DisplayHpOnline();
+                    gameUI.myStatus[i].Current = (int) gameInfo["MyHP"][i];
+                    gameUI.enemyStatus[i].Current = (int) gameInfo["EnemyHP"][i];
                 }
 
                 if (!gameUI.Gom.Initialized) gameUI.Gom.Init(gameUI);
 
-                gameUI.GameState.MyTurn = (string) result["Action"] == "Assert";
                 if (gameUI.GameState.MyTurn)
                 {
                     gameUI.assertionButtons.SetActive(true);
