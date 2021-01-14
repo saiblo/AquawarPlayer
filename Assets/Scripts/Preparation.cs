@@ -41,7 +41,7 @@ public class Preparation : MonoBehaviour
         else
         {
             turnButton.gameObject.SetActive(false);
-            var result = SharedRefs.FirstPick; // TODO: REALLY?
+            var result = SharedRefs.PickInfo;
             if ((string) result["Action"] == "Pick")
             {
                 var remaining = result["RemainFishs"];

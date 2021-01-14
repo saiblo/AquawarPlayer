@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GameAnim;
+using GameHelper;
 using Utils;
 
 namespace GameImpl
@@ -39,12 +40,13 @@ namespace GameImpl
             {
                 case Constants.GameStatus.DoAssertion:
                 {
+                    var end = false;
                     gameUI.GameState.GameStatus = Constants.GameStatus.WaitAssertion;
 
                     // When online and my turn, I have to make an assertion and see
                     // whether my assertion was correct. When online but not my turn,
-                    // the assertion part has been handled in `NewRound`, so no
-                    // operation is needed here.
+                    // the assertion result is stored in `SharedRefs.ActionInfo`, so
+                    // no operation is needed here.
                     if (SharedRefs.Mode == Constants.GameMode.Online && gameUI.GameState.MyTurn)
                     {
                         gameUI.assertionButtons.SetActive(false);
@@ -55,13 +57,58 @@ namespace GameImpl
                                 new Assert {Pos = gameUI.GameState.Assertion, ID = 0}
                             );
                         var reply = await SharedRefs.GameClient.Receive(); // ACTION
+                        if ((string) reply["Action"] == "Finish") // You assert your way to death
+                        {
+                            end = true;
+                            gameUI.resultText.text = (string) reply["Result"] == "Win" ? "我方获胜" : "敌方获胜";
+                            gameUI.GameOver();
+                        }
+                        else
+                        {
+                            var info = reply["GameInfo"];
+                            for (var i = 0; i < 4; i++)
+                            {
+                                gameUI.myStatus[i].Current = (int) info["MyHP"][i];
+                                gameUI.enemyStatus[i].Current = (int) info["EnemyHP"][i];
+                                gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Current);
+                                gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Current);
+                                gameUI.GameState.MyFishOnlineHp[i] = gameUI.myStatus[i].Current;
+                                gameUI.GameState.EnemyFishOnlineHp[i] = gameUI.enemyStatus[i].Current;
+                            }
+                        }
                         gameUI.GameState.AssertionPlayer = 0;
                         gameUI.GameState.OnlineAssertionHit = (bool) (reply["AssertReply"]["AssertResult"] ?? false);
                     }
 
                     // When either side made an assertion, play the animation.
-                    if (gameUI.GameState.Assertion != -1)
-                        gameUI.AssertionAnim();
+                    if (gameUI.GameState.Assertion != -1) gameUI.AssertionAnim();
+
+                    if (!gameUI.GameState.MyTurn)
+                    {
+                        if (SharedRefs.ActionInfo["EnemyAction"] == null)
+                        {
+                            // Enemy asserted his way to death
+                            end = true;
+                            gameUI.resultText.text =
+                                (string) SharedRefs.ActionInfo["Result"] == "Win" ? "我方获胜" : "敌方获胜";
+                            gameUI.GameOver();
+                        }
+                        else
+                        {
+                            var info = SharedRefs.ActionInfo["GameInfo"];
+                            for (var i = 0; i < 4; i++)
+                            {
+                                gameUI.myStatus[i].Current = (int) info["MyHP"][i];
+                                gameUI.enemyStatus[i].Current = (int) info["EnemyHP"][i];
+                                gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Current);
+                                gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Current);
+                                gameUI.GameState.MyFishOnlineHp[i] = gameUI.myStatus[i].Current;
+                                gameUI.GameState.EnemyFishOnlineHp[i] = gameUI.enemyStatus[i].Current;
+                            }
+                        }
+                    }
+
+                    if (end) break;
 
                     // Enter `WaitAssertion` branch
                     gameUI.SetTimeout(() =>
@@ -146,9 +193,20 @@ namespace GameImpl
                     // And now the animation part
                     gameUI.ActionAnim();
 
-                    // Now go for a new round
-                    gameUI.GameState.MyTurn = !gameUI.GameState.MyTurn;
-                    gameUI.SetTimeout(gameUI.NewRound, gameUI.GameState.PassiveList.Count > 0 ? 1100 : 1000);
+                    if (SharedRefs.Mode == Constants.GameMode.Offline ||
+                        !gameUI.GameState.MyTurn ||
+                        SharedRefs.ActionInfo["EnemyAssert"] != null)
+                    {
+                        // Now go for a new round
+                        gameUI.GameState.MyTurn = !gameUI.GameState.MyTurn;
+                        gameUI.SetTimeout(gameUI.NewRound, gameUI.GameState.PassiveList.Count > 0 ? 1100 : 1000);
+                    }
+                    else
+                    {
+                        // Game over
+                        gameUI.resultText.text = (string) SharedRefs.ActionInfo["Result"] == "Win" ? "我方获胜" : "敌方获胜";
+                        gameUI.GameOver();
+                    }
                     break;
                 }
                 case Constants.GameStatus.WaitingAnimation:
@@ -156,6 +214,12 @@ namespace GameImpl
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private static void GameOver(this GameBridge gameUI)
+        {
+            gameUI.resultText.gameObject.SetActive(true);
+            gameUI.doneNextRoundButton.gameObject.SetActive(true);
         }
     }
 }
