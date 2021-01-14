@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Components;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Utils;
+
+// using System.Linq;
 
 public class Preparation : MonoBehaviour
 {
@@ -15,27 +16,7 @@ public class Preparation : MonoBehaviour
         Unavailable
     }
 
-    private readonly SelectStatus[] _fishSelectStatus =
-    {
-        SelectStatus.Unavailable,
-        SelectStatus.Unavailable,
-        SelectStatus.Unavailable,
-        SelectStatus.Unavailable,
-        SelectStatus.Unavailable,
-        SelectStatus.Unavailable,
-        SelectStatus.Unavailable,
-        SelectStatus.Unavailable,
-        SelectStatus.Unavailable,
-        SelectStatus.Unavailable,
-        SelectStatus.Unavailable,
-        SelectStatus.Unavailable,
-        SelectStatus.Unavailable,
-        SelectStatus.Unavailable,
-        SelectStatus.Unavailable,
-        SelectStatus.Unavailable,
-        SelectStatus.Unavailable,
-        SelectStatus.Unavailable
-    };
+    private readonly SelectStatus[] _fishSelectStatus = new SelectStatus[Constants.FishNum];
 
     public Button doneButton;
 
@@ -88,6 +69,10 @@ public class Preparation : MonoBehaviour
     {
         if (SharedRefs.Mode == Constants.GameMode.Online)
         {
+            _fishSelectStatus[0] = SelectStatus.Selected;
+            _fishSelectStatus[1] = SelectStatus.Selected;
+            _fishSelectStatus[2] = SelectStatus.Selected;
+            _fishSelectStatus[3] = SelectStatus.Selected;
             var chooseFishs = new List<int>();
             SharedRefs.FishChosen = new List<int>();
             for (var i = 0; i < Constants.FishNum; i++)
@@ -117,7 +102,8 @@ public class Preparation : MonoBehaviour
 
     private void Update()
     {
-        doneButton.interactable = SharedRefs.Mode == Constants.GameMode.Offline ||
-                                  _fishSelectStatus.Count(status => status == SelectStatus.Selected) == 4;
+        /* doneButton.interactable = SharedRefs.Mode == Constants.GameMode.Offline ||
+                                  _fishSelectStatus.Count(status => status == SelectStatus.Selected) == 4; */
+        doneButton.interactable = true;
     }
 }
