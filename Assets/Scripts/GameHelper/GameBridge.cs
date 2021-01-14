@@ -57,6 +57,9 @@ namespace GameHelper
         public Glance myGlance;
         public Glance enemyGlance;
 
+        public Glance assertionModal;
+        public ProfileExtension assertionExt;
+
         public Text playButtonText;
         public Button prevStepButton;
         public Button nextStepButton;

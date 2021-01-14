@@ -114,7 +114,13 @@ public class GameUI : GameBridge
     public void DoAssertion(int id)
     {
         GameState.Assertion = id;
-        this.ChangeStatus();
+        assertionModal.gameObject.SetActive(true);
+    }
+
+    public void CloseAssertionModal()
+    {
+        assertionModal.gameObject.SetActive(false);
+        assertionExt.gameObject.SetActive(false);
     }
 
     public void GiveUpAssertion()

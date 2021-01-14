@@ -70,6 +70,8 @@ namespace GameImpl
                 {
                     SharedRefs.ActionInfo = await SharedRefs.GameClient.Receive(); // ASSERT
                     gameUI.GameState.MyTurn = SharedRefs.ActionInfo["EnemyAction"] == null;
+                    for (var i = 0; i < Constants.FishNum; i++)
+                        gameUI.assertionModal.SetupFish(i, Constants.FishState.Free, gameUI.assertionExt, gameUI);
                     gameUI.NewRound();
                 });
             }

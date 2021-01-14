@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using GameImpl;
+using UnityEngine;
+using UnityEngine.EventSystems;
 using Utils;
 
 namespace Components
@@ -7,11 +9,26 @@ namespace Components
     {
         public GlanceFish glanceFishPrefab;
 
-        public void SetupFish(int id, Constants.FishState state, ProfileExtension extension)
+        public int hDist;
+        public int vDist;
+        public int vBias;
+
+        public void SetupFish(int id, Constants.FishState state, ProfileExtension extension, GameUI gameUI = null)
         {
             var fish = Instantiate(glanceFishPrefab, gameObject.transform);
-            fish.GetComponent<Transform>().localPosition = new Vector3(id % 4 * 60 - 90, 64 - id / 4 * 64);
+            fish.GetComponent<Transform>().localPosition
+                = new Vector3((id % 4 - 1.5f) * hDist, (1 - id / 4) * vDist - vBias);
             fish.SetupFish(id, state, extension);
+
+            if (!gameUI) return;
+            var fishTrigger = new EventTrigger.Entry();
+            fishTrigger.callback.AddListener(delegate
+            {
+                gameUI.GameState.AssertionTarget = id;
+                gameUI.CloseAssertionModal();
+                gameUI.ChangeStatus();
+            });
+            fish.fishAvatar.GetComponent<EventTrigger>().triggers.Add(fishTrigger);
         }
     }
 }
