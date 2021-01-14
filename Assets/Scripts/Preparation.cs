@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Components;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,8 +16,6 @@ public class Preparation : MonoBehaviour
 
     private readonly SelectStatus[] _fishSelectStatus = new SelectStatus[Constants.FishNum];
 
-    private int _selectNum;
-
     public Button doneButton;
 
     public Button turnButton;
@@ -29,7 +26,31 @@ public class Preparation : MonoBehaviour
 
     public Transform backgroundBase;
 
+    public Image[] queue;
+
+    private readonly List<int> _selected = new List<int>();
+
     private int _playerId;
+
+    private void Push(int id)
+    {
+        _selected.Add(id);
+        _fishSelectStatus[id] = SelectStatus.Selected;
+        profiles[id].GetComponent<Image>().color = new Color(0, 1, 0, 0.8f);
+        for (var i = 0; i < 4; i++)
+            queue[i].overrideSprite = i < _selected.Count ? SharedRefs.FishAvatars[_selected[i]] : null;
+    }
+
+    public void Drop(int pos)
+    {
+        if (pos >= _selected.Count) return;
+        var id = _selected[pos];
+        _selected.RemoveAt(pos);
+        _fishSelectStatus[id] = SelectStatus.Available;
+        profiles[id].GetComponent<Image>().color = new Color(0, 0, 0, 0.5f);
+        for (var i = 0; i < 4; i++)
+            queue[i].overrideSprite = i < _selected.Count ? SharedRefs.FishAvatars[_selected[i]] : null;
+    }
 
     private void Awake()
     {
@@ -37,9 +58,12 @@ public class Preparation : MonoBehaviour
         {
             if (SharedRefs.ReplayCursor == 0) SharedRefs.ReplayCursor = 1;
             var myFish = SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["players"][_playerId]["my_fish"];
+            var pickFish = SharedRefs.ReplayJson[SharedRefs.ReplayCursor + 1]["operation"][0]["Fish"];
             for (var i = 0; i < myFish.Count; i++)
+            {
                 _fishSelectStatus[(int) myFish[i]["id"] - 1] = SelectStatus.Available;
-            _selectNum = 4;
+                Push((int) pickFish[0][i]["id"] - 1);
+            }
         }
         else
         {
@@ -89,23 +113,7 @@ public class Preparation : MonoBehaviour
 
     public void ToggleSelection(int i)
     {
-        switch (_fishSelectStatus[i])
-        {
-            case SelectStatus.Unavailable:
-                break;
-            case SelectStatus.Available:
-                _fishSelectStatus[i] = SelectStatus.Selected;
-                profiles[i].GetComponent<Image>().color = new Color(0, 1, 0, 0.8f);
-                ++_selectNum;
-                break;
-            case SelectStatus.Selected:
-                _fishSelectStatus[i] = SelectStatus.Available;
-                profiles[i].GetComponent<Image>().color = new Color(0, 0, 0, 0.5f);
-                --_selectNum;
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
+        if (_selected.Count < 4 && _fishSelectStatus[i] == SelectStatus.Available) Push(i);
     }
 
     public void BackToWelcome()
@@ -120,6 +128,6 @@ public class Preparation : MonoBehaviour
 
     private void Update()
     {
-        doneButton.interactable = _selectNum == 4;
+        doneButton.interactable = _selected.Count == 4;
     }
 }
