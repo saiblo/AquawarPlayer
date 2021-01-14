@@ -1,4 +1,5 @@
-﻿using LitJson;
+﻿using System.Collections.Generic;
+using LitJson;
 using UnityEngine;
 
 namespace Utils
@@ -20,5 +21,7 @@ namespace Utils
         public static Client GameClient = null;
 
         public static JsonData FirstPick = null; // The first message from remote, shared by Welcome and Preparation
+
+        public static List<int> FishChosen = null; // Shared by Preparation and Game
     }
 }

@@ -4,6 +4,9 @@
     {
         public const int FishNum = 12;
 
+        public const int DefaultHp = 400;
+        public const int DefaultAtk = 100;
+
         public enum GameMode
         {
             Online,

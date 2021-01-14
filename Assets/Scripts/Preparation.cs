@@ -89,9 +89,13 @@ public class Preparation : MonoBehaviour
         if (SharedRefs.Mode == Constants.GameMode.Online)
         {
             var chooseFishs = new List<int>();
+            SharedRefs.FishChosen = new List<int>();
             for (var i = 0; i < Constants.FishNum; i++)
                 if (_fishSelectStatus[i] == SelectStatus.Selected)
+                {
                     chooseFishs.Add(i + 1);
+                    SharedRefs.FishChosen.Add(i);
+                }
             SharedRefs.GameClient.Send(
                 _fishSelectStatus[11] == SelectStatus.Selected
                     ? new PickWithImitate {ChooseFishs = chooseFishs, ImitateFish = 1}
