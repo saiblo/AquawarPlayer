@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Components;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,6 +16,8 @@ public class Preparation : MonoBehaviour
     }
 
     private readonly SelectStatus[] _fishSelectStatus = new SelectStatus[Constants.FishNum];
+
+    private int _selectNum;
 
     public Button doneButton;
 
@@ -36,7 +39,7 @@ public class Preparation : MonoBehaviour
             var myFish = SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["players"][_playerId]["my_fish"];
             for (var i = 0; i < myFish.Count; i++)
                 _fishSelectStatus[(int) myFish[i]["id"] - 1] = SelectStatus.Available;
-            turnButton.interactable = true;
+            _selectNum = 4;
         }
         else
         {
@@ -67,17 +70,6 @@ public class Preparation : MonoBehaviour
     {
         if (SharedRefs.Mode == Constants.GameMode.Online)
         {
-            var cnt = 0;
-            var index = 0;
-            while (cnt < 4)
-            {
-                if (_fishSelectStatus[index] == SelectStatus.Available)
-                {
-                    _fishSelectStatus[index] = SelectStatus.Selected;
-                    ++cnt;
-                }
-                ++index;
-            }
             var chooseFishs = new List<int>();
             SharedRefs.FishChosen = new List<int>();
             for (var i = 0; i < Constants.FishNum; i++)
@@ -95,6 +87,27 @@ public class Preparation : MonoBehaviour
         SceneManager.LoadScene("Scenes/Game");
     }
 
+    public void ToggleSelection(int i)
+    {
+        switch (_fishSelectStatus[i])
+        {
+            case SelectStatus.Unavailable:
+                break;
+            case SelectStatus.Available:
+                _fishSelectStatus[i] = SelectStatus.Selected;
+                profiles[i].GetComponent<Image>().color = new Color(0, 1, 0, 0.8f);
+                ++_selectNum;
+                break;
+            case SelectStatus.Selected:
+                _fishSelectStatus[i] = SelectStatus.Available;
+                profiles[i].GetComponent<Image>().color = new Color(0, 0, 0, 0.5f);
+                --_selectNum;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
     public void BackToWelcome()
     {
         SceneManager.LoadScene("Scenes/Welcome");
@@ -107,8 +120,6 @@ public class Preparation : MonoBehaviour
 
     private void Update()
     {
-        /* doneButton.interactable = SharedRefs.Mode == Constants.GameMode.Offline ||
-                                  _fishSelectStatus.Count(status => status == SelectStatus.Selected) == 4; */
-        doneButton.interactable = true;
+        doneButton.interactable = _selectNum == 4;
     }
 }
