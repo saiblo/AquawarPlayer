@@ -10,7 +10,7 @@ namespace GameImpl
         /// and determine what to show next; for offline mode, simply resets
         /// <code>_gameStatus</code> to <code>DoAssertion</code>.</para>
         /// </summary>
-        public static async void NewRound(this GameUI gameUI)
+        public static void NewRound(this GameUI gameUI)
         {
             gameUI.GameState.MyFishSelected = -1;
             gameUI.GameState.EnemyFishSelected = -1;
@@ -24,7 +24,7 @@ namespace GameImpl
             }
             else
             {
-                var result = await SharedRefs.GameClient.Receive();
+                var result = SharedRefs.ActionInfo;
                 var gameInfo = result["GameInfo"];
                 gameUI.GameState.GameStatus = Constants.GameStatus.DoAssertion;
                 for (var i = 0; i < 4; i++)
@@ -34,25 +34,20 @@ namespace GameImpl
                         gameUI.GameState.EnemyFishId[i] = (int) gameInfo["EnemyFish"][i] - 1;
                     gameUI.GameState.MyFishOnlineHp[i] = Constants.DefaultHp; // TODO: REALLY?
                     gameUI.GameState.EnemyFishOnlineHp[i] = (int) gameInfo["EnemyHP"][i];
-                    var id = i;
-                    gameUI.RunOnUiThread(() =>
+                    if (!gameUI.Gom.Initialized)
                     {
-                        if (!gameUI.Gom.Initialized)
-                        {
-                            gameUI.myStatus[id].Full = Constants.DefaultHp;
-                            gameUI.enemyStatus[id].Full = Constants.DefaultHp;
-                        }
-                        gameUI.DisplayHpOnline();
-                    });
+                        gameUI.myStatus[i].Full = Constants.DefaultHp;
+                        gameUI.enemyStatus[i].Full = Constants.DefaultHp;
+                    }
+                    gameUI.DisplayHpOnline();
                 }
 
-                if (!gameUI.Gom.Initialized)
-                    gameUI.RunOnUiThread(() => { gameUI.Gom.Init(gameUI); });
+                if (!gameUI.Gom.Initialized) gameUI.Gom.Init(gameUI);
 
                 gameUI.GameState.MyTurn = (string) result["Action"] == "Assert";
                 if (gameUI.GameState.MyTurn)
                 {
-                    gameUI.RunOnUiThread(() => { gameUI.assertionButtons.SetActive(true); });
+                    gameUI.assertionButtons.SetActive(true);
                     return;
                 }
 
@@ -62,20 +57,16 @@ namespace GameImpl
                     gameUI.GameState.Assertion = -1;
                     gameUI.GameState.OnlineAssertionHit = false;
                     gameUI.GameState.AssertionTarget = 0;
-                    gameUI.RunOnUiThread(() =>
-                    {
-                        gameUI.ChangeStatus(); // Skips the next two stages
-                        gameUI.ChangeStatus();
-                    });
+                    gameUI.ChangeStatus(); // Skips the next two stages
+                    gameUI.ChangeStatus();
                     return;
                 }
 
                 gameUI.GameState.Assertion = (int) result["AssertPos"];
                 gameUI.GameState.OnlineAssertionHit = (bool) result["AssertResult"];
                 // gameUI._gameStates.AssertionTarget = (int) result["AssertContent"];
-                gameUI.RunOnUiThread(() => { gameUI.MakeAGuess(false, 1200); });
+                gameUI.MakeAGuess(false, 1200);
                 gameUI.SetTimeout(gameUI.ChangeStatus, 3000); // Just waits for the assertion animation to finish
-                await SharedRefs.GameClient.Send(new Ok());
             }
         }
     }

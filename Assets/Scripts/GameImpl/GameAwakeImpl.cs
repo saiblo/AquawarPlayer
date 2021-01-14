@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using GameHelper;
+﻿using GameHelper;
 using UnityEngine;
 using Utils;
 using Object = UnityEngine.Object;
@@ -67,7 +66,11 @@ namespace GameImpl
             else
             {
                 gameUI.GameState.GameStatus = Constants.GameStatus.WaitingAnimation;
-                Task.Run(gameUI.NewRound);
+                gameUI.RunOnUiThread(async () =>
+                {
+                    SharedRefs.ActionInfo = await SharedRefs.GameClient.Receive(); // ASSERT 
+                    gameUI.NewRound();
+                });
             }
         }
     }

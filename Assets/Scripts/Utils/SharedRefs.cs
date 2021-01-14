@@ -23,5 +23,7 @@ namespace Utils
         public static JsonData FirstPick = null; // The first message from remote, shared by Welcome and Preparation
 
         public static List<int> FishChosen = null; // Shared by Preparation and Game
+
+        public static JsonData ActionInfo = null; // Do not want to describe it. Shared between states. See the code.
     }
 }
