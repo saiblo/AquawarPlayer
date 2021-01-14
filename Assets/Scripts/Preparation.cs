@@ -26,7 +26,31 @@ public class Preparation : MonoBehaviour
 
     public Transform backgroundBase;
 
+    public Image[] queue;
+
+    private readonly List<int> _selected = new List<int>();
+
     private int _playerId;
+
+    private void Push(int id)
+    {
+        _selected.Add(id);
+        _fishSelectStatus[id] = SelectStatus.Selected;
+        profiles[id].GetComponent<Image>().color = new Color(0, 1, 0, 0.8f);
+        for (var i = 0; i < 4; i++)
+            queue[i].overrideSprite = i < _selected.Count ? SharedRefs.FishAvatars[_selected[i]] : null;
+    }
+
+    public void Drop(int pos)
+    {
+        if (pos >= _selected.Count) return;
+        var id = _selected[pos];
+        _selected.RemoveAt(pos);
+        _fishSelectStatus[id] = SelectStatus.Available;
+        profiles[id].GetComponent<Image>().color = new Color(0, 0, 0, 0.5f);
+        for (var i = 0; i < 4; i++)
+            queue[i].overrideSprite = i < _selected.Count ? SharedRefs.FishAvatars[_selected[i]] : null;
+    }
 
     private void Awake()
     {
@@ -34,9 +58,12 @@ public class Preparation : MonoBehaviour
         {
             if (SharedRefs.ReplayCursor == 0) SharedRefs.ReplayCursor = 1;
             var myFish = SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["players"][_playerId]["my_fish"];
+            var pickFish = SharedRefs.ReplayJson[SharedRefs.ReplayCursor + 1]["operation"][0]["Fish"];
             for (var i = 0; i < myFish.Count; i++)
+            {
                 _fishSelectStatus[(int) myFish[i]["id"] - 1] = SelectStatus.Available;
-            turnButton.interactable = true;
+                Push((int) pickFish[0][i]["id"] - 1);
+            }
         }
         else
         {
@@ -67,17 +94,6 @@ public class Preparation : MonoBehaviour
     {
         if (SharedRefs.Mode == Constants.GameMode.Online)
         {
-            var cnt = 0;
-            var index = 0;
-            while (cnt < 4)
-            {
-                if (_fishSelectStatus[index] == SelectStatus.Available)
-                {
-                    _fishSelectStatus[index] = SelectStatus.Selected;
-                    ++cnt;
-                }
-                ++index;
-            }
             var chooseFishs = new List<int>();
             SharedRefs.FishChosen = new List<int>();
             for (var i = 0; i < Constants.FishNum; i++)
@@ -95,6 +111,11 @@ public class Preparation : MonoBehaviour
         SceneManager.LoadScene("Scenes/Game");
     }
 
+    public void ToggleSelection(int i)
+    {
+        if (_selected.Count < 4 && _fishSelectStatus[i] == SelectStatus.Available) Push(i);
+    }
+
     public void BackToWelcome()
     {
         SceneManager.LoadScene("Scenes/Welcome");
@@ -107,8 +128,6 @@ public class Preparation : MonoBehaviour
 
     private void Update()
     {
-        /* doneButton.interactable = SharedRefs.Mode == Constants.GameMode.Offline ||
-                                  _fishSelectStatus.Count(status => status == SelectStatus.Selected) == 4; */
-        doneButton.interactable = true;
+        doneButton.interactable = _selected.Count == 4;
     }
 }
