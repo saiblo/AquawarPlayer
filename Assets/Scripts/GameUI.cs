@@ -122,10 +122,14 @@ public class GameUI : GameBridge
 
     public void DoAssertion(int id)
     {
+        GameState.Assertion = id;
+        this.ChangeStatus();
     }
 
     public void GiveUpAssertion()
     {
+        GameState.Assertion = -1;
+        this.ChangeStatus();
     }
 
     // Extension methods

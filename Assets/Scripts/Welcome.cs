@@ -83,7 +83,7 @@ public class Welcome : EnhancedMonoBehaviour
     public void ConfirmButtonPressed()
     {
         if (_offline) ProcessFile(inputField.text.Trim());
-        else ConnectRoom(inputField.text.Trim());
+        else ConnectRoom("MTI3LjAuMC4xOjkwMTAvMS9BZ2xvdmUvMQ==");
     }
 
     // ReSharper disable once MemberCanBeMadeStatic.Local
