@@ -216,8 +216,9 @@ namespace GameImpl
             }
         }
 
-        private static void GameOver(this GameBridge gameUI)
+        private static async void GameOver(this GameBridge gameUI)
         {
+            SharedRefs.PickInfo = await SharedRefs.GameClient.Receive(); // PICK
             gameUI.resultText.gameObject.SetActive(true);
             gameUI.doneNextRoundButton.gameObject.SetActive(true);
         }
