@@ -120,6 +120,14 @@ public class GameUI : GameBridge
         if (SharedRefs.AutoPlay && nextStepButton.interactable) NextStep();
     }
 
+    public void DoAssertion(int id)
+    {
+    }
+
+    public void GiveUpAssertion()
+    {
+    }
+
     // Extension methods
 
     // void MakeAGuess(bool enemy, int timeout)

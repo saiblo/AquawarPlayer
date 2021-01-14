@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using LitJson;
+using UnityEngine;
 
 namespace Utils
 {
@@ -32,6 +33,8 @@ namespace Utils
 
         public Task Send(object content = null)
         {
+            if (content != null)
+                Debug.Log($"Send: {JsonMapper.ToJson(content)}");
             return _ws.SendAsync(
                 new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonMapper.ToJson(
                     new Request
@@ -54,6 +57,7 @@ namespace Utils
             var data = (string) JsonMapper.ToObject(
                 Encoding.UTF8.GetString(buffer.Array ?? Array.Empty<byte>()).TrimEnd('\0')
             )["content"];
+            Debug.Log($"Recv: {JsonMapper.ToJson(JsonMapper.ToObject(data))}");
             return JsonMapper.ToObject(data);
         }
     }

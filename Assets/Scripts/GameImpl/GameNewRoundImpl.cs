@@ -50,7 +50,11 @@ namespace GameImpl
                     gameUI.RunOnUiThread(() => { gameUI.Gom.Init(gameUI); });
 
                 gameUI.GameState.MyTurn = (string) result["Action"] == "Assert";
-                if (gameUI.GameState.MyTurn) return;
+                if (gameUI.GameState.MyTurn)
+                {
+                    gameUI.RunOnUiThread(() => { gameUI.assertionButtons.SetActive(true); });
+                    return;
+                }
 
                 gameUI.GameState.AssertionPlayer = 1;
                 if (result["AssertPos"] == null)

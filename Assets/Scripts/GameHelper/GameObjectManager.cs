@@ -108,7 +108,7 @@ namespace GameHelper
                 gameUI.myProfiles[i].SetupFish(myFishId, gameUI.myExtensions[i]);
                 gameUI.myExtensions[i]
                     .UpdateText($"{Constants.FishName[myFishId]}\n主动：{Constants.SkillTable[myFishId]}");
-                if (_gameStates.EnemyFishExpose[i])
+                if (SharedRefs.Mode == Constants.GameMode.Offline || _gameStates.EnemyFishExpose[i])
                 {
                     gameUI.enemyProfiles[i].SetupFish(enemyFishId, gameUI.enemyExtensions[i]);
                     gameUI.enemyExtensions[i]
@@ -120,8 +120,6 @@ namespace GameHelper
                     gameUI.enemyExtensions[i].UpdateText("隐藏");
                 }
 
-                gameUI.myExtensions[i].gameObject.SetActive(false);
-                gameUI.enemyExtensions[i].gameObject.SetActive(false);
                 gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Full);
                 gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Full);
                 gameUI.myProfiles[i].SetAtk(Constants.DefaultAtk);
@@ -147,11 +145,6 @@ namespace GameHelper
                     gameUI.enemyGlanceExt
                 );
             }
-            gameUI.myGlanceExt.gameObject.SetActive(false);
-            gameUI.enemyGlanceExt.gameObject.SetActive(false);
-            gameUI.resultText.gameObject.SetActive(false);
-            gameUI.doneNextRoundButton.gameObject.SetActive(false);
-            gameUI.logObject.SetActive(false);
 
             Initialized = true;
             _unkFishPrefab = gameUI.unkFishPrefab;

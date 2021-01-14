@@ -13,8 +13,6 @@ namespace GameHelper
 
         public Transform unkFishPrefab;
 
-        public Transform questionPrefab;
-
         // Particle system
 
         public Transform waterProjectile;
@@ -65,5 +63,7 @@ namespace GameHelper
         public Button replayStepButton;
         public Button prevRoundButton;
         public Button nextRoundButton;
+
+        public GameObject assertionButtons;
     }
 }
