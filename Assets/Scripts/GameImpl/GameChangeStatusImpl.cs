@@ -83,7 +83,7 @@ namespace GameImpl
                     // When either side made an assertion, play the animation.
                     if (gameUI.GameState.Assertion != -1) gameUI.AssertionAnim();
 
-                    if (!gameUI.GameState.MyTurn)
+                    if (SharedRefs.Mode == Constants.GameMode.Online && !gameUI.GameState.MyTurn)
                     {
                         if (SharedRefs.ActionInfo["EnemyAction"] == null)
                         {
