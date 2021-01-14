@@ -106,11 +106,19 @@ namespace GameHelper
                 var myFishId = gameUI.GameState.MyFishId[i];
                 var enemyFishId = gameUI.GameState.EnemyFishId[i];
                 gameUI.myProfiles[i].SetupFish(myFishId, gameUI.myExtensions[i]);
-                gameUI.enemyProfiles[i].SetupFish(enemyFishId, gameUI.enemyExtensions[i]);
                 gameUI.myExtensions[i]
                     .UpdateText($"{Constants.FishName[myFishId]}\n主动：{Constants.SkillTable[myFishId]}");
-                gameUI.enemyExtensions[i]
-                    .UpdateText($"{Constants.FishName[enemyFishId]}\n主动：{Constants.SkillTable[enemyFishId]}");
+                if (_gameStates.EnemyFishExpose[i])
+                {
+                    gameUI.enemyProfiles[i].SetupFish(enemyFishId, gameUI.enemyExtensions[i]);
+                    gameUI.enemyExtensions[i]
+                        .UpdateText($"{Constants.FishName[enemyFishId]}\n主动：{Constants.SkillTable[enemyFishId]}");
+                }
+                else
+                {
+                    gameUI.enemyProfiles[i].SetupFish(-1, gameUI.enemyExtensions[i]);
+                    gameUI.enemyExtensions[i].UpdateText("隐藏");
+                }
 
                 gameUI.myExtensions[i].gameObject.SetActive(false);
                 gameUI.enemyExtensions[i].gameObject.SetActive(false);

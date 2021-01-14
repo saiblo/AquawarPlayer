@@ -16,9 +16,17 @@ namespace Components
 
         public void SetupFish(int id, MonoBehaviour extension)
         {
-            fishName.text = Constants.FishName[id];
-            skill.text = Constants.SkillTable[id];
-            avatar.overrideSprite = SharedRefs.FishAvatars[id];
+            if (id >= 0)
+            {
+                fishName.text = Constants.FishName[id];
+                skill.text = Constants.SkillTable[id];
+                avatar.overrideSprite = SharedRefs.FishAvatars[id];
+            }
+            else
+            {
+                fishName.text = "？？？";
+                skill.text = "？？？";
+            }
             _extension = extension;
         }
 
