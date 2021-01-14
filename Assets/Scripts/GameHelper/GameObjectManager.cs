@@ -14,8 +14,6 @@ namespace GameHelper
     {
         // Holds some necessary references
         private readonly GameStates _gameStates;
-        private Transform _unkFishPrefab;
-        private Transform _allFishRoot;
 
         // The fog
         public readonly List<Transform> MyFogs = new List<Transform>();
@@ -48,13 +46,13 @@ namespace GameHelper
 
         public bool Initialized;
 
-        public Transform GenFish(bool enemy, int j, Transform unkFishPrefab, Transform allFishRoot)
+        public Transform GenFish(bool enemy, int j, GameUI gameUI)
         {
             var fishTransform = Object.Instantiate(
                 SharedRefs.Mode == Constants.GameMode.Online && enemy && !_gameStates.EnemyFishExpose[j]
-                    ? unkFishPrefab
+                    ? gameUI.unkFishPrefab
                     : SharedRefs.FishPrefabs[(enemy ? _gameStates.EnemyFishId : _gameStates.MyFishId)[j]],
-                allFishRoot);
+                gameUI.allFishRoot);
             fishTransform.localPosition = FishRelativePosition(enemy, j);
             fishTransform.localScale = Small;
             fishTransform.rotation = Quaternion.Euler(new Vector3(0, enemy ? 100 : 260, 0));
@@ -72,6 +70,8 @@ namespace GameHelper
                         break;
                     case Constants.GameStatus.SelectMyFish:
                         if (!enemy) _gameStates.MyFishSelected = _gameStates.MyFishSelected == j ? -1 : j;
+                        gameUI.normalAttackButton.interactable = true;
+                        gameUI.skillAttackButton.interactable = true;
                         break;
                     case Constants.GameStatus.SelectEnemyFish:
                         if (enemy)
@@ -93,12 +93,12 @@ namespace GameHelper
         {
             for (var i = 0; i < 4; i++)
             {
-                var myFish = GenFish(false, i, gameUI.unkFishPrefab, gameUI.allFishRoot);
+                var myFish = GenFish(false, i, gameUI);
                 MyFishTransforms.Add(myFish);
                 MyFishMeshRenderers.Add(myFish.GetComponentsInChildren<SkinnedMeshRenderer>());
                 MyFishParticleSystems.Add(myFish.GetComponentInChildren<ParticleSystem>());
 
-                var enemyFish = GenFish(true, i, gameUI.unkFishPrefab, gameUI.allFishRoot);
+                var enemyFish = GenFish(true, i, gameUI);
                 EnemyFishTransforms.Add(enemyFish);
                 EnemyFishMeshRenderers.Add(enemyFish.GetComponentsInChildren<SkinnedMeshRenderer>());
                 EnemyFishParticleSystems.Add(enemyFish.GetComponentInChildren<ParticleSystem>());
@@ -149,11 +149,9 @@ namespace GameHelper
             }
 
             Initialized = true;
-            _unkFishPrefab = gameUI.unkFishPrefab;
-            _allFishRoot = gameUI.allFishRoot;
         }
 
-        public void CheckReviveOnBackwards()
+        public void CheckReviveOnBackwards(GameUI gameUI)
         {
             var players = SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["players"];
             var lastPlayers = SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 2]["players"];
@@ -161,10 +159,10 @@ namespace GameHelper
             {
                 if ((float) players[0]["fight_fish"][i]["hp"] <= 0 &&
                     (float) lastPlayers[0]["fight_fish"][i]["hp"] > 0)
-                    MyFishTransforms[i] = GenFish(false, i, _unkFishPrefab, _allFishRoot);
+                    MyFishTransforms[i] = GenFish(false, i, gameUI);
                 if ((float) players[1]["fight_fish"][i]["hp"] <= 0 &&
                     (float) lastPlayers[1]["fight_fish"][i]["hp"] > 0)
-                    EnemyFishTransforms[i] = GenFish(true, i, _unkFishPrefab, _allFishRoot);
+                    EnemyFishTransforms[i] = GenFish(true, i, gameUI);
             }
         }
 

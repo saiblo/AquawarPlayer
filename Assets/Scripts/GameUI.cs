@@ -65,7 +65,7 @@ public class GameUI : GameBridge
 
     public void PrevStep()
     {
-        Gom.CheckReviveOnBackwards();
+        Gom.CheckReviveOnBackwards(this);
         SharedRefs.ReplayCursor -= 2;
         if ((int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 1]["gamestate"] == 2)
         {
@@ -123,10 +123,15 @@ public class GameUI : GameBridge
         this.ChangeStatus();
     }
 
-    public void FakeAttack()
+    public void SetAttackType(bool normal)
     {
-        GameState.MyFishSelected = 0;
+        GameState.NormalAttack = normal;
         this.ChangeStatus();
+        confirmAttackButton.interactable = true; // TODO: fix this
+    }
+
+    public void ConfirmAttack()
+    {
         this.ChangeStatus();
     }
 

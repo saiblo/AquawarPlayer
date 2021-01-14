@@ -65,5 +65,9 @@ namespace GameHelper
         public Button nextRoundButton;
 
         public GameObject assertionButtons;
+        public GameObject attackButtons;
+        public Button normalAttackButton;
+        public Button skillAttackButton;
+        public Button confirmAttackButton;
     }
 }

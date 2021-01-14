@@ -77,7 +77,14 @@ namespace GameImpl
                     {
                         gameUI.MoveCursor();
                     }
-                    else if (!gameUI.GameState.MyTurn)
+                    else if (gameUI.GameState.MyTurn)
+                    {
+                        gameUI.normalAttackButton.interactable = false;
+                        gameUI.skillAttackButton.interactable = false;
+                        gameUI.confirmAttackButton.interactable = false;
+                        gameUI.attackButtons.SetActive(true);
+                    }
+                    else
                     {
                         gameUI.RunOnUiThread(() =>
                         {
@@ -97,6 +104,7 @@ namespace GameImpl
                     // Handle the communication part with remote
                     if (SharedRefs.Mode == Constants.GameMode.Online && gameUI.GameState.MyTurn)
                     {
+                        gameUI.attackButtons.SetActive(false);
                         if (gameUI.GameState.NormalAttack)
                         {
                             var enemyPos = 0;

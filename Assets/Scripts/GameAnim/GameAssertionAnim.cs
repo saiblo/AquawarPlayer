@@ -38,8 +38,7 @@ namespace GameAnim
                     transforms[gameUI.GameState.Assertion] = gameUI.Gom.GenFish(
                         gameUI.GameState.AssertionPlayer == 0,
                         gameUI.GameState.Assertion,
-                        gameUI.unkFishPrefab,
-                        gameUI.allFishRoot
+                        gameUI
                     );
                 }
             }
