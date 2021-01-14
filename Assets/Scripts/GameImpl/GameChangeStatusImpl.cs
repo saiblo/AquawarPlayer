@@ -136,22 +136,8 @@ namespace GameImpl
                                 MyList = myList
                             });
                         }
-                        var result = await SharedRefs.GameClient.Receive(); // SUCCESS/FAIL
-                        if ((string) result["Action"] == "Success")
-                        {
-                            await SharedRefs.GameClient.Send(new Ok());
-                            gameUI.ProcessActionInfo(result["ActionInfo"]);
-                        }
-                        else
-                        {
-                            gameUI.GameState.MyFishSelected = -1;
-                            gameUI.GameState.EnemyFishSelected = -1;
-                            for (var i = 0; i < 4; i++)
-                                gameUI.GameState.MyFishSelectedAsTarget[i] =
-                                    gameUI.GameState.EnemyFishSelectedAsTarget[i] = false;
-                            gameUI.GameState.GameStatus = Constants.GameStatus.SelectMyFish;
-                            return;
-                        }
+                        var result = await SharedRefs.GameClient.Receive(); // ASSERT
+                        gameUI.ProcessActionInfo(result["MyAction"]);
                     }
 
                     // And now the animation part
