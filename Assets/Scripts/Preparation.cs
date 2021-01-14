@@ -67,10 +67,17 @@ public class Preparation : MonoBehaviour
     {
         if (SharedRefs.Mode == Constants.GameMode.Online)
         {
-            _fishSelectStatus[0] = SelectStatus.Selected;
-            _fishSelectStatus[1] = SelectStatus.Selected;
-            _fishSelectStatus[2] = SelectStatus.Selected;
-            _fishSelectStatus[3] = SelectStatus.Selected;
+            var cnt = 0;
+            var index = 0;
+            while (cnt < 4)
+            {
+                if (_fishSelectStatus[index] == SelectStatus.Available)
+                {
+                    _fishSelectStatus[index] = SelectStatus.Selected;
+                    ++cnt;
+                }
+                ++index;
+            }
             var chooseFishs = new List<int>();
             SharedRefs.FishChosen = new List<int>();
             for (var i = 0; i < Constants.FishNum; i++)
