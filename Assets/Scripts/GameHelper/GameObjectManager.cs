@@ -89,23 +89,58 @@ namespace GameHelper
             return fishTransform;
         }
 
-        public void Init(Transform unkFishPrefab, Transform allFishRoot)
+        public void Init(GameUI gameUI)
         {
             for (var i = 0; i < 4; i++)
             {
-                var myFish = GenFish(false, i, unkFishPrefab, allFishRoot);
+                var myFish = GenFish(false, i, gameUI.unkFishPrefab, gameUI.allFishRoot);
                 MyFishTransforms.Add(myFish);
                 MyFishMeshRenderers.Add(myFish.GetComponentsInChildren<SkinnedMeshRenderer>());
                 MyFishParticleSystems.Add(myFish.GetComponentInChildren<ParticleSystem>());
 
-                var enemyFish = GenFish(true, i, unkFishPrefab, allFishRoot);
+                var enemyFish = GenFish(true, i, gameUI.unkFishPrefab, gameUI.allFishRoot);
                 EnemyFishTransforms.Add(enemyFish);
                 EnemyFishMeshRenderers.Add(enemyFish.GetComponentsInChildren<SkinnedMeshRenderer>());
                 EnemyFishParticleSystems.Add(enemyFish.GetComponentInChildren<ParticleSystem>());
+
+                gameUI.myProfiles[i].SetupFish(gameUI.GameState.MyFishId[i], gameUI.myExtensions[i]);
+                gameUI.enemyProfiles[i].SetupFish(gameUI.GameState.EnemyFishId[i], gameUI.enemyExtensions[i]);
+                gameUI.myExtensions[i].gameObject.SetActive(false);
+                gameUI.enemyExtensions[i].gameObject.SetActive(false);
+                gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Full);
+                gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Full);
+                gameUI.myProfiles[i].SetAtk(Constants.DefaultAtk);
+                gameUI.enemyProfiles[i].SetAtk(Constants.DefaultAtk);
             }
+
+            for (var i = 0; i < Constants.FishNum; i++)
+            {
+                gameUI.myGlance.SetupFish(i,
+                    gameUI.GameState.MyFishPicked.Contains(i)
+                        ? Constants.FishState.Using
+                        : gameUI.GameState.MyFishAvailable.Contains(i)
+                            ? Constants.FishState.Free
+                            : Constants.FishState.Used,
+                    gameUI.myGlanceExt
+                );
+                gameUI.enemyGlance.SetupFish(i,
+                    gameUI.GameState.EnemyFishPicked.Contains(i)
+                        ? Constants.FishState.Using
+                        : gameUI.GameState.EnemyFishAvailable.Contains(i)
+                            ? Constants.FishState.Free
+                            : Constants.FishState.Used,
+                    gameUI.enemyGlanceExt
+                );
+            }
+            gameUI.myGlanceExt.gameObject.SetActive(false);
+            gameUI.enemyGlanceExt.gameObject.SetActive(false);
+            gameUI.resultText.gameObject.SetActive(false);
+            gameUI.doneNextRoundButton.gameObject.SetActive(false);
+            gameUI.logObject.SetActive(false);
+
             Initialized = true;
-            _unkFishPrefab = unkFishPrefab;
-            _allFishRoot = allFishRoot;
+            _unkFishPrefab = gameUI.unkFishPrefab;
+            _allFishRoot = gameUI.allFishRoot;
         }
 
         public void CheckReviveOnBackwards()

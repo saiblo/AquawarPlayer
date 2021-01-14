@@ -131,9 +131,13 @@ public class Preparation : EnhancedMonoBehaviour
         if (SharedRefs.Mode == Constants.GameMode.Online)
         {
             var chooseFishs = new List<int>();
+            SharedRefs.FishChosen = new List<int>();
             for (var i = 0; i < Constants.FishNum; i++)
-                if (_fishSelected[i])
-                    chooseFishs.Add(i + 1);
+            {
+                if (!_fishSelected[i]) continue;
+                chooseFishs.Add(i + 1);
+                SharedRefs.FishChosen.Add(i);
+            }
             SharedRefs.GameClient.Send(
                 _fishSelected[11]
                     ? new PickWithImitate {ChooseFishs = chooseFishs, ImitateFish = Convert.ToInt32(imitate.text)}
