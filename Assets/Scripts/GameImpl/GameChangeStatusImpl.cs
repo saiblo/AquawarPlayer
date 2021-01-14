@@ -54,7 +54,7 @@ namespace GameImpl
                             await SharedRefs.GameClient.Send(new Null());
                         else
                             await SharedRefs.GameClient.Send(
-                                new Assert {Pos = gameUI.GameState.Assertion, ID = 0}
+                                new Assert {Pos = gameUI.GameState.Assertion, ID = gameUI.GameState.AssertionTarget}
                             );
                         var reply = await SharedRefs.GameClient.Receive(); // ACTION
                         if ((string) reply["Action"] == "Finish") // You assert your way to death
