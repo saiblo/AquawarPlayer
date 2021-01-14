@@ -79,13 +79,11 @@ namespace GameImpl
                     }
                     else if (!gameUI.GameState.MyTurn)
                     {
-                        gameUI.ProcessActionInfo(SharedRefs.ActionInfo["EnemyAction"]);
-
                         gameUI.RunOnUiThread(() =>
                         {
+                            gameUI.ProcessActionInfo(SharedRefs.ActionInfo["EnemyAction"]);
                             gameUI.ChangeStatus();
                             gameUI.ChangeStatus();
-                            gameUI.DisplayHpOnline();
                         });
                     }
                     break;

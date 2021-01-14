@@ -65,7 +65,13 @@ namespace GameAnim
                 }
             }
 
-            gameUI.RunOnUiThread(gameUI.DisplayHpOnline);
+            for (var i = 0; i < 4; i++)
+            {
+                gameUI.myStatus[i].Current = gameUI.GameState.MyFishOnlineHp[i];
+                gameUI.enemyStatus[i].Current = gameUI.GameState.EnemyFishOnlineHp[i];
+                gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Current);
+                gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Current);
+            }
         }
     }
 }

@@ -33,6 +33,8 @@ namespace GameImpl
                         gameUI.GameState.EnemyFishId[i] = (int) gameInfo["EnemyFish"][i] - 1;
                     gameUI.myStatus[i].Current = (int) gameInfo["MyHP"][i];
                     gameUI.enemyStatus[i].Current = (int) gameInfo["EnemyHP"][i];
+                    gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Current);
+                    gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Current);
                 }
 
                 if (!gameUI.Gom.Initialized) gameUI.Gom.Init(gameUI);
@@ -57,7 +59,7 @@ namespace GameImpl
 
                 gameUI.GameState.Assertion = (int) enemyAssert["AssertPos"];
                 gameUI.GameState.OnlineAssertionHit = (bool) enemyAssert["AssertResult"];
-                gameUI.GameState.AssertionTarget = (int) enemyAssert["AssertContent"];
+                gameUI.GameState.AssertionTarget = (int) enemyAssert["AssertContent"] - 1;
                 gameUI.MakeAGuess(false, 1200);
                 gameUI.SetTimeout(gameUI.ChangeStatus, 3000); // Just waits for the assertion animation to finish
             }

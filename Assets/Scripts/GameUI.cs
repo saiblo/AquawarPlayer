@@ -40,15 +40,6 @@ public class GameUI : GameBridge
             300, 0, 10);
     }
 
-    public void DisplayHpOnline()
-    {
-        for (var i = 0; i < 4; i++)
-        {
-            myStatus[i].Current = GameState.MyFishOnlineHp[i];
-            enemyStatus[i].Current = GameState.EnemyFishOnlineHp[i];
-        }
-    }
-
     public void UpdateFishStatus(JsonData players)
     {
         for (var i = 0; i < 4; i++)
