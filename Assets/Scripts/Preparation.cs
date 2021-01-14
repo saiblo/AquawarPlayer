@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Components;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -28,28 +29,42 @@ public class Preparation : MonoBehaviour
 
     public Image[] queue;
 
-    private readonly List<int> _selected = new List<int>();
+    private readonly List<int> _selectedList = new List<int>();
+
+    private readonly Color _unavailable = new Color(1, 0, 0, 0.8f);
+    private readonly Color _available = new Color(0, 0, 0, 0.5f);
+    private readonly Color _selected = new Color(0, 1, 0, 0.8f);
 
     private int _playerId;
 
+    private bool _imitating;
+
+    private int _imitateId;
+
+    private void DisplayQueue()
+    {
+        for (var i = 0; i < 4; i++)
+            queue[i].overrideSprite = i < _selectedList.Count
+                ? SharedRefs.FishAvatars[_selectedList[i] == 11 ? _imitateId : _selectedList[i]]
+                : null;
+    }
+
     private void Push(int id)
     {
-        _selected.Add(id);
+        _selectedList.Add(id);
         _fishSelectStatus[id] = SelectStatus.Selected;
-        profiles[id].GetComponent<Image>().color = new Color(0, 1, 0, 0.8f);
-        for (var i = 0; i < 4; i++)
-            queue[i].overrideSprite = i < _selected.Count ? SharedRefs.FishAvatars[_selected[i]] : null;
+        profiles[id].GetComponent<Image>().color = _selected;
+        DisplayQueue();
     }
 
     public void Drop(int pos)
     {
-        if (pos >= _selected.Count) return;
-        var id = _selected[pos];
-        _selected.RemoveAt(pos);
+        if (_imitating || pos >= _selectedList.Count) return;
+        var id = _selectedList[pos];
+        _selectedList.RemoveAt(pos);
         _fishSelectStatus[id] = SelectStatus.Available;
-        profiles[id].GetComponent<Image>().color = new Color(0, 0, 0, 0.5f);
-        for (var i = 0; i < 4; i++)
-            queue[i].overrideSprite = i < _selected.Count ? SharedRefs.FishAvatars[_selected[i]] : null;
+        profiles[id].GetComponent<Image>().color = _available;
+        DisplayQueue();
     }
 
     private void Awake()
@@ -86,7 +101,7 @@ public class Preparation : MonoBehaviour
             profiles[i].SetHp(400);
             profiles[i].SetAtk(100);
             if (_fishSelectStatus[i] == SelectStatus.Unavailable)
-                profiles[i].GetComponent<Image>().color = new Color(1, 0, 0, 0.8f);
+                profiles[i].GetComponent<Image>().color = _unavailable;
         }
     }
 
@@ -96,23 +111,62 @@ public class Preparation : MonoBehaviour
         {
             var chooseFishs = new List<int>();
             SharedRefs.FishChosen = new List<int>();
-            foreach (var i in _selected)
+            foreach (var i in _selectedList)
             {
                 chooseFishs.Add(i + 1);
                 SharedRefs.FishChosen.Add(i);
             }
-            SharedRefs.GameClient.Send(
-                _fishSelectStatus[11] == SelectStatus.Selected
-                    ? new PickWithImitate {ChooseFishs = chooseFishs, ImitateFish = 1}
-                    : new Pick {ChooseFishs = chooseFishs}
-            );
+            if (_fishSelectStatus[11] == SelectStatus.Selected)
+                SharedRefs.GameClient.Send(new PickWithImitate
+                {
+                    ChooseFishs = chooseFishs, ImitateFish = _imitateId + 1
+                });
+            else
+                SharedRefs.GameClient.Send(new Pick {ChooseFishs = chooseFishs});
         }
         SceneManager.LoadScene("Scenes/Game");
     }
 
     public void ToggleSelection(int i)
     {
-        if (_selected.Count < 4 && _fishSelectStatus[i] == SelectStatus.Available) Push(i);
+        if (_imitating)
+        {
+            _imitating = false;
+            _imitateId = i;
+            Push(11);
+            for (var j = 0; j < Constants.FishNum; j++)
+            {
+                Color c;
+                switch (_fishSelectStatus[j])
+                {
+                    case SelectStatus.Unavailable:
+                        c = _unavailable;
+                        break;
+                    case SelectStatus.Available:
+                        c = _available;
+                        break;
+                    case SelectStatus.Selected:
+                        c = _selected;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                profiles[j].GetComponent<Image>().color = c;
+            }
+        }
+        else if (_selectedList.Count < 4 && _fishSelectStatus[i] == SelectStatus.Available)
+        {
+            if (i == 11)
+            {
+                _imitating = true;
+                for (var j = 0; j < 10; j++) profiles[j].GetComponent<Image>().color = _available;
+                profiles[11].GetComponent<Image>().color = _unavailable;
+            }
+            else
+            {
+                Push(i);
+            }
+        }
     }
 
     public void BackToWelcome()
@@ -127,6 +181,6 @@ public class Preparation : MonoBehaviour
 
     private void Update()
     {
-        doneButton.interactable = _selected.Count == 4;
+        doneButton.interactable = _selectedList.Count == 4;
     }
 }

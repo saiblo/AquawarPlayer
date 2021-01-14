@@ -10,8 +10,10 @@ namespace Utils
         public List<int> ChooseFishs { get; set; }
     }
 
-    public class PickWithImitate : Pick
+    public class PickWithImitate
     {
+        public static string Action = "Pick";
+        public List<int> ChooseFishs { get; set; }
         public int ImitateFish { get; set; }
     }
 
