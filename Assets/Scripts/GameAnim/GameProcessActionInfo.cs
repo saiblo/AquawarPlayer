@@ -7,41 +7,20 @@ namespace GameAnim
     {
         public static void ProcessActionInfo(this GameUI gameUI, JsonData actionInfo)
         {
-            /* if (gameUI.GameState.MyTurn)
+            if (gameUI.GameState.MyTurn)
                 gameUI.GameState.MyFishSelected = (int) actionInfo["ActionFish"];
             else
-                gameUI.GameState.EnemyFishSelected = (int) actionInfo["ActionFish"]; */
-            if (!gameUI.GameState.MyTurn)
-                gameUI.GameState.EnemyFishSelected = 0;
-
-            gameUI.GameState.NormalAttack = !actionInfo.ContainsKey("skill");
-            gameUI.GameState.MyFishSelectedAsTarget[0] = true;
+                gameUI.GameState.EnemyFishSelected = (int) actionInfo["ActionFish"];
 
             var hitList = actionInfo["hit"];
             for (var i = 0; i < hitList.Count; i++)
             {
-                // if ((int) hitList[i]["player"] == 0)
-                if (!gameUI.GameState.MyTurn)
-                {
-                    for (var j = 0; j < 4; j++)
-                        if (gameUI.GameState.MyFishId[j] == (int) hitList[i]["target"])
-                        {
-                            if ((bool) hitList[i]["traceable"])
-                                gameUI.GameState.MyFishSelectedAsTarget[j] = true;
-                            gameUI.GameState.MyFishOnlineHp[j] -= (int) hitList[i]["value"];
-                        }
-                }
-                else
-                {
-                    for (var j = 0; j < 4; j++)
-                        if (gameUI.GameState.EnemyFishId[j] == (int) hitList[i]["target"])
-                        {
-                            if ((bool) hitList[i]["traceable"])
-                                gameUI.GameState.EnemyFishSelectedAsTarget[j] = true;
-                            gameUI.GameState.EnemyFishOnlineHp[j] -= (int) hitList[i]["value"];
-                        }
-                }
+                var target = (int) hitList[i]["target"];
+                ((bool) hitList[i]["isEnemy"] ? gameUI.enemyStatus[target] : gameUI.myStatus[target])
+                    .Current -= (int) hitList[i]["value"];
             }
+
+            gameUI.GameState.NormalAttack = !actionInfo.ContainsKey("skill");
 
             if (!gameUI.GameState.NormalAttack)
             {
@@ -67,8 +46,6 @@ namespace GameAnim
 
             for (var i = 0; i < 4; i++)
             {
-                gameUI.myStatus[i].Current = gameUI.GameState.MyFishOnlineHp[i];
-                gameUI.enemyStatus[i].Current = gameUI.GameState.EnemyFishOnlineHp[i];
                 gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Current);
                 gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Current);
             }

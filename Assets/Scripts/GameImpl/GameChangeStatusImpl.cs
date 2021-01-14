@@ -72,8 +72,6 @@ namespace GameImpl
                                 gameUI.enemyStatus[i].Current = (int) info["EnemyHP"][i];
                                 gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Current);
                                 gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Current);
-                                gameUI.GameState.MyFishOnlineHp[i] = gameUI.myStatus[i].Current;
-                                gameUI.GameState.EnemyFishOnlineHp[i] = gameUI.enemyStatus[i].Current;
                             }
                         }
                         gameUI.GameState.AssertionPlayer = 0;
@@ -102,8 +100,6 @@ namespace GameImpl
                                 gameUI.enemyStatus[i].Current = (int) info["EnemyHP"][i];
                                 gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Current);
                                 gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Current);
-                                gameUI.GameState.MyFishOnlineHp[i] = gameUI.myStatus[i].Current;
-                                gameUI.GameState.EnemyFishOnlineHp[i] = gameUI.enemyStatus[i].Current;
                             }
                         }
                     }
