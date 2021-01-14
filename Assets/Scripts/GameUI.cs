@@ -132,6 +132,13 @@ public class GameUI : GameBridge
         this.ChangeStatus();
     }
 
+    public void FakeAttack()
+    {
+        GameState.MyFishSelected = 0;
+        this.ChangeStatus();
+        this.ChangeStatus();
+    }
+
     // Extension methods
 
     // void MakeAGuess(bool enemy, int timeout)
