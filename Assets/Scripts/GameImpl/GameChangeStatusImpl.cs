@@ -47,16 +47,16 @@ namespace GameImpl
                     // operation is needed here.
                     if (SharedRefs.Mode == Constants.GameMode.Online && gameUI.GameState.MyTurn)
                     {
+                        gameUI.assertionButtons.SetActive(false);
                         if (gameUI.GameState.Assertion == -1)
                             await SharedRefs.GameClient.Send(new Null());
                         else
                             await SharedRefs.GameClient.Send(
                                 new Assert {Pos = gameUI.GameState.Assertion, ID = 0}
                             );
-                        var reply = await SharedRefs.GameClient.Receive(); // ASSERT_REPLY
+                        var reply = await SharedRefs.GameClient.Receive(); // ACTION
                         gameUI.GameState.AssertionPlayer = 0;
-                        gameUI.GameState.OnlineAssertionHit = (bool) (reply["AssertResult"] ?? false);
-                        await SharedRefs.GameClient.Send(new Ok());
+                        gameUI.GameState.OnlineAssertionHit = (bool) (reply["AssertReply"]["AssertResult"] ?? false);
                     }
 
                     // When either side made an assertion, play the animation.
@@ -77,11 +77,7 @@ namespace GameImpl
                     {
                         gameUI.MoveCursor();
                     }
-                    else if (gameUI.GameState.MyTurn)
-                    {
-                        await SharedRefs.GameClient.Receive(); // ACTION
-                    }
-                    else
+                    else if (!gameUI.GameState.MyTurn)
                     {
                         var actionInfo = (await SharedRefs.GameClient.Receive())["ActionInfo"]; // SUCCESS
                         await SharedRefs.GameClient.Send(new Ok());
