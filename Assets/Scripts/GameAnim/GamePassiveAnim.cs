@@ -1,5 +1,6 @@
 ﻿using GameHelper;
 using LitJson;
+using Utils;
 
 namespace GameAnim
 {
@@ -11,7 +12,9 @@ namespace GameAnim
             for (var i = 0; i < passiveList.Count; i++)
             {
                 var sourcePos = (int) passiveList[i]["source"];
-                var enemy = (bool) passiveList[i]["isEnemy"];
+                var enemy = SharedRefs.Mode == Constants.GameMode.Offline
+                    ? (int) passiveList[i]["player"] == 1
+                    : (bool) passiveList[i]["isEnemy"];
                 switch ((string) passiveList[i]["type"])
                 {
                     case "counter":
