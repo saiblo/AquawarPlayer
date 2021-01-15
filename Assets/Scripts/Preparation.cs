@@ -59,7 +59,7 @@ public class Preparation : MonoBehaviour
 
     public void Drop(int pos)
     {
-        if (SharedRefs.Mode == Constants.GameMode.Offline || _imitating || pos >= _selectedList.Count) return;
+        if (_imitating || pos >= _selectedList.Count) return;
         var id = _selectedList[pos];
         _selectedList.RemoveAt(pos);
         _fishSelectStatus[id] = SelectStatus.Available;
@@ -69,26 +69,13 @@ public class Preparation : MonoBehaviour
 
     private void Awake()
     {
-        if (SharedRefs.Mode == Constants.GameMode.Offline)
+        turnButton.gameObject.SetActive(false);
+        var result = SharedRefs.PickInfo;
+        if ((string) result["Action"] == "Pick")
         {
-            var myFish = SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["players"][_playerId]["my_fish"];
-            for (var i = 0; i < myFish.Count; i++)
-                _fishSelectStatus[(int) myFish[i]["id"] - 1] = SelectStatus.Available;
-
-            var pickFish = SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["operation"][0]["Fish"];
-            for (var i = 0; i < 4; i++)
-                Push((int) pickFish[0][i]["id"] - 1);
-        }
-        else
-        {
-            turnButton.gameObject.SetActive(false);
-            var result = SharedRefs.PickInfo;
-            if ((string) result["Action"] == "Pick")
-            {
-                var remaining = result["RemainFishs"];
-                for (var i = 0; i < remaining.Count; i++)
-                    _fishSelectStatus[(int) remaining[i] - 1] = SelectStatus.Available;
-            }
+            var remaining = result["RemainFishs"];
+            for (var i = 0; i < remaining.Count; i++)
+                _fishSelectStatus[(int) remaining[i] - 1] = SelectStatus.Available;
         }
         for (var i = 0; i < Constants.FishNum; i++)
         {
@@ -106,29 +93,22 @@ public class Preparation : MonoBehaviour
 
     public void ConfirmSelection()
     {
-        if (SharedRefs.Mode == Constants.GameMode.Online)
+        var chooseFishs = new List<int>();
+        SharedRefs.FishChosen = new List<int>();
+        foreach (var i in _selectedList)
         {
-            var chooseFishs = new List<int>();
-            SharedRefs.FishChosen = new List<int>();
-            foreach (var i in _selectedList)
-            {
-                chooseFishs.Add(i + 1);
-                SharedRefs.FishChosen.Add(i);
-            }
-            if (_fishSelectStatus[11] == SelectStatus.Selected)
-                SharedRefs.GameClient.Send(new PickWithImitate
-                {
-                    ChooseFishs = chooseFishs, ImitateFish = _imitateId + 1
-                });
-            else
-                SharedRefs.GameClient.Send(new Pick {ChooseFishs = chooseFishs});
+            chooseFishs.Add(i + 1);
+            SharedRefs.FishChosen.Add(i);
         }
+        if (_fishSelectStatus[11] == SelectStatus.Selected)
+            SharedRefs.GameClient.Send(new PickWithImitate {ChooseFishs = chooseFishs, ImitateFish = _imitateId + 1});
+        else
+            SharedRefs.GameClient.Send(new Pick {ChooseFishs = chooseFishs});
         SceneManager.LoadScene("Scenes/Game");
     }
 
     public void ToggleSelection(int i)
     {
-        if (SharedRefs.Mode == Constants.GameMode.Offline) return;
         if (_imitating)
         {
             _imitating = false;

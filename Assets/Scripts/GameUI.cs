@@ -71,7 +71,7 @@ public class GameUI : GameBridge
 
     public void DoneAndGoBackToPreparation()
     {
-        SceneManager.LoadScene("Scenes/Preparation");
+        SceneManager.LoadScene(SharedRefs.Mode == Constants.GameMode.Online ? "Scenes/Preparation" : "Scenes/Game");
     }
 
     public void ToggleLog(GameObject logObj)

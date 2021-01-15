@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using GameHelper;
 using LitJson;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,7 +8,7 @@ using UnityEditor;
 using UnityEngine.UI;
 using Utils;
 
-public class Welcome : EnhancedMonoBehaviour
+public class Welcome : MonoBehaviour
 {
     public Transform[] fishPrefabSamples;
 
@@ -99,7 +98,7 @@ public class Welcome : EnhancedMonoBehaviour
                     SharedRefs.ReplayCursor = 0;
                     SharedRefs.ReplayJson = replayJson;
                     SharedRefs.Mode = Constants.GameMode.Offline;
-                    SceneManager.LoadScene("Scenes/Preparation");
+                    SceneManager.LoadScene("Scenes/Game");
                 }
                 else
                 {
@@ -143,9 +142,5 @@ public class Welcome : EnhancedMonoBehaviour
         {
             statusText.text = "连接失败";
         }
-    }
-
-    protected override void RunPerFrame()
-    {
     }
 }
