@@ -29,6 +29,8 @@ namespace GameHelper
 
         public Transform smallExplosion;
 
+        public Transform fireBallPrefab;
+
         // Root transforms
 
         public Transform allFishRoot;

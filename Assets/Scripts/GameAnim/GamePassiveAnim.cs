@@ -38,7 +38,12 @@ namespace GameAnim
                         break;
                     }
                     case "explode":
+                    {
+                        var fireBall = UnityEngine.Object.Instantiate(gameUI.fireBallPrefab, gameUI.allFishRoot);
+                        fireBall.localPosition = GameObjectManager.FishRelativePosition(enemy, sourcePos);
+                        gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(fireBall.gameObject); }, 3500);
                         break;
+                    }
                 }
             }
         }
