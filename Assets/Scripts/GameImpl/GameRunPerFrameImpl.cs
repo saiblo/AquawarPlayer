@@ -9,7 +9,7 @@ namespace GameImpl
         {
             gameUI.logText.text = string.Join("\n", gameUI.GameState.Logs);
 
-            gameUI.playButtonText.text = SharedRefs.AutoPlay ? "暂停" : "播放";
+            gameUI.playButtonImage.overrideSprite = SharedRefs.AutoPlay ? gameUI.pauseIcon : gameUI.playIcon;
 
             if (!gameUI.Gom.Initialized || gameUI.GameState.GameStatus == Constants.GameStatus.WaitAssertion) return;
 
