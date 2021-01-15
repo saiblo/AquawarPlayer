@@ -1,4 +1,5 @@
-﻿using GameHelper;
+﻿using System;
+using GameHelper;
 using GameImpl;
 using LitJson;
 using UnityEngine;
@@ -29,14 +30,28 @@ public class GameUI : GameBridge
         foreach (var meshRenderer in meshRenderers) meshRenderer.material = dissolveEffect;
         Repeat(cnt =>
             {
-                foreach (var meshRenderer in meshRenderers)
-                    meshRenderer.material.SetFloat(DissolveShaderProperty,
-                        fadeIn.Evaluate(Mathf.InverseLerp(0, 3, cnt / 100f)));
+                try
+                {
+                    foreach (var meshRenderer in meshRenderers)
+                        meshRenderer.material.SetFloat(DissolveShaderProperty,
+                            fadeIn.Evaluate(Mathf.InverseLerp(0, 3, cnt / 100f)));
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
             },
             () =>
             {
-                if (fish != null) Destroy(fish.gameObject);
-                fog.gameObject.SetActive(false);
+                try
+                {
+                    if (fish != null) Destroy(fish.gameObject);
+                    fog.gameObject.SetActive(false);
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
             },
             300, 0, 10);
     }

@@ -28,7 +28,7 @@ namespace Utils
                 if (!obj["over"].IsBoolean) return false;
                 if (!obj["score"].IsInt) return false;
                 if (!obj["rounds"].IsInt) return false;
-                if (!obj["operation"].IsArray) return false;
+                // if (!obj["operation"].IsArray) return false;
             }
             return true;
         }
