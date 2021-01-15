@@ -26,8 +26,6 @@ namespace GameHelper
 
         public bool OnlineAssertionHit; // Made a online assertion, and hit
 
-        public readonly List<int> PassiveList = new List<int>();
-
         public readonly bool[] MyFishSelectedAsTarget = {false, false, false, false};
         public readonly bool[] EnemyFishSelectedAsTarget = {false, false, false, false};
 

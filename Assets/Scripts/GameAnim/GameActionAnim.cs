@@ -15,7 +15,7 @@ namespace GameAnim
             SkillSuffixDict.Add("subtle", "无作为攻击。");
         }
 
-        public static void ActionAnim(this GameUI gameUI)
+        public static bool ActionAnim(this GameUI gameUI)
         {
             var actionInfo = SharedRefs.ActionInfo[gameUI.GameState.MyTurn ? "MyAction" : "EnemyAction"];
             gameUI.GameState.NormalAttack = !actionInfo.ContainsKey("skill");
@@ -37,8 +37,10 @@ namespace GameAnim
                 gameUI.NormalAttackAnim(actionInfo);
             else
                 gameUI.SkillAttackAnim(actionInfo);
-            gameUI.PassiveAnim();
+            if (actionInfo.ContainsKey("passive")) 
+                gameUI.PassiveAnim();
             gameUI.HpAnim(actionInfo);
+            return actionInfo.ContainsKey("passive");
         }
     }
 }
