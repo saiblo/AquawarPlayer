@@ -16,8 +16,6 @@ namespace GameHelper
         public bool MyTurn = true;
         public bool NormalAttack = true;
 
-        public Constants.Skill ActionSkill = Constants.Skill.Subtle;
-
         public int MyFishSelected = -1;
 
         public int EnemyFishSelected = -1;

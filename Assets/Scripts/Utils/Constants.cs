@@ -29,15 +29,6 @@
             Free
         }
 
-        public enum Skill
-        {
-            Aoe,
-            Infight,
-            CritValue,
-            CritPercent,
-            Subtle
-        }
-
         public static readonly string[] FishName =
         {
             "射水鱼",

@@ -1,14 +1,15 @@
 ﻿using System;
 using GameHelper;
+using LitJson;
 
 namespace GameAnim
 {
     public static class GameNormalAttackAnim
     {
-        public static void NormalAttackAnim(this GameUI gameUI)
+        public static void NormalAttackAnim(this GameUI gameUI, JsonData actionInfo)
         {
             var enemy = !gameUI.GameState.MyTurn;
-            var selected = enemy ? gameUI.GameState.EnemyFishSelected : gameUI.GameState.MyFishSelected;
+            var selected = (int) actionInfo["ActionFish"];
             var target = 0;
             for (var i = 0; i < 4; i++)
             {
