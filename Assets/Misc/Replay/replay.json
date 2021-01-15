@@ -8451,179 +8451,6 @@
 		"cnt" : 0,
 		"cur_turn" : 0,
 		"gamestate" : 2,
-		"over" : false,
-		"players" : 
-		[
-			{
-				"fight_fish" : [],
-				"id" : 0,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 1,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 2,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 3,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 9,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			},
-			{
-				"fight_fish" : [],
-				"id" : 1,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 1,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 2,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 3,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 9,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			}
-		],
-		"rounds" : 1,
-		"score" : 1,
-		"state" : 31,
-		"winner" : -1
-	},
-	{
-		"cnt" : 0,
-		"cur_turn" : 0,
-		"gamestate" : 2,
 		"operation" : 
 		[
 			{
@@ -8721,7 +8548,49 @@
 		"players" : 
 		[
 			{
-				"fight_fish" : [],
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 0,
+						"id" : 8,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 2
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 0,
+						"id" : 4,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 2
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 0,
+						"id" : 10,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 2,
+						"state" : 2
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 0,
+						"id" : 7,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 2
+					}
+				],
 				"id" : 0,
 				"my_fish" : 
 				[
@@ -8801,7 +8670,49 @@
 				"type" : 1
 			},
 			{
-				"fight_fish" : [],
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 0,
+						"id" : 8,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 2
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 0,
+						"id" : 4,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 2
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 36,
+						"id" : 10,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 2,
+						"state" : 2
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 50,
+						"id" : 7,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 2
+					}
+				],
 				"id" : 1,
 				"my_fish" : 
 				[
@@ -8882,415 +8793,12 @@
 			}
 		],
 		"rounds" : 1,
-		"score" : 1,
+		"score" : 0,
 		"state" : 31,
 		"winner" : -1
 	},
 	{
 		"cnt" : 3,
-		"cur_turn" : 1,
-		"gamestate" : 3,
-		"operation" : 
-		[
-			{
-				"Action" : "Assert",
-				"ID" : 1,
-				"Pos" : 0,
-				"id" : 1
-			}
-		],
-		"over" : false,
-		"players" : 
-		[
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 0,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			},
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 1,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			}
-		],
-		"rounds" : 1,
-		"score" : 1,
-		"state" : 32,
-		"winner" : -1
-	},
-	{
-		"cnt" : 0,
-		"cur_turn" : 1,
-		"gamestate" : 4,
-		"operation" : 
-		[
-			{
-				"Action" : "Action",
-				"ActionInfo" : 
-				{
-					"ActionFish" : 0,
-					"hit" : 
-					[
-						{
-							"isEnemy" : true,
-							"player" : 0,
-							"target" : 0,
-							"traceable" : true,
-							"value" : 50
-						}
-					]
-				},
-				"EnemyPos" : 0,
-				"ID" : 1,
-				"MyPos" : 0,
-				"Type" : 0
-			}
-		],
-		"over" : false,
-		"players" : 
-		[
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 0,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			},
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 350,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 350,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 350,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 350,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 1,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			}
-		],
-		"rounds" : 1,
-		"score" : 1,
-		"state" : 33,
-		"winner" : -1
-	},
-	{
-		"cnt" : 0,
 		"cur_turn" : 0,
 		"gamestate" : 3,
 		"operation" : 
@@ -9311,7 +8819,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 350,
+						"hp" : 400,
 						"id" : 2,
 						"is_expose" : false,
 						"player" : 0,
@@ -9397,7 +8905,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 350,
+						"hp" : 400,
 						"id" : 2,
 						"is_expose" : false,
 						"player" : 0,
@@ -9407,7 +8915,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 350,
+						"hp" : 400,
 						"id" : 3,
 						"is_expose" : false,
 						"player" : 0,
@@ -9417,7 +8925,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 350,
+						"hp" : 400,
 						"id" : 9,
 						"is_expose" : false,
 						"player" : 0,
@@ -9427,7 +8935,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 350,
+						"hp" : 400,
 						"id" : 1,
 						"is_expose" : false,
 						"player" : 0,
@@ -9479,8 +8987,8 @@
 			}
 		],
 		"rounds" : 1,
-		"score" : 1,
-		"state" : 34,
+		"score" : 0,
+		"state" : 32,
 		"winner" : -1
 	},
 	{
@@ -9520,7 +9028,201 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 300,
+						"hp" : 350,
+						"id" : 2,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 350,
+						"id" : 3,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 350,
+						"id" : 9,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 2,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 350,
+						"id" : 1,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 1
+					}
+				],
+				"id" : 0,
+				"my_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 5,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 6,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 11,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 12,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					}
+				],
+				"type" : 1
+			},
+			{
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 2,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 3,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 9,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 2,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 1,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 1
+					}
+				],
+				"id" : 1,
+				"my_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 5,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 6,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 11,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 12,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					}
+				],
+				"type" : 1
+			}
+		],
+		"rounds" : 1,
+		"score" : 0,
+		"state" : 33,
+		"winner" : -1
+	},
+	{
+		"cnt" : 0,
+		"cur_turn" : 1,
+		"gamestate" : 3,
+		"operation" : 
+		[
+			{
+				"Action" : "Assert",
+				"ID" : 1,
+				"Pos" : 0,
+				"id" : 1
+			}
+		],
+		"over" : false,
+		"players" : 
+		[
+			{
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 350,
 						"id" : 2,
 						"is_expose" : false,
 						"player" : 0,
@@ -9616,6 +9318,215 @@
 					{
 						"atk" : 100,
 						"def" : 0,
+						"hp" : 400,
+						"id" : 3,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 9,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 2,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 1,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 1
+					}
+				],
+				"id" : 1,
+				"my_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 5,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 6,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 11,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 12,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					}
+				],
+				"type" : 1
+			}
+		],
+		"rounds" : 1,
+		"score" : 0,
+		"state" : 34,
+		"winner" : -1
+	},
+	{
+		"cnt" : 0,
+		"cur_turn" : 1,
+		"gamestate" : 4,
+		"operation" : 
+		[
+			{
+				"Action" : "Action",
+				"ActionInfo" : 
+				{
+					"ActionFish" : 0,
+					"hit" : 
+					[
+						{
+							"isEnemy" : true,
+							"player" : 0,
+							"target" : 0,
+							"traceable" : true,
+							"value" : 50
+						}
+					]
+				},
+				"EnemyPos" : 0,
+				"ID" : 1,
+				"MyPos" : 0,
+				"Type" : 0
+			}
+		],
+		"over" : false,
+		"players" : 
+		[
+			{
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 350,
+						"id" : 2,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 350,
+						"id" : 3,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 350,
+						"id" : 9,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 2,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 350,
+						"id" : 1,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 1
+					}
+				],
+				"id" : 0,
+				"my_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 5,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 6,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 11,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 12,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					}
+				],
+				"type" : 1
+			},
+			{
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 300,
+						"id" : 2,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
 						"hp" : 350,
 						"id" : 3,
 						"is_expose" : false,
@@ -9688,19 +9599,19 @@
 			}
 		],
 		"rounds" : 1,
-		"score" : 1,
+		"score" : 0,
 		"state" : 35,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
-		"cur_turn" : 1,
+		"cur_turn" : 0,
 		"gamestate" : 3,
 		"operation" : 
 		[
 			{
 				"Action" : "Assert",
-				"ID" : 1,
+				"ID" : 0,
 				"Pos" : 0,
 				"id" : 1
 			}
@@ -9882,228 +9793,19 @@
 			}
 		],
 		"rounds" : 1,
-		"score" : 1,
+		"score" : 0,
 		"state" : 36,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
 		"cur_turn" : 1,
-		"gamestate" : 4,
-		"operation" : 
-		[
-			{
-				"Action" : "Action",
-				"ActionInfo" : 
-				{
-					"ActionFish" : 0,
-					"hit" : 
-					[
-						{
-							"isEnemy" : true,
-							"player" : 0,
-							"target" : 0,
-							"traceable" : true,
-							"value" : 50
-						}
-					]
-				},
-				"EnemyPos" : 0,
-				"ID" : 1,
-				"MyPos" : 0,
-				"Type" : 0
-			}
-		],
-		"over" : false,
-		"players" : 
-		[
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 300,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 350,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 350,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 350,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 0,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			},
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 250,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 300,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 300,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 300,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 1,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			}
-		],
-		"rounds" : 1,
-		"score" : 1,
-		"state" : 37,
-		"winner" : -1
-	},
-	{
-		"cnt" : 0,
-		"cur_turn" : 0,
 		"gamestate" : 3,
 		"operation" : 
 		[
 			{
 				"Action" : "Assert",
-				"ID" : 0,
+				"ID" : 1,
 				"Pos" : 0,
 				"id" : 1
 			}
@@ -10127,7 +9829,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 350,
+						"hp" : 300,
 						"id" : 3,
 						"is_expose" : false,
 						"player" : 0,
@@ -10137,7 +9839,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 350,
+						"hp" : 300,
 						"id" : 9,
 						"is_expose" : false,
 						"player" : 0,
@@ -10147,7 +9849,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 350,
+						"hp" : 300,
 						"id" : 1,
 						"is_expose" : false,
 						"player" : 0,
@@ -10203,7 +9905,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 250,
+						"hp" : 300,
 						"id" : 2,
 						"is_expose" : false,
 						"player" : 0,
@@ -10213,7 +9915,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 300,
+						"hp" : 350,
 						"id" : 3,
 						"is_expose" : false,
 						"player" : 0,
@@ -10223,7 +9925,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 300,
+						"hp" : 350,
 						"id" : 9,
 						"is_expose" : false,
 						"player" : 0,
@@ -10233,7 +9935,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 300,
+						"hp" : 350,
 						"id" : 1,
 						"is_expose" : false,
 						"player" : 0,
@@ -10285,36 +9987,21 @@
 			}
 		],
 		"rounds" : 1,
-		"score" : 1,
+		"score" : 0,
 		"state" : 38,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
 		"cur_turn" : 0,
-		"gamestate" : 4,
+		"gamestate" : 3,
 		"operation" : 
 		[
 			{
-				"Action" : "Action",
-				"ActionInfo" : 
-				{
-					"ActionFish" : 0,
-					"hit" : 
-					[
-						{
-							"isEnemy" : false,
-							"player" : 0,
-							"target" : 0,
-							"traceable" : true,
-							"value" : 50
-						}
-					]
-				},
-				"EnemyPos" : 0,
+				"Action" : "Assert",
 				"ID" : 0,
-				"MyPos" : 0,
-				"Type" : 0
+				"Pos" : 0,
+				"id" : 1
 			}
 		],
 		"over" : false,
@@ -10326,7 +10013,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 200,
+						"hp" : 250,
 						"id" : 2,
 						"is_expose" : false,
 						"player" : 0,
@@ -10494,8 +10181,217 @@
 			}
 		],
 		"rounds" : 1,
-		"score" : 1,
-		"state" : 39,
+		"score" : 0,
+		"state" : 40,
+		"winner" : -1
+	},
+	{
+		"cnt" : 0,
+		"cur_turn" : 0,
+		"gamestate" : 4,
+		"operation" : 
+		[
+			{
+				"Action" : "Action",
+				"ActionInfo" : 
+				{
+					"ActionFish" : 0,
+					"hit" : 
+					[
+						{
+							"isEnemy" : false,
+							"player" : 0,
+							"target" : 0,
+							"traceable" : true,
+							"value" : 50
+						}
+					]
+				},
+				"EnemyPos" : 0,
+				"ID" : 0,
+				"MyPos" : 0,
+				"Type" : 0
+			}
+		],
+		"over" : false,
+		"players" : 
+		[
+			{
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 200,
+						"id" : 2,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 250,
+						"id" : 3,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 250,
+						"id" : 9,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 2,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 250,
+						"id" : 1,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 1
+					}
+				],
+				"id" : 0,
+				"my_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 5,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 6,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 11,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 12,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					}
+				],
+				"type" : 1
+			},
+			{
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 250,
+						"id" : 2,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 300,
+						"id" : 3,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 300,
+						"id" : 9,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 2,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 300,
+						"id" : 1,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 1
+					}
+				],
+				"id" : 1,
+				"my_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 5,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 6,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 11,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 12,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					}
+				],
+				"type" : 1
+			}
+		],
+		"rounds" : 1,
+		"score" : 0,
+		"state" : 41,
 		"winner" : -1
 	},
 	{
@@ -10530,7 +10426,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 300,
+						"hp" : 250,
 						"id" : 3,
 						"is_expose" : false,
 						"player" : 0,
@@ -10540,7 +10436,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 300,
+						"hp" : 250,
 						"id" : 9,
 						"is_expose" : false,
 						"player" : 0,
@@ -10550,7 +10446,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 300,
+						"hp" : 250,
 						"id" : 1,
 						"is_expose" : false,
 						"player" : 0,
@@ -10688,8 +10584,8 @@
 			}
 		],
 		"rounds" : 1,
-		"score" : 1,
-		"state" : 40,
+		"score" : 0,
+		"state" : 42,
 		"winner" : -1
 	},
 	{
@@ -10739,426 +10635,6 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 300,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 300,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 300,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 0,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			},
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 150,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 250,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 250,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 250,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 1,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			}
-		],
-		"rounds" : 1,
-		"score" : 1,
-		"state" : 41,
-		"winner" : -1
-	},
-	{
-		"cnt" : 0,
-		"cur_turn" : 0,
-		"gamestate" : 3,
-		"operation" : 
-		[
-			{
-				"Action" : "Assert",
-				"ID" : 0,
-				"Pos" : 0,
-				"id" : 1
-			}
-		],
-		"over" : false,
-		"players" : 
-		[
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 150,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 300,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 300,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 300,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 0,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			},
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 150,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 250,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 250,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 250,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 1,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			}
-		],
-		"rounds" : 1,
-		"score" : 1,
-		"state" : 42,
-		"winner" : -1
-	},
-	{
-		"cnt" : 0,
-		"cur_turn" : 0,
-		"gamestate" : 4,
-		"operation" : 
-		[
-			{
-				"Action" : "Action",
-				"ActionInfo" : 
-				{
-					"ActionFish" : 0,
-					"hit" : 
-					[
-						{
-							"isEnemy" : false,
-							"player" : 0,
-							"target" : 0,
-							"traceable" : true,
-							"value" : 50
-						},
-						{
-							"isEnemy" : false,
-							"player" : 0,
-							"target" : 0,
-							"traceable" : false,
-							"value" : 30
-						}
-					],
-					"passive" : 
-					[
-						{
-							"isEnemy" : false,
-							"player" : 0,
-							"source" : 0,
-							"type" : "counter",
-							"value" : 30.0
-						}
-					]
-				},
-				"EnemyPos" : 0,
-				"ID" : 0,
-				"MyPos" : 0,
-				"Type" : 0
-			}
-		],
-		"over" : false,
-		"players" : 
-		[
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 100,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
 						"hp" : 250,
 						"id" : 3,
 						"is_expose" : false,
@@ -11317,19 +10793,19 @@
 			}
 		],
 		"rounds" : 1,
-		"score" : 1,
+		"score" : 0,
 		"state" : 43,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
-		"cur_turn" : 1,
+		"cur_turn" : 0,
 		"gamestate" : 3,
 		"operation" : 
 		[
 			{
 				"Action" : "Assert",
-				"ID" : 1,
+				"ID" : 0,
 				"Pos" : 0,
 				"id" : 1
 			}
@@ -11343,7 +10819,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 70,
+						"hp" : 150,
 						"id" : 2,
 						"is_expose" : false,
 						"player" : 0,
@@ -11429,7 +10905,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 100,
+						"hp" : 150,
 						"id" : 2,
 						"is_expose" : false,
 						"player" : 0,
@@ -11511,53 +10987,21 @@
 			}
 		],
 		"rounds" : 1,
-		"score" : 1,
+		"score" : 0,
 		"state" : 44,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
 		"cur_turn" : 1,
-		"gamestate" : 4,
+		"gamestate" : 3,
 		"operation" : 
 		[
 			{
-				"Action" : "Action",
-				"ActionInfo" : 
-				{
-					"ActionFish" : 0,
-					"hit" : 
-					[
-						{
-							"isEnemy" : true,
-							"player" : 0,
-							"target" : 0,
-							"traceable" : true,
-							"value" : 50
-						},
-						{
-							"isEnemy" : true,
-							"player" : 0,
-							"target" : 0,
-							"traceable" : false,
-							"value" : 30
-						}
-					],
-					"passive" : 
-					[
-						{
-							"isEnemy" : true,
-							"player" : 0,
-							"source" : 0,
-							"type" : "counter",
-							"value" : 30.0
-						}
-					]
-				},
-				"EnemyPos" : 0,
+				"Action" : "Assert",
 				"ID" : 1,
-				"MyPos" : 0,
-				"Type" : 0
+				"Pos" : 0,
+				"id" : 1
 			}
 		],
 		"over" : false,
@@ -11569,7 +11013,93 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 70,
+						"hp" : 100,
+						"id" : 2,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 200,
+						"id" : 3,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 200,
+						"id" : 9,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 2,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 200,
+						"id" : 1,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 1
+					}
+				],
+				"id" : 0,
+				"my_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 5,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 6,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 11,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 12,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					}
+				],
+				"type" : 1
+			},
+			{
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 150,
 						"id" : 2,
 						"is_expose" : false,
 						"player" : 0,
@@ -11600,6 +11130,534 @@
 						"atk" : 100,
 						"def" : 0,
 						"hp" : 250,
+						"id" : 1,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 1
+					}
+				],
+				"id" : 1,
+				"my_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 5,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 6,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 11,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 12,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					}
+				],
+				"type" : 1
+			}
+		],
+		"rounds" : 1,
+		"score" : 0,
+		"state" : 46,
+		"winner" : -1
+	},
+	{
+		"cnt" : 0,
+		"cur_turn" : 0,
+		"gamestate" : 3,
+		"operation" : 
+		[
+			{
+				"Action" : "Assert",
+				"ID" : 0,
+				"Pos" : 0,
+				"id" : 1
+			}
+		],
+		"over" : false,
+		"players" : 
+		[
+			{
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 100,
+						"id" : 2,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 200,
+						"id" : 3,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 200,
+						"id" : 9,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 2,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 200,
+						"id" : 1,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 1
+					}
+				],
+				"id" : 0,
+				"my_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 5,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 6,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 11,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 12,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					}
+				],
+				"type" : 1
+			},
+			{
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 100,
+						"id" : 2,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 200,
+						"id" : 3,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 200,
+						"id" : 9,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 2,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 200,
+						"id" : 1,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 1
+					}
+				],
+				"id" : 1,
+				"my_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 5,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 6,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 11,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 12,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					}
+				],
+				"type" : 1
+			}
+		],
+		"rounds" : 1,
+		"score" : 0,
+		"state" : 48,
+		"winner" : -1
+	},
+	{
+		"cnt" : 0,
+		"cur_turn" : 0,
+		"gamestate" : 4,
+		"operation" : 
+		[
+			{
+				"Action" : "Action",
+				"ActionInfo" : 
+				{
+					"ActionFish" : 0,
+					"hit" : 
+					[
+						{
+							"isEnemy" : false,
+							"player" : 0,
+							"target" : 0,
+							"traceable" : true,
+							"value" : 50
+						},
+						{
+							"isEnemy" : false,
+							"player" : 0,
+							"target" : 0,
+							"traceable" : false,
+							"value" : 30
+						}
+					],
+					"passive" : 
+					[
+						{
+							"isEnemy" : false,
+							"player" : 0,
+							"source" : 0,
+							"type" : "counter",
+							"value" : 30.0
+						}
+					]
+				},
+				"EnemyPos" : 0,
+				"ID" : 0,
+				"MyPos" : 0,
+				"Type" : 0
+			}
+		],
+		"over" : false,
+		"players" : 
+		[
+			{
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 50,
+						"id" : 2,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 150,
+						"id" : 3,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 150,
+						"id" : 9,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 2,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 150,
+						"id" : 1,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 1
+					}
+				],
+				"id" : 0,
+				"my_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 5,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 6,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 11,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 12,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					}
+				],
+				"type" : 1
+			},
+			{
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 100,
+						"id" : 2,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 200,
+						"id" : 3,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 200,
+						"id" : 9,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 2,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 200,
+						"id" : 1,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 1
+					}
+				],
+				"id" : 1,
+				"my_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 5,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 6,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 11,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 12,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					}
+				],
+				"type" : 1
+			}
+		],
+		"rounds" : 1,
+		"score" : 0,
+		"state" : 49,
+		"winner" : -1
+	},
+	{
+		"cnt" : 0,
+		"cur_turn" : 1,
+		"gamestate" : 3,
+		"operation" : 
+		[
+			{
+				"Action" : "Assert",
+				"ID" : 1,
+				"Pos" : 0,
+				"id" : 1
+			}
+		],
+		"over" : false,
+		"players" : 
+		[
+			{
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 20,
+						"id" : 2,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 150,
+						"id" : 3,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 150,
+						"id" : 9,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 2,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 150,
 						"id" : 1,
 						"is_expose" : false,
 						"player" : 0,
@@ -11737,207 +11795,13 @@
 			}
 		],
 		"rounds" : 1,
-		"score" : 1,
-		"state" : 45,
+		"score" : 0,
+		"state" : 50,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
-		"cur_turn" : 0,
-		"gamestate" : 3,
-		"operation" : 
-		[
-			{
-				"Action" : "Assert",
-				"ID" : 0,
-				"Pos" : 0,
-				"id" : 1
-			}
-		],
-		"over" : false,
-		"players" : 
-		[
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 20,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 250,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 250,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 250,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 0,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			},
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 20,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 200,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 200,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 200,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 1,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			}
-		],
-		"rounds" : 1,
-		"score" : 1,
-		"state" : 46,
-		"winner" : -1
-	},
-	{
-		"cnt" : 0,
-		"cur_turn" : 0,
+		"cur_turn" : 1,
 		"gamestate" : 4,
 		"operation" : 
 		[
@@ -11949,14 +11813,14 @@
 					"hit" : 
 					[
 						{
-							"isEnemy" : false,
+							"isEnemy" : true,
 							"player" : 0,
 							"target" : 0,
 							"traceable" : true,
 							"value" : 50
 						},
 						{
-							"isEnemy" : false,
+							"isEnemy" : true,
 							"player" : 0,
 							"target" : 1,
 							"traceable" : false,
@@ -11966,7 +11830,7 @@
 					"passive" : 
 					[
 						{
-							"isEnemy" : false,
+							"isEnemy" : true,
 							"player" : 0,
 							"source" : 0,
 							"type" : "counter",
@@ -11975,7 +11839,7 @@
 					]
 				},
 				"EnemyPos" : 0,
-				"ID" : 0,
+				"ID" : 1,
 				"MyPos" : 1,
 				"Type" : 0
 			}
@@ -11983,92 +11847,6 @@
 		"over" : false,
 		"players" : 
 		[
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 200,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 200,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 200,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 0,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			},
 			{
 				"fight_fish" : 
 				[
@@ -12085,7 +11863,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 200,
+						"hp" : 150,
 						"id" : 3,
 						"is_expose" : false,
 						"player" : 0,
@@ -12095,7 +11873,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 200,
+						"hp" : 150,
 						"id" : 9,
 						"is_expose" : false,
 						"player" : 0,
@@ -12105,355 +11883,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 200,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 1,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			}
-		],
-		"rounds" : 1,
-		"score" : 1,
-		"state" : 47,
-		"winner" : -1
-	},
-	{
-		"cnt" : 0,
-		"cur_turn" : 1,
-		"gamestate" : 3,
-		"operation" : 
-		[
-			{
-				"Action" : "Assert",
-				"ID" : 1,
-				"Pos" : 1,
-				"id" : 1
-			}
-		],
-		"over" : false,
-		"players" : 
-		[
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 170,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 200,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 200,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 0,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			},
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 20,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 200,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 200,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 200,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 1,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			}
-		],
-		"rounds" : 1,
-		"score" : 1,
-		"state" : 48,
-		"winner" : -1
-	},
-	{
-		"cnt" : 0,
-		"cur_turn" : 1,
-		"gamestate" : 4,
-		"operation" : 
-		[
-			{
-				"Action" : "Action",
-				"ActionInfo" : 
-				{
-					"ActionFish" : 1,
-					"hit" : 
-					[
-						{
-							"isEnemy" : true,
-							"player" : 0,
-							"target" : 1,
-							"traceable" : true,
-							"value" : 35
-						},
-						{
-							"isEnemy" : true,
-							"player" : 0,
-							"target" : 2,
-							"traceable" : false,
-							"value" : 7
-						},
-						{
-							"isEnemy" : true,
-							"player" : 0,
-							"target" : 3,
-							"traceable" : false,
-							"value" : 7
-						}
-					],
-					"passive" : 
-					[
-						{
-							"isEnemy" : true,
-							"player" : 0,
-							"source" : 1,
-							"type" : "deflect",
-							"value" : 35.0
-						},
-						{
-							"isEnemy" : true,
-							"player" : 0,
-							"source" : 2,
-							"type" : "heal",
-							"value" : 20.0
-						}
-					]
-				},
-				"EnemyPos" : 1,
-				"ID" : 1,
-				"MyPos" : 1,
-				"Type" : 0
-			}
-		],
-		"over" : false,
-		"players" : 
-		[
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 170,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 200,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 200,
+						"hp" : 150,
 						"id" : 1,
 						"is_expose" : false,
 						"player" : 0,
@@ -12591,467 +12021,19 @@
 			}
 		],
 		"rounds" : 1,
-		"score" : 1,
-		"state" : 49,
-		"winner" : -1
-	},
-	{
-		"cnt" : 0,
-		"cur_turn" : 0,
-		"gamestate" : 3,
-		"operation" : 
-		[
-			{
-				"Action" : "Assert",
-				"ID" : 0,
-				"Pos" : 1,
-				"id" : 1
-			}
-		],
-		"over" : false,
-		"players" : 
-		[
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 135,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 213,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 193,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 0,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			},
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 150,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 150,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 150,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 1,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			}
-		],
-		"rounds" : 1,
-		"score" : 1,
-		"state" : 50,
-		"winner" : -1
-	},
-	{
-		"cnt" : 0,
-		"cur_turn" : 0,
-		"gamestate" : 4,
-		"operation" : 
-		[
-			{
-				"Action" : "Action",
-				"ActionInfo" : 
-				{
-					"ActionFish" : 1,
-					"hit" : 
-					[
-						{
-							"isEnemy" : false,
-							"player" : 0,
-							"target" : 1,
-							"traceable" : true,
-							"value" : 35
-						},
-						{
-							"isEnemy" : false,
-							"player" : 0,
-							"target" : 2,
-							"traceable" : false,
-							"value" : 7
-						},
-						{
-							"isEnemy" : false,
-							"player" : 0,
-							"target" : 3,
-							"traceable" : false,
-							"value" : 7
-						},
-						{
-							"isEnemy" : false,
-							"player" : 0,
-							"target" : 1,
-							"traceable" : false,
-							"value" : 30
-						}
-					],
-					"passive" : 
-					[
-						{
-							"isEnemy" : false,
-							"player" : 0,
-							"source" : 1,
-							"type" : "deflect",
-							"value" : 35.0
-						},
-						{
-							"isEnemy" : false,
-							"player" : 0,
-							"source" : 2,
-							"type" : "heal",
-							"value" : 20.0
-						},
-						{
-							"isEnemy" : false,
-							"player" : 0,
-							"source" : 1,
-							"type" : "counter",
-							"value" : 30.0
-						}
-					]
-				},
-				"EnemyPos" : 1,
-				"ID" : 0,
-				"MyPos" : 1,
-				"Type" : 0
-			}
-		],
-		"over" : false,
-		"players" : 
-		[
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 85,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 163,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 143,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 0,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			},
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 150,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 150,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 150,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 1,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			}
-		],
-		"rounds" : 1,
-		"score" : 1,
+		"score" : 0,
 		"state" : 51,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
-		"cur_turn" : 1,
+		"cur_turn" : 0,
 		"gamestate" : 3,
 		"operation" : 
 		[
 			{
 				"Action" : "Assert",
-				"ID" : 1,
+				"ID" : 0,
 				"Pos" : 1,
 				"id" : 1
 			}
@@ -13065,7 +12047,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 0,
+						"hp" : 20,
 						"id" : 2,
 						"is_expose" : false,
 						"player" : 0,
@@ -13075,7 +12057,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 55,
+						"hp" : 150,
 						"id" : 3,
 						"is_expose" : false,
 						"player" : 0,
@@ -13085,7 +12067,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 163,
+						"hp" : 150,
 						"id" : 9,
 						"is_expose" : false,
 						"player" : 0,
@@ -13095,7 +12077,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 143,
+						"hp" : 150,
 						"id" : 1,
 						"is_expose" : false,
 						"player" : 0,
@@ -13161,7 +12143,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 115,
+						"hp" : 120,
 						"id" : 3,
 						"is_expose" : false,
 						"player" : 0,
@@ -13171,7 +12153,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 163,
+						"hp" : 150,
 						"id" : 9,
 						"is_expose" : false,
 						"player" : 0,
@@ -13181,7 +12163,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 143,
+						"hp" : 150,
 						"id" : 1,
 						"is_expose" : false,
 						"player" : 0,
@@ -13233,81 +12215,21 @@
 			}
 		],
 		"rounds" : 1,
-		"score" : 1,
+		"score" : 0,
 		"state" : 52,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
 		"cur_turn" : 1,
-		"gamestate" : 4,
+		"gamestate" : 3,
 		"operation" : 
 		[
 			{
-				"Action" : "Action",
-				"ActionInfo" : 
-				{
-					"ActionFish" : 1,
-					"hit" : 
-					[
-						{
-							"isEnemy" : true,
-							"player" : 0,
-							"target" : 1,
-							"traceable" : true,
-							"value" : 35
-						},
-						{
-							"isEnemy" : true,
-							"player" : 0,
-							"target" : 2,
-							"traceable" : false,
-							"value" : 7
-						},
-						{
-							"isEnemy" : true,
-							"player" : 0,
-							"target" : 3,
-							"traceable" : false,
-							"value" : 7
-						},
-						{
-							"isEnemy" : true,
-							"player" : 0,
-							"target" : 1,
-							"traceable" : false,
-							"value" : 30
-						}
-					],
-					"passive" : 
-					[
-						{
-							"isEnemy" : true,
-							"player" : 0,
-							"source" : 1,
-							"type" : "deflect",
-							"value" : 35.0
-						},
-						{
-							"isEnemy" : true,
-							"player" : 0,
-							"source" : 2,
-							"type" : "heal",
-							"value" : 20.0
-						},
-						{
-							"isEnemy" : true,
-							"player" : 0,
-							"source" : 1,
-							"type" : "counter",
-							"value" : 30.0
-						}
-					]
-				},
-				"EnemyPos" : 1,
+				"Action" : "Assert",
 				"ID" : 1,
-				"MyPos" : 1,
-				"Type" : 0
+				"Pos" : 1,
+				"id" : 1
 			}
 		],
 		"over" : false,
@@ -13329,7 +12251,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 55,
+						"hp" : 100,
 						"id" : 3,
 						"is_expose" : false,
 						"player" : 0,
@@ -13339,7 +12261,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 163,
+						"hp" : 100,
 						"id" : 9,
 						"is_expose" : false,
 						"player" : 0,
@@ -13349,7 +12271,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 143,
+						"hp" : 100,
 						"id" : 1,
 						"is_expose" : false,
 						"player" : 0,
@@ -13415,7 +12337,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 65,
+						"hp" : 120,
 						"id" : 3,
 						"is_expose" : false,
 						"player" : 0,
@@ -13425,7 +12347,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 113,
+						"hp" : 150,
 						"id" : 9,
 						"is_expose" : false,
 						"player" : 0,
@@ -13435,7 +12357,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 93,
+						"hp" : 150,
 						"id" : 1,
 						"is_expose" : false,
 						"player" : 0,
@@ -13487,8 +12409,8 @@
 			}
 		],
 		"rounds" : 1,
-		"score" : 1,
-		"state" : 53,
+		"score" : 0,
+		"state" : 54,
 		"winner" : -1
 	},
 	{
@@ -13523,7 +12445,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 20,
+						"hp" : 100,
 						"id" : 3,
 						"is_expose" : false,
 						"player" : 0,
@@ -13533,7 +12455,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 176,
+						"hp" : 100,
 						"id" : 9,
 						"is_expose" : false,
 						"player" : 0,
@@ -13543,7 +12465,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 136,
+						"hp" : 100,
 						"id" : 1,
 						"is_expose" : false,
 						"player" : 0,
@@ -13609,7 +12531,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 35,
+						"hp" : 70,
 						"id" : 3,
 						"is_expose" : false,
 						"player" : 0,
@@ -13619,7 +12541,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 113,
+						"hp" : 100,
 						"id" : 9,
 						"is_expose" : false,
 						"player" : 0,
@@ -13629,7 +12551,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 93,
+						"hp" : 100,
 						"id" : 1,
 						"is_expose" : false,
 						"player" : 0,
@@ -13681,8 +12603,8 @@
 			}
 		],
 		"rounds" : 1,
-		"score" : 1,
-		"state" : 54,
+		"score" : 0,
+		"state" : 56,
 		"winner" : -1
 	},
 	{
@@ -13695,7 +12617,7 @@
 				"Action" : "Action",
 				"ActionInfo" : 
 				{
-					"ActionFish" : 2,
+					"ActionFish" : 1,
 					"hit" : 
 					[
 						{
@@ -13722,7 +12644,7 @@
 						{
 							"isEnemy" : false,
 							"player" : 0,
-							"target" : 2,
+							"target" : 1,
 							"traceable" : false,
 							"value" : 30
 						}
@@ -13746,13 +12668,6 @@
 						{
 							"isEnemy" : false,
 							"player" : 0,
-							"source" : 2,
-							"type" : "heal",
-							"value" : 20.0
-						},
-						{
-							"isEnemy" : false,
-							"player" : 0,
 							"source" : 1,
 							"type" : "counter",
 							"value" : 30.0
@@ -13761,7 +12676,7 @@
 				},
 				"EnemyPos" : 1,
 				"ID" : 0,
-				"MyPos" : 2,
+				"MyPos" : 1,
 				"Type" : 0
 			}
 		],
@@ -13784,17 +12699,17 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 0,
+						"hp" : 50,
 						"id" : 3,
 						"is_expose" : false,
 						"player" : 0,
 						"pos" : 1,
-						"state" : 2
+						"state" : 1
 					},
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 126,
+						"hp" : 50,
 						"id" : 9,
 						"is_expose" : false,
 						"player" : 0,
@@ -13804,7 +12719,201 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 86,
+						"hp" : 50,
+						"id" : 1,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 1
+					}
+				],
+				"id" : 0,
+				"my_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 5,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 6,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 11,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 12,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					}
+				],
+				"type" : 1
+			},
+			{
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 0,
+						"id" : 2,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 2
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 70,
+						"id" : 3,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 100,
+						"id" : 9,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 2,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 100,
+						"id" : 1,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 1
+					}
+				],
+				"id" : 1,
+				"my_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 5,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 6,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 11,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 12,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					}
+				],
+				"type" : 1
+			}
+		],
+		"rounds" : 1,
+		"score" : 0,
+		"state" : 57,
+		"winner" : -1
+	},
+	{
+		"cnt" : 0,
+		"cur_turn" : 1,
+		"gamestate" : 3,
+		"operation" : 
+		[
+			{
+				"Action" : "Assert",
+				"ID" : 1,
+				"Pos" : 1,
+				"id" : 1
+			}
+		],
+		"over" : false,
+		"players" : 
+		[
+			{
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 0,
+						"id" : 2,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 2
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 20,
+						"id" : 3,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 50,
+						"id" : 9,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 2,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 50,
 						"id" : 1,
 						"is_expose" : false,
 						"player" : 0,
@@ -13942,1012 +13051,12 @@
 			}
 		],
 		"rounds" : 1,
-		"score" : 1,
-		"state" : 55,
-		"winner" : -1
-	},
-	{
-		"cnt" : 0,
-		"cur_turn" : 1,
-		"gamestate" : 3,
-		"operation" : 
-		[
-			{
-				"Action" : "Assert",
-				"ID" : 1,
-				"Pos" : 2,
-				"id" : 1
-			}
-		],
-		"over" : false,
-		"players" : 
-		[
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 116,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 86,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 0,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			},
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 35,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 126,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 86,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 1,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			}
-		],
-		"rounds" : 1,
-		"score" : 1,
-		"state" : 56,
-		"winner" : -1
-	},
-	{
-		"cnt" : 0,
-		"cur_turn" : 1,
-		"gamestate" : 4,
-		"operation" : 
-		[
-			{
-				"Action" : "Action",
-				"ActionInfo" : 
-				{
-					"ActionFish" : 2,
-					"hit" : 
-					[
-						{
-							"isEnemy" : true,
-							"player" : 0,
-							"target" : 3,
-							"traceable" : true,
-							"value" : 50
-						}
-					]
-				},
-				"EnemyPos" : 3,
-				"ID" : 1,
-				"MyPos" : 2,
-				"Type" : 0
-			}
-		],
-		"over" : false,
-		"players" : 
-		[
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 116,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 86,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 0,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			},
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 76,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 36,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 1,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			}
-		],
-		"rounds" : 1,
-		"score" : 1,
-		"state" : 57,
-		"winner" : -1
-	},
-	{
-		"cnt" : 0,
-		"cur_turn" : 0,
-		"gamestate" : 3,
-		"operation" : 
-		[
-			{
-				"Action" : "Assert",
-				"ID" : 0,
-				"Pos" : 2,
-				"id" : 1
-			}
-		],
-		"over" : false,
-		"players" : 
-		[
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 116,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 36,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 0,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			},
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 76,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 36,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 1,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			}
-		],
-		"rounds" : 1,
-		"score" : 1,
+		"score" : 0,
 		"state" : 58,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
-		"cur_turn" : 0,
-		"gamestate" : 4,
-		"operation" : 
-		[
-			{
-				"Action" : "Action",
-				"ActionInfo" : 
-				{
-					"ActionFish" : 2,
-					"hit" : 
-					[
-						{
-							"isEnemy" : false,
-							"player" : 0,
-							"target" : 3,
-							"traceable" : true,
-							"value" : 50
-						}
-					]
-				},
-				"EnemyPos" : 3,
-				"ID" : 0,
-				"MyPos" : 2,
-				"Type" : 0
-			}
-		],
-		"over" : false,
-		"players" : 
-		[
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 66,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 2
-					}
-				],
-				"id" : 0,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			},
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 76,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 36,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 1,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			}
-		],
-		"rounds" : 1,
-		"score" : 1,
-		"state" : 59,
-		"winner" : -1
-	},
-	{
-		"cnt" : 0,
-		"cur_turn" : 1,
-		"gamestate" : 3,
-		"operation" : 
-		[
-			{
-				"Action" : "Assert",
-				"ID" : 1,
-				"Pos" : 2,
-				"id" : 1
-			}
-		],
-		"over" : false,
-		"players" : 
-		[
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 66,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 2
-					}
-				],
-				"id" : 0,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			},
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 2,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 3,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 76,
-						"id" : 9,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 36,
-						"id" : 1,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 2
-					}
-				],
-				"id" : 1,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			}
-		],
-		"rounds" : 1,
-		"score" : 1,
-		"state" : 60,
-		"winner" : -1
-	},
-	{
-		"cnt" : 0,
 		"cur_turn" : 1,
 		"gamestate" : 4,
 		"operation" : 
@@ -14962,9 +13071,30 @@
 						{
 							"isEnemy" : true,
 							"player" : 0,
-							"target" : 2,
+							"target" : 1,
 							"traceable" : true,
-							"value" : 50
+							"value" : 35
+						},
+						{
+							"isEnemy" : true,
+							"player" : 0,
+							"target" : 2,
+							"traceable" : false,
+							"value" : 7
+						},
+						{
+							"isEnemy" : true,
+							"player" : 0,
+							"target" : 3,
+							"traceable" : false,
+							"value" : 7
+						},
+						{
+							"isEnemy" : true,
+							"player" : 0,
+							"target" : 2,
+							"traceable" : false,
+							"value" : 30
 						}
 					],
 					"passive" : 
@@ -14972,16 +13102,425 @@
 						{
 							"isEnemy" : true,
 							"player" : 0,
+							"source" : 1,
+							"type" : "deflect",
+							"value" : 35.0
+						},
+						{
+							"isEnemy" : true,
+							"player" : 0,
 							"source" : 2,
 							"type" : "heal",
 							"value" : 20.0
+						},
+						{
+							"isEnemy" : true,
+							"player" : 0,
+							"source" : 2,
+							"type" : "heal",
+							"value" : 20.0
+						},
+						{
+							"isEnemy" : true,
+							"player" : 0,
+							"source" : 1,
+							"type" : "counter",
+							"value" : 30.0
 						}
 					]
 				},
-				"EnemyPos" : 2,
+				"EnemyPos" : 1,
 				"ID" : 1,
 				"MyPos" : 2,
 				"Type" : 0
+			}
+		],
+		"over" : false,
+		"players" : 
+		[
+			{
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 0,
+						"id" : 2,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 2
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 20,
+						"id" : 3,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 50,
+						"id" : 9,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 2,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 50,
+						"id" : 1,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 1
+					}
+				],
+				"id" : 0,
+				"my_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 5,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 6,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 11,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 12,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					}
+				],
+				"type" : 1
+			},
+			{
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 0,
+						"id" : 2,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 2
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 0,
+						"id" : 3,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 2
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 63,
+						"id" : 9,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 2,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 43,
+						"id" : 1,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 1
+					}
+				],
+				"id" : 1,
+				"my_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 5,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 6,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 11,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 12,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					}
+				],
+				"type" : 1
+			}
+		],
+		"rounds" : 1,
+		"score" : 0,
+		"state" : 59,
+		"winner" : -1
+	},
+	{
+		"cnt" : 0,
+		"cur_turn" : 0,
+		"gamestate" : 3,
+		"operation" : 
+		[
+			{
+				"Action" : "Assert",
+				"ID" : 0,
+				"Pos" : 2,
+				"id" : 1
+			}
+		],
+		"over" : false,
+		"players" : 
+		[
+			{
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 0,
+						"id" : 2,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 2
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 20,
+						"id" : 3,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 2
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 63,
+						"id" : 9,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 2,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 43,
+						"id" : 1,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 1
+					}
+				],
+				"id" : 0,
+				"my_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 5,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 6,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 11,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 12,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					}
+				],
+				"type" : 1
+			},
+			{
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 0,
+						"id" : 2,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 2
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 0,
+						"id" : 3,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 2
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 53,
+						"id" : 9,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 2,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 43,
+						"id" : 1,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 1
+					}
+				],
+				"id" : 1,
+				"my_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 5,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 6,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 11,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 12,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					}
+				],
+				"type" : 1
+			}
+		],
+		"rounds" : 1,
+		"score" : 0,
+		"state" : 60,
+		"winner" : -1
+	},
+	{
+		"cnt" : 0,
+		"cur_turn" : 1,
+		"gamestate" : 3,
+		"operation" : 
+		[
+			{
+				"Action" : "Assert",
+				"ID" : 1,
+				"Pos" : 2,
+				"id" : 1
 			}
 		],
 		"over" : false,
@@ -15013,7 +13552,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 66,
+						"hp" : 13,
 						"id" : 9,
 						"is_expose" : false,
 						"player" : 0,
@@ -15099,7 +13638,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 26,
+						"hp" : 53,
 						"id" : 9,
 						"is_expose" : false,
 						"player" : 0,
@@ -15109,12 +13648,12 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 0,
+						"hp" : 43,
 						"id" : 1,
 						"is_expose" : false,
 						"player" : 0,
 						"pos" : 3,
-						"state" : 2
+						"state" : 1
 					}
 				],
 				"id" : 1,
@@ -15161,8 +13700,8 @@
 			}
 		],
 		"rounds" : 1,
-		"score" : 1,
-		"state" : 61,
+		"score" : 0,
+		"state" : 62,
 		"winner" : -1
 	},
 	{
@@ -15207,7 +13746,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 36,
+						"hp" : 13,
 						"id" : 9,
 						"is_expose" : false,
 						"player" : 0,
@@ -15293,7 +13832,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 26,
+						"hp" : 3,
 						"id" : 9,
 						"is_expose" : false,
 						"player" : 0,
@@ -15355,109 +13894,8 @@
 			}
 		],
 		"rounds" : 1,
-		"score" : 1,
-		"state" : 62,
-		"winner" : -1
-	},
-	{
-		"cnt" : 0,
-		"cur_turn" : 0,
-		"gamestate" : 2,
-		"over" : false,
-		"players" : 
-		[
-			{
-				"fight_fish" : [],
-				"id" : 0,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			},
-			{
-				"fight_fish" : [],
-				"id" : 1,
-				"my_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"pos" : 0,
-						"state" : 0
-					}
-				],
-				"type" : 1
-			}
-		],
-		"rounds" : 2,
-		"score" : 2,
-		"state" : 63,
+		"score" : 0,
+		"state" : 64,
 		"winner" : -1
 	},
 	{
@@ -15561,7 +13999,49 @@
 		"players" : 
 		[
 			{
-				"fight_fish" : [],
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 0,
+						"id" : 2,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 2
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 0,
+						"id" : 3,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 2
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 0,
+						"id" : 9,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 2,
+						"state" : 2
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 0,
+						"id" : 1,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 2
+					}
+				],
 				"id" : 0,
 				"my_fish" : 
 				[
@@ -15605,7 +14085,49 @@
 				"type" : 1
 			},
 			{
-				"fight_fish" : [],
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 0,
+						"id" : 2,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 2
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 0,
+						"id" : 3,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 2
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 3,
+						"id" : 9,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 2,
+						"state" : 2
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 0,
+						"id" : 1,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 2
+					}
+				],
 				"id" : 1,
 				"my_fish" : 
 				[
@@ -15650,8 +14172,8 @@
 			}
 		],
 		"rounds" : 2,
-		"score" : 2,
-		"state" : 63,
+		"score" : 0,
+		"state" : 65,
 		"winner" : -1
 	},
 	{
@@ -15768,264 +14290,13 @@
 			}
 		],
 		"rounds" : 2,
-		"score" : 2,
-		"state" : 64,
-		"winner" : -1
-	},
-	{
-		"cnt" : 0,
-		"cur_turn" : 1,
-		"gamestate" : 4,
-		"operation" : 
-		[
-			{
-				"Action" : "Action",
-				"ActionInfo" : 
-				{
-					"ActionFish" : 0,
-					"hit" : 
-					[
-						{
-							"isEnemy" : true,
-							"player" : 0,
-							"target" : 0,
-							"traceable" : true,
-							"value" : 50
-						}
-					]
-				},
-				"EnemyPos" : 0,
-				"ID" : 1,
-				"MyPos" : 0,
-				"Type" : 0
-			}
-		],
-		"over" : false,
-		"players" : 
-		[
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 11,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 0,
-				"my_fish" : [],
-				"type" : 1
-			},
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 350,
-						"id" : 11,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 350,
-						"id" : 6,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 350,
-						"id" : 12,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 350,
-						"id" : 5,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 1,
-				"my_fish" : [],
-				"type" : 1
-			}
-		],
-		"rounds" : 2,
-		"score" : 2,
-		"state" : 65,
-		"winner" : -1
-	},
-	{
-		"cnt" : 0,
-		"cur_turn" : 0,
-		"gamestate" : 3,
-		"operation" : 
-		[
-			{
-				"Action" : "Assert",
-				"ID" : 0,
-				"Pos" : 0,
-				"id" : 1
-			}
-		],
-		"over" : false,
-		"players" : 
-		[
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 350,
-						"id" : 11,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 6,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 12,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 2,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 400,
-						"id" : 5,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 0,
-				"my_fish" : [],
-				"type" : 1
-			},
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 350,
-						"id" : 11,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 350,
-						"id" : 6,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 350,
-						"id" : 12,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 350,
-						"id" : 5,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 1,
-				"my_fish" : [],
-				"type" : 1
-			}
-		],
-		"rounds" : 2,
-		"score" : 2,
+		"score" : 0,
 		"state" : 66,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
-		"cur_turn" : 0,
+		"cur_turn" : 1,
 		"gamestate" : 4,
 		"operation" : 
 		[
@@ -16037,7 +14308,7 @@
 					"hit" : 
 					[
 						{
-							"isEnemy" : false,
+							"isEnemy" : true,
 							"player" : 0,
 							"target" : 0,
 							"traceable" : true,
@@ -16046,7 +14317,7 @@
 					]
 				},
 				"EnemyPos" : 0,
-				"ID" : 0,
+				"ID" : 1,
 				"MyPos" : 0,
 				"Type" : 0
 			}
@@ -16060,7 +14331,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 300,
+						"hp" : 400,
 						"id" : 11,
 						"is_expose" : false,
 						"player" : 0,
@@ -16070,7 +14341,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 350,
+						"hp" : 400,
 						"id" : 6,
 						"is_expose" : false,
 						"player" : 0,
@@ -16080,17 +14351,17 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 350,
+						"hp" : 400,
 						"id" : 12,
 						"is_expose" : false,
 						"player" : 0,
-						"pos" : 0,
-						"state" : 0
+						"pos" : 2,
+						"state" : 1
 					},
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 350,
+						"hp" : 400,
 						"id" : 5,
 						"is_expose" : false,
 						"player" : 0,
@@ -16152,19 +14423,19 @@
 			}
 		],
 		"rounds" : 2,
-		"score" : 2,
+		"score" : 0,
 		"state" : 67,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
-		"cur_turn" : 1,
+		"cur_turn" : 0,
 		"gamestate" : 3,
 		"operation" : 
 		[
 			{
 				"Action" : "Assert",
-				"ID" : 1,
+				"ID" : 0,
 				"Pos" : 0,
 				"id" : 1
 			}
@@ -16178,7 +14449,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 300,
+						"hp" : 350,
 						"id" : 11,
 						"is_expose" : false,
 						"player" : 0,
@@ -16188,7 +14459,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 350,
+						"hp" : 400,
 						"id" : 6,
 						"is_expose" : false,
 						"player" : 0,
@@ -16198,17 +14469,17 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 350,
+						"hp" : 400,
 						"id" : 12,
 						"is_expose" : false,
 						"player" : 0,
-						"pos" : 0,
-						"state" : 0
+						"pos" : 2,
+						"state" : 1
 					},
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 350,
+						"hp" : 400,
 						"id" : 5,
 						"is_expose" : false,
 						"player" : 0,
@@ -16226,7 +14497,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 300,
+						"hp" : 350,
 						"id" : 11,
 						"is_expose" : false,
 						"player" : 0,
@@ -16270,13 +14541,13 @@
 			}
 		],
 		"rounds" : 2,
-		"score" : 2,
+		"score" : 0,
 		"state" : 68,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
-		"cur_turn" : 1,
+		"cur_turn" : 0,
 		"gamestate" : 4,
 		"operation" : 
 		[
@@ -16288,7 +14559,7 @@
 					"hit" : 
 					[
 						{
-							"isEnemy" : true,
+							"isEnemy" : false,
 							"player" : 0,
 							"target" : 0,
 							"traceable" : true,
@@ -16297,7 +14568,7 @@
 					]
 				},
 				"EnemyPos" : 0,
-				"ID" : 1,
+				"ID" : 0,
 				"MyPos" : 0,
 				"Type" : 0
 			}
@@ -16359,7 +14630,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 250,
+						"hp" : 350,
 						"id" : 11,
 						"is_expose" : false,
 						"player" : 0,
@@ -16369,7 +14640,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 300,
+						"hp" : 350,
 						"id" : 6,
 						"is_expose" : false,
 						"player" : 0,
@@ -16379,7 +14650,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 300,
+						"hp" : 350,
 						"id" : 12,
 						"is_expose" : false,
 						"player" : 0,
@@ -16389,7 +14660,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 300,
+						"hp" : 350,
 						"id" : 5,
 						"is_expose" : false,
 						"player" : 0,
@@ -16403,19 +14674,19 @@
 			}
 		],
 		"rounds" : 2,
-		"score" : 2,
+		"score" : 0,
 		"state" : 69,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
-		"cur_turn" : 0,
+		"cur_turn" : 1,
 		"gamestate" : 3,
 		"operation" : 
 		[
 			{
 				"Action" : "Assert",
-				"ID" : 0,
+				"ID" : 1,
 				"Pos" : 0,
 				"id" : 1
 			}
@@ -16429,7 +14700,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 250,
+						"hp" : 300,
 						"id" : 11,
 						"is_expose" : false,
 						"player" : 0,
@@ -16477,7 +14748,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 250,
+						"hp" : 300,
 						"id" : 11,
 						"is_expose" : false,
 						"player" : 0,
@@ -16487,7 +14758,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 300,
+						"hp" : 350,
 						"id" : 6,
 						"is_expose" : false,
 						"player" : 0,
@@ -16497,7 +14768,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 300,
+						"hp" : 350,
 						"id" : 12,
 						"is_expose" : false,
 						"player" : 0,
@@ -16507,7 +14778,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 300,
+						"hp" : 350,
 						"id" : 5,
 						"is_expose" : false,
 						"player" : 0,
@@ -16521,13 +14792,13 @@
 			}
 		],
 		"rounds" : 2,
-		"score" : 2,
+		"score" : 0,
 		"state" : 70,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
-		"cur_turn" : 0,
+		"cur_turn" : 1,
 		"gamestate" : 4,
 		"operation" : 
 		[
@@ -16539,7 +14810,7 @@
 					"hit" : 
 					[
 						{
-							"isEnemy" : false,
+							"isEnemy" : true,
 							"player" : 0,
 							"target" : 0,
 							"traceable" : true,
@@ -16548,7 +14819,7 @@
 					]
 				},
 				"EnemyPos" : 0,
-				"ID" : 0,
+				"ID" : 1,
 				"MyPos" : 0,
 				"Type" : 0
 			}
@@ -16562,7 +14833,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 200,
+						"hp" : 300,
 						"id" : 11,
 						"is_expose" : false,
 						"player" : 0,
@@ -16572,7 +14843,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 300,
+						"hp" : 350,
 						"id" : 6,
 						"is_expose" : false,
 						"player" : 0,
@@ -16582,7 +14853,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 300,
+						"hp" : 350,
 						"id" : 12,
 						"is_expose" : false,
 						"player" : 0,
@@ -16592,7 +14863,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 300,
+						"hp" : 350,
 						"id" : 5,
 						"is_expose" : false,
 						"player" : 0,
@@ -16654,19 +14925,19 @@
 			}
 		],
 		"rounds" : 2,
-		"score" : 2,
+		"score" : 0,
 		"state" : 71,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
-		"cur_turn" : 1,
+		"cur_turn" : 0,
 		"gamestate" : 3,
 		"operation" : 
 		[
 			{
 				"Action" : "Assert",
-				"ID" : 1,
+				"ID" : 0,
 				"Pos" : 0,
 				"id" : 1
 			}
@@ -16680,7 +14951,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 200,
+						"hp" : 250,
 						"id" : 11,
 						"is_expose" : false,
 						"player" : 0,
@@ -16690,7 +14961,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 300,
+						"hp" : 350,
 						"id" : 6,
 						"is_expose" : false,
 						"player" : 0,
@@ -16700,7 +14971,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 300,
+						"hp" : 350,
 						"id" : 12,
 						"is_expose" : false,
 						"player" : 0,
@@ -16710,7 +14981,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 300,
+						"hp" : 350,
 						"id" : 5,
 						"is_expose" : false,
 						"player" : 0,
@@ -16728,7 +14999,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 200,
+						"hp" : 250,
 						"id" : 11,
 						"is_expose" : false,
 						"player" : 0,
@@ -16772,13 +15043,13 @@
 			}
 		],
 		"rounds" : 2,
-		"score" : 2,
+		"score" : 0,
 		"state" : 72,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
-		"cur_turn" : 1,
+		"cur_turn" : 0,
 		"gamestate" : 4,
 		"operation" : 
 		[
@@ -16790,7 +15061,7 @@
 					"hit" : 
 					[
 						{
-							"isEnemy" : true,
+							"isEnemy" : false,
 							"player" : 0,
 							"target" : 0,
 							"traceable" : true,
@@ -16799,7 +15070,7 @@
 					]
 				},
 				"EnemyPos" : 0,
-				"ID" : 1,
+				"ID" : 0,
 				"MyPos" : 0,
 				"Type" : 0
 			}
@@ -16861,7 +15132,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 150,
+						"hp" : 250,
 						"id" : 11,
 						"is_expose" : false,
 						"player" : 0,
@@ -16871,7 +15142,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 250,
+						"hp" : 300,
 						"id" : 6,
 						"is_expose" : false,
 						"player" : 0,
@@ -16881,7 +15152,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 250,
+						"hp" : 300,
 						"id" : 12,
 						"is_expose" : false,
 						"player" : 0,
@@ -16891,7 +15162,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 250,
+						"hp" : 300,
 						"id" : 5,
 						"is_expose" : false,
 						"player" : 0,
@@ -16905,19 +15176,19 @@
 			}
 		],
 		"rounds" : 2,
-		"score" : 2,
+		"score" : 0,
 		"state" : 73,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
-		"cur_turn" : 0,
+		"cur_turn" : 1,
 		"gamestate" : 3,
 		"operation" : 
 		[
 			{
 				"Action" : "Assert",
-				"ID" : 0,
+				"ID" : 1,
 				"Pos" : 0,
 				"id" : 1
 			}
@@ -16931,7 +15202,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 150,
+						"hp" : 200,
 						"id" : 11,
 						"is_expose" : false,
 						"player" : 0,
@@ -16979,7 +15250,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 150,
+						"hp" : 200,
 						"id" : 11,
 						"is_expose" : false,
 						"player" : 0,
@@ -16989,7 +15260,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 250,
+						"hp" : 300,
 						"id" : 6,
 						"is_expose" : false,
 						"player" : 0,
@@ -16999,7 +15270,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 250,
+						"hp" : 300,
 						"id" : 12,
 						"is_expose" : false,
 						"player" : 0,
@@ -17009,7 +15280,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 250,
+						"hp" : 300,
 						"id" : 5,
 						"is_expose" : false,
 						"player" : 0,
@@ -17023,13 +15294,13 @@
 			}
 		],
 		"rounds" : 2,
-		"score" : 2,
+		"score" : 0,
 		"state" : 74,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
-		"cur_turn" : 0,
+		"cur_turn" : 1,
 		"gamestate" : 4,
 		"operation" : 
 		[
@@ -17041,33 +15312,16 @@
 					"hit" : 
 					[
 						{
-							"isEnemy" : false,
+							"isEnemy" : true,
 							"player" : 0,
 							"target" : 0,
 							"traceable" : true,
 							"value" : 50
-						},
-						{
-							"isEnemy" : false,
-							"player" : 0,
-							"target" : 0,
-							"traceable" : false,
-							"value" : 30
-						}
-					],
-					"passive" : 
-					[
-						{
-							"isEnemy" : false,
-							"player" : 0,
-							"source" : 0,
-							"type" : "counter",
-							"value" : 30.0
 						}
 					]
 				},
 				"EnemyPos" : 0,
-				"ID" : 0,
+				"ID" : 1,
 				"MyPos" : 0,
 				"Type" : 0
 			}
@@ -17081,7 +15335,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 100,
+						"hp" : 200,
 						"id" : 11,
 						"is_expose" : false,
 						"player" : 0,
@@ -17091,7 +15345,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 250,
+						"hp" : 300,
 						"id" : 6,
 						"is_expose" : false,
 						"player" : 0,
@@ -17101,7 +15355,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 250,
+						"hp" : 300,
 						"id" : 12,
 						"is_expose" : false,
 						"player" : 0,
@@ -17111,7 +15365,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 250,
+						"hp" : 300,
 						"id" : 5,
 						"is_expose" : false,
 						"player" : 0,
@@ -17173,12 +15427,280 @@
 			}
 		],
 		"rounds" : 2,
-		"score" : 2,
+		"score" : 0,
 		"state" : 75,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
+		"cur_turn" : 0,
+		"gamestate" : 3,
+		"operation" : 
+		[
+			{
+				"Action" : "Assert",
+				"ID" : 0,
+				"Pos" : 0,
+				"id" : 1
+			}
+		],
+		"over" : false,
+		"players" : 
+		[
+			{
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 150,
+						"id" : 11,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 300,
+						"id" : 6,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 300,
+						"id" : 12,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 300,
+						"id" : 5,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 1
+					}
+				],
+				"id" : 0,
+				"my_fish" : [],
+				"type" : 1
+			},
+			{
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 150,
+						"id" : 11,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 250,
+						"id" : 6,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 250,
+						"id" : 12,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 250,
+						"id" : 5,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 1
+					}
+				],
+				"id" : 1,
+				"my_fish" : [],
+				"type" : 1
+			}
+		],
+		"rounds" : 2,
+		"score" : 0,
+		"state" : 76,
+		"winner" : -1
+	},
+	{
+		"cnt" : 0,
+		"cur_turn" : 0,
+		"gamestate" : 4,
+		"operation" : 
+		[
+			{
+				"Action" : "Action",
+				"ActionInfo" : 
+				{
+					"ActionFish" : 0,
+					"hit" : 
+					[
+						{
+							"isEnemy" : false,
+							"player" : 0,
+							"target" : 0,
+							"traceable" : true,
+							"value" : 50
+						},
+						{
+							"isEnemy" : false,
+							"player" : 0,
+							"target" : 0,
+							"traceable" : false,
+							"value" : 30
+						}
+					],
+					"passive" : 
+					[
+						{
+							"isEnemy" : false,
+							"player" : 0,
+							"source" : 0,
+							"type" : "counter",
+							"value" : 30.0
+						}
+					]
+				},
+				"EnemyPos" : 0,
+				"ID" : 0,
+				"MyPos" : 0,
+				"Type" : 0
+			}
+		],
+		"over" : false,
+		"players" : 
+		[
+			{
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 100,
+						"id" : 11,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 250,
+						"id" : 6,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 250,
+						"id" : 12,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 250,
+						"id" : 5,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 1
+					}
+				],
+				"id" : 0,
+				"my_fish" : [],
+				"type" : 1
+			},
+			{
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 150,
+						"id" : 11,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 250,
+						"id" : 6,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 250,
+						"id" : 12,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 250,
+						"id" : 5,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 1
+					}
+				],
+				"id" : 1,
+				"my_fish" : [],
+				"type" : 1
+			}
+		],
+		"rounds" : 2,
+		"score" : 0,
+		"state" : 77,
+		"winner" : -1
+	},
+	{
+		"cnt" : 0,
 		"cur_turn" : 1,
 		"gamestate" : 3,
 		"operation" : 
@@ -17291,8 +15813,8 @@
 			}
 		],
 		"rounds" : 2,
-		"score" : 2,
-		"state" : 76,
+		"score" : 0,
+		"state" : 78,
 		"winner" : -1
 	},
 	{
@@ -17441,8 +15963,8 @@
 			}
 		],
 		"rounds" : 2,
-		"score" : 2,
-		"state" : 77,
+		"score" : 0,
+		"state" : 79,
 		"winner" : -1
 	},
 	{
@@ -17559,8 +16081,8 @@
 			}
 		],
 		"rounds" : 2,
-		"score" : 2,
-		"state" : 78,
+		"score" : 0,
+		"state" : 80,
 		"winner" : -1
 	},
 	{
@@ -17692,8 +16214,8 @@
 			}
 		],
 		"rounds" : 2,
-		"score" : 2,
-		"state" : 79,
+		"score" : 0,
+		"state" : 81,
 		"winner" : -1
 	},
 	{
@@ -17810,274 +16332,13 @@
 			}
 		],
 		"rounds" : 2,
-		"score" : 2,
-		"state" : 80,
-		"winner" : -1
-	},
-	{
-		"cnt" : 0,
-		"cur_turn" : 1,
-		"gamestate" : 4,
-		"operation" : 
-		[
-			{
-				"Action" : "Action",
-				"ActionInfo" : 
-				{
-					"ActionFish" : 1,
-					"hit" : 
-					[
-						{
-							"isEnemy" : true,
-							"player" : 0,
-							"target" : 1,
-							"traceable" : true,
-							"value" : 0
-						}
-					],
-					"passive" : 
-					[
-						{
-							"isEnemy" : true,
-							"player" : 0,
-							"source" : 1,
-							"type" : "reduce",
-							"value" : 0.0
-						}
-					]
-				},
-				"EnemyPos" : 1,
-				"ID" : 1,
-				"MyPos" : 1,
-				"Type" : 0
-			}
-		],
-		"over" : false,
-		"players" : 
-		[
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 11,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 200,
-						"id" : 6,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 200,
-						"id" : 12,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 200,
-						"id" : 5,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 0,
-				"my_fish" : [],
-				"type" : 1
-			},
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 11,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 150,
-						"id" : 6,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 150,
-						"id" : 12,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 150,
-						"id" : 5,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 1,
-				"my_fish" : [],
-				"type" : 1
-			}
-		],
-		"rounds" : 2,
-		"score" : 2,
-		"state" : 81,
-		"winner" : -1
-	},
-	{
-		"cnt" : 0,
-		"cur_turn" : 0,
-		"gamestate" : 3,
-		"operation" : 
-		[
-			{
-				"Action" : "Assert",
-				"ID" : 0,
-				"Pos" : 1,
-				"id" : 1
-			}
-		],
-		"over" : false,
-		"players" : 
-		[
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 11,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 200,
-						"id" : 6,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 200,
-						"id" : 12,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 200,
-						"id" : 5,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 0,
-				"my_fish" : [],
-				"type" : 1
-			},
-			{
-				"fight_fish" : 
-				[
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 0,
-						"id" : 11,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 2
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 150,
-						"id" : 6,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 1,
-						"state" : 1
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 150,
-						"id" : 12,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 0,
-						"state" : 0
-					},
-					{
-						"atk" : 100,
-						"def" : 0,
-						"hp" : 150,
-						"id" : 5,
-						"is_expose" : false,
-						"player" : 0,
-						"pos" : 3,
-						"state" : 1
-					}
-				],
-				"id" : 1,
-				"my_fish" : [],
-				"type" : 1
-			}
-		],
-		"rounds" : 2,
-		"score" : 2,
+		"score" : 0,
 		"state" : 82,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
-		"cur_turn" : 0,
+		"cur_turn" : 1,
 		"gamestate" : 4,
 		"operation" : 
 		[
@@ -18085,11 +16346,11 @@
 				"Action" : "Action",
 				"ActionInfo" : 
 				{
-					"ActionFish" : 1,
+					"ActionFish" : 3,
 					"hit" : 
 					[
 						{
-							"isEnemy" : false,
+							"isEnemy" : true,
 							"player" : 0,
 							"target" : 1,
 							"traceable" : true,
@@ -18099,18 +16360,35 @@
 					"passive" : 
 					[
 						{
-							"isEnemy" : false,
+							"isEnemy" : true,
 							"player" : 0,
 							"source" : 1,
 							"type" : "reduce",
 							"value" : 0.0
 						}
-					]
+					],
+					"skill" : 
+					{
+						"targets" : 
+						[
+							{
+								"isEnemy" : true,
+								"player" : 0,
+								"pos" : 1,
+								"value" : 120
+							}
+						],
+						"type" : "crit"
+					}
 				},
-				"EnemyPos" : 1,
-				"ID" : 0,
-				"MyPos" : 1,
-				"Type" : 0
+				"EnemyList" : 
+				[
+					1
+				],
+				"ID" : 1,
+				"MyList" : [],
+				"MyPos" : 3,
+				"Type" : 1
 			}
 		],
 		"over" : false,
@@ -18132,7 +16410,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 150,
+						"hp" : 200,
 						"id" : 6,
 						"is_expose" : false,
 						"player" : 0,
@@ -18142,7 +16420,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 150,
+						"hp" : 200,
 						"id" : 12,
 						"is_expose" : false,
 						"player" : 0,
@@ -18152,7 +16430,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 150,
+						"hp" : 200,
 						"id" : 5,
 						"is_expose" : false,
 						"player" : 0,
@@ -18214,19 +16492,19 @@
 			}
 		],
 		"rounds" : 2,
-		"score" : 2,
+		"score" : 0,
 		"state" : 83,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
-		"cur_turn" : 1,
+		"cur_turn" : 0,
 		"gamestate" : 3,
 		"operation" : 
 		[
 			{
 				"Action" : "Assert",
-				"ID" : 1,
+				"ID" : 0,
 				"Pos" : 1,
 				"id" : 1
 			}
@@ -18250,7 +16528,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 150,
+						"hp" : 200,
 						"id" : 6,
 						"is_expose" : false,
 						"player" : 0,
@@ -18260,7 +16538,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 150,
+						"hp" : 200,
 						"id" : 12,
 						"is_expose" : false,
 						"player" : 0,
@@ -18270,7 +16548,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 150,
+						"hp" : 200,
 						"id" : 5,
 						"is_expose" : false,
 						"player" : 0,
@@ -18332,13 +16610,13 @@
 			}
 		],
 		"rounds" : 2,
-		"score" : 2,
+		"score" : 0,
 		"state" : 84,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
-		"cur_turn" : 1,
+		"cur_turn" : 0,
 		"gamestate" : 4,
 		"operation" : 
 		[
@@ -18346,11 +16624,11 @@
 				"Action" : "Action",
 				"ActionInfo" : 
 				{
-					"ActionFish" : 1,
+					"ActionFish" : 3,
 					"hit" : 
 					[
 						{
-							"isEnemy" : true,
+							"isEnemy" : false,
 							"player" : 0,
 							"target" : 1,
 							"traceable" : true,
@@ -18360,18 +16638,35 @@
 					"passive" : 
 					[
 						{
-							"isEnemy" : true,
+							"isEnemy" : false,
 							"player" : 0,
 							"source" : 1,
 							"type" : "reduce",
 							"value" : 0.0
 						}
-					]
+					],
+					"skill" : 
+					{
+						"targets" : 
+						[
+							{
+								"isEnemy" : false,
+								"player" : 0,
+								"pos" : 1,
+								"value" : 120
+							}
+						],
+						"type" : "crit"
+					}
 				},
-				"EnemyPos" : 1,
-				"ID" : 1,
-				"MyPos" : 1,
-				"Type" : 0
+				"EnemyList" : 
+				[
+					1
+				],
+				"ID" : 0,
+				"MyList" : [],
+				"MyPos" : 3,
+				"Type" : 1
 			}
 		],
 		"over" : false,
@@ -18441,7 +16736,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 100,
+						"hp" : 150,
 						"id" : 6,
 						"is_expose" : false,
 						"player" : 0,
@@ -18451,7 +16746,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 100,
+						"hp" : 150,
 						"id" : 12,
 						"is_expose" : false,
 						"player" : 0,
@@ -18461,7 +16756,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 100,
+						"hp" : 150,
 						"id" : 5,
 						"is_expose" : false,
 						"player" : 0,
@@ -18475,19 +16770,19 @@
 			}
 		],
 		"rounds" : 2,
-		"score" : 2,
+		"score" : 0,
 		"state" : 85,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
-		"cur_turn" : 0,
+		"cur_turn" : 1,
 		"gamestate" : 3,
 		"operation" : 
 		[
 			{
 				"Action" : "Assert",
-				"ID" : 0,
+				"ID" : 1,
 				"Pos" : 1,
 				"id" : 1
 			}
@@ -18559,7 +16854,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 100,
+						"hp" : 150,
 						"id" : 6,
 						"is_expose" : false,
 						"player" : 0,
@@ -18569,7 +16864,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 100,
+						"hp" : 150,
 						"id" : 12,
 						"is_expose" : false,
 						"player" : 0,
@@ -18579,7 +16874,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 100,
+						"hp" : 150,
 						"id" : 5,
 						"is_expose" : false,
 						"player" : 0,
@@ -18593,13 +16888,13 @@
 			}
 		],
 		"rounds" : 2,
-		"score" : 2,
+		"score" : 0,
 		"state" : 86,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
-		"cur_turn" : 0,
+		"cur_turn" : 1,
 		"gamestate" : 4,
 		"operation" : 
 		[
@@ -18611,7 +16906,7 @@
 					"hit" : 
 					[
 						{
-							"isEnemy" : false,
+							"isEnemy" : true,
 							"player" : 0,
 							"target" : 1,
 							"traceable" : true,
@@ -18621,7 +16916,7 @@
 					"passive" : 
 					[
 						{
-							"isEnemy" : false,
+							"isEnemy" : true,
 							"player" : 0,
 							"source" : 1,
 							"type" : "reduce",
@@ -18630,7 +16925,7 @@
 					]
 				},
 				"EnemyPos" : 1,
-				"ID" : 0,
+				"ID" : 1,
 				"MyPos" : 1,
 				"Type" : 0
 			}
@@ -18654,7 +16949,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 100,
+						"hp" : 150,
 						"id" : 6,
 						"is_expose" : false,
 						"player" : 0,
@@ -18664,7 +16959,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 100,
+						"hp" : 150,
 						"id" : 12,
 						"is_expose" : false,
 						"player" : 0,
@@ -18674,7 +16969,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 100,
+						"hp" : 150,
 						"id" : 5,
 						"is_expose" : false,
 						"player" : 0,
@@ -18736,19 +17031,19 @@
 			}
 		],
 		"rounds" : 2,
-		"score" : 2,
+		"score" : 0,
 		"state" : 87,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
-		"cur_turn" : 1,
+		"cur_turn" : 0,
 		"gamestate" : 3,
 		"operation" : 
 		[
 			{
 				"Action" : "Assert",
-				"ID" : 1,
+				"ID" : 0,
 				"Pos" : 1,
 				"id" : 1
 			}
@@ -18772,7 +17067,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 100,
+						"hp" : 150,
 						"id" : 6,
 						"is_expose" : false,
 						"player" : 0,
@@ -18782,7 +17077,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 100,
+						"hp" : 150,
 						"id" : 12,
 						"is_expose" : false,
 						"player" : 0,
@@ -18792,7 +17087,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 100,
+						"hp" : 150,
 						"id" : 5,
 						"is_expose" : false,
 						"player" : 0,
@@ -18854,13 +17149,13 @@
 			}
 		],
 		"rounds" : 2,
-		"score" : 2,
+		"score" : 0,
 		"state" : 88,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
-		"cur_turn" : 1,
+		"cur_turn" : 0,
 		"gamestate" : 4,
 		"operation" : 
 		[
@@ -18872,7 +17167,7 @@
 					"hit" : 
 					[
 						{
-							"isEnemy" : true,
+							"isEnemy" : false,
 							"player" : 0,
 							"target" : 1,
 							"traceable" : true,
@@ -18882,7 +17177,7 @@
 					"passive" : 
 					[
 						{
-							"isEnemy" : true,
+							"isEnemy" : false,
 							"player" : 0,
 							"source" : 1,
 							"type" : "reduce",
@@ -18891,7 +17186,7 @@
 					]
 				},
 				"EnemyPos" : 1,
-				"ID" : 1,
+				"ID" : 0,
 				"MyPos" : 1,
 				"Type" : 0
 			}
@@ -18963,7 +17258,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 50,
+						"hp" : 100,
 						"id" : 6,
 						"is_expose" : false,
 						"player" : 0,
@@ -18973,7 +17268,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 50,
+						"hp" : 100,
 						"id" : 12,
 						"is_expose" : false,
 						"player" : 0,
@@ -18983,7 +17278,7 @@
 					{
 						"atk" : 100,
 						"def" : 0,
-						"hp" : 50,
+						"hp" : 100,
 						"id" : 5,
 						"is_expose" : false,
 						"player" : 0,
@@ -18997,12 +17292,290 @@
 			}
 		],
 		"rounds" : 2,
-		"score" : 2,
+		"score" : 0,
 		"state" : 89,
 		"winner" : -1
 	},
 	{
 		"cnt" : 0,
+		"cur_turn" : 1,
+		"gamestate" : 3,
+		"operation" : 
+		[
+			{
+				"Action" : "Assert",
+				"ID" : 1,
+				"Pos" : 1,
+				"id" : 1
+			}
+		],
+		"over" : false,
+		"players" : 
+		[
+			{
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 0,
+						"id" : 11,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 2
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 100,
+						"id" : 6,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 100,
+						"id" : 12,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 100,
+						"id" : 5,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 1
+					}
+				],
+				"id" : 0,
+				"my_fish" : [],
+				"type" : 1
+			},
+			{
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 0,
+						"id" : 11,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 2
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 100,
+						"id" : 6,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 100,
+						"id" : 12,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 100,
+						"id" : 5,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 1
+					}
+				],
+				"id" : 1,
+				"my_fish" : [],
+				"type" : 1
+			}
+		],
+		"rounds" : 2,
+		"score" : 0,
+		"state" : 90,
+		"winner" : -1
+	},
+	{
+		"cnt" : 0,
+		"cur_turn" : 1,
+		"gamestate" : 4,
+		"operation" : 
+		[
+			{
+				"Action" : "Action",
+				"ActionInfo" : 
+				{
+					"ActionFish" : 3,
+					"hit" : 
+					[
+						{
+							"isEnemy" : true,
+							"player" : 0,
+							"target" : 1,
+							"traceable" : true,
+							"value" : 0
+						}
+					],
+					"passive" : 
+					[
+						{
+							"isEnemy" : true,
+							"player" : 0,
+							"source" : 1,
+							"type" : "reduce",
+							"value" : 0.0
+						}
+					],
+					"skill" : 
+					{
+						"targets" : 
+						[
+							{
+								"isEnemy" : true,
+								"player" : 0,
+								"pos" : 1,
+								"value" : 120
+							}
+						],
+						"type" : "crit"
+					}
+				},
+				"EnemyList" : 
+				[
+					1
+				],
+				"ID" : 1,
+				"MyList" : [],
+				"MyPos" : 3,
+				"Type" : 1
+			}
+		],
+		"over" : false,
+		"players" : 
+		[
+			{
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 0,
+						"id" : 11,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 2
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 100,
+						"id" : 6,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 100,
+						"id" : 12,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 100,
+						"id" : 5,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 1
+					}
+				],
+				"id" : 0,
+				"my_fish" : [],
+				"type" : 1
+			},
+			{
+				"fight_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 0,
+						"id" : 11,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 2
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 50,
+						"id" : 6,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 1,
+						"state" : 1
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 50,
+						"id" : 12,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 50,
+						"id" : 5,
+						"is_expose" : false,
+						"player" : 0,
+						"pos" : 3,
+						"state" : 1
+					}
+				],
+				"id" : 1,
+				"my_fish" : [],
+				"type" : 1
+			}
+		],
+		"rounds" : 2,
+		"score" : 0,
+		"state" : 91,
+		"winner" : -1
+	},
+	{
+		"cnt" : 0,
 		"cur_turn" : 0,
 		"gamestate" : 3,
 		"operation" : 
@@ -19115,8 +17688,8 @@
 			}
 		],
 		"rounds" : 2,
-		"score" : 2,
-		"state" : 90,
+		"score" : 0,
+		"state" : 92,
 		"winner" : -1
 	},
 	{
@@ -19129,7 +17702,7 @@
 				"Action" : "Action",
 				"ActionInfo" : 
 				{
-					"ActionFish" : 1,
+					"ActionFish" : 3,
 					"hit" : 
 					[
 						{
@@ -19149,12 +17722,29 @@
 							"type" : "reduce",
 							"value" : 0.0
 						}
-					]
+					],
+					"skill" : 
+					{
+						"targets" : 
+						[
+							{
+								"isEnemy" : false,
+								"player" : 0,
+								"pos" : 1,
+								"value" : 120
+							}
+						],
+						"type" : "crit"
+					}
 				},
-				"EnemyPos" : 1,
+				"EnemyList" : 
+				[
+					1
+				],
 				"ID" : 0,
-				"MyPos" : 1,
-				"Type" : 0
+				"MyList" : [],
+				"MyPos" : 3,
+				"Type" : 1
 			}
 		],
 		"over" : false,
@@ -19258,8 +17848,8 @@
 			}
 		],
 		"rounds" : 2,
-		"score" : 2,
-		"state" : 91,
+		"score" : 0,
+		"state" : 93,
 		"winner" : -1
 	},
 	{
@@ -19376,33 +17966,8 @@
 			}
 		],
 		"rounds" : 2,
-		"score" : 2,
-		"state" : 92,
-		"winner" : -1
-	},
-	{
-		"cnt" : 0,
-		"cur_turn" : 1,
-		"gamestate" : 2,
-		"over" : true,
-		"players" : 
-		[
-			{
-				"fight_fish" : [],
-				"id" : 0,
-				"my_fish" : [],
-				"type" : 1
-			},
-			{
-				"fight_fish" : [],
-				"id" : 1,
-				"my_fish" : [],
-				"type" : 1
-			}
-		],
-		"rounds" : 3,
-		"score" : 1,
-		"state" : 93,
+		"score" : 0,
+		"state" : 94,
 		"winner" : -1
 	},
 	null
