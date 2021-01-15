@@ -2549,7 +2549,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates:
-  - eventID: 6
+  - eventID: 4
     callback:
       m_PersistentCalls:
         m_Calls:
