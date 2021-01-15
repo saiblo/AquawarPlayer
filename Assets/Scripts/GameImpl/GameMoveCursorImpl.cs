@@ -21,6 +21,15 @@ namespace GameImpl
                                - (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 1]["score"];
                     gameUI.resultText.text = gain > 0 ? "我方获胜" : "敌方获胜";
                     gameUI.gameOverMask.SetActive(true);
+
+                    for (var i = 0; i < 4; i++)
+                        if ((int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 1]["players"][(gain + 1) / 2]
+                            ["fight_fish"][i]["state"] != 2)
+                        {
+                            (gain > 0 ? gameUI.enemyStatus : gameUI.myStatus)[i].Current = 0;
+                            gameUI.Dissolve(gain > 0, i);
+                        }
+
                     SharedRefs.ReplayCursor++;
                     break;
                 }
