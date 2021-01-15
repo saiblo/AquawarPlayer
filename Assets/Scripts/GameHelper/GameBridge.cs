@@ -27,6 +27,8 @@ namespace GameHelper
 
         public Transform fogPrefab;
 
+        public Transform smallExplosion;
+
         // Root transforms
 
         public Transform allFishRoot;

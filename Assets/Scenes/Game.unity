@@ -1028,6 +1028,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   fogPrefab: {fileID: 4698746462902476479, guid: e92ea4e2740475249bf57167c9334c13, type: 3}
+  smallExplosion: {fileID: 4000011693693590, guid: 96730f8640590934eacb6f860058e7f9, type: 3}
   allFishRoot: {fileID: 735424222}
   darkBlue: {fileID: 21300000, guid: 2dc863d026d721d48b1fc894bb6ab304, type: 3}
   lightBlue: {fileID: 21300000, guid: 10f2e5c70780bc2459cde18d852533a8, type: 3}
