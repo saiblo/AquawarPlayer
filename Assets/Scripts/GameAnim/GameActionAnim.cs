@@ -38,7 +38,7 @@ namespace GameAnim
             else
                 gameUI.SkillAttackAnim(actionInfo);
             if (actionInfo.ContainsKey("passive")) 
-                gameUI.PassiveAnim();
+                gameUI.PassiveAnim(actionInfo);
             gameUI.HpAnim(actionInfo);
             return actionInfo.ContainsKey("passive");
         }
