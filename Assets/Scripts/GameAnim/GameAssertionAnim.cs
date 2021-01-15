@@ -40,6 +40,10 @@ namespace GameAnim
                         gameUI.GameState.Assertion,
                         gameUI
                     );
+                    gameUI.enemyProfiles[gameUI.GameState.Assertion].SetupFish(
+                        gameUI.GameState.AssertionTarget,
+                        gameUI.enemyExtensions[gameUI.GameState.Assertion]
+                    );
                 }
             }
 
@@ -55,7 +59,7 @@ namespace GameAnim
                         Quaternion.identity,
                         gameUI.allFishRoot).gameObject;
                     gameUI.SetTimeout(() => { Object.Destroy(explosionObj); }, 2000);
-                    if (!gameUI.GameState.MyTurn)
+                    if (SharedRefs.Mode == Constants.GameMode.Online && !gameUI.GameState.MyTurn)
                         ((gameUI.GameState.AssertionPlayer == 1) ^ hit ? gameUI.enemyStatus : gameUI.myStatus)
                             [i].Current -= 50;
                 }

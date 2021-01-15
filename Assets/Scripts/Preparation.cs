@@ -59,7 +59,7 @@ public class Preparation : MonoBehaviour
 
     public void Drop(int pos)
     {
-        if (_imitating || pos >= _selectedList.Count) return;
+        if (SharedRefs.Mode == Constants.GameMode.Offline || _imitating || pos >= _selectedList.Count) return;
         var id = _selectedList[pos];
         _selectedList.RemoveAt(pos);
         _fishSelectStatus[id] = SelectStatus.Available;
@@ -72,13 +72,14 @@ public class Preparation : MonoBehaviour
         if (SharedRefs.Mode == Constants.GameMode.Offline)
         {
             if (SharedRefs.ReplayCursor == 0) SharedRefs.ReplayCursor = 1;
+
             var myFish = SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["players"][_playerId]["my_fish"];
-            var pickFish = SharedRefs.ReplayJson[SharedRefs.ReplayCursor + 1]["operation"][0]["Fish"];
             for (var i = 0; i < myFish.Count; i++)
-            {
                 _fishSelectStatus[(int) myFish[i]["id"] - 1] = SelectStatus.Available;
+
+            var pickFish = SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["operation"][0]["Fish"];
+            for (var i = 0; i < 4; i++)
                 Push((int) pickFish[0][i]["id"] - 1);
-            }
         }
         else
         {
@@ -129,6 +130,7 @@ public class Preparation : MonoBehaviour
 
     public void ToggleSelection(int i)
     {
+        if (SharedRefs.Mode == Constants.GameMode.Offline) return;
         if (_imitating)
         {
             _imitating = false;
