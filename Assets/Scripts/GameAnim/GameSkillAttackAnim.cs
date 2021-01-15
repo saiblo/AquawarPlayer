@@ -20,13 +20,12 @@ namespace GameAnim
             var actionFish = (int) actionInfo["ActionFish"];
             // var attackerTransforms = enemy ? _gameUI.Gom.EnemyFishTransforms : _gameUI.Gom.MyFishTransforms;
             // var attackeeTransforms = enemy ? _gameUI.Gom.MyFishTransforms : _gameUI.Gom.EnemyFishTransforms;
-            var attackerSelected =
-                enemy ? gameUI.GameState.EnemyFishSelectedAsTarget : gameUI.GameState.MyFishSelectedAsTarget;
             var attackeeSelected =
                 enemy ? gameUI.GameState.MyFishSelectedAsTarget : gameUI.GameState.EnemyFishSelectedAsTarget;
             switch ((string) actionInfo["skill"]["type"])
             {
                 case "aoe":
+                {
                     for (var i = 0; i < traceableTargets.Count; i++)
                     {
                         var id = traceableTargets[i];
@@ -54,56 +53,40 @@ namespace GameAnim
                         }, i * 120);
                     }
                     break;
+                }
                 case "infight":
-                    var poorFish = 0;
-                    for (var i = 0; i < 4; i++)
-                    {
-                        // ReSharper disable once InvertIf
-                        if (attackerSelected[i])
-                        {
-                            poorFish = i;
-                            break;
-                        }
-                    }
+                {
+                    var target = (int) actionInfo["skill"]["targets"][0]["pos"];
                     var myFishExplode = UnityEngine.Object.Instantiate(gameUI.bigExplosion, gameUI.allFishRoot);
-                    myFishExplode.localPosition = GameObjectManager.FishRelativePosition(enemy, poorFish);
+                    myFishExplode.localPosition = GameObjectManager.FishRelativePosition(!myTurn, target);
                     gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(myFishExplode.gameObject); }, 2000);
                     var myFishRecover = UnityEngine.Object.Instantiate(gameUI.recoverEffect, gameUI.allFishRoot);
-                    myFishRecover.localPosition = GameObjectManager.FishRelativePosition(enemy, actionFish);
+                    myFishRecover.localPosition = GameObjectManager.FishRelativePosition(!myTurn, actionFish);
                     gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(myFishRecover.gameObject); }, 4000);
                     break;
+                }
                 case "crit":
-                    for (var i = 0; i < 4; i++)
+                {
+                    var target = (int) actionInfo["skill"]["targets"][0]["pos"];
+                    var distance =
+                        GameObjectManager.FishRelativePosition(!myTurn, actionFish) -
+                        GameObjectManager.FishRelativePosition(myTurn, target);
+                    gameUI.Repeat(cnt =>
                     {
-                        // ReSharper disable once InvertIf
-                        if (enemy && gameUI.GameState.MyFishSelectedAsTarget[i] ||
-                            gameUI.GameState.EnemyFishSelectedAsTarget[i])
-                        {
-                            var target = i;
-                            var distance =
-                                GameObjectManager.FishRelativePosition(enemy, actionFish) -
-                                GameObjectManager.FishRelativePosition(!enemy, target);
-                            gameUI.Repeat(cnt =>
-                            {
-                                (enemy ? gameUI.Gom.EnemyFishTransforms : gameUI.Gom.MyFishTransforms)[actionFish]
-                                    .localPosition =
-                                    GameObjectManager.FishRelativePosition(!enemy, target) +
-                                    Math.Abs(cnt - 20f) / 20f * distance;
-                            }, () => { }, 41, 0, 10);
-                            gameUI.SetTimeout(() =>
-                            {
-                                var targetExplode =
-                                    UnityEngine.Object.Instantiate(gameUI.explodePrefab, gameUI.allFishRoot);
-                                targetExplode.localPosition =
-                                    GameObjectManager.FishRelativePosition(!enemy, target);
-                                gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(targetExplode.gameObject); },
-                                    1000);
-                            }, 200);
-                            gameUI.GameState.PassiveList.Add(i);
-                            break;
-                        }
-                    }
+                        (myTurn ? gameUI.Gom.MyFishTransforms : gameUI.Gom.EnemyFishTransforms)
+                            [actionFish].localPosition =
+                            GameObjectManager.FishRelativePosition(!enemy, target) +
+                            Math.Abs(cnt - 20f) / 20f * distance;
+                    }, () => { }, 41, 0, 10);
+                    gameUI.SetTimeout(() =>
+                    {
+                        var targetExplode =
+                            UnityEngine.Object.Instantiate(gameUI.explodePrefab, gameUI.allFishRoot);
+                        targetExplode.localPosition = GameObjectManager.FishRelativePosition(!enemy, target);
+                        gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(targetExplode.gameObject); }, 1000);
+                    }, 200);
                     break;
+                }
                 case "subtle":
                     var friendId = actionFish;
                     for (var i = 0; i < 4; i++)
