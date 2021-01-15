@@ -37,7 +37,8 @@ namespace GameHelper
             };
         }
 
-        protected internal void Repeat(Action<int> repeatedAction, Action cleanup, int totalTimes, int dueTime, int period)
+        protected internal void Repeat(Action<int> repeatedAction, Action cleanup, int totalTimes, int dueTime,
+            int period)
         {
             new Thread(() =>
             {

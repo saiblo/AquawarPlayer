@@ -92,6 +92,7 @@ namespace GameImpl
                                 $"{subject}{operation["MyPos"]}号位置的{Constants.FishName[attackerList[(int) operation["MyPos"]]]}对{target}{string.Join(",", enemyArray)}号位置的{string.Join("、", enemyNames)}发动了主动技能。"
                             );
                         }
+                        SharedRefs.ActionInfo = operation["ActionInfo"];
                         gameUI.ChangeStatus();
                     }
 

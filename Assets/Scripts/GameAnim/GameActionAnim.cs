@@ -17,7 +17,10 @@ namespace GameAnim
 
         public static bool ActionAnim(this GameUI gameUI)
         {
-            var actionInfo = SharedRefs.ActionInfo[gameUI.GameState.MyTurn ? "MyAction" : "EnemyAction"];
+            var actionInfo =
+                SharedRefs.Mode == Constants.GameMode.Offline
+                    ? SharedRefs.ActionInfo
+                    : SharedRefs.ActionInfo[gameUI.GameState.MyTurn ? "MyAction" : "EnemyAction"];
             gameUI.GameState.NormalAttack = !actionInfo.ContainsKey("skill");
 
             // Logging related starts.
@@ -37,7 +40,7 @@ namespace GameAnim
                 gameUI.NormalAttackAnim(actionInfo);
             else
                 gameUI.SkillAttackAnim(actionInfo);
-            if (actionInfo.ContainsKey("passive")) 
+            if (actionInfo.ContainsKey("passive"))
                 gameUI.PassiveAnim(actionInfo);
             gameUI.HpAnim(actionInfo);
             return actionInfo.ContainsKey("passive");
