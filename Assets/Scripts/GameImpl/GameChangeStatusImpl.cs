@@ -51,14 +51,22 @@ namespace GameImpl
                     {
                         gameUI.assertionButtons.SetActive(false);
                         if (gameUI.GameState.Assertion == -1)
+                        {
                             await SharedRefs.GameClient.Send(new Null());
+                            gameUI.GameState.Logs.Enqueue("我方放弃断言。");
+                        }
                         else
+                        {
                             await SharedRefs.GameClient.Send(new Assert
                                 {
                                     Pos = gameUI.GameState.Assertion,
                                     ID = gameUI.GameState.AssertionTarget + 1
                                 }
                             );
+                            gameUI.GameState.Logs.Enqueue(
+                                $"我方断言敌方{gameUI.GameState.Assertion}号位置的鱼为{Constants.FishName[gameUI.GameState.AssertionTarget]}。"
+                            );
+                        }
                         var reply = await SharedRefs.GameClient.Receive(); // ACTION
                         if ((string) reply["Action"] == "Finish") // You assert your way to death
                         {

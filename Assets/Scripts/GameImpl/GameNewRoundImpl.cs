@@ -50,6 +50,7 @@ namespace GameImpl
                 var enemyAssert = SharedRefs.ActionInfo["EnemyAssert"];
                 if (enemyAssert["AssertPos"] == null)
                 {
+                    gameUI.GameState.Logs.Enqueue("敌方放弃断言。");
                     gameUI.GameState.Assertion = -1;
                     gameUI.GameState.OnlineAssertionHit = false;
                     gameUI.GameState.AssertionTarget = 0;
@@ -63,6 +64,10 @@ namespace GameImpl
                 gameUI.GameState.AssertionTarget = (int) enemyAssert["AssertContent"] - 1;
                 gameUI.MakeAGuess(false, 1200);
                 gameUI.SetTimeout(gameUI.ChangeStatus, 3000); // Just waits for the assertion animation to finish
+
+                gameUI.GameState.Logs.Enqueue(
+                    $"敌方断言我方{gameUI.GameState.Assertion}号位置的鱼为{Constants.FishName[gameUI.GameState.AssertionTarget]}。"
+                );
             }
         }
     }
