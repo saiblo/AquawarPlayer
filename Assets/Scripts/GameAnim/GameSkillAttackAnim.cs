@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using GameHelper;
 using LitJson;
 using UnityEngine;
@@ -10,25 +9,16 @@ namespace GameAnim
     {
         public static void SkillAttackAnim(this GameUI gameUI, JsonData actionInfo)
         {
-            var enemy = !gameUI.GameState.MyTurn;
             var myTurn = gameUI.GameState.MyTurn;
-            var traceableTargets = new List<int>();
-            var hitList = actionInfo["hit"];
-            for (var i = 0; i < hitList.Count; i++)
-                if ((bool) hitList[i]["traceable"])
-                    traceableTargets.Add((int) hitList[i]["target"]);
             var actionFish = (int) actionInfo["ActionFish"];
-            // var attackerTransforms = enemy ? _gameUI.Gom.EnemyFishTransforms : _gameUI.Gom.MyFishTransforms;
-            // var attackeeTransforms = enemy ? _gameUI.Gom.MyFishTransforms : _gameUI.Gom.EnemyFishTransforms;
-            var attackeeSelected =
-                enemy ? gameUI.GameState.MyFishSelectedAsTarget : gameUI.GameState.EnemyFishSelectedAsTarget;
             switch ((string) actionInfo["skill"]["type"])
             {
                 case "aoe":
                 {
-                    for (var i = 0; i < traceableTargets.Count; i++)
+                    var targetList = actionInfo["skill"]["targets"];
+                    for (var i = 0; i < targetList.Count; i++)
                     {
-                        var id = traceableTargets[i];
+                        var id = (int) actionInfo["skill"]["targets"][i]["pos"];
                         gameUI.SetTimeout(() =>
                         {
                             var originalDistance =
@@ -75,37 +65,38 @@ namespace GameAnim
                     {
                         (myTurn ? gameUI.Gom.MyFishTransforms : gameUI.Gom.EnemyFishTransforms)
                             [actionFish].localPosition =
-                            GameObjectManager.FishRelativePosition(!enemy, target) +
+                            GameObjectManager.FishRelativePosition(myTurn, target) +
                             Math.Abs(cnt - 20f) / 20f * distance;
                     }, () => { }, 41, 0, 10);
                     gameUI.SetTimeout(() =>
                     {
                         var targetExplode =
                             UnityEngine.Object.Instantiate(gameUI.explodePrefab, gameUI.allFishRoot);
-                        targetExplode.localPosition = GameObjectManager.FishRelativePosition(!enemy, target);
+                        targetExplode.localPosition = GameObjectManager.FishRelativePosition(myTurn, target);
                         gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(targetExplode.gameObject); }, 1000);
                     }, 200);
                     break;
                 }
                 case "subtle":
+                {
+                    if (!myTurn) break;
                     var friendId = actionFish;
                     for (var i = 0; i < 4; i++)
                     {
-                        // ReSharper disable once InvertIf
-                        if (attackeeSelected[i])
-                        {
-                            friendId = i;
-                            break;
-                        }
+                        if (!gameUI.GameState.MyFishSelectedAsTarget[i]) continue;
+                        friendId = i;
+                        break;
                     }
+
                     var shield = UnityEngine.Object.Instantiate(gameUI.shieldEffect, gameUI.allFishRoot);
-                    shield.localPosition = GameObjectManager.FishRelativePosition(enemy, friendId);
+                    shield.localPosition = GameObjectManager.FishRelativePosition(false, friendId);
                     gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(shield.gameObject); }, 5000);
 
                     var myselfRecover = UnityEngine.Object.Instantiate(gameUI.recoverEffect, gameUI.allFishRoot);
-                    myselfRecover.localPosition = GameObjectManager.FishRelativePosition(enemy, actionFish);
+                    myselfRecover.localPosition = GameObjectManager.FishRelativePosition(false, actionFish);
                     gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(myselfRecover.gameObject); }, 4000);
                     break;
+                }
             }
         }
     }
