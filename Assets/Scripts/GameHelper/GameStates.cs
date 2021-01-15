@@ -16,8 +16,6 @@ namespace GameHelper
         public bool MyTurn = true;
         public bool NormalAttack = true;
 
-        public Constants.Skill ActionSkill = Constants.Skill.Subtle;
-
         public int MyFishSelected = -1;
 
         public int EnemyFishSelected = -1;
@@ -27,8 +25,6 @@ namespace GameHelper
         public int AssertionTarget; // Which fish do you think it is?
 
         public bool OnlineAssertionHit; // Made a online assertion, and hit
-
-        public readonly List<int> PassiveList = new List<int>();
 
         public readonly bool[] MyFishSelectedAsTarget = {false, false, false, false};
         public readonly bool[] EnemyFishSelectedAsTarget = {false, false, false, false};

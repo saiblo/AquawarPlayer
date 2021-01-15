@@ -147,7 +147,6 @@ namespace GameImpl
                     {
                         gameUI.RunOnUiThread(() =>
                         {
-                            gameUI.ProcessActionInfo(SharedRefs.ActionInfo["EnemyAction"]);
                             gameUI.ChangeStatus();
                             gameUI.ChangeStatus();
                         });
@@ -199,11 +198,10 @@ namespace GameImpl
                             });
                         }
                         SharedRefs.ActionInfo = await SharedRefs.GameClient.Receive(); // ASSERT
-                        gameUI.ProcessActionInfo(SharedRefs.ActionInfo["MyAction"]);
                     }
 
                     // And now the animation part
-                    gameUI.ActionAnim();
+                    var hasPassive = gameUI.ActionAnim();
 
                     if (SharedRefs.Mode == Constants.GameMode.Offline ||
                         !gameUI.GameState.MyTurn ||
@@ -211,7 +209,7 @@ namespace GameImpl
                     {
                         // Now go for a new round
                         gameUI.GameState.MyTurn = !gameUI.GameState.MyTurn;
-                        gameUI.SetTimeout(gameUI.NewRound, gameUI.GameState.PassiveList.Count > 0 ? 1100 : 1000);
+                        gameUI.SetTimeout(gameUI.NewRound, hasPassive ? 3000 : 1000);
                     }
                     else
                     {

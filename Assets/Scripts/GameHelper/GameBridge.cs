@@ -36,6 +36,9 @@ namespace GameHelper
         public Sprite darkBlue;
         public Sprite lightBlue;
 
+        public Sprite playIcon;
+        public Sprite pauseIcon;
+
         // UI objects
 
         public Text logText;
@@ -65,7 +68,7 @@ namespace GameHelper
         public Glance assertionModal;
         public ProfileExtension assertionExt;
 
-        public Text playButtonText;
+        public Image playButtonImage;
         public Button prevStepButton;
         public Button nextStepButton;
         public Button replayStepButton;

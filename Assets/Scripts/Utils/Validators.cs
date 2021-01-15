@@ -21,14 +21,14 @@ namespace Utils
                 if (!obj["players"][1]["id"].IsInt) return false;
                 if ((int) obj["players"][1]["id"] != 1) return false;
                 if (!obj["state"].IsInt) return false;
-                if ((int) obj["state"] != i + 1) return false;
+                // if ((int) obj["state"] != i + 1) return false;
                 if (!obj["gamestate"].IsInt) return false;
                 if (!obj["cur_turn"].IsInt) return false;
                 if ((int) obj["cur_turn"] != 0 && (int) obj["cur_turn"] != 1) return false;
                 if (!obj["over"].IsBoolean) return false;
                 if (!obj["score"].IsInt) return false;
                 if (!obj["rounds"].IsInt) return false;
-                if (!obj["operation"].IsArray) return false;
+                // if (!obj["operation"].IsArray) return false;
             }
             return true;
         }

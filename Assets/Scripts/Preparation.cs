@@ -71,8 +71,6 @@ public class Preparation : MonoBehaviour
     {
         if (SharedRefs.Mode == Constants.GameMode.Offline)
         {
-            if (SharedRefs.ReplayCursor == 0) SharedRefs.ReplayCursor = 1;
-
             var myFish = SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["players"][_playerId]["my_fish"];
             for (var i = 0; i < myFish.Count; i++)
                 _fishSelectStatus[(int) myFish[i]["id"] - 1] = SelectStatus.Available;
