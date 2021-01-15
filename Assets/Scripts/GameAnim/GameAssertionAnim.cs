@@ -59,7 +59,7 @@ namespace GameAnim
                         Quaternion.identity,
                         gameUI.allFishRoot).gameObject;
                     gameUI.SetTimeout(() => { Object.Destroy(explosionObj); }, 2000);
-                    if (SharedRefs.Mode == Constants.GameMode.Online && !gameUI.GameState.MyTurn)
+                    if (SharedRefs.Mode == Constants.GameMode.Offline || !gameUI.GameState.MyTurn)
                         ((gameUI.GameState.AssertionPlayer == 1) ^ hit ? gameUI.enemyStatus : gameUI.myStatus)
                             [i].Current -= 50;
                 }
