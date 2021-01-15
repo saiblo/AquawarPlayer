@@ -112,6 +112,7 @@ public class GameUI : GameBridge
     {
         while ((int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["gamestate"] != 2)
             ++SharedRefs.ReplayCursor;
+        ++SharedRefs.ReplayCursor;
         DoneAndGoBackToPreparation();
     }
 

@@ -19,6 +19,7 @@ namespace GameImpl
                     gameUI.resultText.gameObject.SetActive(true);
                     gameUI.resultText.text = "需与逻辑商议获胜";
                     gameUI.doneNextRoundButton.gameObject.SetActive(true);
+                    SharedRefs.ReplayCursor++;
                     break;
                 case 3: // Process Assertion
                 {
