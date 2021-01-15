@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Threading;
 using UnityEngine;
 
@@ -7,7 +7,7 @@ namespace GameHelper
 {
     public abstract class EnhancedMonoBehaviour : MonoBehaviour
     {
-        private readonly Queue<Action> _uiQueue = new Queue<Action>();
+        private readonly ConcurrentQueue<Action> _uiQueue = new ConcurrentQueue<Action>();
 
         protected internal void SetTimeout(Action action, int timeout)
         {
@@ -37,7 +37,8 @@ namespace GameHelper
             };
         }
 
-        protected internal void Repeat(Action<int> repeatedAction, Action cleanup, int totalTimes, int dueTime, int period)
+        protected internal void Repeat(Action<int> repeatedAction, Action cleanup, int totalTimes, int dueTime,
+            int period)
         {
             new Thread(() =>
             {
@@ -56,7 +57,7 @@ namespace GameHelper
 
         private void Update()
         {
-            while (_uiQueue.Count > 0) _uiQueue.Dequeue()();
+            while (_uiQueue.TryDequeue(out var action)) action();
             RunPerFrame();
         }
 

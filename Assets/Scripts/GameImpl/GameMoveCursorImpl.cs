@@ -19,6 +19,7 @@ namespace GameImpl
                     gameUI.resultText.gameObject.SetActive(true);
                     gameUI.resultText.text = "需与逻辑商议获胜";
                     gameUI.doneNextRoundButton.gameObject.SetActive(true);
+                    SharedRefs.ReplayCursor++;
                     break;
                 case 3: // Process Assertion
                 {
@@ -92,6 +93,7 @@ namespace GameImpl
                                 $"{subject}{operation["MyPos"]}号位置的{Constants.FishName[attackerList[(int) operation["MyPos"]]]}对{target}{string.Join(",", enemyArray)}号位置的{string.Join("、", enemyNames)}发动了主动技能。"
                             );
                         }
+                        SharedRefs.ActionInfo = operation["ActionInfo"];
                         gameUI.ChangeStatus();
                     }
 

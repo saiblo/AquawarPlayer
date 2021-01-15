@@ -66,8 +66,8 @@ namespace GameAnim
                         (myTurn ? gameUI.Gom.MyFishTransforms : gameUI.Gom.EnemyFishTransforms)
                             [actionFish].localPosition =
                             GameObjectManager.FishRelativePosition(myTurn, target) +
-                            Math.Abs(cnt - 20f) / 20f * distance;
-                    }, () => { }, 41, 0, 10);
+                            Math.Abs(cnt - 5f) / 5f * distance;
+                    }, () => { }, 11, 0, 40);
                     gameUI.SetTimeout(() =>
                     {
                         var targetExplode =
