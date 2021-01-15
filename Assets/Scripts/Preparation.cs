@@ -19,8 +19,6 @@ public class Preparation : MonoBehaviour
 
     public Button doneButton;
 
-    public Button turnButton;
-
     public GameProfile[] profiles;
 
     public FishDetail fishDetailPrefab;
@@ -34,8 +32,6 @@ public class Preparation : MonoBehaviour
     private readonly Color _unavailable = new Color(1, 0, 0, 0.8f);
     private readonly Color _available = new Color(0, 0, 0, 0.5f);
     private readonly Color _selected = new Color(0, 1, 0, 0.8f);
-
-    private int _playerId;
 
     private bool _imitating;
 
@@ -69,7 +65,6 @@ public class Preparation : MonoBehaviour
 
     private void Awake()
     {
-        turnButton.gameObject.SetActive(false);
         var result = SharedRefs.PickInfo;
         if ((string) result["Action"] == "Pick")
         {
@@ -152,11 +147,6 @@ public class Preparation : MonoBehaviour
     public void BackToWelcome()
     {
         SceneManager.LoadScene("Scenes/Welcome");
-    }
-
-    public void SwitchPlayer()
-    {
-        _playerId = 1 - _playerId;
     }
 
     private void Update()
