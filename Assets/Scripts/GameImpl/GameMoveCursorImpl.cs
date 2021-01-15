@@ -15,12 +15,15 @@ namespace GameImpl
             var state = SharedRefs.ReplayJson[SharedRefs.ReplayCursor];
             switch ((int) state["gamestate"])
             {
-                case 2: // Current round is over, go back to preparation
-                    gameUI.resultText.gameObject.SetActive(true);
-                    gameUI.resultText.text = "需与逻辑商议获胜";
-                    gameUI.doneNextRoundButton.gameObject.SetActive(true);
+                case 2: // Current round is over
+                {
+                    var gain = (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["score"]
+                               - (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 1]["score"];
+                    gameUI.resultText.text = gain > 0 ? "我方获胜" : "敌方获胜";
+                    gameUI.gameOverMask.SetActive(true);
                     SharedRefs.ReplayCursor++;
                     break;
+                }
                 case 3: // Process Assertion
                 {
                     SharedRefs.ReplayCursor++;

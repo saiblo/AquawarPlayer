@@ -54,7 +54,7 @@ namespace GameImpl
                 var rounds = (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["rounds"] + 1;
                 gameUI.roundText.text = $"{rounds}/3";
                 var score = (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["score"];
-                gameUI.scoreText.text = $"{(score + rounds - 1) / 2}:{(rounds - score - 1) / 2}";
+                gameUI.scoreText.text = $"{(rounds - score - 1) / 2}:{(score + rounds - 1) / 2}";
                 gameUI.Gom.Init(gameUI);
                 if (SharedRefs.AutoPlay) gameUI.MoveCursor();
                 else
