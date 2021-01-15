@@ -1,4 +1,5 @@
-﻿using LitJson;
+﻿using GameHelper;
+using LitJson;
 
 namespace GameAnim
 {
@@ -10,6 +11,8 @@ namespace GameAnim
             var passiveList = actionInfo["passive"];
             for (var i = 0; i < passiveList.Count; i++)
             {
+                var sourcePos = (int) passiveList[i]["source"];
+                var enemy = (bool) passiveList[i]["isEnemy"];
                 switch ((string) passiveList[i]["type"])
                 {
                     case "counter":
@@ -17,9 +20,19 @@ namespace GameAnim
                     case "deflect":
                         break;
                     case "reduce":
+                    {
+                        var shield = UnityEngine.Object.Instantiate(gameUI.shieldEffect, gameUI.allFishRoot);
+                        shield.localPosition = GameObjectManager.FishRelativePosition(enemy, sourcePos);
+                        gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(shield.gameObject); }, 5000);
                         break;
+                    }
                     case "heal":
+                    {
+                        var recover = UnityEngine.Object.Instantiate(gameUI.recoverEffect, gameUI.allFishRoot);
+                        recover.localPosition = GameObjectManager.FishRelativePosition(enemy, sourcePos);
+                        gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(recover.gameObject); }, 4000);
                         break;
+                    }
                     case "explode":
                         break;
                 }
