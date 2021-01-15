@@ -31,6 +31,11 @@ namespace GameHelper
 
         public Transform allFishRoot;
 
+        // Sprites
+
+        public Sprite darkBlue;
+        public Sprite lightBlue;
+
         // UI objects
 
         public Text logText;

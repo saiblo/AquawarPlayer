@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using GameAnim;
 using GameHelper;
+using UnityEngine.UI;
 using Utils;
 
 namespace GameImpl
@@ -138,6 +139,8 @@ namespace GameImpl
                         gameUI.normalAttackButton.interactable = false;
                         gameUI.skillAttackButton.interactable = false;
                         gameUI.confirmAttackButton.interactable = false;
+                        gameUI.normalAttackButton.GetComponent<Image>().overrideSprite = gameUI.lightBlue;
+                        gameUI.skillAttackButton.GetComponent<Image>().overrideSprite = gameUI.lightBlue;
                         gameUI.attackButtons.SetActive(true);
                     }
                     else

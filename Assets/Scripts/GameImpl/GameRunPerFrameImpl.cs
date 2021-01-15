@@ -1,4 +1,5 @@
-﻿using Utils;
+﻿using System.Linq;
+using Utils;
 
 namespace GameImpl
 {
@@ -11,6 +12,16 @@ namespace GameImpl
             gameUI.playButtonText.text = SharedRefs.AutoPlay ? "暂停" : "播放";
 
             if (!gameUI.Gom.Initialized || gameUI.GameState.GameStatus == Constants.GameStatus.WaitAssertion) return;
+
+            gameUI.confirmAttackButton.interactable =
+                SharedRefs.Mode == Constants.GameMode.Online &&
+                gameUI.GameState.GameStatus == Constants.GameStatus.SelectEnemyFish &&
+                (gameUI.GameState.NormalAttack &&
+                 gameUI.GameState.MyFishSelectedAsTarget.Count(b => b) == 0 &&
+                 gameUI.GameState.EnemyFishSelectedAsTarget.Count(b => b) == 1 ||
+                 !gameUI.GameState.NormalAttack &&
+                 gameUI.GameState.MyFishSelectedAsTarget.Count(b => b) +
+                 gameUI.GameState.EnemyFishSelectedAsTarget.Count(b => b) > 0);
 
             for (var i = 0; i < 4; i++)
             {

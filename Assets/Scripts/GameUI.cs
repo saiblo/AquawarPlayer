@@ -3,6 +3,7 @@ using GameImpl;
 using LitJson;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Utils;
 
 public class GameUI : GameBridge
@@ -133,7 +134,8 @@ public class GameUI : GameBridge
     {
         GameState.NormalAttack = normal;
         GameState.GameStatus = Constants.GameStatus.SelectEnemyFish;
-        confirmAttackButton.interactable = true;
+        normalAttackButton.GetComponent<Image>().overrideSprite = normal ? darkBlue : lightBlue;
+        skillAttackButton.GetComponent<Image>().overrideSprite = normal ? lightBlue : darkBlue;
     }
 
     public void ConfirmAttack()
