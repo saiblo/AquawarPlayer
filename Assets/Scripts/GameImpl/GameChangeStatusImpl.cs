@@ -87,7 +87,8 @@ namespace GameImpl
 
                     if (SharedRefs.Mode == Constants.GameMode.Online && !gameUI.GameState.MyTurn)
                     {
-                        if (SharedRefs.ActionInfo["EnemyAction"] == null)
+                        if (!SharedRefs.ActionInfo.ContainsKey("EnemyAction") ||
+                            SharedRefs.ActionInfo["EnemyAction"] == null)
                         {
                             // Enemy asserted his way to death
                             end = true;
@@ -195,7 +196,7 @@ namespace GameImpl
 
                     if (SharedRefs.Mode == Constants.GameMode.Offline ||
                         !gameUI.GameState.MyTurn ||
-                        SharedRefs.ActionInfo["EnemyAssert"] != null)
+                        SharedRefs.ActionInfo.ContainsKey("EnemyAssert"))
                     {
                         // Now go for a new round
                         gameUI.GameState.MyTurn = !gameUI.GameState.MyTurn;
