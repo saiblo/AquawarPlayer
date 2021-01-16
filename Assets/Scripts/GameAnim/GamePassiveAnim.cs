@@ -1,5 +1,6 @@
 ﻿using GameHelper;
 using LitJson;
+using UnityEngine;
 using Utils;
 
 namespace GameAnim
@@ -21,28 +22,38 @@ namespace GameAnim
                     {
                         gameUI.SetTimeout(() =>
                         {
-                            var explosion = UnityEngine.Object.Instantiate(gameUI.smallExplosion, gameUI.allFishRoot);
+                            var explosion = Object.Instantiate(gameUI.smallExplosion, gameUI.allFishRoot);
                             explosion.localPosition = GameObjectManager.FishRelativePosition(enemy, sourcePos);
-                            gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(explosion.gameObject); }, 1800);
+                            gameUI.SetTimeout(() => { Object.Destroy(explosion.gameObject); }, 1800);
                         }, 500);
                         break;
                     }
                     case "deflect":
+                        gameUI.SetTimeout(() =>
+                        {
+                            for (var j = 0; j < 4; j++)
+                            {
+                                if (j == sourcePos) continue;
+                                var targetExplode = Object.Instantiate(gameUI.explodePrefab, gameUI.allFishRoot);
+                                targetExplode.localPosition = GameObjectManager.FishRelativePosition(enemy, j);
+                                gameUI.SetTimeout(() => { Object.Destroy(targetExplode.gameObject); }, 2000);
+                            }
+                        }, 400);
                         break;
                     case "reduce":
                     {
-                        var shield = UnityEngine.Object.Instantiate(gameUI.shieldEffect, gameUI.allFishRoot);
+                        var shield = Object.Instantiate(gameUI.shieldEffect, gameUI.allFishRoot);
                         shield.localPosition = GameObjectManager.FishRelativePosition(enemy, sourcePos);
-                        gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(shield.gameObject); }, 3000);
+                        gameUI.SetTimeout(() => { Object.Destroy(shield.gameObject); }, 3000);
                         break;
                     }
                     case "heal":
                     {
                         gameUI.SetTimeout(() =>
                         {
-                            var recover = UnityEngine.Object.Instantiate(gameUI.recoverEffect, gameUI.allFishRoot);
+                            var recover = Object.Instantiate(gameUI.recoverEffect, gameUI.allFishRoot);
                             recover.localPosition = GameObjectManager.FishRelativePosition(enemy, sourcePos);
-                            gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(recover.gameObject); }, 2400);
+                            gameUI.SetTimeout(() => { Object.Destroy(recover.gameObject); }, 2400);
                         }, 600);
                         break;
                     }
@@ -50,9 +61,9 @@ namespace GameAnim
                     {
                         gameUI.SetTimeout(() =>
                         {
-                            var fireBall = UnityEngine.Object.Instantiate(gameUI.fireBallPrefab, gameUI.allFishRoot);
+                            var fireBall = Object.Instantiate(gameUI.fireBallPrefab, gameUI.allFishRoot);
                             fireBall.localPosition = GameObjectManager.FishRelativePosition(enemy, sourcePos);
-                            gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(fireBall.gameObject); }, 3000);
+                            gameUI.SetTimeout(() => { Object.Destroy(fireBall.gameObject); }, 3000);
                         }, 500);
                         break;
                     }
