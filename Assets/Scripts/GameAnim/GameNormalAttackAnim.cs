@@ -2,6 +2,7 @@
 using System.Linq;
 using GameHelper;
 using LitJson;
+using UnityEngine;
 using Utils;
 
 namespace GameAnim
@@ -11,7 +12,16 @@ namespace GameAnim
         public static void NormalAttackAnim(this GameUI gameUI, JsonData actionInfo, string logPrefix)
         {
             var actionFish = (int) actionInfo["ActionFish"];
-            var target = (int) actionInfo["hit"].OfType<JsonData>().First(e => (bool) e["traceable"])["target"];
+            var target = (int) actionInfo["hit"][0]["target"];
+            try
+            {
+                target = (int) actionInfo["hit"].OfType<JsonData>().First(e => (bool) e["traceable"])["target"];
+            }
+            catch (Exception e)
+            {
+                Debug.Log($"@{SharedRefs.ReplayCursor}");
+                Debug.Log(e);
+            }
 
             var myTurn = gameUI.GameState.MyTurn;
             var distance =
