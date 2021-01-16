@@ -52,7 +52,6 @@ namespace GameImpl
                     gameUI.GameState.EnemyFishAvailable.Add((int) players[1]["my_fish"][i]["id"] - 1);
 
                 var rounds = (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["rounds"] + 1;
-                gameUI.roundText.text = $"{rounds}/3";
                 var score = (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["score"];
                 gameUI.scoreText.text = $"{(rounds - score - 1) / 2}:{(score + rounds - 1) / 2}";
                 gameUI.Gom.Init(gameUI);
