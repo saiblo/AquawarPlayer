@@ -14,7 +14,7 @@ namespace GameImpl
             var meshRenderers = (enemy ? gameUI.Gom.EnemyFishMeshRenderers : gameUI.Gom.MyFishMeshRenderers)[pos];
             var fish = (enemy ? gameUI.Gom.EnemyFishTransforms : gameUI.Gom.MyFishTransforms)[pos];
             var fog = (enemy ? gameUI.Gom.EnemyFogs : gameUI.Gom.MyFogs)[pos];
-            (enemy ? gameUI.Gom.EnemyFishParticleSystems : gameUI.Gom.MyFishParticleSystems)[pos].Play();
+            (enemy ? gameUI.Gom.EnemyFishParticleSystems : gameUI.Gom.MyFishParticleSystems)[pos]?.Play();
 
             foreach (var meshRenderer in meshRenderers) meshRenderer.material = gameUI.dissolveEffect;
             gameUI.Repeat(cnt =>

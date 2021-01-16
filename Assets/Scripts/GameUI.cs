@@ -20,8 +20,12 @@ public class GameUI : GameBridge
     {
         for (var i = 0; i < 4; i++)
         {
-            myStatus[i].Current = (int) players[0]["fight_fish"][i]["hp"];
-            enemyStatus[i].Current = (int) players[1]["fight_fish"][i]["hp"];
+            myStatus[i].Current = (int) players[0]["fight_fish"][i]["state"] == 2
+                ? 0
+                : (int) players[0]["fight_fish"][i]["hp"];
+            enemyStatus[i].Current = (int) players[1]["fight_fish"][i]["state"] == 2
+                ? 0
+                : (int) players[1]["fight_fish"][i]["hp"];
             myProfiles[i].SetHp(myStatus[i].Current);
             enemyProfiles[i].SetHp(enemyStatus[i].Current);
             myProfiles[i].SetAtk((int) players[0]["fight_fish"][i]["atk"]);

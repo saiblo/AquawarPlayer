@@ -94,11 +94,11 @@ namespace GameImpl
                         var lastPlayers = SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 2]["players"];
                         for (var i = 0; i < 4; i++)
                         {
-                            if ((float) players[0]["fight_fish"][i]["hp"] <= 0 &&
-                                (float) lastPlayers[0]["fight_fish"][i]["hp"] > 0)
+                            if ((int) players[0]["fight_fish"][i]["state"] == 2 &&
+                                (int) lastPlayers[0]["fight_fish"][i]["state"] != 2)
                                 gameUI.Dissolve(false, i);
-                            if ((float) players[1]["fight_fish"][i]["hp"] <= 0 &&
-                                (float) lastPlayers[1]["fight_fish"][i]["hp"] > 0)
+                            if ((int) players[1]["fight_fish"][i]["state"] == 2 &&
+                                (int) lastPlayers[1]["fight_fish"][i]["state"] != 2)
                                 gameUI.Dissolve(true, i);
                         }
                         gameUI.UpdateFishStatus(players);
