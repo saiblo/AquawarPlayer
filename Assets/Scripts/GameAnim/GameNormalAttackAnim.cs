@@ -2,12 +2,13 @@
 using System.Linq;
 using GameHelper;
 using LitJson;
+using Utils;
 
 namespace GameAnim
 {
     public static class GameNormalAttackAnim
     {
-        public static void NormalAttackAnim(this GameUI gameUI, JsonData actionInfo)
+        public static void NormalAttackAnim(this GameUI gameUI, JsonData actionInfo, string logPrefix)
         {
             var actionFish = (int) actionInfo["ActionFish"];
             var target = (int) actionInfo["hit"].OfType<JsonData>().First(e => (bool) e["traceable"])["target"];
@@ -22,6 +23,15 @@ namespace GameAnim
                     GameObjectManager.FishRelativePosition(myTurn, target) +
                     Math.Abs(cnt - 40f) / 40f * distance;
             }, () => { }, 81, 0, 10);
+
+            var fishId = (gameUI.GameState.MyTurn ? gameUI.GameState.EnemyFishId : gameUI.GameState.MyFishId)[target];
+            var fishName = SharedRefs.Mode == Constants.GameMode.Offline ||
+                           !gameUI.GameState.MyTurn ||
+                           gameUI.GameState.EnemyFishExpose[(int) actionInfo["ActionFish"]]
+                ? Constants.FishName[fishId]
+                : "[未知]";
+            var side = gameUI.GameState.MyTurn ? "敌方" : "我方";
+            gameUI.GameState.Logs.Enqueue($"{logPrefix}{side}{target}号位置的{fishName}发起了普通攻击。");
         }
     }
 }

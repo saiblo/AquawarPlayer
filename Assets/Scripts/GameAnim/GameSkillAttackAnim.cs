@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using GameHelper;
 using LitJson;
 using UnityEngine;
+using Utils;
 
 namespace GameAnim
 {
     public static class GameSkillAttackAnim
     {
-        public static void SkillAttackAnim(this GameUI gameUI, JsonData actionInfo)
+        public static void SkillAttackAnim(this GameUI gameUI, JsonData actionInfo, string logPrefix)
         {
             var myTurn = gameUI.GameState.MyTurn;
             var actionFish = (int) actionInfo["ActionFish"];
@@ -16,9 +18,11 @@ namespace GameAnim
                 case "aoe":
                 {
                     var targetList = actionInfo["skill"]["targets"];
+                    var ids = new List<string>();
                     for (var i = 0; i < targetList.Count; i++)
                     {
                         var id = (int) actionInfo["skill"]["targets"][i]["pos"];
+                        ids.Add(id.ToString());
                         gameUI.SetTimeout(() =>
                         {
                             var originalDistance =
@@ -42,6 +46,9 @@ namespace GameAnim
                             );
                         }, i * 120);
                     }
+                    gameUI.GameState.Logs.Enqueue(
+                        $"{logPrefix}{(gameUI.GameState.MyTurn ? "敌方" : "我方")}{ids}号位置的鱼发起了AOE攻击。"
+                    );
                     break;
                 }
                 case "infight":
@@ -53,6 +60,7 @@ namespace GameAnim
                     var myFishRecover = UnityEngine.Object.Instantiate(gameUI.recoverEffect, gameUI.allFishRoot);
                     myFishRecover.localPosition = GameObjectManager.FishRelativePosition(!myTurn, actionFish);
                     gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(myFishRecover.gameObject); }, 4000);
+                    gameUI.GameState.Logs.Enqueue($"{logPrefix}伤害了己方{target}号位置队友。");
                     break;
                 }
                 case "crit":
@@ -75,11 +83,18 @@ namespace GameAnim
                         targetExplode.localPosition = GameObjectManager.FishRelativePosition(myTurn, target);
                         gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(targetExplode.gameObject); }, 1000);
                     }, 200);
+                    gameUI.GameState.Logs.Enqueue(
+                        $"{logPrefix}{(gameUI.GameState.MyTurn ? "敌方" : "我方")}{target}号位置的鱼发起了暴击伤害。"
+                    );
                     break;
                 }
                 case "subtle":
                 {
-                    if (!myTurn) break;
+                    if (SharedRefs.Mode == Constants.GameMode.Online && !myTurn)
+                    {
+                        gameUI.GameState.Logs.Enqueue($"{logPrefix}己方使用了无作为技能。");
+                        break;
+                    }
                     var friendId = actionFish;
                     for (var i = 0; i < 4; i++)
                     {
@@ -95,6 +110,8 @@ namespace GameAnim
                     var myselfRecover = UnityEngine.Object.Instantiate(gameUI.recoverEffect, gameUI.allFishRoot);
                     myselfRecover.localPosition = GameObjectManager.FishRelativePosition(false, actionFish);
                     gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(myselfRecover.gameObject); }, 4000);
+
+                    gameUI.GameState.Logs.Enqueue($"{logPrefix}己方{friendId}号位置的鱼使用了无作为技能。");
                     break;
                 }
             }

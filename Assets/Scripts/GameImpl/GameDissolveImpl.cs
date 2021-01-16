@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Utils;
 using Object = UnityEngine.Object;
 
 namespace GameImpl
@@ -27,6 +28,11 @@ namespace GameImpl
                     fog.gameObject.SetActive(false);
                 },
                 75, 0, 40);
+
+            var name = SharedRefs.Mode == Constants.GameMode.Offline || !enemy || gameUI.GameState.EnemyFishExpose[pos]
+                ? Constants.FishName[(enemy ? gameUI.GameState.EnemyFishId : gameUI.GameState.MyFishId)[pos]]
+                : "鱼";
+            gameUI.GameState.Logs.Enqueue($"{(enemy ? "敌方" : "我方")}{pos}号位置的{name}死亡。");
         }
     }
 }

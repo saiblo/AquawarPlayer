@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Utils;
+﻿using Utils;
 
 namespace GameImpl
 {
@@ -64,8 +63,6 @@ namespace GameImpl
                 {
                     SharedRefs.ReplayCursor++;
                     var operation = state["operation"][0];
-                    var subject = (int) state["cur_turn"] == 0 ? "我方" : "敌方";
-                    var target = (int) state["cur_turn"] == 0 ? "敌方" : "我方";
                     if ((string) operation["Action"] == "Action")
                     {
                         // Set attacher
@@ -75,38 +72,16 @@ namespace GameImpl
                         gameUI.ChangeStatus();
 
                         // Set attackee
-                        var enemyListRef = gameUI.GameState.MyTurn
-                            ? gameUI.GameState.EnemyFishSelectedAsTarget
-                            : gameUI.GameState.MyFishSelectedAsTarget;
-                        var attackerList = gameUI.GameState.MyTurn
-                            ? gameUI.GameState.MyFishId
-                            : gameUI.GameState.EnemyFishId;
-                        var attackeeList = gameUI.GameState.MyTurn
-                            ? gameUI.GameState.EnemyFishId
-                            : gameUI.GameState.MyFishId;
                         if (operation.ContainsKey("EnemyPos"))
                         {
-                            enemyListRef[(int) operation["EnemyPos"]] = true;
+                            (gameUI.GameState.MyTurn
+                                ? gameUI.GameState.EnemyFishSelectedAsTarget
+                                : gameUI.GameState.MyFishSelectedAsTarget)[(int) operation["EnemyPos"]] = true;
                             gameUI.GameState.NormalAttack = true;
-                            gameUI.GameState.Logs.Enqueue(
-                                $"{subject}{operation["MyPos"]}号位置的{Constants.FishName[attackerList[(int) operation["MyPos"]]]}对{target}{operation["EnemyPos"]}号位置的{Constants.FishName[attackeeList[(int) operation["MyPos"]]]}发动了普通攻击。"
-                            );
                         }
                         else if (operation["EnemyList"] != null)
                         {
-                            var enemyList = operation["EnemyList"];
-                            var enemyArray = new List<int>();
-                            var enemyNames = new List<string>();
-                            for (var i = 0; i < enemyList.Count; i++)
-                            {
-                                enemyListRef[(int) enemyList[i]] = true;
-                                enemyArray.Add((int) enemyList[i]);
-                                enemyNames.Add(Constants.FishName[attackeeList[(int) enemyList[i]]]);
-                            }
                             gameUI.GameState.NormalAttack = false;
-                            gameUI.GameState.Logs.Enqueue(
-                                $"{subject}{operation["MyPos"]}号位置的{Constants.FishName[attackerList[(int) operation["MyPos"]]]}对{target}{string.Join(",", enemyArray)}号位置的{string.Join("、", enemyNames)}发动了主动技能。"
-                            );
                         }
                         SharedRefs.ActionInfo = operation["ActionInfo"];
                         gameUI.ChangeStatus();
