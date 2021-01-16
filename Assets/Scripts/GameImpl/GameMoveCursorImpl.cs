@@ -89,7 +89,7 @@ namespace GameImpl
                                 $"{subject}{operation["MyPos"]}号位置的{Constants.FishName[attackerList[(int) operation["MyPos"]]]}对{target}{operation["EnemyPos"]}号位置的{Constants.FishName[attackeeList[(int) operation["MyPos"]]]}发动了普通攻击。"
                             );
                         }
-                        else
+                        else if (operation["EnemyList"] != null)
                         {
                             var enemyList = operation["EnemyList"];
                             var enemyArray = new List<int>();
