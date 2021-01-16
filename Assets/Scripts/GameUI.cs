@@ -68,6 +68,10 @@ public class GameUI : GameBridge
 
     public void PrevRound()
     {
+        if (SharedRefs.ReplayCursor > 1 &&
+            (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["gamestate"] != 2 &&
+            (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 1]["gamestate"] == 2)
+            SharedRefs.ReplayCursor -= 3;
         while ((int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["gamestate"] != 2)
             --SharedRefs.ReplayCursor;
         DoneAndGoBackToPreparation();
