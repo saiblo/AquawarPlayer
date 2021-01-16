@@ -104,11 +104,11 @@ namespace GameAnim
                     }
 
                     var shield = UnityEngine.Object.Instantiate(gameUI.shieldEffect, gameUI.allFishRoot);
-                    shield.localPosition = GameObjectManager.FishRelativePosition(false, friendId);
+                    shield.localPosition = GameObjectManager.FishRelativePosition(!myTurn, friendId);
                     gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(shield.gameObject); }, 5000);
 
                     var myselfRecover = UnityEngine.Object.Instantiate(gameUI.recoverEffect, gameUI.allFishRoot);
-                    myselfRecover.localPosition = GameObjectManager.FishRelativePosition(false, actionFish);
+                    myselfRecover.localPosition = GameObjectManager.FishRelativePosition(!myTurn, actionFish);
                     gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(myselfRecover.gameObject); }, 4000);
 
                     gameUI.GameState.Logs.Enqueue($"{logPrefix}己方{friendId}号位置的鱼使用了无作为技能。");
