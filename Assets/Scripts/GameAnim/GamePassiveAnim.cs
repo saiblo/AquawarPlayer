@@ -19,9 +19,12 @@ namespace GameAnim
                 {
                     case "counter":
                     {
-                        var explosion = UnityEngine.Object.Instantiate(gameUI.smallExplosion, gameUI.allFishRoot);
-                        explosion.localPosition = GameObjectManager.FishRelativePosition(enemy, sourcePos);
-                        gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(explosion.gameObject); }, 1800);
+                        gameUI.SetTimeout(() =>
+                        {
+                            var explosion = UnityEngine.Object.Instantiate(gameUI.smallExplosion, gameUI.allFishRoot);
+                            explosion.localPosition = GameObjectManager.FishRelativePosition(enemy, sourcePos);
+                            gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(explosion.gameObject); }, 1800);
+                        }, 500);
                         break;
                     }
                     case "deflect":
@@ -35,16 +38,22 @@ namespace GameAnim
                     }
                     case "heal":
                     {
-                        var recover = UnityEngine.Object.Instantiate(gameUI.recoverEffect, gameUI.allFishRoot);
-                        recover.localPosition = GameObjectManager.FishRelativePosition(enemy, sourcePos);
-                        gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(recover.gameObject); }, 4000);
+                        gameUI.SetTimeout(() =>
+                        {
+                            var recover = UnityEngine.Object.Instantiate(gameUI.recoverEffect, gameUI.allFishRoot);
+                            recover.localPosition = GameObjectManager.FishRelativePosition(enemy, sourcePos);
+                            gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(recover.gameObject); }, 4000);
+                        }, 600);
                         break;
                     }
                     case "explode":
                     {
-                        var fireBall = UnityEngine.Object.Instantiate(gameUI.fireBallPrefab, gameUI.allFishRoot);
-                        fireBall.localPosition = GameObjectManager.FishRelativePosition(enemy, sourcePos);
-                        gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(fireBall.gameObject); }, 3500);
+                        gameUI.SetTimeout(() =>
+                        {
+                            var fireBall = UnityEngine.Object.Instantiate(gameUI.fireBallPrefab, gameUI.allFishRoot);
+                            fireBall.localPosition = GameObjectManager.FishRelativePosition(enemy, sourcePos);
+                            gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(fireBall.gameObject); }, 3500);
+                        }, 500);
                         break;
                     }
                 }

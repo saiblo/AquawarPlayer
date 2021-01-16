@@ -125,7 +125,7 @@ namespace GameImpl
                     {
                         gameUI.GameState.Assertion = -1;
                         gameUI.ChangeStatus();
-                    }, gameUI.GameState.Assertion == -1 ? 500 : 1000);
+                    }, gameUI.GameState.Assertion == -1 ? 200 : 1000);
                     break;
                 }
                 case Constants.GameStatus.WaitAssertion:
@@ -209,7 +209,7 @@ namespace GameImpl
                     {
                         // Now go for a new round
                         gameUI.GameState.MyTurn = !gameUI.GameState.MyTurn;
-                        gameUI.SetTimeout(gameUI.NewRound, hasPassive ? 3000 : 1000);
+                        gameUI.SetTimeout(gameUI.NewRound, hasPassive ? 2000 : 1000);
                     }
                     else
                     {
