@@ -45,6 +45,10 @@ namespace GameImpl
                     gameUI.enemyStatus[i].Full = (int) pickFish[1][i]["hp"];
                     gameUI.GameState.MyFishPicked.Add(gameUI.GameState.MyFishId[i]);
                     gameUI.GameState.EnemyFishPicked.Add(gameUI.GameState.EnemyFishId[i]);
+                    if (pickFish[0][i].ContainsKey("imitate"))
+                        SharedRefs.MyImitate = (int) pickFish[0][i]["imitate"] - 1;
+                    if (pickFish[1][i].ContainsKey("imitate"))
+                        SharedRefs.EnemyImitate = (int) pickFish[1][i]["imitate"] - 1;
                 }
                 for (var i = 0; i < players[0]["my_fish"].Count; i++)
                     gameUI.GameState.MyFishAvailable.Add((int) players[0]["my_fish"][i]["id"] - 1);

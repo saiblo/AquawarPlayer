@@ -105,14 +105,22 @@ namespace GameHelper
 
                 var myFishId = gameUI.GameState.MyFishId[i];
                 var enemyFishId = gameUI.GameState.EnemyFishId[i];
+                var myImitatePrompt = gameUI.GameState.MyFishId[i] == 11
+                    ? $"\n所拟态鱼：{Constants.FishName[SharedRefs.MyImitate]}"
+                    : "";
                 gameUI.myProfiles[i].SetupFish(myFishId, gameUI.myExtensions[i]);
-                gameUI.myExtensions[i]
-                    .UpdateText($"{Constants.FishName[myFishId]}\n主动：{Constants.SkillTable[myFishId]}");
+                gameUI.myExtensions[i].UpdateText(
+                    $"{Constants.FishName[myFishId]}\n主动：{Constants.SkillTable[myFishId]}{myImitatePrompt}"
+                );
                 if (SharedRefs.Mode == Constants.GameMode.Offline || _gameStates.EnemyFishExpose[i])
                 {
+                    var enemyImitatePrompt = gameUI.GameState.EnemyFishId[i] == 11
+                        ? $"\n所拟态鱼：{Constants.FishName[SharedRefs.EnemyImitate]}"
+                        : "";
                     gameUI.enemyProfiles[i].SetupFish(enemyFishId, gameUI.enemyExtensions[i]);
-                    gameUI.enemyExtensions[i]
-                        .UpdateText($"{Constants.FishName[enemyFishId]}\n主动：{Constants.SkillTable[enemyFishId]}");
+                    gameUI.enemyExtensions[i].UpdateText(
+                        $"{Constants.FishName[enemyFishId]}\n主动：{Constants.SkillTable[enemyFishId]}{enemyImitatePrompt}"
+                    );
                 }
                 else
                 {
