@@ -159,10 +159,21 @@ namespace GameHelper
             {
                 if ((float) players[0]["fight_fish"][i]["hp"] <= 0 &&
                     (float) lastPlayers[0]["fight_fish"][i]["hp"] > 0)
+                {
                     MyFishTransforms[i] = GenFish(false, i, gameUI);
+                    MyFishMeshRenderers[i] = MyFishTransforms[i].GetComponentsInChildren<SkinnedMeshRenderer>();
+                    MyFishParticleSystems[i] = MyFishTransforms[i].GetComponentInChildren<ParticleSystem>();
+                    MyFogs[i].gameObject.SetActive(!(bool) lastPlayers[0]["fight_fish"][i]["is_expose"]);
+                }
+                // ReSharper disable once InvertIf
                 if ((float) players[1]["fight_fish"][i]["hp"] <= 0 &&
                     (float) lastPlayers[1]["fight_fish"][i]["hp"] > 0)
+                {
                     EnemyFishTransforms[i] = GenFish(true, i, gameUI);
+                    EnemyFishMeshRenderers[i] = EnemyFishTransforms[i].GetComponentsInChildren<SkinnedMeshRenderer>();
+                    EnemyFishParticleSystems[i] = EnemyFishTransforms[i].GetComponentInChildren<ParticleSystem>();
+                    EnemyFogs[i].gameObject.SetActive(!(bool) lastPlayers[1]["fight_fish"][i]["is_expose"]);
+                }
             }
         }
 
