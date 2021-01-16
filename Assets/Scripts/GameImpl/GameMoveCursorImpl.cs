@@ -90,18 +90,21 @@ namespace GameImpl
                     // Process hp and death
                     if (SharedRefs.ReplayJson[SharedRefs.ReplayCursor] != null)
                     {
-                        var players = SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["players"];
-                        var lastPlayers = SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 2]["players"];
-                        for (var i = 0; i < 4; i++)
+                        if ((int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["gamestate"] == 3)
                         {
-                            if ((int) players[0]["fight_fish"][i]["state"] == 2 &&
-                                (int) lastPlayers[0]["fight_fish"][i]["state"] != 2)
-                                gameUI.Dissolve(false, i);
-                            if ((int) players[1]["fight_fish"][i]["state"] == 2 &&
-                                (int) lastPlayers[1]["fight_fish"][i]["state"] != 2)
-                                gameUI.Dissolve(true, i);
+                            var players = SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["players"];
+                            var lastPlayers = SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 2]["players"];
+                            for (var i = 0; i < 4; i++)
+                            {
+                                if ((int) players[0]["fight_fish"][i]["state"] == 2 &&
+                                    (int) lastPlayers[0]["fight_fish"][i]["state"] != 2)
+                                    gameUI.Dissolve(false, i);
+                                if ((int) players[1]["fight_fish"][i]["state"] == 2 &&
+                                    (int) lastPlayers[1]["fight_fish"][i]["state"] != 2)
+                                    gameUI.Dissolve(true, i);
+                            }
+                            gameUI.UpdateFishStatus(players);
                         }
-                        gameUI.UpdateFishStatus(players);
                         gameUI.SetTimeout(() =>
                         {
                             if (SharedRefs.AutoPlay)
