@@ -53,6 +53,7 @@ namespace GameHelper
         public Text roundText;
         public Text scoreText;
         public Text resultText;
+        public Text gameOverText;
         public GameObject gameOverMask;
 
         public GameObject logObject;

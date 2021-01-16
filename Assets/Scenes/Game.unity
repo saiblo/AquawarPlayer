@@ -1049,6 +1049,7 @@ MonoBehaviour:
   roundText: {fileID: 901318066}
   scoreText: {fileID: 1744242772}
   resultText: {fileID: 129678564}
+  gameOverText: {fileID: 1791412406}
   gameOverMask: {fileID: 2096360349}
   logObject: {fileID: 76061204}
   myProfiles:
