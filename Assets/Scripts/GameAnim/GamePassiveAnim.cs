@@ -33,7 +33,7 @@ namespace GameAnim
                     {
                         var shield = UnityEngine.Object.Instantiate(gameUI.shieldEffect, gameUI.allFishRoot);
                         shield.localPosition = GameObjectManager.FishRelativePosition(enemy, sourcePos);
-                        gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(shield.gameObject); }, 5000);
+                        gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(shield.gameObject); }, 3000);
                         break;
                     }
                     case "heal":
@@ -42,7 +42,7 @@ namespace GameAnim
                         {
                             var recover = UnityEngine.Object.Instantiate(gameUI.recoverEffect, gameUI.allFishRoot);
                             recover.localPosition = GameObjectManager.FishRelativePosition(enemy, sourcePos);
-                            gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(recover.gameObject); }, 4000);
+                            gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(recover.gameObject); }, 2400);
                         }, 600);
                         break;
                     }
@@ -52,7 +52,7 @@ namespace GameAnim
                         {
                             var fireBall = UnityEngine.Object.Instantiate(gameUI.fireBallPrefab, gameUI.allFishRoot);
                             fireBall.localPosition = GameObjectManager.FishRelativePosition(enemy, sourcePos);
-                            gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(fireBall.gameObject); }, 3500);
+                            gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(fireBall.gameObject); }, 3000);
                         }, 500);
                         break;
                     }
