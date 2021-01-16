@@ -7,7 +7,7 @@ namespace GameImpl
     {
         public static void RunPerFrameImpl(this GameUI gameUI)
         {
-            gameUI.roundText.text = $"{SharedRefs.ReplayCursor}";
+            gameUI.roundText.text = $"操作数：{SharedRefs.ReplayCursor}";
 
             gameUI.logText.text = string.Join("\n", gameUI.GameState.Logs);
 
