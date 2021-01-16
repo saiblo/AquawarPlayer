@@ -1,5 +1,4 @@
-﻿using System;
-using GameHelper;
+﻿using GameHelper;
 using GameImpl;
 using LitJson;
 using UnityEngine;
@@ -16,45 +15,6 @@ public class GameUI : GameBridge
     // Dissolve effect
 
     internal int DissolveShaderProperty;
-
-    public void Dissolve(bool enemy, int pos)
-    {
-        if (enemy) GameState.EnemyFishAlive[pos] = false;
-        else GameState.MyFishAlive[pos] = false;
-
-        var meshRenderers = (enemy ? Gom.EnemyFishMeshRenderers : Gom.MyFishMeshRenderers)[pos];
-        var fish = (enemy ? Gom.EnemyFishTransforms : Gom.MyFishTransforms)[pos];
-        var fog = (enemy ? Gom.EnemyFogs : Gom.MyFogs)[pos];
-        (enemy ? Gom.EnemyFishParticleSystems : Gom.MyFishParticleSystems)[pos].Play();
-
-        foreach (var meshRenderer in meshRenderers) meshRenderer.material = dissolveEffect;
-        Repeat(cnt =>
-            {
-                try
-                {
-                    foreach (var meshRenderer in meshRenderers)
-                        meshRenderer.material.SetFloat(DissolveShaderProperty,
-                            fadeIn.Evaluate(Mathf.InverseLerp(0, 3, cnt / 100f)));
-                }
-                catch (Exception)
-                {
-                    // ignored
-                }
-            },
-            () =>
-            {
-                try
-                {
-                    if (fish != null) Destroy(fish.gameObject);
-                    fog.gameObject.SetActive(false);
-                }
-                catch (Exception)
-                {
-                    // ignored
-                }
-            },
-            300, 0, 10);
-    }
 
     public void UpdateFishStatus(JsonData players)
     {
