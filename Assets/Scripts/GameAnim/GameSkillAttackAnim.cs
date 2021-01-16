@@ -39,7 +39,11 @@ namespace GameAnim
                                 Quaternion.Euler(
                                     new Vector3(
                                         0,
-                                        Convert.ToInt32(angle < 0 ? angle : angle + 180.0),
+                                        Convert.ToInt32(myTurn
+                                            ? angle < 0 ? angle : angle - 180.0
+                                            : angle > 0
+                                                ? angle
+                                                : angle + 180.0),
                                         0
                                     )
                                 )
