@@ -1081,7 +1081,7 @@ MonoBehaviour:
   playButtonImage: {fileID: 1304558717}
   prevStepButton: {fileID: 1899540226}
   nextStepButton: {fileID: 11741442}
-  replayStepButton: {fileID: 1287386762}
+  backHomeButton: {fileID: 1287386762}
   prevRoundButton: {fileID: 239000412}
   nextRoundButton: {fileID: 597753235}
   assertionButtons: {fileID: 1666943630}
@@ -2762,7 +2762,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1a79b1836ff9f104b809b03ff202861c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a1e7f29ec471bb541a349df0b0123ac0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5494,7 +5494,7 @@ GameObject:
   - component: {fileID: 1287386763}
   - component: {fileID: 1287386762}
   m_Layer: 5
-  m_Name: ReplayStepButton
+  m_Name: BackHomeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5566,7 +5566,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 253739612}
         m_TargetAssemblyTypeName: GameUI, Assembly-CSharp
-        m_MethodName: ReplayStep
+        m_MethodName: BackHome
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

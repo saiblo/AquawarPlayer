@@ -49,10 +49,7 @@ public class GameUI : GameBridge
         Gom.CheckReviveOnBackwards(this);
         SharedRefs.ReplayCursor -= 2;
         if ((int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 1]["gamestate"] == 2)
-        {
             prevStepButton.interactable = false;
-            replayStepButton.interactable = false;
-        }
         UpdateFishStatus(SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["players"]);
     }
 
@@ -60,7 +57,6 @@ public class GameUI : GameBridge
     {
         prevStepButton.interactable = false;
         nextStepButton.interactable = false;
-        replayStepButton.interactable = false;
         prevRoundButton.interactable = false;
         nextRoundButton.interactable = false;
         this.MoveCursor();
@@ -85,10 +81,9 @@ public class GameUI : GameBridge
         DoneAndGoBackToPreparation();
     }
 
-    public void ReplayStep()
+    public void BackHome()
     {
-        PrevStep();
-        NextStep();
+        SceneManager.LoadScene("Scenes/Welcome");
     }
 
     public void ToggleAutoPlay()
