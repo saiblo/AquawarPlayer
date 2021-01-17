@@ -16,7 +16,7 @@ namespace GameAnim
                 var enemy = SharedRefs.Mode == Constants.GameMode.Offline
                     ? (int) passiveList[i]["player"] == 1
                     : (bool) passiveList[i]["isEnemy"];
-                var sourceName = enemy ? "敌方" : "我方";
+                var sourceName = enemy ? GameUI.EnemyStr : GameUI.MeStr;
                 switch ((string) passiveList[i]["type"])
                 {
                     case "counter":

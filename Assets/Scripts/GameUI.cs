@@ -12,6 +12,10 @@ public class GameUI : GameBridge
 
     public readonly GameObjectManager Gom;
 
+    public static string MeStr => SharedRefs.Mode == Constants.GameMode.Offline ? "0号AI" : "1号AI";
+
+    public static string EnemyStr => SharedRefs.Mode == Constants.GameMode.Offline ? "我方" : "敌方";
+
     // Dissolve effect
 
     internal int DissolveShaderProperty;

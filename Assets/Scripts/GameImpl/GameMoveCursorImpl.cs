@@ -18,7 +18,7 @@ namespace GameImpl
                 {
                     var gain = (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["score"]
                                - (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 1]["score"];
-                    gameUI.resultText.text = gain > 0 ? "我方获胜" : "敌方获胜";
+                    gameUI.resultText.text = gain > 0 ? $"{GameUI.MeStr}获胜" : $"{GameUI.EnemyStr}获胜";
                     gameUI.gameOverMask.SetActive(true);
 
                     for (var i = 0; i < 4; i++)
@@ -39,8 +39,8 @@ namespace GameImpl
                 {
                     SharedRefs.ReplayCursor++;
                     var operation = state["operation"][0];
-                    var subject = (int) state["cur_turn"] == 0 ? "我方" : "敌方";
-                    var target = (int) state["cur_turn"] == 0 ? "敌方" : "我方";
+                    var subject = (int) state["cur_turn"] == 0 ? GameUI.MeStr : GameUI.EnemyStr;
+                    var target = (int) state["cur_turn"] == 0 ?  GameUI.EnemyStr : GameUI.MeStr;
                     if ((string) operation["Action"] == "Assert")
                     {
                         gameUI.GameState.AssertionPlayer = (int) operation["ID"];

@@ -51,7 +51,7 @@ namespace GameAnim
                         }, i * 120);
                     }
                     gameUI.AddLog(
-                        $"{logPrefix}{(gameUI.GameState.MyTurn ? "敌方" : "我方")}{string.Join(",", ids)}号位置的鱼发起了AOE攻击。"
+                        $"{logPrefix}{(gameUI.GameState.MyTurn ? GameUI.EnemyStr : GameUI.MeStr)}{string.Join(",", ids)}号位置的鱼发起了AOE攻击。"
                     );
                     break;
                 }
@@ -88,7 +88,7 @@ namespace GameAnim
                         gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(targetExplode.gameObject); }, 1000);
                     }, 200);
                     gameUI.AddLog(
-                        $"{logPrefix}{(gameUI.GameState.MyTurn ? "敌方" : "我方")}{target}号位置的鱼发起了暴击伤害。"
+                        $"{logPrefix}{(gameUI.GameState.MyTurn ? GameUI.EnemyStr : GameUI.MeStr)}{target}号位置的鱼发起了暴击伤害。"
                     );
                     break;
                 }
