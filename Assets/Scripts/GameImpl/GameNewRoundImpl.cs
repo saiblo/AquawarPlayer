@@ -50,7 +50,7 @@ namespace GameImpl
                 var enemyAssert = SharedRefs.ActionInfo["EnemyAssert"];
                 if (enemyAssert["AssertPos"] == null)
                 {
-                    gameUI.AddLog("敌方放弃断言。");
+                    gameUI.AddLog($"{GameUI.EnemyStr}放弃断言。");
                     gameUI.GameState.Assertion = -1;
                     gameUI.GameState.OnlineAssertionHit = false;
                     gameUI.GameState.AssertionTarget = 0;
