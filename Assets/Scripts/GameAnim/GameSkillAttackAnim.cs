@@ -102,7 +102,8 @@ namespace GameAnim
                     var friendId = actionFish;
                     for (var i = 0; i < 4; i++)
                     {
-                        if (!gameUI.GameState.MyFishSelectedAsTarget[i]) continue;
+                        if ((!myTurn || !gameUI.GameState.MyFishSelectedAsTarget[i]) &&
+                            (myTurn || !gameUI.GameState.EnemyFishSelectedAsTarget[i])) continue;
                         friendId = i;
                         break;
                     }

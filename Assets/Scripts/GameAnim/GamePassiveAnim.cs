@@ -36,6 +36,8 @@ namespace GameAnim
                             for (var j = 0; j < 4; j++)
                             {
                                 if (j == sourcePos) continue;
+                                if (enemy && gameUI.enemyStatus[j].Current <= 0 ||
+                                    !enemy && gameUI.myStatus[j].Current <= 0) continue;
                                 var targetExplode = Object.Instantiate(gameUI.explodePrefab, gameUI.allFishRoot);
                                 targetExplode.localPosition = GameObjectManager.FishRelativePosition(enemy, j);
                                 gameUI.SetTimeout(() => { Object.Destroy(targetExplode.gameObject); }, 2000);
