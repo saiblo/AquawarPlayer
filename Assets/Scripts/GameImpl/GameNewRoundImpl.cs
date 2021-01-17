@@ -66,7 +66,7 @@ namespace GameImpl
                 gameUI.SetTimeout(gameUI.ChangeStatus, 3000); // Just waits for the assertion animation to finish
 
                 gameUI.AddLog(
-                    $"敌方断言我方{gameUI.GameState.Assertion}号位置的鱼为{Constants.FishName[gameUI.GameState.AssertionTarget]}。"
+                    $"{GameUI.EnemyStr}断言{GameUI.MeStr}{gameUI.GameState.Assertion}号位置的鱼为{Constants.FishName[gameUI.GameState.AssertionTarget]}。"
                 );
             }
         }
