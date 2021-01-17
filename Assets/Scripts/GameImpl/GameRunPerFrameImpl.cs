@@ -9,8 +9,6 @@ namespace GameImpl
         {
             gameUI.roundText.text = $"操作数：{SharedRefs.ReplayCursor}";
 
-            gameUI.logText.text = string.Join("\n", gameUI.GameState.Logs);
-
             gameUI.logObject.SetActive(gameUI.logActive);
             gameUI.roundText.text = $"{gameUI.logActive}";
 

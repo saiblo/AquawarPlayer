@@ -40,8 +40,8 @@ namespace GameAnim
                            gameUI.GameState.EnemyFishExpose[(int) actionInfo["ActionFish"]]
                 ? Constants.FishName[fishId]
                 : "[未知]";
-            var side = gameUI.GameState.MyTurn ? "敌方" : "我方";
-            gameUI.GameState.Logs.Enqueue($"{logPrefix}{side}{target}号位置的{fishName}发起了普通攻击。");
+            var side = gameUI.GameState.MyTurn ? GameUI.EnemyStr : GameUI.MeStr;
+            gameUI.AddLog($"{logPrefix}{side}{target}号位置的{fishName}发起了普通攻击。");
         }
     }
 }

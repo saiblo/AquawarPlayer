@@ -18,8 +18,12 @@ namespace GameImpl
                 {
                     var gain = (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["score"]
                                - (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 1]["score"];
-                    gameUI.resultText.text = gain > 0 ? "我方获胜" : "敌方获胜";
+                    gameUI.resultText.text = gain > 0 ? $"{GameUI.MeStr}获胜" : $"{GameUI.EnemyStr}获胜";
                     gameUI.gameOverMask.SetActive(true);
+
+                    var rounds = (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["rounds"] + 1;
+                    var score = (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["score"];
+                    gameUI.scoreText.text = $"{(rounds - score - 1) / 2}:{(score + rounds - 1) / 2}";
 
                     for (var i = 0; i < 4; i++)
                         if ((int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 1]["players"][(gain + 1) / 2]
@@ -39,15 +43,15 @@ namespace GameImpl
                 {
                     SharedRefs.ReplayCursor++;
                     var operation = state["operation"][0];
-                    var subject = (int) state["cur_turn"] == 0 ? "我方" : "敌方";
-                    var target = (int) state["cur_turn"] == 0 ? "敌方" : "我方";
+                    var subject = (int) state["cur_turn"] == 0 ? GameUI.MeStr : GameUI.EnemyStr;
+                    var target = (int) state["cur_turn"] == 0 ? GameUI.EnemyStr : GameUI.MeStr;
                     if ((string) operation["Action"] == "Assert")
                     {
                         gameUI.GameState.AssertionPlayer = (int) operation["ID"];
                         gameUI.GameState.Assertion = (int) operation["Pos"];
                         gameUI.GameState.AssertionTarget = (int) operation["id"] - 1;
                         gameUI.MakeAGuess(gameUI.GameState.AssertionPlayer == 0, 2000);
-                        gameUI.GameState.Logs.Enqueue(
+                        gameUI.AddLog(
                             $"{subject}断言{target}{operation["Pos"]}号位置鱼为{Constants.FishName[(int) operation["id"] - 1]}。"
                         );
                     }
@@ -55,7 +59,7 @@ namespace GameImpl
                     {
                         gameUI.GameState.Assertion = -1;
                         gameUI.ChangeStatus();
-                        gameUI.GameState.Logs.Enqueue($"{subject}放弃断言。");
+                        gameUI.AddLog($"{subject}放弃断言。");
                     }
                     break;
                 }
@@ -82,6 +86,12 @@ namespace GameImpl
                         else if (operation["EnemyList"] != null)
                         {
                             gameUI.GameState.NormalAttack = false;
+                            if (operation["MyList"] != null)
+                                for (var i = 0; i < operation["MyList"].Count; i++)
+                                    (gameUI.GameState.MyTurn
+                                            ? gameUI.GameState.MyFishSelectedAsTarget
+                                            : gameUI.GameState.EnemyFishSelectedAsTarget)
+                                        [(int) operation["MyList"][i]] = true;
                         }
                         SharedRefs.ActionInfo = operation["ActionInfo"];
                         gameUI.ChangeStatus();

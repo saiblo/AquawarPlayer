@@ -14,7 +14,7 @@ namespace GameAnim
                     ? gameUI.GameState.MyFishId
                     : gameUI.GameState.EnemyFishId)[gameUI.GameState.Assertion] ||
                 SharedRefs.Mode == Constants.GameMode.Online && gameUI.GameState.OnlineAssertionHit;
-            gameUI.GameState.Logs.Enqueue("断言" + (hit ? "成功。" : "失败。"));
+            gameUI.AddLog("断言" + (hit ? "成功。" : "失败。"));
             if (hit)
             {
                 Object.Destroy((gameUI.GameState.AssertionPlayer == 1

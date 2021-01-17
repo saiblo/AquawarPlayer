@@ -11,6 +11,10 @@ public class GameUI : GameBridge
 
     public readonly GameObjectManager Gom;
 
+    public static string MeStr => SharedRefs.Mode == Constants.GameMode.Offline ? "0号AI" : "我方";
+
+    public static string EnemyStr => SharedRefs.Mode == Constants.GameMode.Offline ? "1号AI" : "敌方";
+
     // Dissolve effect
 
     internal int DissolveShaderProperty;
@@ -30,6 +34,11 @@ public class GameUI : GameBridge
             myProfiles[i].SetAtk((int) players[0]["fight_fish"][i]["atk"]);
             enemyProfiles[i].SetAtk((int) players[1]["fight_fish"][i]["atk"]);
         }
+    }
+
+    public void AddLog(string s)
+    {
+        Instantiate(logItem, logContent).SetText(s);
     }
 
     public void DoneAndGoBackToPreparation()

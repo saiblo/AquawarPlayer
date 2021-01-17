@@ -54,7 +54,7 @@ namespace GameImpl
                         if (gameUI.GameState.Assertion == -1)
                         {
                             await SharedRefs.GameClient.Send(new Null());
-                            gameUI.GameState.Logs.Enqueue("我方放弃断言。");
+                            gameUI.AddLog($"{GameUI.MeStr}放弃断言。");
                         }
                         else
                         {
@@ -64,15 +64,17 @@ namespace GameImpl
                                     ID = gameUI.GameState.AssertionTarget + 1
                                 }
                             );
-                            gameUI.GameState.Logs.Enqueue(
-                                $"我方断言敌方{gameUI.GameState.Assertion}号位置的鱼为{Constants.FishName[gameUI.GameState.AssertionTarget]}。"
+                            gameUI.AddLog(
+                                $"{GameUI.MeStr}断言{GameUI.EnemyStr}{gameUI.GameState.Assertion}号位置的鱼为{Constants.FishName[gameUI.GameState.AssertionTarget]}。"
                             );
                         }
                         var reply = await SharedRefs.GameClient.Receive(); // ACTION
                         if ((string) reply["Action"] == "Finish") // You assert your way to death
                         {
                             end = true;
-                            gameUI.resultText.text = (string) reply["Result"] == "Win" ? "我方获胜" : "敌方获胜";
+                            gameUI.resultText.text = (string) reply["Result"] == "Win"
+                                ? $"{GameUI.MeStr}获胜"
+                                : $"{GameUI.EnemyStr}获胜";
                             gameUI.GameOver();
                         }
                         else
@@ -102,7 +104,9 @@ namespace GameImpl
                             // Enemy asserted his way to death
                             end = true;
                             gameUI.resultText.text =
-                                (string) SharedRefs.ActionInfo["Result"] == "Win" ? "我方获胜" : "敌方获胜";
+                                (string) SharedRefs.ActionInfo["Result"] == "Win"
+                                    ? $"{GameUI.MeStr}获胜"
+                                    : $"{GameUI.EnemyStr}获胜";
                             gameUI.GameOver();
                         }
                         else
@@ -214,7 +218,7 @@ namespace GameImpl
                     else
                     {
                         // Game over
-                        gameUI.resultText.text = (string) SharedRefs.ActionInfo["Result"] == "Win" ? "我方获胜" : "敌方获胜";
+                        gameUI.resultText.text = (string) SharedRefs.ActionInfo["Result"] == "Win" ? $"{GameUI.MeStr}获胜" : $"{GameUI.EnemyStr}获胜";
                         gameUI.GameOver();
                     }
                     break;
