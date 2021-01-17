@@ -11,6 +11,9 @@ namespace GameImpl
 
             gameUI.logText.text = string.Join("\n", gameUI.GameState.Logs);
 
+            gameUI.logObject.SetActive(gameUI.logActive);
+            gameUI.roundText.text = $"{gameUI.logActive}";
+
             gameUI.playButtonImage.overrideSprite = SharedRefs.AutoPlay ? gameUI.pauseIcon : gameUI.playIcon;
 
             if (!gameUI.Gom.Initialized || gameUI.GameState.GameStatus == Constants.GameStatus.WaitAssertion) return;
