@@ -39,7 +39,5 @@ namespace GameHelper
         public readonly List<int> EnemyFishPicked = new List<int>();
         public readonly List<int> MyFishAvailable = new List<int>();
         public readonly List<int> EnemyFishAvailable = new List<int>();
-
-        public readonly Queue<string> Logs = new Queue<string>();
     }
 }

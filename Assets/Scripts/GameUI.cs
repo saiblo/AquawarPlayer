@@ -33,6 +33,11 @@ public class GameUI : GameBridge
         }
     }
 
+    public void AddLog(string s)
+    {
+        Instantiate(logItem, logContent).SetText(s);
+    }
+
     public void DoneAndGoBackToPreparation()
     {
         SceneManager.LoadScene(SharedRefs.Mode == Constants.GameMode.Online ? "Scenes/Preparation" :

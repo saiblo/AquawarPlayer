@@ -47,7 +47,7 @@ namespace GameImpl
                         gameUI.GameState.Assertion = (int) operation["Pos"];
                         gameUI.GameState.AssertionTarget = (int) operation["id"] - 1;
                         gameUI.MakeAGuess(gameUI.GameState.AssertionPlayer == 0, 2000);
-                        gameUI.GameState.Logs.Enqueue(
+                        gameUI.AddLog(
                             $"{subject}断言{target}{operation["Pos"]}号位置鱼为{Constants.FishName[(int) operation["id"] - 1]}。"
                         );
                     }
@@ -55,7 +55,7 @@ namespace GameImpl
                     {
                         gameUI.GameState.Assertion = -1;
                         gameUI.ChangeStatus();
-                        gameUI.GameState.Logs.Enqueue($"{subject}放弃断言。");
+                        gameUI.AddLog($"{subject}放弃断言。");
                     }
                     break;
                 }

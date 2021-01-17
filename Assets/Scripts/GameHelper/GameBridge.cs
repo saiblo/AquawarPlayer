@@ -45,8 +45,6 @@ namespace GameHelper
 
         // UI objects
 
-        public Text logText;
-
         public Hp[] myStatus;
         public Hp[] enemyStatus;
 
@@ -57,6 +55,8 @@ namespace GameHelper
         public GameObject gameOverMask;
 
         public GameObject logObject;
+        public Transform logContent;
+        public LogItem logItem;
 
         public GameProfile[] myProfiles;
         public GameProfile[] enemyProfiles;

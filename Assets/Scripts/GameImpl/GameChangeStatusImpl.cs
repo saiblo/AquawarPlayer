@@ -54,7 +54,7 @@ namespace GameImpl
                         if (gameUI.GameState.Assertion == -1)
                         {
                             await SharedRefs.GameClient.Send(new Null());
-                            gameUI.GameState.Logs.Enqueue("我方放弃断言。");
+                            gameUI.AddLog("我方放弃断言。");
                         }
                         else
                         {
@@ -64,7 +64,7 @@ namespace GameImpl
                                     ID = gameUI.GameState.AssertionTarget + 1
                                 }
                             );
-                            gameUI.GameState.Logs.Enqueue(
+                            gameUI.AddLog(
                                 $"我方断言敌方{gameUI.GameState.Assertion}号位置的鱼为{Constants.FishName[gameUI.GameState.AssertionTarget]}。"
                             );
                         }
