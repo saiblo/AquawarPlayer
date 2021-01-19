@@ -9,6 +9,8 @@ namespace GameImpl
         {
             gameUI.roundText.text = $"操作数：{SharedRefs.ReplayCursor}";
 
+            gameUI.logObject.SetActive(gameUI.logActive);
+
             gameUI.playButtonImage.overrideSprite = SharedRefs.AutoPlay ? gameUI.pauseIcon : gameUI.playIcon;
 
             if (!gameUI.Gom.Initialized || gameUI.GameState.GameStatus == Constants.GameStatus.WaitAssertion) return;

@@ -1,7 +1,6 @@
 ﻿using GameHelper;
 using GameImpl;
 using LitJson;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Utils;
@@ -54,9 +53,9 @@ public class GameUI : GameBridge
             (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["rounds"] == 3 ? "Scenes/Welcome" : "Scenes/Game");
     }
 
-    public void ToggleLog(GameObject logObj)
+    public void ToggleLog()
     {
-        logObj.SetActive(!logObj.activeSelf);
+        logActive = !logActive;
     }
 
     public void PrevStep()
