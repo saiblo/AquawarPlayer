@@ -1,0 +1,263 @@
+[
+	{
+		"cnt" : 0,
+		"cur_turn" : 0,
+		"errors" : 
+		[
+			{
+				"player" : 0,
+				"type" : 10
+			},
+			{
+				"player" : 1,
+				"type" : 10
+			}
+		],
+		"gamestate" : 2,
+		"operation" : [],
+		"over" : false,
+		"players" : 
+		[
+			{
+				"fight_fish" : [],
+				"id" : 0,
+				"my_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 1,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 2,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 3,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 4,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 5,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 6,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 7,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 8,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 9,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 10,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 11,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 12,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					}
+				],
+				"type" : 1
+			},
+			{
+				"fight_fish" : [],
+				"id" : 1,
+				"my_fish" : 
+				[
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 1,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 2,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 3,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 4,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 5,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 6,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 7,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 8,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 9,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 10,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 11,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					},
+					{
+						"atk" : 100,
+						"def" : 0,
+						"hp" : 400,
+						"id" : 12,
+						"is_expose" : false,
+						"pos" : 0,
+						"state" : 0
+					}
+				],
+				"type" : 1
+			}
+		],
+		"rounds" : 0,
+		"score" : 0,
+		"state" : 1,
+		"winner" : -1
+	},
+	null
+]
+
+
+
