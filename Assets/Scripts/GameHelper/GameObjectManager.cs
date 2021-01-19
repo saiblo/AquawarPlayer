@@ -110,7 +110,7 @@ namespace GameHelper
                     : "";
                 gameUI.myProfiles[i].SetupFish(myFishId, gameUI.myExtensions[i]);
                 gameUI.myExtensions[i].UpdateText(
-                    $"{Constants.FishName[myFishId]}\n主动：{Constants.SkillTable[myFishId]}{myImitatePrompt}"
+                    $"{Constants.FishName[myFishId]}\n主动：{Constants.SkillDescription[myFishId]}\n被动：{Constants.PassiveDescription[myFishId]}{myImitatePrompt}"
                 );
                 if (SharedRefs.Mode == Constants.GameMode.Offline || _gameStates.EnemyFishExpose[i])
                 {
@@ -119,7 +119,7 @@ namespace GameHelper
                         : "";
                     gameUI.enemyProfiles[i].SetupFish(enemyFishId, gameUI.enemyExtensions[i]);
                     gameUI.enemyExtensions[i].UpdateText(
-                        $"{Constants.FishName[enemyFishId]}\n主动：{Constants.SkillTable[enemyFishId]}{enemyImitatePrompt}"
+                        $"{Constants.FishName[enemyFishId]}\n主动：{Constants.SkillDescription[enemyFishId]}\n被动：{Constants.PassiveDescription[enemyFishId]}{enemyImitatePrompt}"
                     );
                 }
                 else
