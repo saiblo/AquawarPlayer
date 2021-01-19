@@ -77,7 +77,7 @@ namespace Utils
         public static bool HandleErrorCheck(GameUI gameUI)
         {
             var state = SharedRefs.ReplayJson[SharedRefs.ReplayCursor];
-            if (!state.ContainsKey("errors")) return false;
+            if (state == null || !state.ContainsKey("errors")) return false;
             gameUI.resultText.text = string.Join("\n", state["errors"].OfType<JsonData>().Select(ErrorParser.Parse));
             gameUI.gameOverText.text = "回到首页";
             SharedRefs.ErrorFlag = true;

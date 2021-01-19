@@ -91,8 +91,12 @@ public class GameUI : GameBridge
     public void NextRound()
     {
         while ((int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["gamestate"] != 2)
+        {
             ++SharedRefs.ReplayCursor;
+            if (ErrorParser.HandleErrorCheck(this)) return;
+        }
         ++SharedRefs.ReplayCursor;
+        if (ErrorParser.HandleErrorCheck(this)) return;
         DoneAndGoBackToPreparation();
     }
 
