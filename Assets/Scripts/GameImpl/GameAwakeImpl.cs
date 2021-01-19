@@ -33,6 +33,7 @@ namespace GameImpl
 
             if (SharedRefs.Mode == Constants.GameMode.Offline)
             {
+                if (ErrorParser.HandleErrorCheck()) return;
                 var players = SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["players"];
                 var pickFish = SharedRefs.ReplayJson[SharedRefs.ReplayCursor++]["operation"][0]["Fish"];
                 for (var i = 0; i < 4; i++)
