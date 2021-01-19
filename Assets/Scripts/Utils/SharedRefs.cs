@@ -27,7 +27,9 @@ namespace Utils
         public static JsonData ActionInfo = null; // Do not want to describe it. Shared between states. See the code.
 
         public static int MyImitate = 11;
-        
+
         public static int EnemyImitate = 11;
+
+        public static bool ErrorFlag = false; // Indicates whether reading an error record
     }
 }

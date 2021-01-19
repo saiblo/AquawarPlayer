@@ -11,7 +11,7 @@ namespace GameImpl
         /// </summary>
         public static void MoveCursor(this GameUI gameUI)
         {
-            if (ErrorParser.HandleErrorCheck()) return;
+            if (ErrorParser.HandleErrorCheck(gameUI)) return;
             var state = SharedRefs.ReplayJson[SharedRefs.ReplayCursor];
             switch ((int) state["gamestate"])
             {
