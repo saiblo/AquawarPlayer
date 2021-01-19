@@ -27,7 +27,7 @@ namespace Utils
         public Client(string tokenDecoded, string tokenEncoded)
         {
             _ws = new ClientWebSocket();
-            _ws.ConnectAsync(new Uri($"ws://{tokenDecoded}"), CancellationToken.None).Wait();
+            _ws.ConnectAsync(new Uri($"wss://{tokenDecoded}"), CancellationToken.None).Wait();
             _token = tokenEncoded;
         }
 
