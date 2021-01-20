@@ -2,7 +2,6 @@
 using GameImpl;
 using LitJson;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using Utils;
 
 public class GameUI : GameBridge
@@ -125,20 +124,32 @@ public class GameUI : GameBridge
     public void GiveUpAssertion()
     {
         GameState.Assertion = -1;
+        CloseAssertionModal();
+        doNotAssertButton.SetActive(false);
         this.ChangeStatus();
-    }
-
-    public void SetAttackType(bool normal)
-    {
-        GameState.NormalAttack = normal;
-        GameState.GameStatus = Constants.GameStatus.SelectEnemyFish;
-        normalAttackButton.GetComponent<Image>().overrideSprite = normal ? darkBlue : lightBlue;
-        skillAttackButton.GetComponent<Image>().overrideSprite = normal ? lightBlue : darkBlue;
     }
 
     public void ConfirmAttack()
     {
+        for (var i = 0; i < 4; i++) actionButtons[i].ResetButtons();
         this.ChangeStatus();
+    }
+
+    public void ReSelect()
+    {
+        for (var i = 0; i < 4; i++) actionButtons[i].ResetButtons();
+        GameState.GameStatus = Constants.GameStatus.SelectMyFish;
+        GameState.MyFishSelected = -1;
+    }
+
+    public void ShowHint()
+    {
+        hintImage.SetActive(true);
+    }
+
+    public void HideHint()
+    {
+        hintImage.SetActive(false);
     }
 
     // Extension methods

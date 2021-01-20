@@ -75,16 +75,23 @@ namespace GameHelper
         public Glance assertionModal;
         public ProfileExtension assertionExt;
 
+        public GameObject offlineOnlyButtons;
+        public GameObject questionButton;
+        public GameObject hintImage;
+        public Text hintText;
         public Image playButtonImage;
         public Button prevStepButton;
         public Button nextStepButton;
         public Button prevRoundButton;
         public Button nextRoundButton;
 
-        public GameObject assertionButtons;
-        public GameObject attackButtons;
-        public Button normalAttackButton;
-        public Button skillAttackButton;
+        public GameObject[] assertionButtons;
+        public GameObject doNotAssertButton;
+        public GameObject confirmActionGroup;
         public Button confirmAttackButton;
+
+        public ActionButtons[] actionButtons;
+
+        public CountDown countDownPrefab;
     }
 }

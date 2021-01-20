@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using GameAnim;
 using GameHelper;
-using UnityEngine.UI;
 using Utils;
 
 namespace GameImpl
@@ -50,7 +49,6 @@ namespace GameImpl
                     // no operation is needed here.
                     if (SharedRefs.Mode == Constants.GameMode.Online && gameUI.GameState.MyTurn)
                     {
-                        gameUI.assertionButtons.SetActive(false);
                         if (gameUI.GameState.Assertion == -1)
                         {
                             await SharedRefs.GameClient.Send(new Null());
@@ -135,26 +133,15 @@ namespace GameImpl
                 case Constants.GameStatus.WaitAssertion:
                     gameUI.GameState.GameStatus = Constants.GameStatus.SelectMyFish;
                     if (SharedRefs.Mode == Constants.GameMode.Offline)
-                    {
                         gameUI.MoveCursor();
-                    }
                     else if (gameUI.GameState.MyTurn)
-                    {
-                        gameUI.normalAttackButton.interactable = false;
-                        gameUI.skillAttackButton.interactable = false;
-                        gameUI.confirmAttackButton.interactable = false;
-                        gameUI.normalAttackButton.GetComponent<Image>().overrideSprite = gameUI.lightBlue;
-                        gameUI.skillAttackButton.GetComponent<Image>().overrideSprite = gameUI.lightBlue;
-                        gameUI.attackButtons.SetActive(true);
-                    }
+                        gameUI.Gom.ResetCountDown(gameUI);
                     else
-                    {
                         gameUI.RunOnUiThread(() =>
                         {
                             gameUI.ChangeStatus();
                             gameUI.ChangeStatus();
                         });
-                    }
                     break;
                 case Constants.GameStatus.SelectMyFish:
                     gameUI.GameState.GameStatus = Constants.GameStatus.SelectEnemyFish;
@@ -166,18 +153,15 @@ namespace GameImpl
                     // Handle the communication part with remote
                     if (SharedRefs.Mode == Constants.GameMode.Online && gameUI.GameState.MyTurn)
                     {
-                        gameUI.attackButtons.SetActive(false);
+                        gameUI.Gom.StopCountDown(gameUI);
                         if (gameUI.GameState.NormalAttack)
                         {
                             var enemyPos = 0;
                             for (var i = 0; i < 4; i++)
                             {
-                                // ReSharper disable once InvertIf
-                                if (gameUI.GameState.EnemyFishSelectedAsTarget[i])
-                                {
-                                    enemyPos = i;
-                                    break;
-                                }
+                                if (!gameUI.GameState.EnemyFishSelectedAsTarget[i]) continue;
+                                enemyPos = i;
+                                break;
                             }
                             await SharedRefs.GameClient.Send(new NormalAction
                             {
@@ -218,7 +202,9 @@ namespace GameImpl
                     else
                     {
                         // Game over
-                        gameUI.resultText.text = (string) SharedRefs.ActionInfo["Result"] == "Win" ? $"{GameUI.MeStr}获胜" : $"{GameUI.EnemyStr}获胜";
+                        gameUI.resultText.text = (string) SharedRefs.ActionInfo["Result"] == "Win"
+                            ? $"{GameUI.MeStr}获胜"
+                            : $"{GameUI.EnemyStr}获胜";
                         gameUI.GameOver();
                     }
                     break;

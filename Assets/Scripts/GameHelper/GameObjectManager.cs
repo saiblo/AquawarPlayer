@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Components;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utils;
@@ -33,6 +34,36 @@ namespace GameHelper
         public readonly Vector3 Small = new Vector3(3, 3, 3);
         public readonly Vector3 Large = new Vector3(4, 4, 4);
 
+        private CountDown _countDown;
+
+        public void StopCountDown(GameUI gameUI)
+        {
+            try
+            {
+                if (_countDown) Object.Destroy(_countDown.gameObject);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+            _countDown = null;
+            gameUI.roundText.text = "倒计时：--";
+        }
+
+        public void ResetCountDown(GameUI gameUI)
+        {
+            try
+            {
+                if (_countDown) Object.Destroy(_countDown.gameObject);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+            _countDown = Object.Instantiate(gameUI.countDownPrefab);
+            _countDown.StartTiming(gameUI.roundText);
+        }
+
         public static Vector3 FishRelativePosition(bool enemy, int id)
         {
             return new Vector3(
@@ -58,20 +89,25 @@ namespace GameHelper
             fishTransform.rotation = Quaternion.Euler(new Vector3(0, enemy ? 100 : 260, 0));
             if (SharedRefs.Mode == Constants.GameMode.Offline) return fishTransform;
 
+            if (!enemy) gameUI.actionButtons[j].Setup(gameUI.GameState.MyFishId[j]);
+
             var fishTrigger = new EventTrigger.Entry();
             fishTrigger.callback.AddListener(delegate
             {
                 switch (_gameStates.GameStatus)
                 {
                     case Constants.GameStatus.DoAssertion:
-                        if (enemy) _gameStates.Assertion = _gameStates.Assertion == j ? -1 : j;
+                        if (enemy)
+                        {
+                            if (gameUI.GameState.EnemyFishExpose[j]) break;
+                            _gameStates.Assertion = _gameStates.Assertion == j ? -1 : j;
+                            gameUI.CloseAssertionModal();
+                        }
                         break;
                     case Constants.GameStatus.WaitAssertion:
                         break;
                     case Constants.GameStatus.SelectMyFish:
                         if (!enemy) _gameStates.MyFishSelected = _gameStates.MyFishSelected == j ? -1 : j;
-                        gameUI.normalAttackButton.interactable = true;
-                        gameUI.skillAttackButton.interactable = true;
                         break;
                     case Constants.GameStatus.SelectEnemyFish:
                         if (enemy)
@@ -110,7 +146,7 @@ namespace GameHelper
                     : "";
                 gameUI.myProfiles[i].SetupFish(myFishId, gameUI.myExtensions[i]);
                 gameUI.myExtensions[i].UpdateText(
-                    $"{Constants.FishName[myFishId]}\n主动：{Constants.SkillTable[myFishId]}{myImitatePrompt}"
+                    $"{Constants.FishName[myFishId]}\n主动：{Constants.SkillDescription[myFishId]}\n被动：{Constants.PassiveDescription[myFishId]}{myImitatePrompt}"
                 );
                 if (SharedRefs.Mode == Constants.GameMode.Offline || _gameStates.EnemyFishExpose[i])
                 {
@@ -119,7 +155,7 @@ namespace GameHelper
                         : "";
                     gameUI.enemyProfiles[i].SetupFish(enemyFishId, gameUI.enemyExtensions[i]);
                     gameUI.enemyExtensions[i].UpdateText(
-                        $"{Constants.FishName[enemyFishId]}\n主动：{Constants.SkillTable[enemyFishId]}{enemyImitatePrompt}"
+                        $"{Constants.FishName[enemyFishId]}\n主动：{Constants.SkillDescription[enemyFishId]}\n被动：{Constants.PassiveDescription[enemyFishId]}{enemyImitatePrompt}"
                     );
                 }
                 else

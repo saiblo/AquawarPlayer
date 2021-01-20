@@ -40,7 +40,7 @@ namespace Components
 
         public void ShowExt()
         {
-            _extension.UpdateText($"{Constants.FishName[_id]}\n主动：{Constants.SkillTable[_id]}");
+            _extension.UpdateText($"{Constants.FishName[_id]}\n主动：{Constants.SkillTable[_id]}\n被动：{Constants.PassiveTable[_id]}");
             _extension.gameObject.SetActive(true);
         }
 

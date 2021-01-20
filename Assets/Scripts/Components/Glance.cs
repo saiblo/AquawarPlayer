@@ -26,6 +26,8 @@ namespace Components
             {
                 gameUI.GameState.AssertionTarget = id;
                 gameUI.CloseAssertionModal();
+                gameUI.doNotAssertButton.SetActive(false);
+                gameUI.assertionButtons[gameUI.GameState.Assertion].SetActive(false);
                 gameUI.ChangeStatus();
             });
             fish.fishAvatar.GetComponent<EventTrigger>().triggers.Add(fishTrigger);

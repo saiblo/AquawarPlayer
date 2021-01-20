@@ -42,7 +42,7 @@ namespace GameImpl
 
                 if (gameUI.GameState.MyTurn)
                 {
-                    gameUI.assertionButtons.SetActive(true);
+                    gameUI.Gom.ResetCountDown(gameUI);
                     return;
                 }
 

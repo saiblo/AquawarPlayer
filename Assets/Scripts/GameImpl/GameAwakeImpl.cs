@@ -70,13 +70,16 @@ namespace GameImpl
             }
             else
             {
+                gameUI.offlineOnlyButtons.SetActive(false);
+                gameUI.questionButton.SetActive(true);
+                gameUI.Gom.StopCountDown(gameUI);
                 gameUI.GameState.GameStatus = Constants.GameStatus.WaitingAnimation;
                 gameUI.RunOnUiThread(async () =>
                 {
                     SharedRefs.ActionInfo = await SharedRefs.GameClient.Receive(); // ASSERT
                     gameUI.GameState.MyTurn = SharedRefs.ActionInfo["EnemyAction"] == null;
                     for (var i = 0; i < Constants.FishNum; i++)
-                        gameUI.assertionModal.SetupFish(i, Constants.FishState.Free, gameUI.assertionExt, gameUI);
+                        gameUI.assertionModal.SetupFish(i, Constants.FishState.Using, gameUI.assertionExt, gameUI);
                     gameUI.NewRound();
                 });
             }
