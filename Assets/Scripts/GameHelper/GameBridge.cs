@@ -81,7 +81,8 @@ namespace GameHelper
         public Button prevRoundButton;
         public Button nextRoundButton;
 
-        public GameObject assertionButtons;
+        public GameObject[] assertionButtons;
+        public GameObject doNotAssertButton;
         public GameObject confirmActionGroup;
         public Button confirmAttackButton;
 

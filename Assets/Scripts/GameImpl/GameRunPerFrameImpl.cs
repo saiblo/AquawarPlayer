@@ -16,11 +16,20 @@ namespace GameImpl
             if (!gameUI.Gom.Initialized || gameUI.GameState.GameStatus == Constants.GameStatus.WaitAssertion) return;
 
             for (var i = 0; i < 4; i++)
+            {
+                gameUI.assertionButtons[i].SetActive(gameUI.GameState.MyTurn &&
+                                                     gameUI.GameState.GameStatus == Constants.GameStatus.DoAssertion &&
+                                                     i == gameUI.GameState.Assertion);
                 gameUI.actionButtons[i].gameObject
                     .SetActive(gameUI.GameState.MyTurn &&
                                (gameUI.GameState.GameStatus == Constants.GameStatus.SelectMyFish ||
                                 gameUI.GameState.GameStatus == Constants.GameStatus.SelectEnemyFish) &&
                                i == gameUI.GameState.MyFishSelected);
+            }
+
+            gameUI.doNotAssertButton.SetActive(gameUI.GameState.MyTurn &&
+                                               gameUI.GameState.GameStatus == Constants.GameStatus.DoAssertion);
+
 
             gameUI.confirmActionGroup.SetActive(
                 SharedRefs.Mode == Constants.GameMode.Online &&

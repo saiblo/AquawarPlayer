@@ -49,7 +49,6 @@ namespace GameImpl
                     // no operation is needed here.
                     if (SharedRefs.Mode == Constants.GameMode.Online && gameUI.GameState.MyTurn)
                     {
-                        gameUI.assertionButtons.SetActive(false);
                         if (gameUI.GameState.Assertion == -1)
                         {
                             await SharedRefs.GameClient.Send(new Null());

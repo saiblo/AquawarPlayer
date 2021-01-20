@@ -40,11 +40,7 @@ namespace GameImpl
 
                 if (!gameUI.Gom.Initialized) gameUI.Gom.Init(gameUI);
 
-                if (gameUI.GameState.MyTurn)
-                {
-                    gameUI.assertionButtons.SetActive(true);
-                    return;
-                }
+                if (gameUI.GameState.MyTurn) return;
 
                 gameUI.GameState.AssertionPlayer = 1;
                 var enemyAssert = SharedRefs.ActionInfo["EnemyAssert"];
