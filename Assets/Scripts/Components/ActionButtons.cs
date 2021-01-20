@@ -18,6 +18,12 @@ namespace Components
             skillText.text = Constants.SkillTable[fishId];
         }
 
+        public void ResetButtons()
+        {
+            normalButtonImage.overrideSprite = gameUI.lightBlue;
+            skillButtonImage.overrideSprite = gameUI.lightBlue;
+        }
+
         public void Normal()
         {
             gameUI.GameState.NormalAttack = true;

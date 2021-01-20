@@ -129,11 +129,13 @@ public class GameUI : GameBridge
 
     public void ConfirmAttack()
     {
+        for (var i = 0; i < 4; i++) actionButtons[i].ResetButtons();
         this.ChangeStatus();
     }
 
     public void ReSelect()
     {
+        for (var i = 0; i < 4; i++) actionButtons[i].ResetButtons();
         GameState.GameStatus = Constants.GameStatus.SelectMyFish;
         GameState.MyFishSelected = -1;
     }
