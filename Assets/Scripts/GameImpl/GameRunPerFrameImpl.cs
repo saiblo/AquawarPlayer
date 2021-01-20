@@ -22,6 +22,12 @@ namespace GameImpl
                                 gameUI.GameState.GameStatus == Constants.GameStatus.SelectEnemyFish) &&
                                i == gameUI.GameState.MyFishSelected);
 
+            gameUI.confirmActionGroup.SetActive(
+                SharedRefs.Mode == Constants.GameMode.Online &&
+                gameUI.GameState.GameStatus == Constants.GameStatus.SelectEnemyFish &&
+                gameUI.GameState.MyTurn
+            );
+
             gameUI.confirmAttackButton.interactable =
                 SharedRefs.Mode == Constants.GameMode.Online &&
                 gameUI.GameState.GameStatus == Constants.GameStatus.SelectEnemyFish &&

@@ -134,21 +134,13 @@ namespace GameImpl
                 case Constants.GameStatus.WaitAssertion:
                     gameUI.GameState.GameStatus = Constants.GameStatus.SelectMyFish;
                     if (SharedRefs.Mode == Constants.GameMode.Offline)
-                    {
                         gameUI.MoveCursor();
-                    }
-                    else if (gameUI.GameState.MyTurn)
-                    {
-                        gameUI.confirmAttackButton.interactable = false;
-                    }
-                    else
-                    {
+                    else if (!gameUI.GameState.MyTurn)
                         gameUI.RunOnUiThread(() =>
                         {
                             gameUI.ChangeStatus();
                             gameUI.ChangeStatus();
                         });
-                    }
                     break;
                 case Constants.GameStatus.SelectMyFish:
                     gameUI.GameState.GameStatus = Constants.GameStatus.SelectEnemyFish;
@@ -211,7 +203,9 @@ namespace GameImpl
                     else
                     {
                         // Game over
-                        gameUI.resultText.text = (string) SharedRefs.ActionInfo["Result"] == "Win" ? $"{GameUI.MeStr}获胜" : $"{GameUI.EnemyStr}获胜";
+                        gameUI.resultText.text = (string) SharedRefs.ActionInfo["Result"] == "Win"
+                            ? $"{GameUI.MeStr}获胜"
+                            : $"{GameUI.EnemyStr}获胜";
                         gameUI.GameOver();
                     }
                     break;

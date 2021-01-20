@@ -132,6 +132,12 @@ public class GameUI : GameBridge
         this.ChangeStatus();
     }
 
+    public void ReSelect()
+    {
+        GameState.GameStatus = Constants.GameStatus.SelectMyFish;
+        GameState.MyFishSelected = -1;
+    }
+
     // Extension methods
 
     // void MakeAGuess(bool enemy, int timeout)
