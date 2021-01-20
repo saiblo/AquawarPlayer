@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using GameAnim;
 using GameHelper;
-using UnityEngine.UI;
 using Utils;
 
 namespace GameImpl
@@ -140,12 +139,7 @@ namespace GameImpl
                     }
                     else if (gameUI.GameState.MyTurn)
                     {
-                        gameUI.normalAttackButton.interactable = false;
-                        gameUI.skillAttackButton.interactable = false;
                         gameUI.confirmAttackButton.interactable = false;
-                        gameUI.normalAttackButton.GetComponent<Image>().overrideSprite = gameUI.lightBlue;
-                        gameUI.skillAttackButton.GetComponent<Image>().overrideSprite = gameUI.lightBlue;
-                        gameUI.attackButtons.SetActive(true);
                     }
                     else
                     {
@@ -166,7 +160,6 @@ namespace GameImpl
                     // Handle the communication part with remote
                     if (SharedRefs.Mode == Constants.GameMode.Online && gameUI.GameState.MyTurn)
                     {
-                        gameUI.attackButtons.SetActive(false);
                         if (gameUI.GameState.NormalAttack)
                         {
                             var enemyPos = 0;

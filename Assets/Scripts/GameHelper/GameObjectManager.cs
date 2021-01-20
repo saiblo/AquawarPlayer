@@ -58,6 +58,8 @@ namespace GameHelper
             fishTransform.rotation = Quaternion.Euler(new Vector3(0, enemy ? 100 : 260, 0));
             if (SharedRefs.Mode == Constants.GameMode.Offline) return fishTransform;
 
+            if (!enemy) gameUI.actionButtons[j].Setup(gameUI.GameState.MyFishId[j]);
+
             var fishTrigger = new EventTrigger.Entry();
             fishTrigger.callback.AddListener(delegate
             {
@@ -70,8 +72,6 @@ namespace GameHelper
                         break;
                     case Constants.GameStatus.SelectMyFish:
                         if (!enemy) _gameStates.MyFishSelected = _gameStates.MyFishSelected == j ? -1 : j;
-                        gameUI.normalAttackButton.interactable = true;
-                        gameUI.skillAttackButton.interactable = true;
                         break;
                     case Constants.GameStatus.SelectEnemyFish:
                         if (enemy)

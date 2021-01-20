@@ -15,6 +15,13 @@ namespace GameImpl
 
             if (!gameUI.Gom.Initialized || gameUI.GameState.GameStatus == Constants.GameStatus.WaitAssertion) return;
 
+            for (var i = 0; i < 4; i++)
+                gameUI.actionButtons[i].gameObject
+                    .SetActive(gameUI.GameState.MyTurn &&
+                               (gameUI.GameState.GameStatus == Constants.GameStatus.SelectMyFish ||
+                                gameUI.GameState.GameStatus == Constants.GameStatus.SelectEnemyFish) &&
+                               i == gameUI.GameState.MyFishSelected);
+
             gameUI.confirmAttackButton.interactable =
                 SharedRefs.Mode == Constants.GameMode.Online &&
                 gameUI.GameState.GameStatus == Constants.GameStatus.SelectEnemyFish &&
