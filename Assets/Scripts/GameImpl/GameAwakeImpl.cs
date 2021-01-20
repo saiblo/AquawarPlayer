@@ -71,6 +71,7 @@ namespace GameImpl
             else
             {
                 gameUI.offlineOnlyButtons.SetActive(false);
+                gameUI.questionButton.SetActive(true);
                 gameUI.Gom.StopCountDown(gameUI);
                 gameUI.GameState.GameStatus = Constants.GameStatus.WaitingAnimation;
                 gameUI.RunOnUiThread(async () =>

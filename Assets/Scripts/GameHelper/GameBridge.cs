@@ -76,6 +76,9 @@ namespace GameHelper
         public ProfileExtension assertionExt;
 
         public GameObject offlineOnlyButtons;
+        public GameObject questionButton;
+        public GameObject hintImage;
+        public Text hintText;
         public Image playButtonImage;
         public Button prevStepButton;
         public Button nextStepButton;

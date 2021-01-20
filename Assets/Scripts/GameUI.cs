@@ -142,6 +142,16 @@ public class GameUI : GameBridge
         GameState.MyFishSelected = -1;
     }
 
+    public void ShowHint()
+    {
+        hintImage.SetActive(true);
+    }
+
+    public void HideHint()
+    {
+        hintImage.SetActive(false);
+    }
+
     // Extension methods
 
     // void MakeAGuess(bool enemy, int timeout)

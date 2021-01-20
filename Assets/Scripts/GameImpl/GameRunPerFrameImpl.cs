@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Utils;
 
 namespace GameImpl
@@ -61,6 +62,32 @@ namespace GameImpl
                             ? gameUI.Gom.Large
                             : gameUI.Gom.Small;
             }
+
+            var text = "请等待动画放完。";
+
+            if (gameUI.GameState.MyTurn)
+            {
+                switch (gameUI.GameState.GameStatus)
+                {
+                    case Constants.GameStatus.DoAssertion:
+                        text = "请选择你要断言的敌方鱼，或点击屏幕右下方的放弃断言。";
+                        break;
+                    case Constants.GameStatus.WaitAssertion:
+                        break;
+                    case Constants.GameStatus.SelectMyFish:
+                        text = "请选择我方鱼，并选择使用的技能。";
+                        break;
+                    case Constants.GameStatus.SelectEnemyFish:
+                        text = "请选择行动的作用对象，或点击屏幕右下方的重新选鱼。";
+                        break;
+                    case Constants.GameStatus.WaitingAnimation:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+
+            gameUI.hintText.text = text;
         }
     }
 }
