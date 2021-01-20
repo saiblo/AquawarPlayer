@@ -124,6 +124,8 @@ public class GameUI : GameBridge
     public void GiveUpAssertion()
     {
         GameState.Assertion = -1;
+        CloseAssertionModal();
+        doNotAssertButton.SetActive(false);
         this.ChangeStatus();
     }
 

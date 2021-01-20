@@ -66,7 +66,11 @@ namespace GameHelper
                 switch (_gameStates.GameStatus)
                 {
                     case Constants.GameStatus.DoAssertion:
-                        if (enemy) _gameStates.Assertion = _gameStates.Assertion == j ? -1 : j;
+                        if (enemy)
+                        {
+                            _gameStates.Assertion = _gameStates.Assertion == j ? -1 : j;
+                            gameUI.CloseAssertionModal();
+                        }
                         break;
                     case Constants.GameStatus.WaitAssertion:
                         break;
