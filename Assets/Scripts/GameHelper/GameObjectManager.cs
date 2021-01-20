@@ -99,6 +99,7 @@ namespace GameHelper
                     case Constants.GameStatus.DoAssertion:
                         if (enemy)
                         {
+                            if (gameUI.GameState.EnemyFishExpose[j]) break;
                             _gameStates.Assertion = _gameStates.Assertion == j ? -1 : j;
                             gameUI.CloseAssertionModal();
                         }
