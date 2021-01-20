@@ -7,7 +7,7 @@ namespace GameImpl
     {
         public static void RunPerFrameImpl(this GameUI gameUI)
         {
-            gameUI.roundText.text = $"操作数：{SharedRefs.ReplayCursor}";
+            if (SharedRefs.Mode == Constants.GameMode.Offline) gameUI.roundText.text = $"操作数：{SharedRefs.ReplayCursor}";
 
             gameUI.logObject.SetActive(gameUI.logActive);
 

@@ -134,7 +134,9 @@ namespace GameImpl
                     gameUI.GameState.GameStatus = Constants.GameStatus.SelectMyFish;
                     if (SharedRefs.Mode == Constants.GameMode.Offline)
                         gameUI.MoveCursor();
-                    else if (!gameUI.GameState.MyTurn)
+                    else if (gameUI.GameState.MyTurn)
+                        gameUI.Gom.ResetCountDown(gameUI);
+                    else
                         gameUI.RunOnUiThread(() =>
                         {
                             gameUI.ChangeStatus();
@@ -151,17 +153,15 @@ namespace GameImpl
                     // Handle the communication part with remote
                     if (SharedRefs.Mode == Constants.GameMode.Online && gameUI.GameState.MyTurn)
                     {
+                        gameUI.Gom.StopCountDown(gameUI);
                         if (gameUI.GameState.NormalAttack)
                         {
                             var enemyPos = 0;
                             for (var i = 0; i < 4; i++)
                             {
-                                // ReSharper disable once InvertIf
-                                if (gameUI.GameState.EnemyFishSelectedAsTarget[i])
-                                {
-                                    enemyPos = i;
-                                    break;
-                                }
+                                if (!gameUI.GameState.EnemyFishSelectedAsTarget[i]) continue;
+                                enemyPos = i;
+                                break;
                             }
                             await SharedRefs.GameClient.Send(new NormalAction
                             {

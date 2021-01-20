@@ -75,6 +75,7 @@ namespace GameHelper
         public Glance assertionModal;
         public ProfileExtension assertionExt;
 
+        public GameObject offlineOnlyButtons;
         public Image playButtonImage;
         public Button prevStepButton;
         public Button nextStepButton;
@@ -87,5 +88,7 @@ namespace GameHelper
         public Button confirmAttackButton;
 
         public ActionButtons[] actionButtons;
+
+        public CountDown countDownPrefab;
     }
 }

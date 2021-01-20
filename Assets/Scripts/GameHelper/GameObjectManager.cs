@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Components;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utils;
@@ -32,6 +33,36 @@ namespace GameHelper
         // Misc
         public readonly Vector3 Small = new Vector3(3, 3, 3);
         public readonly Vector3 Large = new Vector3(4, 4, 4);
+
+        private CountDown _countDown;
+
+        public void StopCountDown(GameUI gameUI)
+        {
+            try
+            {
+                if (_countDown) Object.Destroy(_countDown.gameObject);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+            _countDown = null;
+            gameUI.roundText.text = "倒计时：--";
+        }
+
+        public void ResetCountDown(GameUI gameUI)
+        {
+            try
+            {
+                if (_countDown) Object.Destroy(_countDown.gameObject);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+            _countDown = Object.Instantiate(gameUI.countDownPrefab);
+            _countDown.StartTiming(gameUI.roundText);
+        }
 
         public static Vector3 FishRelativePosition(bool enemy, int id)
         {
