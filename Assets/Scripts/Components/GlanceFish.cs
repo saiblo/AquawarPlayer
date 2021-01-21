@@ -14,6 +14,8 @@ namespace Components
         private int _id;
         private ProfileExtension _extension;
 
+        public bool detailed;
+
         public void SetupFish(int id, Constants.FishState state, ProfileExtension extension)
         {
             fishAvatar.overrideSprite = SharedRefs.FishAvatars[id];
@@ -40,7 +42,9 @@ namespace Components
 
         public void ShowExt()
         {
-            _extension.UpdateText($"{Constants.FishName[_id]}\n主动：{Constants.SkillTable[_id]}\n被动：{Constants.PassiveTable[_id]}");
+            _extension.UpdateText(
+                $"{Constants.FishName[_id]}\n主动：{(detailed ? Constants.SkillDescription : Constants.SkillTable)[_id]}\n被动：{(detailed ? Constants.PassiveDescription : Constants.PassiveTable)[_id]}"
+            );
             _extension.gameObject.SetActive(true);
         }
 
