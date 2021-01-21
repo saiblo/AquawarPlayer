@@ -24,18 +24,21 @@ namespace GameImpl
             }
             else
             {
-                var gameInfo = SharedRefs.ActionInfo["GameInfo"];
                 gameUI.GameState.GameStatus = Constants.GameStatus.DoAssertion;
-                for (var i = 0; i < 4; i++)
+                if (SharedRefs.ActionInfo.ContainsKey("GameInfo"))
                 {
-                    gameUI.GameState.MyFishId[i] = SharedRefs.FishChosen[i];
-                    if ((int) gameInfo["EnemyFish"][i] > 0)
-                        gameUI.GameState.EnemyFishId[i] = (int) gameInfo["EnemyFish"][i] - 1;
-                    gameUI.myStatus[i].Current = (int) gameInfo["MyHP"][i];
-                    gameUI.enemyStatus[i].Current = (int) gameInfo["EnemyHP"][i];
-                    gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Current);
-                    gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Current);
-                    gameUI.myProfiles[i].SetAtk((int) gameInfo["MyATK"][i]);
+                    var gameInfo = SharedRefs.ActionInfo["GameInfo"];
+                    for (var i = 0; i < 4; i++)
+                    {
+                        gameUI.GameState.MyFishId[i] = SharedRefs.FishChosen[i];
+                        if ((int) gameInfo["EnemyFish"][i] > 0)
+                            gameUI.GameState.EnemyFishId[i] = (int) gameInfo["EnemyFish"][i] - 1;
+                        gameUI.myStatus[i].Current = (int) gameInfo["MyHP"][i];
+                        gameUI.enemyStatus[i].Current = (int) gameInfo["EnemyHP"][i];
+                        gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Current);
+                        gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Current);
+                        gameUI.myProfiles[i].SetAtk((int) gameInfo["MyATK"][i]);
+                    }
                 }
 
                 if (!gameUI.Gom.Initialized) gameUI.Gom.Init(gameUI);
