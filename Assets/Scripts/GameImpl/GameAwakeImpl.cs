@@ -70,10 +70,22 @@ namespace GameImpl
             }
             else
             {
+                gameUI.scoreText.text = $"{SharedRefs.OnlineLose}:{SharedRefs.OnlineWin}";
+                gameUI.offlineOnlyButtons.SetActive(false);
+                gameUI.questionButton.SetActive(true);
+                gameUI.Gom.StopCountDown(gameUI);
                 gameUI.GameState.GameStatus = Constants.GameStatus.WaitingAnimation;
                 gameUI.RunOnUiThread(async () =>
                 {
                     SharedRefs.ActionInfo = await SharedRefs.GameClient.Receive(); // ASSERT
+                    if ((string) SharedRefs.ActionInfo["Action"] == "EarlyFinish")
+                    {
+                        gameUI.resultText.text = (string) SharedRefs.ActionInfo["Result"] == "Win"
+                            ? $"{GameUI.MeStr}获胜"
+                            : $"{GameUI.EnemyStr}获胜";
+                        gameUI.GameOver((string) SharedRefs.ActionInfo["Result"] == "Win", true);
+                        return;
+                    }
                     gameUI.GameState.MyTurn = SharedRefs.ActionInfo["EnemyAction"] == null;
                     for (var i = 0; i < Constants.FishNum; i++)
                         gameUI.assertionModal.SetupFish(i, Constants.FishState.Using, gameUI.assertionExt, gameUI);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Components;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utils;
@@ -32,6 +33,36 @@ namespace GameHelper
         // Misc
         public readonly Vector3 Small = new Vector3(3, 3, 3);
         public readonly Vector3 Large = new Vector3(4, 4, 4);
+
+        private CountDown _countDown;
+
+        public void StopCountDown(GameUI gameUI)
+        {
+            try
+            {
+                if (_countDown) Object.Destroy(_countDown.gameObject);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+            _countDown = null;
+            gameUI.roundText.text = "倒计时：--";
+        }
+
+        public void ResetCountDown(GameUI gameUI)
+        {
+            try
+            {
+                if (_countDown) Object.Destroy(_countDown.gameObject);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+            _countDown = Object.Instantiate(gameUI.countDownPrefab);
+            _countDown.StartTiming(gameUI.roundText);
+        }
 
         public static Vector3 FishRelativePosition(bool enemy, int id)
         {
@@ -68,6 +99,7 @@ namespace GameHelper
                     case Constants.GameStatus.DoAssertion:
                         if (enemy)
                         {
+                            if (gameUI.GameState.EnemyFishExpose[j]) break;
                             _gameStates.Assertion = _gameStates.Assertion == j ? -1 : j;
                             gameUI.CloseAssertionModal();
                         }
@@ -187,6 +219,12 @@ namespace GameHelper
                     EnemyFogs[i].gameObject.SetActive(!(bool) lastPlayers[1]["fight_fish"][i]["is_expose"]);
                 }
             }
+        }
+
+        public static void UpdateHiddenExtension(GameUI gameUI, int id)
+        {
+            gameUI.enemyExtensions[id].text.text =
+                $"隐藏\n用过的主动：{string.Join(",", gameUI.GameState.EnemyUsedSkills[id])}\n用过的被动：{string.Join(",", gameUI.GameState.EnemyUsedPassives[id])}";
         }
 
         public GameObjectManager(GameStates gameStates)

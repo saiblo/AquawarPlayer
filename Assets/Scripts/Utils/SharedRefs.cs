@@ -31,5 +31,8 @@ namespace Utils
         public static int EnemyImitate = 11;
 
         public static bool ErrorFlag = false; // Indicates whether reading an error record
+
+        public static int OnlineWin = 0;
+        public static int OnlineLose = 0;
     }
 }

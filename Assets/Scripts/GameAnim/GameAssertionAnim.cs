@@ -40,6 +40,9 @@ namespace GameAnim
                         gameUI.GameState.Assertion,
                         gameUI
                     );
+                    gameUI.enemyExtensions[gameUI.GameState.Assertion].UpdateText(
+                        $"{Constants.FishName[gameUI.GameState.AssertionTarget]}\n主动：{Constants.SkillDescription[gameUI.GameState.AssertionTarget]}\n被动：{Constants.PassiveDescription[gameUI.GameState.AssertionTarget]}"
+                    );
                     gameUI.enemyProfiles[gameUI.GameState.Assertion].SetupFish(
                         gameUI.GameState.AssertionTarget,
                         gameUI.enemyExtensions[gameUI.GameState.Assertion]

@@ -34,10 +34,16 @@ namespace GameHelper
 
         public readonly bool[] MyFishExpose = {false, false, false, false};
         public readonly bool[] EnemyFishExpose = {false, false, false, false};
-        
+
         public readonly List<int> MyFishPicked = new List<int>();
         public readonly List<int> EnemyFishPicked = new List<int>();
         public readonly List<int> MyFishAvailable = new List<int>();
         public readonly List<int> EnemyFishAvailable = new List<int>();
+
+        public readonly HashSet<string>[] EnemyUsedSkills =
+            {new HashSet<string>(), new HashSet<string>(), new HashSet<string>(), new HashSet<string>()};
+
+        public readonly HashSet<string>[] EnemyUsedPassives =
+            {new HashSet<string>(), new HashSet<string>(), new HashSet<string>(), new HashSet<string>()};
     }
 }

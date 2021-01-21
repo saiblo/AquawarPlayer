@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Utils;
 using Object = UnityEngine.Object;
 
@@ -11,23 +12,45 @@ namespace GameImpl
             if (enemy) gameUI.GameState.EnemyFishAlive[pos] = false;
             else gameUI.GameState.MyFishAlive[pos] = false;
 
-            var meshRenderers = (enemy ? gameUI.Gom.EnemyFishMeshRenderers : gameUI.Gom.MyFishMeshRenderers)[pos];
-            var fish = (enemy ? gameUI.Gom.EnemyFishTransforms : gameUI.Gom.MyFishTransforms)[pos];
-            var fog = (enemy ? gameUI.Gom.EnemyFogs : gameUI.Gom.MyFogs)[pos];
-            (enemy ? gameUI.Gom.EnemyFishParticleSystems : gameUI.Gom.MyFishParticleSystems)[pos]?.Play();
+            try
+            {
+                var meshRenderers = (enemy ? gameUI.Gom.EnemyFishMeshRenderers : gameUI.Gom.MyFishMeshRenderers)[pos];
+                var fish = (enemy ? gameUI.Gom.EnemyFishTransforms : gameUI.Gom.MyFishTransforms)[pos];
+                var fog = (enemy ? gameUI.Gom.EnemyFogs : gameUI.Gom.MyFogs)[pos];
+                (enemy ? gameUI.Gom.EnemyFishParticleSystems : gameUI.Gom.MyFishParticleSystems)[pos]?.Play();
 
-            foreach (var meshRenderer in meshRenderers) meshRenderer.material = gameUI.dissolveEffect;
-            gameUI.Repeat(cnt =>
-                {
-                    foreach (var meshRenderer in meshRenderers)
-                        meshRenderer.material.SetFloat(gameUI.DissolveShaderProperty,
-                            gameUI.fadeIn.Evaluate(Mathf.InverseLerp(0, 3, cnt / 25f)));
-                }, () =>
-                {
-                    if (fish != null) Object.Destroy(fish.gameObject);
-                    fog.gameObject.SetActive(false);
-                },
-                75, 0, 40);
+                foreach (var meshRenderer in meshRenderers) meshRenderer.material = gameUI.dissolveEffect;
+
+                gameUI.Repeat(cnt =>
+                    {
+                        try
+                        {
+                            foreach (var meshRenderer in meshRenderers)
+                                meshRenderer.material.SetFloat(gameUI.DissolveShaderProperty,
+                                    gameUI.fadeIn.Evaluate(Mathf.InverseLerp(0, 3, cnt / 25f)));
+                        }
+                        catch (Exception)
+                        {
+                            // ignored
+                        }
+                    }, () =>
+                    {
+                        try
+                        {
+                            if (fish != null) Object.Destroy(fish.gameObject);
+                            fog.gameObject.SetActive(false);
+                        }
+                        catch (Exception)
+                        {
+                            // ignored
+                        }
+                    },
+                    75, 0, 40);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
 
             var name = SharedRefs.Mode == Constants.GameMode.Offline || !enemy || gameUI.GameState.EnemyFishExpose[pos]
                 ? Constants.FishName[(enemy ? gameUI.GameState.EnemyFishId : gameUI.GameState.MyFishId)[pos]]

@@ -19,6 +19,7 @@ namespace Components
             fish.GetComponent<Transform>().localPosition
                 = new Vector3((id % 4 - 1.5f) * hDist, (1 - id / 4) * vDist - vBias);
             fish.SetupFish(id, state, extension);
+            fish.detailed = gameUI != null;
 
             if (!gameUI) return;
             var fishTrigger = new EventTrigger.Entry();
@@ -27,6 +28,7 @@ namespace Components
                 gameUI.GameState.AssertionTarget = id;
                 gameUI.CloseAssertionModal();
                 gameUI.doNotAssertButton.SetActive(false);
+                gameUI.assertionButtons[gameUI.GameState.Assertion].SetActive(false);
                 gameUI.ChangeStatus();
             });
             fish.fishAvatar.GetComponent<EventTrigger>().triggers.Add(fishTrigger);

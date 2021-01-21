@@ -48,8 +48,25 @@ public class GameUI : GameBridge
             SceneManager.LoadScene("Scenes/Welcome");
             return;
         }
-        SceneManager.LoadScene(SharedRefs.Mode == Constants.GameMode.Online ? "Scenes/Preparation" :
-            (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["rounds"] == 3 ? "Scenes/Welcome" : "Scenes/Game");
+        if (SharedRefs.Mode == Constants.GameMode.Online)
+            SceneManager.LoadScene(SharedRefs.OnlineLose + SharedRefs.OnlineWin == 3
+                ? "Scenes/Welcome"
+                : "Scenes/Preparation");
+        else
+            SceneManager.LoadScene((int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["rounds"] == 3
+                ? "Scenes/Welcome"
+                : "Scenes/Game");
+    }
+
+    public void BackHomeWrapper()
+    {
+        if (SharedRefs.Mode == Constants.GameMode.Offline) BackHome();
+        else exitConfirmMask.SetActive(true);
+    }
+
+    public void OnlineCancelBackHome()
+    {
+        exitConfirmMask.SetActive(false);
     }
 
     public void ToggleLog()
@@ -140,6 +157,16 @@ public class GameUI : GameBridge
         for (var i = 0; i < 4; i++) actionButtons[i].ResetButtons();
         GameState.GameStatus = Constants.GameStatus.SelectMyFish;
         GameState.MyFishSelected = -1;
+    }
+
+    public void ShowHint()
+    {
+        hintImage.SetActive(true);
+    }
+
+    public void HideHint()
+    {
+        hintImage.SetActive(false);
     }
 
     // Extension methods
