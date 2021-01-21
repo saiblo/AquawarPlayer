@@ -18,17 +18,20 @@ namespace GameImpl
 
             for (var i = 0; i < 4; i++)
             {
-                gameUI.assertionButtons[i].SetActive(gameUI.GameState.MyTurn &&
+                gameUI.assertionButtons[i].SetActive(SharedRefs.Mode == Constants.GameMode.Online &&
+                                                     gameUI.GameState.MyTurn &&
                                                      gameUI.GameState.GameStatus == Constants.GameStatus.DoAssertion &&
                                                      i == gameUI.GameState.Assertion);
                 gameUI.actionButtons[i].gameObject
-                    .SetActive(gameUI.GameState.MyTurn &&
+                    .SetActive(SharedRefs.Mode == Constants.GameMode.Online &&
+                               gameUI.GameState.MyTurn &&
                                (gameUI.GameState.GameStatus == Constants.GameStatus.SelectMyFish ||
                                 gameUI.GameState.GameStatus == Constants.GameStatus.SelectEnemyFish) &&
                                i == gameUI.GameState.MyFishSelected);
             }
 
-            gameUI.doNotAssertButton.SetActive(gameUI.GameState.MyTurn &&
+            gameUI.doNotAssertButton.SetActive(SharedRefs.Mode == Constants.GameMode.Online &&
+                                               gameUI.GameState.MyTurn &&
                                                gameUI.GameState.GameStatus == Constants.GameStatus.DoAssertion);
 
 
@@ -65,7 +68,7 @@ namespace GameImpl
 
             var text = "请等待动画放完。";
 
-            if (gameUI.GameState.MyTurn)
+            if (SharedRefs.Mode == Constants.GameMode.Online && gameUI.GameState.MyTurn)
             {
                 switch (gameUI.GameState.GameStatus)
                 {
