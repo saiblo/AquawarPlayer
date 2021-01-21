@@ -23,6 +23,10 @@ public class Preparation : MonoBehaviour
 
     public FishDetail fishDetailPrefab;
 
+    public CountDown countDownPrefab;
+
+    public Text countDownText;
+
     public Transform backgroundBase;
 
     public Image[] queue;
@@ -86,6 +90,7 @@ public class Preparation : MonoBehaviour
             if (_fishSelectStatus[i] == SelectStatus.Unavailable)
                 profiles[i].GetComponent<Image>().color = _unavailable;
         }
+        Instantiate(countDownPrefab).StartTiming(countDownText);
     }
 
     public void ConfirmSelection()
