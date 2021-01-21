@@ -29,9 +29,9 @@ public class Preparation : MonoBehaviour
 
     private readonly List<int> _selectedList = new List<int>();
 
-    private readonly Color _unavailable = new Color(1, 0, 0, 0.8f);
-    private readonly Color _available = new Color(0, 0, 0, 0.5f);
-    private readonly Color _selected = new Color(0, 1, 0, 0.8f);
+    private readonly Color _unavailable = Color.black;
+    private readonly Color _available = new Color(1, 1, 1, 0.6f);
+    private readonly Color _selected = Color.green;
 
     private bool _imitating;
 
@@ -66,13 +66,15 @@ public class Preparation : MonoBehaviour
     private void Awake()
     {
         var result = SharedRefs.PickInfo;
-        if ((string) result["Action"] == "Pick")
+        if ((string)result["Action"] == "Pick")
         {
             var remaining = result["RemainFishs"];
             for (var i = 0; i < remaining.Count; i++)
-                _fishSelectStatus[(int) remaining[i] - 1] = SelectStatus.Available;
+                _fishSelectStatus[(int)remaining[i] - 1] = SelectStatus.Available;
         }
-        for (var i = 0; i < Constants.FishNum; i++)
+        //for (var i = 0; i < 12; i++)
+        //    _fishSelectStatus[i] = SelectStatus.Available;
+            for (var i = 0; i < Constants.FishNum; i++)
         {
             var detail = Instantiate(fishDetailPrefab, backgroundBase);
             detail.GetComponent<Transform>().localPosition = new Vector3(1470, 410);
