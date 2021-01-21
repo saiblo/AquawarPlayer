@@ -27,6 +27,8 @@ public class Preparation : MonoBehaviour
 
     public Image[] queue;
 
+    public GameObject exitConfirmMask;
+
     private readonly List<int> _selectedList = new List<int>();
 
     private readonly Color _unavailable = Color.black;
@@ -66,15 +68,13 @@ public class Preparation : MonoBehaviour
     private void Awake()
     {
         var result = SharedRefs.PickInfo;
-        if ((string)result["Action"] == "Pick")
+        if ((string) result["Action"] == "Pick")
         {
             var remaining = result["RemainFishs"];
             for (var i = 0; i < remaining.Count; i++)
-                _fishSelectStatus[(int)remaining[i] - 1] = SelectStatus.Available;
+                _fishSelectStatus[(int) remaining[i] - 1] = SelectStatus.Available;
         }
-        //for (var i = 0; i < 12; i++)
-        //    _fishSelectStatus[i] = SelectStatus.Available;
-            for (var i = 0; i < Constants.FishNum; i++)
+        for (var i = 0; i < Constants.FishNum; i++)
         {
             var detail = Instantiate(fishDetailPrefab, backgroundBase);
             detail.GetComponent<Transform>().localPosition = new Vector3(1470, 410);
@@ -146,9 +146,19 @@ public class Preparation : MonoBehaviour
         }
     }
 
+    public void BackToWelcomeWrapper()
+    {
+        exitConfirmMask.SetActive(true);
+    }
+
     public void BackToWelcome()
     {
         SceneManager.LoadScene("Scenes/Welcome");
+    }
+
+    public void OnlineCancelBackHome()
+    {
+        exitConfirmMask.SetActive(false);
     }
 
     private void Update()
