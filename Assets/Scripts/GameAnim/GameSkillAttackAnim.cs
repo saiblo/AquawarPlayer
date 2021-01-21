@@ -17,6 +17,7 @@ namespace GameAnim
             {
                 case "aoe":
                 {
+                    if (!myTurn) gameUI.GameState.EnemyUsedSkills[actionFish].Add("AOE");
                     var targetList = actionInfo["skill"]["targets"];
                     var ids = new List<string>();
                     for (var i = 0; i < targetList.Count; i++)
@@ -57,6 +58,7 @@ namespace GameAnim
                 }
                 case "infight":
                 {
+                    if (!myTurn) gameUI.GameState.EnemyUsedSkills[actionFish].Add("伤害队友");
                     var target = (int) actionInfo["skill"]["targets"][0]["pos"];
                     var myFishExplode = UnityEngine.Object.Instantiate(gameUI.bigExplosion, gameUI.allFishRoot);
                     myFishExplode.localPosition = GameObjectManager.FishRelativePosition(!myTurn, target);
@@ -69,6 +71,7 @@ namespace GameAnim
                 }
                 case "crit":
                 {
+                    if (!myTurn) gameUI.GameState.EnemyUsedSkills[actionFish].Add("暴击");
                     var target = (int) actionInfo["skill"]["targets"][0]["pos"];
                     var distance =
                         GameObjectManager.FishRelativePosition(!myTurn, actionFish) -
@@ -94,6 +97,7 @@ namespace GameAnim
                 }
                 case "subtle":
                 {
+                    if (!myTurn) gameUI.GameState.EnemyUsedSkills[actionFish].Add("无作为技能");
                     if (SharedRefs.Mode == Constants.GameMode.Online && !myTurn)
                     {
                         gameUI.AddLog($"{logPrefix}己方使用了无作为技能。");
@@ -120,6 +124,8 @@ namespace GameAnim
                     break;
                 }
             }
+            if (!myTurn && !gameUI.GameState.EnemyFishExpose[actionFish])
+                GameObjectManager.UpdateHiddenExtension(gameUI, actionFish);
         }
     }
 }

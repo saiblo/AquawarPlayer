@@ -55,13 +55,19 @@ namespace GameImpl
             {
                 if (gameUI.GameState.MyFishAlive[i])
                     gameUI.Gom.MyFishTransforms[i].localScale =
-                        gameUI.GameState.MyFishSelectedAsTarget[i] || gameUI.GameState.MyFishSelected == i
+                        gameUI.GameState.GameStatus == Constants.GameStatus.SelectMyFish &&
+                        gameUI.GameState.MyFishSelected == i ||
+                        gameUI.GameState.GameStatus == Constants.GameStatus.SelectEnemyFish &&
+                        gameUI.GameState.MyFishSelectedAsTarget[i]
                             ? gameUI.Gom.Large
                             : gameUI.Gom.Small;
 
                 if (gameUI.GameState.EnemyFishAlive[i])
                     gameUI.Gom.EnemyFishTransforms[i].localScale =
-                        gameUI.GameState.EnemyFishSelectedAsTarget[i] || gameUI.GameState.EnemyFishSelected == i
+                        gameUI.GameState.GameStatus == Constants.GameStatus.SelectMyFish &&
+                        gameUI.GameState.EnemyFishSelected == i ||
+                        gameUI.GameState.GameStatus == Constants.GameStatus.SelectEnemyFish &&
+                        gameUI.GameState.EnemyFishSelectedAsTarget[i]
                             ? gameUI.Gom.Large
                             : gameUI.Gom.Small;
             }

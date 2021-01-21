@@ -21,6 +21,7 @@ namespace GameAnim
                 {
                     case "counter":
                     {
+                        if (enemy) gameUI.GameState.EnemyUsedPassives[sourcePos].Add("膨胀反伤");
                         gameUI.SetTimeout(() =>
                         {
                             var explosion = Object.Instantiate(gameUI.smallExplosion, gameUI.allFishRoot);
@@ -31,6 +32,7 @@ namespace GameAnim
                         break;
                     }
                     case "deflect":
+                        if (enemy) gameUI.GameState.EnemyUsedPassives[sourcePos].Add("队友承伤");
                         gameUI.SetTimeout(() =>
                         {
                             for (var j = 0; j < 4; j++)
@@ -47,6 +49,7 @@ namespace GameAnim
                         break;
                     case "reduce":
                     {
+                        if (enemy) gameUI.GameState.EnemyUsedPassives[sourcePos].Add("减伤");
                         var shield = Object.Instantiate(gameUI.shieldEffect, gameUI.allFishRoot);
                         shield.localPosition = GameObjectManager.FishRelativePosition(enemy, sourcePos);
                         gameUI.SetTimeout(() => { Object.Destroy(shield.gameObject); }, 3000);
@@ -55,6 +58,7 @@ namespace GameAnim
                     }
                     case "heal":
                     {
+                        if (enemy) gameUI.GameState.EnemyUsedPassives[sourcePos].Add("自愈");
                         gameUI.SetTimeout(() =>
                         {
                             var recover = Object.Instantiate(gameUI.recoverEffect, gameUI.allFishRoot);
@@ -66,6 +70,7 @@ namespace GameAnim
                     }
                     case "explode":
                     {
+                        if (enemy) gameUI.GameState.EnemyUsedPassives[sourcePos].Add("亡语");
                         gameUI.SetTimeout(() =>
                         {
                             var fireBall = Object.Instantiate(gameUI.fireBallPrefab, gameUI.allFishRoot);
@@ -76,6 +81,8 @@ namespace GameAnim
                         break;
                     }
                 }
+                if (enemy && !gameUI.GameState.EnemyFishExpose[sourcePos])
+                    GameObjectManager.UpdateHiddenExtension(gameUI, sourcePos);
             }
         }
     }

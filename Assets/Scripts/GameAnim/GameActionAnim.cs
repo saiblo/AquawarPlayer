@@ -10,7 +10,7 @@ namespace GameAnim
                 SharedRefs.Mode == Constants.GameMode.Offline
                     ? SharedRefs.ActionInfo
                     : SharedRefs.ActionInfo[gameUI.GameState.MyTurn ? "MyAction" : "EnemyAction"];
-            gameUI.GameState.NormalAttack = !actionInfo.ContainsKey("skill");
+            gameUI.GameState.NormalAttack = (string) actionInfo["skill"]["type"] == "normalattack";
 
             var fishId = (gameUI.GameState.MyTurn ? gameUI.GameState.MyFishId : gameUI.GameState.EnemyFishId)
                 [(int) actionInfo["ActionFish"]];

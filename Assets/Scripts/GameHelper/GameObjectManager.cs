@@ -221,6 +221,12 @@ namespace GameHelper
             }
         }
 
+        public static void UpdateHiddenExtension(GameUI gameUI, int id)
+        {
+            gameUI.enemyExtensions[id].text.text =
+                $"隐藏\n用过的主动：{string.Join(",", gameUI.GameState.EnemyUsedSkills[id])}\n用过的被动：{string.Join(",", gameUI.GameState.EnemyUsedPassives[id])}";
+        }
+
         public GameObjectManager(GameStates gameStates)
         {
             _gameStates = gameStates;

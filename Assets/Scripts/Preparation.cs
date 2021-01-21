@@ -23,15 +23,21 @@ public class Preparation : MonoBehaviour
 
     public FishDetail fishDetailPrefab;
 
+    public CountDown countDownPrefab;
+
+    public Text countDownText;
+
     public Transform backgroundBase;
 
     public Image[] queue;
 
+    public GameObject exitConfirmMask;
+
     private readonly List<int> _selectedList = new List<int>();
 
-    private readonly Color _unavailable = new Color(1, 0, 0, 0.8f);
-    private readonly Color _available = new Color(0, 0, 0, 0.5f);
-    private readonly Color _selected = new Color(0, 1, 0, 0.8f);
+    private readonly Color _unavailable = Color.black;
+    private readonly Color _available = new Color(1, 1, 1, 0.6f);
+    private readonly Color _selected = Color.green;
 
     private bool _imitating;
 
@@ -84,6 +90,7 @@ public class Preparation : MonoBehaviour
             if (_fishSelectStatus[i] == SelectStatus.Unavailable)
                 profiles[i].GetComponent<Image>().color = _unavailable;
         }
+        Instantiate(countDownPrefab).StartTiming(countDownText);
     }
 
     public void ConfirmSelection()
@@ -144,9 +151,19 @@ public class Preparation : MonoBehaviour
         }
     }
 
+    public void BackToWelcomeWrapper()
+    {
+        exitConfirmMask.SetActive(true);
+    }
+
     public void BackToWelcome()
     {
         SceneManager.LoadScene("Scenes/Welcome");
+    }
+
+    public void OnlineCancelBackHome()
+    {
+        exitConfirmMask.SetActive(false);
     }
 
     private void Update()

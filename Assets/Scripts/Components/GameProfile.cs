@@ -10,6 +10,7 @@ namespace Components
         public Text hp;
         public Text atk;
         public Text skill;
+        public Text passive;
         public Image avatar;
 
         private MonoBehaviour _extension;
@@ -20,6 +21,7 @@ namespace Components
             {
                 fishName.text = Constants.FishName[id];
                 skill.text = Constants.SkillTable[id];
+                if (passive != null) passive.text = Constants.PassiveTable[id];
                 avatar.overrideSprite = SharedRefs.FishAvatars[id];
             }
             else

@@ -93,5 +93,6 @@ namespace GameHelper
         public ActionButtons[] actionButtons;
 
         public CountDown countDownPrefab;
+        public GameObject exitConfirmMask;
     }
 }

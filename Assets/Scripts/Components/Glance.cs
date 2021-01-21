@@ -19,6 +19,7 @@ namespace Components
             fish.GetComponent<Transform>().localPosition
                 = new Vector3((id % 4 - 1.5f) * hDist, (1 - id / 4) * vDist - vBias);
             fish.SetupFish(id, state, extension);
+            fish.detailed = gameUI != null;
 
             if (!gameUI) return;
             var fishTrigger = new EventTrigger.Entry();
