@@ -104,6 +104,7 @@ MonoBehaviour:
   hp: {fileID: 6654981805790841181}
   atk: {fileID: 8890772801060466222}
   skill: {fileID: 2613206884907004524}
+  passive: {fileID: 1373027073866925460}
   avatar: {fileID: 190399101883202615}
 --- !u!1 &190399101584982156
 GameObject:
