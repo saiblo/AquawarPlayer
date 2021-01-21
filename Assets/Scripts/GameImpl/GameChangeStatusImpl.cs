@@ -73,7 +73,7 @@ namespace GameImpl
                             gameUI.resultText.text = (string) reply["Result"] == "Win"
                                 ? $"{GameUI.MeStr}获胜"
                                 : $"{GameUI.EnemyStr}获胜";
-                            gameUI.GameOver();
+                            gameUI.GameOver((string) reply["Result"] == "Win");
                         }
                         else
                         {
@@ -85,10 +85,15 @@ namespace GameImpl
                                 gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Current);
                                 gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Current);
                                 gameUI.myProfiles[i].SetAtk((int) info["MyATK"][i]);
+                                if (gameUI.GameState.MyFishAlive[i] && gameUI.myStatus[i].Current <= 0)
+                                    gameUI.Dissolve(false, i);
+                                if (gameUI.GameState.EnemyFishAlive[i] && gameUI.enemyStatus[i].Current <= 0)
+                                    gameUI.Dissolve(true, i);
                             }
                         }
                         gameUI.GameState.AssertionPlayer = 0;
-                        gameUI.GameState.OnlineAssertionHit = (bool) (reply["AssertReply"]["AssertResult"] ?? false);
+                        gameUI.GameState.OnlineAssertionHit =
+                            !end && (bool) (reply["AssertReply"]["AssertResult"] ?? false);
                     }
 
                     // When either side made an assertion, play the animation.
@@ -96,16 +101,14 @@ namespace GameImpl
 
                     if (SharedRefs.Mode == Constants.GameMode.Online && !gameUI.GameState.MyTurn)
                     {
-                        if (!SharedRefs.ActionInfo.ContainsKey("EnemyAction") ||
-                            SharedRefs.ActionInfo["EnemyAction"] == null)
+                        if ((string) SharedRefs.ActionInfo["Action"] == "Finish")
                         {
-                            // Enemy asserted his way to death
                             end = true;
                             gameUI.resultText.text =
                                 (string) SharedRefs.ActionInfo["Result"] == "Win"
                                     ? $"{GameUI.MeStr}获胜"
                                     : $"{GameUI.EnemyStr}获胜";
-                            gameUI.GameOver();
+                            gameUI.GameOver((string) SharedRefs.ActionInfo["Result"] == "Win");
                         }
                         else
                         {
@@ -116,6 +119,10 @@ namespace GameImpl
                                 gameUI.enemyStatus[i].Current = (int) info["EnemyHP"][i];
                                 gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Current);
                                 gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Current);
+                                if (gameUI.GameState.MyFishAlive[i] && gameUI.myStatus[i].Current <= 0)
+                                    gameUI.Dissolve(false, i);
+                                if (gameUI.GameState.EnemyFishAlive[i] && gameUI.enemyStatus[i].Current <= 0)
+                                    gameUI.Dissolve(true, i);
                             }
                         }
                     }
@@ -205,7 +212,7 @@ namespace GameImpl
                         gameUI.resultText.text = (string) SharedRefs.ActionInfo["Result"] == "Win"
                             ? $"{GameUI.MeStr}获胜"
                             : $"{GameUI.EnemyStr}获胜";
-                        gameUI.GameOver();
+                        gameUI.GameOver((string) SharedRefs.ActionInfo["Result"] == "Win");
                     }
                     break;
                 }
@@ -216,8 +223,12 @@ namespace GameImpl
             }
         }
 
-        private static async void GameOver(this GameBridge gameUI)
+        private static async void GameOver(this GameBridge gameUI, bool win)
         {
+            if (win) ++SharedRefs.OnlineWin;
+            else ++SharedRefs.OnlineLose;
+            if (SharedRefs.Mode == Constants.GameMode.Online)
+                gameUI.scoreText.text = $"{SharedRefs.OnlineLose}:{SharedRefs.OnlineWin}";
             SharedRefs.PickInfo = await SharedRefs.GameClient.Receive(); // PICK
             gameUI.gameOverMask.SetActive(true);
         }

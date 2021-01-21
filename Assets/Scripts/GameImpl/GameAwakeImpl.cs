@@ -70,6 +70,7 @@ namespace GameImpl
             }
             else
             {
+                gameUI.scoreText.text = $"{SharedRefs.OnlineLose}:{SharedRefs.OnlineWin}";
                 gameUI.offlineOnlyButtons.SetActive(false);
                 gameUI.questionButton.SetActive(true);
                 gameUI.Gom.StopCountDown(gameUI);

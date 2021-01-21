@@ -136,6 +136,7 @@ public class Welcome : MonoBehaviour
             statusText.text = "连接成功，等待对手中……";
             SharedRefs.PickInfo = await SharedRefs.GameClient.Receive(); // PICK
             SharedRefs.Mode = Constants.GameMode.Online;
+            SharedRefs.OnlineWin = SharedRefs.OnlineLose = 0;
             SceneManager.LoadScene("Scenes/Preparation");
         }
         catch (Exception)
