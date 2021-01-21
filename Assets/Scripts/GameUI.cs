@@ -58,6 +58,17 @@ public class GameUI : GameBridge
                 : "Scenes/Game");
     }
 
+    public void BackHomeWrapper()
+    {
+        if (SharedRefs.Mode == Constants.GameMode.Offline) BackHome();
+        else exitConfirmMask.SetActive(true);
+    }
+
+    public void OnlineCancelBackHome()
+    {
+        exitConfirmMask.SetActive(false);
+    }
+
     public void ToggleLog()
     {
         logActive = !logActive;
