@@ -229,7 +229,8 @@ namespace GameImpl
             else ++SharedRefs.OnlineLose;
             if (SharedRefs.Mode == Constants.GameMode.Online)
                 gameUI.scoreText.text = $"{SharedRefs.OnlineLose}:{SharedRefs.OnlineWin}";
-            SharedRefs.PickInfo = await SharedRefs.GameClient.Receive(); // PICK
+            if (SharedRefs.OnlineLose + SharedRefs.OnlineWin != 3)
+                SharedRefs.PickInfo = await SharedRefs.GameClient.Receive(); // PICK
             gameUI.gameOverMask.SetActive(true);
         }
     }
