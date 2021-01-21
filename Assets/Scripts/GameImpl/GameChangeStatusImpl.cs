@@ -85,6 +85,10 @@ namespace GameImpl
                                 gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Current);
                                 gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Current);
                                 gameUI.myProfiles[i].SetAtk((int) info["MyATK"][i]);
+                                if (gameUI.GameState.MyFishAlive[i] && gameUI.myStatus[i].Current <= 0)
+                                    gameUI.Dissolve(false, i);
+                                if (gameUI.GameState.EnemyFishAlive[i] && gameUI.enemyStatus[i].Current <= 0)
+                                    gameUI.Dissolve(true, i);
                             }
                         }
                         gameUI.GameState.AssertionPlayer = 0;
@@ -115,6 +119,10 @@ namespace GameImpl
                                 gameUI.enemyStatus[i].Current = (int) info["EnemyHP"][i];
                                 gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Current);
                                 gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Current);
+                                if (gameUI.GameState.MyFishAlive[i] && gameUI.myStatus[i].Current <= 0)
+                                    gameUI.Dissolve(false, i);
+                                if (gameUI.GameState.EnemyFishAlive[i] && gameUI.enemyStatus[i].Current <= 0)
+                                    gameUI.Dissolve(true, i);
                             }
                         }
                     }
