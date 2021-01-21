@@ -75,6 +75,14 @@ namespace GameImpl
                                 : $"{GameUI.EnemyStr}获胜";
                             gameUI.GameOver((string) reply["Result"] == "Win");
                         }
+                        else if ((string) reply["Action"] == "EarlyFinish")
+                        {
+                            gameUI.resultText.text = (string) reply["Result"] == "Win"
+                                ? $"{GameUI.MeStr}获胜"
+                                : $"{GameUI.EnemyStr}获胜";
+                            gameUI.GameOver((string) reply["Result"] == "Win", true);
+                            break;
+                        }
                         else
                         {
                             var info = reply["GameInfo"];
@@ -193,6 +201,14 @@ namespace GameImpl
                             });
                         }
                         SharedRefs.ActionInfo = await SharedRefs.GameClient.Receive(); // ASSERT
+                        if ((string) SharedRefs.ActionInfo["Action"] == "EarlyFinish")
+                        {
+                            gameUI.resultText.text = (string) SharedRefs.ActionInfo["Result"] == "Win"
+                                ? $"{GameUI.MeStr}获胜"
+                                : $"{GameUI.EnemyStr}获胜";
+                            gameUI.GameOver((string) SharedRefs.ActionInfo["Result"] == "Win", true);
+                            break;
+                        }
                     }
 
                     // And now the animation part
@@ -223,13 +239,19 @@ namespace GameImpl
             }
         }
 
-        private static async void GameOver(this GameBridge gameUI, bool win)
+        public static async void GameOver(this GameBridge gameUI, bool win, bool force = false)
         {
             if (win) ++SharedRefs.OnlineWin;
             else ++SharedRefs.OnlineLose;
             if (SharedRefs.Mode == Constants.GameMode.Online)
                 gameUI.scoreText.text = $"{SharedRefs.OnlineLose}:{SharedRefs.OnlineWin}";
-            SharedRefs.PickInfo = await SharedRefs.GameClient.Receive(); // PICK
+            if (SharedRefs.OnlineLose + SharedRefs.OnlineWin != 3 && !force)
+                SharedRefs.PickInfo = await SharedRefs.GameClient.Receive(); // PICK
+            if (force)
+            {
+                SharedRefs.ErrorFlag = true;
+                gameUI.gameOverText.text = "回到首页";
+            }
             gameUI.gameOverMask.SetActive(true);
         }
     }

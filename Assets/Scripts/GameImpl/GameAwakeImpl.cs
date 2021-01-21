@@ -78,6 +78,14 @@ namespace GameImpl
                 gameUI.RunOnUiThread(async () =>
                 {
                     SharedRefs.ActionInfo = await SharedRefs.GameClient.Receive(); // ASSERT
+                    if ((string) SharedRefs.ActionInfo["Action"] == "EarlyFinish")
+                    {
+                        gameUI.resultText.text = (string) SharedRefs.ActionInfo["Result"] == "Win"
+                            ? $"{GameUI.MeStr}获胜"
+                            : $"{GameUI.EnemyStr}获胜";
+                        gameUI.GameOver((string) SharedRefs.ActionInfo["Result"] == "Win", true);
+                        return;
+                    }
                     gameUI.GameState.MyTurn = SharedRefs.ActionInfo["EnemyAction"] == null;
                     for (var i = 0; i < Constants.FishNum; i++)
                         gameUI.assertionModal.SetupFish(i, Constants.FishState.Using, gameUI.assertionExt, gameUI);

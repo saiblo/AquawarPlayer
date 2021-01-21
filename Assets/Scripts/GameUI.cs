@@ -48,8 +48,14 @@ public class GameUI : GameBridge
             SceneManager.LoadScene("Scenes/Welcome");
             return;
         }
-        SceneManager.LoadScene(SharedRefs.Mode == Constants.GameMode.Online ? "Scenes/Preparation" :
-            (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["rounds"] == 3 ? "Scenes/Welcome" : "Scenes/Game");
+        if (SharedRefs.Mode == Constants.GameMode.Online)
+            SceneManager.LoadScene(SharedRefs.OnlineLose + SharedRefs.OnlineWin == 3
+                ? "Scenes/Welcome"
+                : "Scenes/Preparation");
+        else
+            SceneManager.LoadScene((int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["rounds"] == 3
+                ? "Scenes/Welcome"
+                : "Scenes/Game");
     }
 
     public void ToggleLog()
