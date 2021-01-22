@@ -100,6 +100,7 @@ public class GameUI : GameBridge
             SharedRefs.ReplayCursor -= 3;
         while ((int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["gamestate"] != 2)
             --SharedRefs.ReplayCursor;
+        --SharedRefs.ReplayCursor;
         DoneAndGoBackToPreparation();
     }
 
@@ -110,8 +111,6 @@ public class GameUI : GameBridge
             ++SharedRefs.ReplayCursor;
             if (ErrorParser.HandleErrorCheck(this)) return;
         }
-        ++SharedRefs.ReplayCursor;
-        if (ErrorParser.HandleErrorCheck(this)) return;
         DoneAndGoBackToPreparation();
     }
 

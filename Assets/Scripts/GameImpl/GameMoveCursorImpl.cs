@@ -36,8 +36,6 @@ namespace GameImpl
 
                     if ((int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["rounds"] == 3)
                         gameUI.gameOverText.text = "回到首页";
-                    else
-                        SharedRefs.ReplayCursor++;
                     break;
                 }
                 case 3: // Process Assertion

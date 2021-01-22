@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using LitJson;
-using UnityEngine;
 
 namespace Utils
 {
