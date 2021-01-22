@@ -1,4 +1,5 @@
 ﻿using GameHelper;
+using LitJson;
 using UnityEngine;
 using Utils;
 using Object = UnityEngine.Object;
@@ -35,7 +36,17 @@ namespace GameImpl
             {
                 if (ErrorParser.HandleErrorCheck(gameUI)) return;
                 var players = SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["players"];
-                var pickFish = SharedRefs.ReplayJson[SharedRefs.ReplayCursor++]["operation"][0]["Fish"];
+                SharedRefs.ReplayCursor++;
+                if (ErrorParser.HandleErrorCheck(gameUI)) return;
+                JsonData[] pickFish =
+                {
+                    SharedRefs.ReplayJson[
+                        SharedRefs.ReplayCursor + (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["cur_turn"] - 1
+                    ]["operation"][0]["Fish"],
+                    SharedRefs.ReplayJson[
+                        SharedRefs.ReplayCursor - (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["cur_turn"]
+                    ]["operation"][0]["Fish"]
+                };
                 for (var i = 0; i < 4; i++)
                 {
                     var myFishId = (int) pickFish[0][i]["id"] - 1;
@@ -60,6 +71,7 @@ namespace GameImpl
                 var score = (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["score"];
                 gameUI.scoreText.text = $"{(rounds - score - 1) / 2}:{(score + rounds - 1) / 2}";
                 gameUI.Gom.Init(gameUI);
+                SharedRefs.ReplayCursor++;
                 if (SharedRefs.AutoPlay) gameUI.MoveCursor();
                 else
                 {

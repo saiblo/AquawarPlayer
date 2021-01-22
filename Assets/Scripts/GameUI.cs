@@ -94,12 +94,13 @@ public class GameUI : GameBridge
 
     public void PrevRound()
     {
-        if (SharedRefs.ReplayCursor > 1 &&
+        if (SharedRefs.ReplayCursor > 2 &&
             (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["gamestate"] != 2 &&
             (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 1]["gamestate"] == 2)
             SharedRefs.ReplayCursor -= 3;
         while ((int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["gamestate"] != 2)
             --SharedRefs.ReplayCursor;
+        --SharedRefs.ReplayCursor;
         DoneAndGoBackToPreparation();
     }
 
@@ -110,8 +111,6 @@ public class GameUI : GameBridge
             ++SharedRefs.ReplayCursor;
             if (ErrorParser.HandleErrorCheck(this)) return;
         }
-        ++SharedRefs.ReplayCursor;
-        if (ErrorParser.HandleErrorCheck(this)) return;
         DoneAndGoBackToPreparation();
     }
 

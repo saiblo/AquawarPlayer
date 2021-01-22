@@ -13,17 +13,20 @@ namespace GameImpl
         {
             if (ErrorParser.HandleErrorCheck(gameUI)) return;
             var state = SharedRefs.ReplayJson[SharedRefs.ReplayCursor];
-            switch ((int) state["gamestate"])
+            var coercedState = SharedRefs.ReplayCursor >= SharedRefs.ReplayJson.Count - 1
+                ? 2
+                : (int) state["gamestate"];
+            switch (coercedState)
             {
                 case 2: // Current round is over
                 {
-                    var gain = (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["score"]
-                               - (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 1]["score"];
+                    var gain = (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 1]["score"]
+                               - (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 2]["score"];
                     gameUI.resultText.text = gain > 0 ? $"{GameUI.MeStr}获胜" : $"{GameUI.EnemyStr}获胜";
                     gameUI.gameOverMask.SetActive(true);
 
-                    var rounds = (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["rounds"] + 1;
-                    var score = (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["score"];
+                    var rounds = (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 1]["rounds"] + 1;
+                    var score = (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 1]["score"];
                     gameUI.scoreText.text = $"{(rounds - score - 1) / 2}:{(score + rounds - 1) / 2}";
 
                     for (var i = 0; i < 4; i++)
@@ -34,10 +37,11 @@ namespace GameImpl
                             gameUI.Dissolve(gain > 0, i);
                         }
 
-                    if ((int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["rounds"] == 3)
+                    if ((int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 1]["rounds"] == 3)
+                    {
                         gameUI.gameOverText.text = "回到首页";
-                    else
-                        SharedRefs.ReplayCursor++;
+                        SharedRefs.ReplayCursor--;
+                    }
                     break;
                 }
                 case 3: // Process Assertion
