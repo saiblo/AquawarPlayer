@@ -41,10 +41,11 @@ namespace GameImpl
                 JsonData[] pickFish =
                 {
                     SharedRefs.ReplayJson[
-                        SharedRefs.ReplayCursor + (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["cur_turn"] - 1
+                        SharedRefs.ReplayCursor + (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 1]["cur_turn"] -
+                        1
                     ]["operation"][0]["Fish"],
                     SharedRefs.ReplayJson[
-                        SharedRefs.ReplayCursor - (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["cur_turn"]
+                        SharedRefs.ReplayCursor - (int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 1]["cur_turn"]
                     ]["operation"][0]["Fish"]
                 };
                 for (var i = 0; i < 4; i++)
