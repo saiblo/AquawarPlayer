@@ -15,7 +15,7 @@ namespace Components
 
         public void Setup(int fishId)
         {
-            skillText.text = Constants.SkillTable[fishId];
+            skillText.text = Constants.SkillTable[fishId == 11 ? SharedRefs.MyImitate : fishId];
         }
 
         public void ResetButtons()

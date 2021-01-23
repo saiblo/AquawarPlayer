@@ -41,13 +41,11 @@ public class Preparation : MonoBehaviour
 
     private bool _imitating;
 
-    private int _imitateId;
-
     private void DisplayQueue()
     {
         for (var i = 0; i < 4; i++)
             queue[i].overrideSprite = i < _selectedList.Count
-                ? SharedRefs.FishAvatars[_selectedList[i] == 11 ? _imitateId : _selectedList[i]]
+                ? SharedRefs.FishAvatars[_selectedList[i] == 11 ? SharedRefs.MyImitate : _selectedList[i]]
                 : null;
     }
 
@@ -103,7 +101,7 @@ public class Preparation : MonoBehaviour
             SharedRefs.FishChosen.Add(i);
         }
         if (_fishSelectStatus[11] == SelectStatus.Selected)
-            SharedRefs.GameClient.Send(new PickWithImitate {ChooseFishs = chooseFishs, ImitateFish = _imitateId + 1});
+            SharedRefs.GameClient.Send(new PickWithImitate {ChooseFishs = chooseFishs, ImitateFish = SharedRefs.MyImitate + 1});
         else
             SharedRefs.GameClient.Send(new Pick {ChooseFishs = chooseFishs});
         SceneManager.LoadScene("Scenes/Game");
@@ -114,7 +112,7 @@ public class Preparation : MonoBehaviour
         if (_imitating)
         {
             _imitating = false;
-            _imitateId = i;
+            SharedRefs.MyImitate = i;
             Push(11);
             for (var j = 0; j < Constants.FishNum; j++)
             {
