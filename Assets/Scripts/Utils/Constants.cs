@@ -29,6 +29,18 @@
             Free
         }
 
+        public enum Skill
+        {
+            Aoe,
+            InFight,
+            Crit,
+            InHelp,
+            Turtle,
+            MinCrit,
+            Clown,
+            Imitate,
+        }
+
         public static readonly string[] FishName =
         {
             "射水鱼",
@@ -92,7 +104,7 @@
             "选择一名队友，令其下次被攻击后，如果有除其以外的己方角色存活，其只承受70%伤害，其余己方角色平摊30%伤害，如果主动技能发动次数不超过三次，还应该对所有敌人分别造成35的伤害",
             "无"
         };
-        
+
         public static readonly string[] PassiveDescription =
         {
             "队友被直接攻击后若其生命值少于30%（即120），对来源造成30的伤害",
@@ -109,5 +121,20 @@
             "战斗开始前，选择其余11条鱼中的任意一条，获得其的被动与主动技能"
         };
 
+        public static readonly Skill[] SkillDict =
+        {
+            Skill.Aoe,
+            Skill.InFight,
+            Skill.Aoe,
+            Skill.InFight,
+            Skill.Crit,
+            Skill.InHelp,
+            Skill.Turtle,
+            Skill.InHelp,
+            Skill.MinCrit,
+            Skill.MinCrit,
+            Skill.Clown,
+            Skill.Imitate
+        };
     }
 }

@@ -125,9 +125,17 @@ namespace GameHelper
                         else
                         {
                             if (enemy)
+                            {
+                                var fishSkill = Constants.SkillDict[gameUI.GameState.EnemyFishId[j]];
+                                if (fishSkill == Constants.Skill.Aoe) break;
                                 _gameStates.EnemyFishSelectedAsTarget[j] = !_gameStates.EnemyFishSelectedAsTarget[j];
+                            }
                             else
+                            {
+                                var fishSkill = Constants.SkillDict[gameUI.GameState.MyFishId[j]];
+                                if (fishSkill == Constants.Skill.Aoe) break;
                                 _gameStates.MyFishSelectedAsTarget[j] = !_gameStates.MyFishSelectedAsTarget[j];
+                            }
                         }
                         break;
                     case Constants.GameStatus.WaitingAnimation:

@@ -46,6 +46,13 @@ namespace Components
             normalButtonImage.overrideSprite = gameUI.lightBlue;
             skillButtonImage.overrideSprite = gameUI.darkBlue;
             ClearTargets();
+            switch (Constants.SkillDict[gameUI.GameState.MyFishId[gameUI.GameState.MyFishSelected]])
+            {
+                case Constants.Skill.Aoe:
+                    for (var i = 0; i < 4; i++)
+                        gameUI.GameState.EnemyFishSelectedAsTarget[i] = true;
+                    break;
+            }
         }
     }
 }
