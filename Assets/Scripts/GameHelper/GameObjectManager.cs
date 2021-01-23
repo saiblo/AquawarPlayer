@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Components;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -131,6 +132,14 @@ namespace GameHelper
                                 if (fishSkill == Constants.Skill.Aoe ||
                                     fishSkill == Constants.Skill.InFight ||
                                     fishSkill == Constants.Skill.InHelp) break;
+                                if (fishSkill == Constants.Skill.MinCrit)
+                                {
+                                    var minVal =
+                                        (from hp in gameUI.enemyStatus
+                                            where hp.Current > 0
+                                            select hp.Current).Min();
+                                    if (gameUI.enemyStatus[j].Current != minVal) break;
+                                }
                                 if (_gameStates.EnemyFishSelectedAsTarget[j])
                                     _gameStates.EnemyFishSelectedAsTarget[j] = false;
                                 else
@@ -141,7 +150,9 @@ namespace GameHelper
                             }
                             else
                             {
-                                if (fishSkill == Constants.Skill.Aoe || fishSkill == Constants.Skill.Crit) break;
+                                if (fishSkill == Constants.Skill.Aoe ||
+                                    fishSkill == Constants.Skill.Crit ||
+                                    fishSkill == Constants.Skill.MinCrit) break;
                                 if (fishSkill == Constants.Skill.InFight && j == gameUI.GameState.MyFishSelected) break;
                                 if (_gameStates.MyFishSelectedAsTarget[j])
                                     _gameStates.MyFishSelectedAsTarget[j] = false;
