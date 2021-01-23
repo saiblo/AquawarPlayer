@@ -45,5 +45,9 @@ namespace GameHelper
 
         public readonly HashSet<string>[] EnemyUsedPassives =
             {new HashSet<string>(), new HashSet<string>(), new HashSet<string>(), new HashSet<string>()};
+
+        public int TurtleUsed = 0;
+        public int ClownUsed = 0;
+        public int ImitateUsed = 0;
     }
 }

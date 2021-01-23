@@ -171,6 +171,12 @@ namespace GameHelper
                 }
             });
             fishTransform.GetComponent<EventTrigger>().triggers.Add(fishTrigger);
+            if (enemy) return fishTransform;
+
+            gameUI.counters[j].gameObject.SetActive(
+                gameUI.GameState.MyFishId[j] == 6 || gameUI.GameState.MyFishId[j] == 10 ||
+                gameUI.GameState.MyFishId[j] == 11 && (SharedRefs.MyImitate == 6 || SharedRefs.MyImitate == 10)
+            );
             return fishTransform;
         }
 

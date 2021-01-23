@@ -140,7 +140,7 @@ public class Preparation : MonoBehaviour
             if (i == 11)
             {
                 _imitating = true;
-                for (var j = 0; j < 10; j++) profiles[j].GetComponent<Image>().color = _available;
+                for (var j = 0; j < 11; j++) profiles[j].GetComponent<Image>().color = _available;
                 profiles[11].GetComponent<Image>().color = _unavailable;
             }
             else

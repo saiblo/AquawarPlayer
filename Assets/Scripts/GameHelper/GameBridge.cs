@@ -94,5 +94,7 @@ namespace GameHelper
 
         public CountDown countDownPrefab;
         public GameObject exitConfirmMask;
+
+        public Text[] counters;
     }
 }
