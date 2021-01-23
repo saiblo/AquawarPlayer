@@ -193,6 +193,9 @@ namespace GameImpl
                                 if (gameUI.GameState.MyFishSelectedAsTarget[i]) myList.Add(i);
                                 if (gameUI.GameState.EnemyFishSelectedAsTarget[i]) enemyList.Add(i);
                             }
+                            if (gameUI.GameState.MyFishId[gameUI.GameState.MyFishSelected] == 6)
+                                gameUI.counters[gameUI.GameState.MyFishSelected].text =
+                                    $"{++gameUI.GameState.TurtleUsed}";
                             if (gameUI.GameState.MyFishId[gameUI.GameState.MyFishSelected] == 10)
                                 gameUI.counters[gameUI.GameState.MyFishSelected].text =
                                     $"{++gameUI.GameState.ClownUsed}";

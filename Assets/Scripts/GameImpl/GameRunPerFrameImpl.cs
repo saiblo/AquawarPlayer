@@ -53,7 +53,12 @@ namespace GameImpl
                  (gameUI.GameState.MyFishId[gameUI.GameState.MyFishSelected] == 10 ||
                   gameUI.GameState.MyFishId[gameUI.GameState.MyFishSelected] == 11 && SharedRefs.MyImitate == 10
                      ? 0
-                     : 1) > 0);
+                     : 1) ==
+                 (gameUI.GameState.MyFishId[gameUI.GameState.MyFishSelected] == 6
+                     ? gameUI.GameState.TurtleUsed >= 3 ? 1 : 2
+                     : gameUI.GameState.MyFishId[gameUI.GameState.MyFishSelected] == 11 && SharedRefs.MyImitate == 6
+                         ? gameUI.GameState.ImitateUsed >= 3 ? 1 : 2
+                         : 1));
 
             for (var i = 0; i < 4; i++)
             {

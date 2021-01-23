@@ -141,6 +141,9 @@ namespace GameHelper
                                             select hp.Current).Min();
                                     if (gameUI.enemyStatus[j].Current != minVal) break;
                                 }
+                                if (fishSkill == Constants.Skill.Turtle &&
+                                    (fishId == 11 ? gameUI.GameState.ImitateUsed : gameUI.GameState.TurtleUsed) >= 3)
+                                    break;
                                 if (_gameStates.EnemyFishSelectedAsTarget[j])
                                     _gameStates.EnemyFishSelectedAsTarget[j] = false;
                                 else
@@ -154,7 +157,9 @@ namespace GameHelper
                                 if (fishSkill == Constants.Skill.Aoe ||
                                     fishSkill == Constants.Skill.Crit ||
                                     fishSkill == Constants.Skill.MinCrit) break;
-                                if ((fishSkill == Constants.Skill.InFight || fishSkill == Constants.Skill.Clown) &&
+                                if ((fishSkill == Constants.Skill.InFight ||
+                                     fishSkill == Constants.Skill.Turtle ||
+                                     fishSkill == Constants.Skill.Clown) &&
                                     j == gameUI.GameState.MyFishSelected) break;
                                 if (_gameStates.MyFishSelectedAsTarget[j])
                                     _gameStates.MyFishSelectedAsTarget[j] = false;
