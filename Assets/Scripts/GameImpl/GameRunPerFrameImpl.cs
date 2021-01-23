@@ -48,8 +48,8 @@ namespace GameImpl
                  gameUI.GameState.MyFishSelectedAsTarget.Count(b => b) == 0 &&
                  gameUI.GameState.EnemyFishSelectedAsTarget.Count(b => b) == 1 ||
                  !gameUI.GameState.NormalAttack &&
-                 gameUI.GameState.MyFishSelectedAsTarget.Count(b => b) +
-                 gameUI.GameState.EnemyFishSelectedAsTarget.Count(b => b) *
+                 (gameUI.GameState.MyFishSelectedAsTarget.Any(b => b) ? 1 : 0) +
+                 (gameUI.GameState.EnemyFishSelectedAsTarget.Any(b => b) ? 1 : 0) *
                  (gameUI.GameState.MyFishId[gameUI.GameState.MyFishSelected] == 10 ||
                   gameUI.GameState.MyFishId[gameUI.GameState.MyFishSelected] == 11 && SharedRefs.MyImitate == 10
                      ? 0
