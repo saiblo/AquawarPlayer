@@ -110,10 +110,25 @@ namespace GameHelper
                         if (!enemy) _gameStates.MyFishSelected = _gameStates.MyFishSelected == j ? -1 : j;
                         break;
                     case Constants.GameStatus.SelectEnemyFish:
-                        if (enemy)
-                            _gameStates.EnemyFishSelectedAsTarget[j] = !_gameStates.EnemyFishSelectedAsTarget[j];
+                        if (_gameStates.NormalAttack)
+                        {
+                            if (!enemy) break;
+                            if (_gameStates.EnemyFishSelectedAsTarget[j])
+                                _gameStates.EnemyFishSelectedAsTarget[j] = false;
+                            else
+                            {
+                                for (var i = 0; i < 4; i++)
+                                    _gameStates.EnemyFishSelectedAsTarget[i] = false;
+                                _gameStates.EnemyFishSelectedAsTarget[j] = true;
+                            }
+                        }
                         else
-                            _gameStates.MyFishSelectedAsTarget[j] = !_gameStates.MyFishSelectedAsTarget[j];
+                        {
+                            if (enemy)
+                                _gameStates.EnemyFishSelectedAsTarget[j] = !_gameStates.EnemyFishSelectedAsTarget[j];
+                            else
+                                _gameStates.MyFishSelectedAsTarget[j] = !_gameStates.MyFishSelectedAsTarget[j];
+                        }
                         break;
                     case Constants.GameStatus.WaitingAnimation:
                         break;

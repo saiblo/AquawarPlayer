@@ -24,12 +24,19 @@ namespace Components
             skillButtonImage.overrideSprite = gameUI.lightBlue;
         }
 
+        private void ClearTargets()
+        {
+            for (var i = 0; i < 4; i++)
+                gameUI.GameState.MyFishSelectedAsTarget[i] = gameUI.GameState.EnemyFishSelectedAsTarget[i] = false;
+        }
+
         public void Normal()
         {
             gameUI.GameState.NormalAttack = true;
             gameUI.GameState.GameStatus = Constants.GameStatus.SelectEnemyFish;
             normalButtonImage.overrideSprite = gameUI.darkBlue;
             skillButtonImage.overrideSprite = gameUI.lightBlue;
+            ClearTargets();
         }
 
         public void Skill()
@@ -38,6 +45,7 @@ namespace Components
             gameUI.GameState.GameStatus = Constants.GameStatus.SelectEnemyFish;
             normalButtonImage.overrideSprite = gameUI.lightBlue;
             skillButtonImage.overrideSprite = gameUI.darkBlue;
+            ClearTargets();
         }
     }
 }
