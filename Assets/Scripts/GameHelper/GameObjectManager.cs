@@ -124,17 +124,33 @@ namespace GameHelper
                         }
                         else
                         {
+                            var fishSkill = Constants.SkillDict[
+                                gameUI.GameState.MyFishSelected == 11
+                                    ? SharedRefs.MyImitate
+                                    : gameUI.GameState.MyFishSelected
+                            ];
                             if (enemy)
                             {
-                                var fishSkill = Constants.SkillDict[gameUI.GameState.EnemyFishId[j]];
-                                if (fishSkill == Constants.Skill.Aoe) break;
-                                _gameStates.EnemyFishSelectedAsTarget[j] = !_gameStates.EnemyFishSelectedAsTarget[j];
+                                if (fishSkill == Constants.Skill.Aoe || fishSkill == Constants.Skill.InFight) break;
+                                if (_gameStates.EnemyFishSelectedAsTarget[j])
+                                    _gameStates.EnemyFishSelectedAsTarget[j] = false;
+                                else
+                                {
+                                    for (var i = 0; i < 4; i++) _gameStates.EnemyFishSelectedAsTarget[i] = false;
+                                    _gameStates.EnemyFishSelectedAsTarget[j] = true;
+                                }
                             }
                             else
                             {
-                                var fishSkill = Constants.SkillDict[gameUI.GameState.MyFishId[j]];
                                 if (fishSkill == Constants.Skill.Aoe) break;
-                                _gameStates.MyFishSelectedAsTarget[j] = !_gameStates.MyFishSelectedAsTarget[j];
+                                if (fishSkill == Constants.Skill.InFight && j == gameUI.GameState.MyFishSelected) break;
+                                if (_gameStates.MyFishSelectedAsTarget[j])
+                                    _gameStates.MyFishSelectedAsTarget[j] = false;
+                                else
+                                {
+                                    for (var i = 0; i < 4; i++) _gameStates.MyFishSelectedAsTarget[i] = false;
+                                    _gameStates.MyFishSelectedAsTarget[j] = true;
+                                }
                             }
                         }
                         break;

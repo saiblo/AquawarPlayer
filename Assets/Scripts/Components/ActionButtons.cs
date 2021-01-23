@@ -50,7 +50,8 @@ namespace Components
             {
                 case Constants.Skill.Aoe:
                     for (var i = 0; i < 4; i++)
-                        gameUI.GameState.EnemyFishSelectedAsTarget[i] = true;
+                        if (gameUI.GameState.EnemyFishAlive[i])
+                            gameUI.GameState.EnemyFishSelectedAsTarget[i] = true;
                     break;
             }
         }
