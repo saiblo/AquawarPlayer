@@ -39,7 +39,7 @@ namespace Components
 
         public void SetAtk(int atkVal)
         {
-            atk.text = $"Atk: {atkVal}";
+            atk.text = atkVal == -1 ? "Atk: ???" : $"Atk: {atkVal}";
         }
 
         public void ShowExt()
