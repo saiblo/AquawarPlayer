@@ -193,6 +193,13 @@ namespace GameImpl
                                 if (gameUI.GameState.MyFishSelectedAsTarget[i]) myList.Add(i);
                                 if (gameUI.GameState.EnemyFishSelectedAsTarget[i]) enemyList.Add(i);
                             }
+                            if (gameUI.GameState.MyFishId[gameUI.GameState.MyFishSelected] == 10)
+                                gameUI.counters[gameUI.GameState.MyFishSelected].text =
+                                    $"{++gameUI.GameState.ClownUsed}";
+                            if (gameUI.GameState.MyFishId[gameUI.GameState.MyFishSelected] == 11 &&
+                                (SharedRefs.MyImitate == 6 || SharedRefs.MyImitate == 10))
+                                gameUI.counters[gameUI.GameState.MyFishSelected].text =
+                                    $"{++gameUI.GameState.ImitateUsed}";
                             await SharedRefs.GameClient.Send(new SkillAction
                             {
                                 MyPos = gameUI.GameState.MyFishSelected,

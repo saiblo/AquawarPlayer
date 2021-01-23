@@ -131,7 +131,8 @@ namespace GameHelper
                             {
                                 if (fishSkill == Constants.Skill.Aoe ||
                                     fishSkill == Constants.Skill.InFight ||
-                                    fishSkill == Constants.Skill.InHelp) break;
+                                    fishSkill == Constants.Skill.InHelp ||
+                                    fishSkill == Constants.Skill.Clown) break;
                                 if (fishSkill == Constants.Skill.MinCrit)
                                 {
                                     var minVal =
@@ -153,7 +154,8 @@ namespace GameHelper
                                 if (fishSkill == Constants.Skill.Aoe ||
                                     fishSkill == Constants.Skill.Crit ||
                                     fishSkill == Constants.Skill.MinCrit) break;
-                                if (fishSkill == Constants.Skill.InFight && j == gameUI.GameState.MyFishSelected) break;
+                                if ((fishSkill == Constants.Skill.InFight || fishSkill == Constants.Skill.Clown) &&
+                                    j == gameUI.GameState.MyFishSelected) break;
                                 if (_gameStates.MyFishSelectedAsTarget[j])
                                     _gameStates.MyFishSelectedAsTarget[j] = false;
                                 else
