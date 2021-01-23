@@ -124,7 +124,8 @@ namespace GameAnim
                     break;
                 }
             }
-            if (!myTurn && !gameUI.GameState.EnemyFishExpose[actionFish])
+            if (SharedRefs.Mode == Constants.GameMode.Online &&
+                !myTurn && !gameUI.GameState.EnemyFishExpose[actionFish])
                 GameObjectManager.UpdateHiddenExtension(gameUI, actionFish);
         }
     }

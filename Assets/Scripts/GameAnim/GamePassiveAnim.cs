@@ -81,7 +81,8 @@ namespace GameAnim
                         break;
                     }
                 }
-                if (enemy && !gameUI.GameState.EnemyFishExpose[sourcePos])
+                if (SharedRefs.Mode == Constants.GameMode.Online &&
+                    enemy && !gameUI.GameState.EnemyFishExpose[sourcePos])
                     GameObjectManager.UpdateHiddenExtension(gameUI, sourcePos);
             }
         }
