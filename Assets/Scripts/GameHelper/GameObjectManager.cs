@@ -124,11 +124,8 @@ namespace GameHelper
                         }
                         else
                         {
-                            var fishSkill = Constants.SkillDict[
-                                gameUI.GameState.MyFishSelected == 11
-                                    ? SharedRefs.MyImitate
-                                    : gameUI.GameState.MyFishSelected
-                            ];
+                            var fishId = gameUI.GameState.MyFishId[gameUI.GameState.MyFishSelected];
+                            var fishSkill = Constants.SkillDict[fishId == 11 ? SharedRefs.MyImitate : fishId];
                             if (enemy)
                             {
                                 if (fishSkill == Constants.Skill.Aoe || fishSkill == Constants.Skill.InFight) break;
@@ -142,7 +139,7 @@ namespace GameHelper
                             }
                             else
                             {
-                                if (fishSkill == Constants.Skill.Aoe) break;
+                                if (fishSkill == Constants.Skill.Aoe || fishSkill == Constants.Skill.Crit) break;
                                 if (fishSkill == Constants.Skill.InFight && j == gameUI.GameState.MyFishSelected) break;
                                 if (_gameStates.MyFishSelectedAsTarget[j])
                                     _gameStates.MyFishSelectedAsTarget[j] = false;
