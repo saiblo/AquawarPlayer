@@ -128,7 +128,9 @@ namespace GameHelper
                             var fishSkill = Constants.SkillDict[fishId == 11 ? SharedRefs.MyImitate : fishId];
                             if (enemy)
                             {
-                                if (fishSkill == Constants.Skill.Aoe || fishSkill == Constants.Skill.InFight) break;
+                                if (fishSkill == Constants.Skill.Aoe ||
+                                    fishSkill == Constants.Skill.InFight ||
+                                    fishSkill == Constants.Skill.InHelp) break;
                                 if (_gameStates.EnemyFishSelectedAsTarget[j])
                                     _gameStates.EnemyFishSelectedAsTarget[j] = false;
                                 else
