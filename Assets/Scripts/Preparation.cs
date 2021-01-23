@@ -112,8 +112,6 @@ public class Preparation : MonoBehaviour
         if (_imitating)
         {
             _imitating = false;
-            SharedRefs.MyImitate = i;
-            Push(11);
             for (var j = 0; j < Constants.FishNum; j++)
             {
                 Color c;
@@ -133,6 +131,9 @@ public class Preparation : MonoBehaviour
                 }
                 profiles[j].GetComponent<Image>().color = c;
             }
+            if (i == 11) return;
+            SharedRefs.MyImitate = i;
+            Push(11);
         }
         else if (_selectedList.Count < 4 && _fishSelectStatus[i] == SelectStatus.Available)
         {
