@@ -54,8 +54,10 @@ namespace Utils
             }
             catch (Exception e)
             {
-                if (GameUI) GameUI.resultText.text = $"网络异常，游戏结束。\n{e.Message}";
+                if (!GameUI) throw;
+                GameUI.resultText.text = $"网络异常，游戏结束。\n{e.Message}";
                 GameUI.gameOverMask.SetActive(true);
+                SharedRefs.ErrorFlag = true;
                 throw;
             }
         }
@@ -74,7 +76,8 @@ namespace Utils
             }
             catch (Exception e)
             {
-                if (GameUI) GameUI.resultText.text = $"网络异常，游戏结束。\n{e.Message}";
+                if (!GameUI) throw;
+                GameUI.resultText.text = $"网络异常，游戏结束。\n{e.Message}";
                 GameUI.gameOverMask.SetActive(true);
                 SharedRefs.ErrorFlag = true;
                 throw;
