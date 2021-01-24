@@ -24,10 +24,10 @@ namespace Utils
 
         private readonly string _token;
 
-        public Client(string tokenDecoded, string tokenEncoded)
+        public Client(string tokenDecoded, string tokenEncoded, bool local)
         {
             _ws = new ClientWebSocket();
-            _ws.ConnectAsync(new Uri($"wss://{tokenDecoded}"), CancellationToken.None).Wait();
+            _ws.ConnectAsync(new Uri($"{(local ? "ws" : "wss")}://{tokenDecoded}"), CancellationToken.None).Wait();
             _token = tokenEncoded;
         }
 

@@ -122,16 +122,21 @@ public class Welcome : MonoBehaviour
 
     private async void ConnectRoom(string tokenEncoded)
     {
-        var tokenDecoded = Encoding.UTF8.GetString(Convert.FromBase64String(tokenEncoded));
-        if (tokenDecoded == tokenEncoded)
+        var tokenDecoded = tokenEncoded;
+        try
         {
-            statusText.text = "Token解码失败";
-            return;
+            tokenDecoded = Encoding.UTF8.GetString(Convert.FromBase64String(tokenEncoded));
         }
+        catch (Exception)
+        {
+            // ignored
+        }
+        var local = tokenDecoded == tokenEncoded;
+        if (local) tokenEncoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(tokenDecoded));
         try
         {
             statusText.text = "连接中……";
-            SharedRefs.GameClient = new Client(tokenDecoded, tokenEncoded);
+            SharedRefs.GameClient = new Client(tokenDecoded, tokenEncoded, local);
             await SharedRefs.GameClient.Send();
             statusText.text = "连接成功，等待对手中……";
             SharedRefs.PickInfo = await SharedRefs.GameClient.Receive(); // PICK
