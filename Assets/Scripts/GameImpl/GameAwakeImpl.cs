@@ -99,7 +99,7 @@ namespace GameImpl
                         gameUI.GameOver((string) SharedRefs.ActionInfo["Result"] == "Win", true);
                         return;
                     }
-                    gameUI.GameState.MyTurn = SharedRefs.ActionInfo["EnemyAction"] == null;
+                    gameUI.GameState.MyTurn = (int) SharedRefs.PickInfo["FirstMover"] == 1;
                     for (var i = 0; i < Constants.FishNum; i++)
                         gameUI.assertionModal.SetupFish(i, Constants.FishState.Using, gameUI.assertionExt, gameUI);
                     gameUI.NewRound();

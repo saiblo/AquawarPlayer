@@ -91,7 +91,7 @@ public class Preparation : MonoBehaviour
         Instantiate(countDownPrefab).StartTiming(countDownText);
     }
 
-    public void ConfirmSelection()
+    public async void ConfirmSelection()
     {
         var chooseFishs = new List<int>();
         SharedRefs.FishChosen = new List<int>();
@@ -101,9 +101,11 @@ public class Preparation : MonoBehaviour
             SharedRefs.FishChosen.Add(i);
         }
         if (_fishSelectStatus[11] == SelectStatus.Selected)
-            SharedRefs.GameClient.Send(new PickWithImitate {ChooseFishs = chooseFishs, ImitateFish = SharedRefs.MyImitate + 1});
+            await SharedRefs.GameClient.Send(
+                new PickWithImitate {ChooseFishs = chooseFishs, ImitateFish = SharedRefs.MyImitate + 1}
+            );
         else
-            SharedRefs.GameClient.Send(new Pick {ChooseFishs = chooseFishs});
+            await SharedRefs.GameClient.Send(new Pick {ChooseFishs = chooseFishs});
         SceneManager.LoadScene("Scenes/Game");
     }
 
