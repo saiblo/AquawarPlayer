@@ -14,10 +14,11 @@ namespace GameImpl
 
             try
             {
-                var meshRenderers = (enemy ? gameUI.Gom.EnemyFishMeshRenderers : gameUI.Gom.MyFishMeshRenderers)[pos];
+                var transform = (enemy ? gameUI.Gom.EnemyFishTransforms : gameUI.Gom.MyFishTransforms)[pos];
+                var meshRenderers = transform.GetComponentsInChildren<SkinnedMeshRenderer>();
                 var fish = (enemy ? gameUI.Gom.EnemyFishTransforms : gameUI.Gom.MyFishTransforms)[pos];
                 var fog = (enemy ? gameUI.Gom.EnemyFogs : gameUI.Gom.MyFogs)[pos];
-                (enemy ? gameUI.Gom.EnemyFishParticleSystems : gameUI.Gom.MyFishParticleSystems)[pos]?.Play();
+                transform.GetComponentInChildren<ParticleSystem>().Play();
 
                 foreach (var meshRenderer in meshRenderers) meshRenderer.material = gameUI.dissolveEffect;
 

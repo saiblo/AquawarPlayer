@@ -25,12 +25,6 @@ namespace GameHelper
         public readonly List<Transform> MyFishTransforms = new List<Transform>();
         public readonly List<Transform> EnemyFishTransforms = new List<Transform>();
 
-        public readonly List<SkinnedMeshRenderer[]> MyFishMeshRenderers = new List<SkinnedMeshRenderer[]>();
-        public readonly List<SkinnedMeshRenderer[]> EnemyFishMeshRenderers = new List<SkinnedMeshRenderer[]>();
-
-        public readonly List<ParticleSystem> MyFishParticleSystems = new List<ParticleSystem>();
-        public readonly List<ParticleSystem> EnemyFishParticleSystems = new List<ParticleSystem>();
-
         // Misc
         public readonly Vector3 Small = new Vector3(3, 3, 3);
         public readonly Vector3 Large = new Vector3(4, 4, 4);
@@ -191,15 +185,8 @@ namespace GameHelper
         {
             for (var i = 0; i < 4; i++)
             {
-                var myFish = GenFish(false, i, gameUI);
-                MyFishTransforms.Add(myFish);
-                MyFishMeshRenderers.Add(myFish.GetComponentsInChildren<SkinnedMeshRenderer>());
-                MyFishParticleSystems.Add(myFish.GetComponentInChildren<ParticleSystem>());
-
-                var enemyFish = GenFish(true, i, gameUI);
-                EnemyFishTransforms.Add(enemyFish);
-                EnemyFishMeshRenderers.Add(enemyFish.GetComponentsInChildren<SkinnedMeshRenderer>());
-                EnemyFishParticleSystems.Add(enemyFish.GetComponentInChildren<ParticleSystem>());
+                MyFishTransforms.Add(GenFish(false, i, gameUI));
+                EnemyFishTransforms.Add(GenFish(true, i, gameUI));
 
                 var myFishId = gameUI.GameState.MyFishId[i];
                 var enemyFishId = gameUI.GameState.EnemyFishId[i];
@@ -267,8 +254,6 @@ namespace GameHelper
                     (float) lastPlayers[0]["fight_fish"][i]["hp"] > 0)
                 {
                     MyFishTransforms[i] = GenFish(false, i, gameUI);
-                    MyFishMeshRenderers[i] = MyFishTransforms[i].GetComponentsInChildren<SkinnedMeshRenderer>();
-                    MyFishParticleSystems[i] = MyFishTransforms[i].GetComponentInChildren<ParticleSystem>();
                     MyFogs[i].gameObject.SetActive(!(bool) lastPlayers[0]["fight_fish"][i]["is_expose"]);
                 }
                 // ReSharper disable once InvertIf
@@ -276,8 +261,6 @@ namespace GameHelper
                     (float) lastPlayers[1]["fight_fish"][i]["hp"] > 0)
                 {
                     EnemyFishTransforms[i] = GenFish(true, i, gameUI);
-                    EnemyFishMeshRenderers[i] = EnemyFishTransforms[i].GetComponentsInChildren<SkinnedMeshRenderer>();
-                    EnemyFishParticleSystems[i] = EnemyFishTransforms[i].GetComponentInChildren<ParticleSystem>();
                     EnemyFogs[i].gameObject.SetActive(!(bool) lastPlayers[1]["fight_fish"][i]["is_expose"]);
                 }
             }
