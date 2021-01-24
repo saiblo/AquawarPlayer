@@ -180,7 +180,13 @@ public class GameUI : GameBridge
 
     private void Awake()
     {
+        SharedRefs.GameClient.GameUI = this;
         this.AwakeImpl();
+    }
+
+    private void OnDestroy()
+    {
+        SharedRefs.GameClient.GameUI = null;
     }
 
     protected override void RunPerFrame()

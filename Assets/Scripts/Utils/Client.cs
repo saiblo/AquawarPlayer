@@ -24,6 +24,8 @@ namespace Utils
 
         private readonly string _token;
 
+        public GameUI GameUI;
+
         public Client(string tokenDecoded, string tokenEncoded, bool local)
         {
             _ws = new ClientWebSocket();
@@ -31,34 +33,52 @@ namespace Utils
             _token = tokenEncoded;
         }
 
-        public Task Send(object content = null)
+        public async Task Send(object content = null)
         {
-            if (content != null)
-                Debug.Log($"Send: {JsonMapper.ToJson(content)}");
-            return _ws.SendAsync(
-                new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonMapper.ToJson(
-                    new Request
-                    {
-                        token = _token,
-                        request = content == null ? "connect" : "action",
-                        content = content == null ? "" : JsonMapper.ToJson(content)
-                    }
-                ))),
-                WebSocketMessageType.Text,
-                true,
-                CancellationToken.None
-            );
+            try
+            {
+                if (content != null) Debug.Log($"Send: {JsonMapper.ToJson(content)}");
+                await _ws.SendAsync(
+                    new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonMapper.ToJson(
+                        new Request
+                        {
+                            token = _token,
+                            request = content == null ? "connect" : "action",
+                            content = content == null ? "" : JsonMapper.ToJson(content)
+                        }
+                    ))),
+                    WebSocketMessageType.Text,
+                    true,
+                    CancellationToken.None
+                );
+            }
+            catch (Exception e)
+            {
+                if (GameUI) GameUI.resultText.text = $"网络异常，游戏结束。\n{e.Message}";
+                GameUI.gameOverMask.SetActive(true);
+                throw;
+            }
         }
 
         public async Task<JsonData> Receive()
         {
-            var buffer = new ArraySegment<byte>(new byte[32768]);
-            await _ws.ReceiveAsync(buffer, CancellationToken.None);
-            var data = (string) JsonMapper.ToObject(
-                Encoding.UTF8.GetString(buffer.Array ?? Array.Empty<byte>()).TrimEnd('\0')
-            )["content"];
-            Debug.Log($"Recv: {JsonMapper.ToJson(JsonMapper.ToObject(data))}");
-            return JsonMapper.ToObject(data);
+            try
+            {
+                var buffer = new ArraySegment<byte>(new byte[32768]);
+                await _ws.ReceiveAsync(buffer, CancellationToken.None);
+                var str = Encoding.UTF8.GetString(buffer.Array ?? Array.Empty<byte>()).TrimEnd('\0');
+                if (str.Trim().Length == 0) throw new Exception("The client did not receive anything from the server.");
+                var data = (string) JsonMapper.ToObject(str)["content"];
+                Debug.Log($"Recv: {JsonMapper.ToJson(JsonMapper.ToObject(data))}");
+                return JsonMapper.ToObject(data);
+            }
+            catch (Exception e)
+            {
+                if (GameUI) GameUI.resultText.text = $"网络异常，游戏结束。\n{e.Message}";
+                GameUI.gameOverMask.SetActive(true);
+                SharedRefs.ErrorFlag = true;
+                throw;
+            }
         }
     }
 }
