@@ -26,11 +26,16 @@ namespace Utils
 
         public GameUI GameUI;
 
+        public readonly AutoResetEvent RecvHandle = new AutoResetEvent(false);
+
+        public JsonData RecvBuffer;
+
         public Client(string tokenDecoded, string tokenEncoded, bool local)
         {
             _ws = new ClientWebSocket();
             _ws.ConnectAsync(new Uri($"{(local ? "ws" : "wss")}://{tokenDecoded}"), CancellationToken.None).Wait();
             _token = tokenEncoded;
+            Task.Run(Receive);
         }
 
         public async Task Send(object content = null)
@@ -62,25 +67,25 @@ namespace Utils
             }
         }
 
-        public async Task<JsonData> Receive()
+        private async Task Receive()
         {
-            try
+            while (true)
             {
-                var buffer = new ArraySegment<byte>(new byte[32768]);
-                await _ws.ReceiveAsync(buffer, CancellationToken.None);
-                var str = Encoding.UTF8.GetString(buffer.Array ?? Array.Empty<byte>()).TrimEnd('\0');
-                if (str.Trim().Length == 0) throw new Exception("The client did not receive anything from the server.");
-                var data = (string) JsonMapper.ToObject(str)["content"];
-                Debug.Log($"Recv: {JsonMapper.ToJson(JsonMapper.ToObject(data))}");
-                return JsonMapper.ToObject(data);
-            }
-            catch (Exception e)
-            {
-                if (!GameUI) throw;
-                GameUI.resultText.text = $"网络异常，游戏结束。\n{e.Message}";
-                GameUI.gameOverMask.SetActive(true);
-                SharedRefs.ErrorFlag = true;
-                throw;
+                try
+                {
+                    var buffer = new ArraySegment<byte>(new byte[32768]);
+                    await _ws.ReceiveAsync(buffer, CancellationToken.None);
+                    var str = Encoding.UTF8.GetString(buffer.Array ?? Array.Empty<byte>()).TrimEnd('\0');
+                    if ((string) JsonMapper.ToObject(str)["request"] == "time") continue;
+                    var data = (string) JsonMapper.ToObject(str)["content"];
+                    Debug.Log($"Recv: {JsonMapper.ToJson(JsonMapper.ToObject(data))}");
+                    RecvBuffer = JsonMapper.ToObject(data);
+                    RecvHandle.Set();
+                }
+                catch (Exception)
+                {
+                    return;
+                }
             }
         }
     }

@@ -139,7 +139,8 @@ public class Welcome : MonoBehaviour
             SharedRefs.GameClient = new Client(tokenDecoded, tokenEncoded, local);
             await SharedRefs.GameClient.Send();
             statusText.text = "连接成功，等待对手中……";
-            SharedRefs.PickInfo = await SharedRefs.GameClient.Receive(); // PICK
+            SharedRefs.GameClient.RecvHandle.WaitOne();
+            SharedRefs.PickInfo = SharedRefs.GameClient.RecvBuffer; // PICK
             SharedRefs.Mode = Constants.GameMode.Online;
             SharedRefs.OnlineWin = SharedRefs.OnlineLose = 0;
             SceneManager.LoadScene("Scenes/Preparation");

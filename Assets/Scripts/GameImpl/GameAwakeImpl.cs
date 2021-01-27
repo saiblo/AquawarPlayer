@@ -88,9 +88,10 @@ namespace GameImpl
                 gameUI.questionButton.SetActive(true);
                 gameUI.Gom.StopCountDown(gameUI);
                 gameUI.GameState.GameStatus = Constants.GameStatus.WaitingAnimation;
-                gameUI.RunOnUiThread(async () =>
+                gameUI.RunOnUiThread(() =>
                 {
-                    SharedRefs.ActionInfo = await SharedRefs.GameClient.Receive(); // ASSERT
+                    SharedRefs.GameClient.RecvHandle.WaitOne();
+                    SharedRefs.ActionInfo = SharedRefs.GameClient.RecvBuffer; // ASSERT
                     if ((string) SharedRefs.ActionInfo["Action"] == "EarlyFinish")
                     {
                         gameUI.resultText.text = (string) SharedRefs.ActionInfo["Result"] == "Win"

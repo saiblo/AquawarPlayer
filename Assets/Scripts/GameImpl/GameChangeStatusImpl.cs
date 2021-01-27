@@ -66,7 +66,8 @@ namespace GameImpl
                                 $"{GameUI.MeStr}断言{GameUI.EnemyStr}{gameUI.GameState.Assertion}号位置的鱼为{Constants.FishName[gameUI.GameState.AssertionTarget]}。"
                             );
                         }
-                        var reply = await SharedRefs.GameClient.Receive(); // ACTION
+                        SharedRefs.GameClient.RecvHandle.WaitOne();
+                        var reply = SharedRefs.GameClient.RecvBuffer; // ACTION
                         if ((string) reply["Action"] == "Finish") // You assert your way to death
                         {
                             end = true;
@@ -212,7 +213,8 @@ namespace GameImpl
                                 MyList = myList
                             });
                         }
-                        SharedRefs.ActionInfo = await SharedRefs.GameClient.Receive(); // ASSERT
+                        SharedRefs.GameClient.RecvHandle.WaitOne();
+                        SharedRefs.ActionInfo = SharedRefs.GameClient.RecvBuffer; // ASSERT
                         if ((string) SharedRefs.ActionInfo["Action"] == "EarlyFinish")
                         {
                             gameUI.resultText.text = (string) SharedRefs.ActionInfo["Result"] == "Win"
@@ -251,14 +253,17 @@ namespace GameImpl
             }
         }
 
-        public static async void GameOver(this GameBridge gameUI, bool win, bool force = false)
+        public static void GameOver(this GameBridge gameUI, bool win, bool force = false)
         {
             if (win) ++SharedRefs.OnlineWin;
             else ++SharedRefs.OnlineLose;
             if (SharedRefs.Mode == Constants.GameMode.Online)
                 gameUI.scoreText.text = $"{SharedRefs.OnlineLose}:{SharedRefs.OnlineWin}";
             if (SharedRefs.OnlineLose + SharedRefs.OnlineWin != 3 && !force)
-                SharedRefs.PickInfo = await SharedRefs.GameClient.Receive(); // PICK
+            {
+                SharedRefs.GameClient.RecvHandle.WaitOne();
+                SharedRefs.PickInfo = SharedRefs.GameClient.RecvBuffer; // PICK
+            }
             if (force)
             {
                 SharedRefs.ErrorFlag = true;
