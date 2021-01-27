@@ -1,4 +1,5 @@
-﻿using GameHelper;
+﻿using System.Threading;
+using GameHelper;
 using LitJson;
 using UnityEngine;
 using Utils;
@@ -88,23 +89,26 @@ namespace GameImpl
                 gameUI.questionButton.SetActive(true);
                 gameUI.Gom.StopCountDown(gameUI);
                 gameUI.GameState.GameStatus = Constants.GameStatus.WaitingAnimation;
-                gameUI.RunOnUiThread(() =>
+                new Thread(() =>
                 {
                     SharedRefs.GameClient.RecvHandle.WaitOne();
                     SharedRefs.ActionInfo = SharedRefs.GameClient.RecvBuffer; // ASSERT
-                    if ((string) SharedRefs.ActionInfo["Action"] == "EarlyFinish")
+                    gameUI.RunOnUiThread(() =>
                     {
-                        gameUI.resultText.text = (string) SharedRefs.ActionInfo["Result"] == "Win"
-                            ? $"{GameUI.MeStr}获胜"
-                            : $"{GameUI.EnemyStr}获胜";
-                        gameUI.GameOver((string) SharedRefs.ActionInfo["Result"] == "Win", true);
-                        return;
-                    }
-                    gameUI.GameState.MyTurn = (int) SharedRefs.PickInfo["FirstMover"] == 1;
-                    for (var i = 0; i < Constants.FishNum; i++)
-                        gameUI.assertionModal.SetupFish(i, Constants.FishState.Using, gameUI.assertionExt, gameUI);
-                    gameUI.NewRound();
-                });
+                        if ((string) SharedRefs.ActionInfo["Action"] == "EarlyFinish")
+                        {
+                            gameUI.resultText.text = (string) SharedRefs.ActionInfo["Result"] == "Win"
+                                ? $"{GameUI.MeStr}获胜"
+                                : $"{GameUI.EnemyStr}获胜";
+                            gameUI.GameOver((string) SharedRefs.ActionInfo["Result"] == "Win", true);
+                            return;
+                        }
+                        gameUI.GameState.MyTurn = (int) SharedRefs.PickInfo["FirstMover"] == 1;
+                        for (var i = 0; i < Constants.FishNum; i++)
+                            gameUI.assertionModal.SetupFish(i, Constants.FishState.Using, gameUI.assertionExt, gameUI);
+                        gameUI.NewRound();
+                    });
+                }).Start();
             }
         }
     }

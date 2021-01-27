@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Threading;
+using GameHelper;
 using LitJson;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,7 +10,7 @@ using UnityEditor;
 using UnityEngine.UI;
 using Utils;
 
-public class Welcome : MonoBehaviour
+public class Welcome : EnhancedMonoBehaviour
 {
     public Transform[] fishPrefabSamples;
 
@@ -139,15 +141,29 @@ public class Welcome : MonoBehaviour
             SharedRefs.GameClient = new Client(tokenDecoded, tokenEncoded, local);
             await SharedRefs.GameClient.Send();
             statusText.text = "连接成功，等待对手中……";
-            SharedRefs.GameClient.RecvHandle.WaitOne();
-            SharedRefs.PickInfo = SharedRefs.GameClient.RecvBuffer; // PICK
-            SharedRefs.Mode = Constants.GameMode.Online;
-            SharedRefs.OnlineWin = SharedRefs.OnlineLose = 0;
-            SceneManager.LoadScene("Scenes/Preparation");
+            new Thread(() =>
+            {
+                try
+                {
+                    SharedRefs.GameClient.RecvHandle.WaitOne();
+                    SharedRefs.PickInfo = SharedRefs.GameClient.RecvBuffer; // PICK
+                    SharedRefs.Mode = Constants.GameMode.Online;
+                    SharedRefs.OnlineWin = SharedRefs.OnlineLose = 0;
+                    RunOnUiThread(() => { SceneManager.LoadScene("Scenes/Preparation"); });
+                }
+                catch (Exception)
+                {
+                    RunOnUiThread(() => { statusText.text = "连接失败"; });
+                }
+            }).Start();
         }
         catch (Exception)
         {
             statusText.text = "连接失败";
         }
+    }
+
+    protected override void RunPerFrame()
+    {
     }
 }
