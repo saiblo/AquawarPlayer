@@ -73,11 +73,23 @@ namespace Utils
             {
                 try
                 {
-                    var buffer = new ArraySegment<byte>(new byte[32768]);
-                    await _ws.ReceiveAsync(buffer, CancellationToken.None);
-                    var str = Encoding.UTF8.GetString(buffer.Array ?? Array.Empty<byte>()).TrimEnd('\0');
-                    if ((string) JsonMapper.ToObject(str)["request"] == "time") continue;
-                    var data = (string) JsonMapper.ToObject(str)["content"];
+                    var sb = new StringBuilder();
+                    JsonData recvObj = null;
+                    while (recvObj == null)
+                    {
+                        var buffer = new ArraySegment<byte>(new byte[32768]);
+                        await _ws.ReceiveAsync(buffer, CancellationToken.None);
+                        sb.Append(Encoding.UTF8.GetString(buffer.Array ?? Array.Empty<byte>()).TrimEnd('\0'));
+                        try
+                        {
+                            recvObj = JsonMapper.ToObject(sb.ToString());
+                        }
+                        catch (JsonException)
+                        {
+                        }
+                    }
+                    if ((string) recvObj["request"] == "time") continue;
+                    var data = (string) recvObj["content"];
                     Debug.Log($"Recv: {JsonMapper.ToJson(JsonMapper.ToObject(data))}");
                     RecvBuffer = JsonMapper.ToObject(data);
                     RecvHandle.Set();
