@@ -118,7 +118,6 @@ namespace GameImpl
                                     (int) lastPlayers[1]["fight_fish"][i]["state"] != 2)
                                     gameUI.Dissolve(true, i);
                             }
-                            gameUI.UpdateFishStatus(players);
                         }
                         gameUI.SetTimeout(() =>
                         {
