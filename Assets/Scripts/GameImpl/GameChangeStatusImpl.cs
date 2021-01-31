@@ -64,14 +64,9 @@ namespace GameImpl
                                 }
                                 else
                                 {
-                                    var info = SharedRefs.ActionInfo["GameInfo"];
                                     for (var i = 0; i < 4; i++)
                                     {
                                         var id = i;
-                                        gameUI.myStatus[i].Current = (int) info["MyHP"][i];
-                                        gameUI.enemyStatus[i].Current = (int) info["EnemyHP"][i];
-                                        gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Current);
-                                        gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Current);
                                         if (gameUI.GameState.MyFishAlive[i] && gameUI.myStatus[i].Current <= 0)
                                             gameUI.SetTimeout(() => { gameUI.Dissolve(false, id); }, 500);
                                         if (gameUI.GameState.EnemyFishAlive[i] && gameUI.enemyStatus[i].Current <= 0)

@@ -21,16 +21,18 @@ namespace GameImpl
 
             if (SharedRefs.Mode == Constants.GameMode.Offline) return;
 
+            for (var i = 0; i < 4; i++)
+                gameUI.GameState.MyFishId[i] = SharedRefs.FishChosen[i];
+
+            if (!gameUI.Gom.Initialized) gameUI.Gom.Init(gameUI);
+
             if (SharedRefs.ActionInfo.ContainsKey("GameInfo"))
             {
                 var gameInfo = SharedRefs.ActionInfo["GameInfo"];
                 for (var i = 0; i < 4; i++)
                 {
-                    gameUI.GameState.MyFishId[i] = SharedRefs.FishChosen[i];
                     if ((int) gameInfo["EnemyFish"][i] > 0)
                         gameUI.GameState.EnemyFishId[i] = (int) gameInfo["EnemyFish"][i] - 1;
-                    gameUI.myStatus[i].Current = (int) gameInfo["MyHP"][i];
-                    gameUI.enemyStatus[i].Current = (int) gameInfo["EnemyHP"][i];
                     gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Current);
                     gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Current);
                     gameUI.myProfiles[i].SetAtk((int) gameInfo["MyATK"][i]);
@@ -40,8 +42,6 @@ namespace GameImpl
                         gameUI.Dissolve(true, i);
                 }
             }
-
-            if (!gameUI.Gom.Initialized) gameUI.Gom.Init(gameUI);
 
             if (gameUI.GameState.MyTurn)
             {
@@ -58,7 +58,6 @@ namespace GameImpl
                 gameUI.GameState.OnlineAssertionHit = false;
                 gameUI.GameState.AssertionTarget = 0;
                 gameUI.ChangeStatus(); // Skips the next two stages
-                gameUI.ChangeStatus();
                 return;
             }
 
