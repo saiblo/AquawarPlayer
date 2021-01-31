@@ -17,9 +17,9 @@ namespace GameAnim
             gameUI.AddLog("断言" + (hit ? "成功。" : "失败。"));
             if (hit)
             {
-                Object.Destroy((gameUI.GameState.AssertionPlayer == 1
+                (gameUI.GameState.AssertionPlayer == 1
                     ? gameUI.Gom.MyFogs
-                    : gameUI.Gom.EnemyFogs)[gameUI.GameState.Assertion].gameObject);
+                    : gameUI.Gom.EnemyFogs)[gameUI.GameState.Assertion].gameObject.SetActive(false);
                 (gameUI.GameState.AssertionPlayer == 1
                     ? gameUI.GameState.MyFishExpose
                     : gameUI.GameState.EnemyFishExpose)[gameUI.GameState.Assertion] = true;

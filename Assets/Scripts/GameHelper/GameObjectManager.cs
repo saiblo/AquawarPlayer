@@ -248,19 +248,12 @@ namespace GameHelper
             var lastPlayers = SharedRefs.ReplayJson[SharedRefs.ReplayCursor - 2]["players"];
             for (var i = 0; i < 4; i++)
             {
-                if ((float) players[0]["fight_fish"][i]["hp"] <= 0 &&
-                    (float) lastPlayers[0]["fight_fish"][i]["hp"] > 0)
-                {
+                if ((float) players[0]["fight_fish"][i]["hp"] <= 0 && (float) lastPlayers[0]["fight_fish"][i]["hp"] > 0)
                     MyFishTransforms[i] = GenFish(false, i, gameUI);
-                    MyFogs[i].gameObject.SetActive(!(bool) lastPlayers[0]["fight_fish"][i]["is_expose"]);
-                }
-                // ReSharper disable once InvertIf
-                if ((float) players[1]["fight_fish"][i]["hp"] <= 0 &&
-                    (float) lastPlayers[1]["fight_fish"][i]["hp"] > 0)
-                {
+                MyFogs[i].gameObject.SetActive(!(bool) lastPlayers[0]["fight_fish"][i]["is_expose"]);
+                if ((float) players[1]["fight_fish"][i]["hp"] <= 0 && (float) lastPlayers[1]["fight_fish"][i]["hp"] > 0)
                     EnemyFishTransforms[i] = GenFish(true, i, gameUI);
-                    EnemyFogs[i].gameObject.SetActive(!(bool) lastPlayers[1]["fight_fish"][i]["is_expose"]);
-                }
+                EnemyFogs[i].gameObject.SetActive(!(bool) lastPlayers[1]["fight_fish"][i]["is_expose"]);
             }
         }
 
