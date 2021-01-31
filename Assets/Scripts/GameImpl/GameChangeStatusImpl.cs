@@ -139,8 +139,6 @@ namespace GameImpl
                                             var id = i;
                                             gameUI.myStatus[i].Current = (int) info["MyHP"][i];
                                             gameUI.enemyStatus[i].Current = (int) info["EnemyHP"][i];
-                                            gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Current);
-                                            gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Current);
                                             gameUI.myProfiles[i].SetAtk((int) info["MyATK"][i]);
                                             if (gameUI.GameState.MyFishAlive[i] && gameUI.myStatus[i].Current <= 0)
                                                 gameUI.SetTimeout(() => { gameUI.Dissolve(false, id); }, 500);

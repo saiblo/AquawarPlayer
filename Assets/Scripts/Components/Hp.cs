@@ -11,8 +11,9 @@ namespace Components
             set
             {
                 _current = value;
-                text.text = $"{value}/{Full}";
+                text.text = $"{value}";
                 slider.value = (float) value / Full;
+                profile.SetHp(value);
                 gameObject.SetActive(value > 0);
             }
         }
@@ -29,6 +30,8 @@ namespace Components
 
         public Text text;
         public Slider slider;
+
+        public GameProfile profile;
 
         private int _full;
         private int _current;

@@ -34,8 +34,6 @@ namespace GameAnim
             {
                 if (gameUI.myStatus[i].Current < 0) gameUI.myStatus[i].Current = 0;
                 if (gameUI.enemyStatus[i].Current < 0) gameUI.enemyStatus[i].Current = 0;
-                gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Current);
-                gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Current);
             }
         }
     }

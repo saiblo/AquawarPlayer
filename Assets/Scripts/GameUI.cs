@@ -18,7 +18,7 @@ public class GameUI : GameBridge
 
     internal int DissolveShaderProperty;
 
-    public void UpdateFishStatus(JsonData players)
+    private void UpdateFishStatus(JsonData players)
     {
         for (var i = 0; i < 4; i++)
         {
@@ -28,8 +28,6 @@ public class GameUI : GameBridge
             enemyStatus[i].Current = (int) players[1]["fight_fish"][i]["state"] == 2
                 ? 0
                 : (int) players[1]["fight_fish"][i]["hp"];
-            myProfiles[i].SetHp(myStatus[i].Current);
-            enemyProfiles[i].SetHp(enemyStatus[i].Current);
             myProfiles[i].SetAtk((int) players[0]["fight_fish"][i]["atk"]);
             enemyProfiles[i].SetAtk((int) players[1]["fight_fish"][i]["atk"]);
         }

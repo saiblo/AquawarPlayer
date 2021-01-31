@@ -33,8 +33,6 @@ namespace GameImpl
                 {
                     if ((int) gameInfo["EnemyFish"][i] > 0)
                         gameUI.GameState.EnemyFishId[i] = (int) gameInfo["EnemyFish"][i] - 1;
-                    gameUI.myProfiles[i].SetHp(gameUI.myStatus[i].Current);
-                    gameUI.enemyProfiles[i].SetHp(gameUI.enemyStatus[i].Current);
                     gameUI.myProfiles[i].SetAtk((int) gameInfo["MyATK"][i]);
                     if (gameUI.GameState.MyFishAlive[i] && gameUI.myStatus[i].Current <= 0)
                         gameUI.Dissolve(false, i);
@@ -57,7 +55,7 @@ namespace GameImpl
                 gameUI.GameState.Assertion = -1;
                 gameUI.GameState.OnlineAssertionHit = false;
                 gameUI.GameState.AssertionTarget = 0;
-                gameUI.ChangeStatus(); // Skips the next two stages
+                gameUI.ChangeStatus();
                 return;
             }
 
