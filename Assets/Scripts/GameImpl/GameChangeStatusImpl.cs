@@ -181,6 +181,7 @@ namespace GameImpl
                 case Constants.GameStatus.SelectEnemyFish:
                 {
                     gameUI.GameState.GameStatus = Constants.GameStatus.WaitingAnimation;
+                    gameUI.AddLog();
 
                     void AfterWorks()
                     {

@@ -33,7 +33,7 @@ public class GameUI : GameBridge
         }
     }
 
-    public void AddLog(string s)
+    public void AddLog(string s = "")
     {
         Instantiate(logItem, logContent).SetText(s);
     }

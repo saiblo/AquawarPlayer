@@ -18,6 +18,7 @@ namespace GameImpl
             gameUI.GameState.GameStatus = Constants.GameStatus.DoAssertion;
             for (var i = 0; i < 4; i++)
                 gameUI.GameState.MyFishSelectedAsTarget[i] = gameUI.GameState.EnemyFishSelectedAsTarget[i] = false;
+            gameUI.AddLog();
 
             if (SharedRefs.Mode == Constants.GameMode.Offline) return;
 
