@@ -20,7 +20,16 @@ namespace GameImpl
                 gameUI.GameState.MyFishSelectedAsTarget[i] = gameUI.GameState.EnemyFishSelectedAsTarget[i] = false;
             gameUI.AddLog();
 
-            if (SharedRefs.Mode == Constants.GameMode.Offline) return;
+            if (SharedRefs.Mode == Constants.GameMode.Offline)
+            {
+                var players = SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["players"];
+                for (var i = 0; i < 4; i++)
+                {
+                    gameUI.myProfiles[i].SetAtk((int) players[0]["fight_fish"][i]["atk"]);
+                    gameUI.enemyProfiles[i].SetAtk((int) players[1]["fight_fish"][i]["atk"]);
+                }
+                return;
+            }
 
             for (var i = 0; i < 4; i++)
                 gameUI.GameState.MyFishId[i] = SharedRefs.FishChosen[i];
