@@ -98,11 +98,17 @@ namespace GameAnim
                 case "subtle":
                 {
                     if (!myTurn) gameUI.GameState.EnemyUsedSkills[actionFish].Add("无作为技能");
+
+                    var myselfRecover = UnityEngine.Object.Instantiate(gameUI.recoverEffect, gameUI.allFishRoot);
+                    myselfRecover.localPosition = GameObjectManager.FishRelativePosition(!myTurn, actionFish);
+                    gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(myselfRecover.gameObject); }, 4000);
+
                     if (SharedRefs.Mode == Constants.GameMode.Online && !myTurn)
                     {
                         gameUI.AddLog($"{logPrefix}己方使用了无作为技能。");
                         break;
                     }
+
                     var friendId = actionFish;
                     for (var i = 0; i < 4; i++)
                     {
@@ -115,10 +121,6 @@ namespace GameAnim
                     var shield = UnityEngine.Object.Instantiate(gameUI.shieldEffect, gameUI.allFishRoot);
                     shield.localPosition = GameObjectManager.FishRelativePosition(!myTurn, friendId);
                     gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(shield.gameObject); }, 5000);
-
-                    var myselfRecover = UnityEngine.Object.Instantiate(gameUI.recoverEffect, gameUI.allFishRoot);
-                    myselfRecover.localPosition = GameObjectManager.FishRelativePosition(!myTurn, actionFish);
-                    gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(myselfRecover.gameObject); }, 4000);
 
                     gameUI.AddLog($"{logPrefix}己方{friendId}号位置的鱼使用了无作为技能。");
                     break;
