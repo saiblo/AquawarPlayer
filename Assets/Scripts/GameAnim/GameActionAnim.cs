@@ -1,4 +1,5 @@
-﻿using Utils;
+﻿using GameImpl;
+using Utils;
 
 namespace GameAnim
 {
@@ -11,6 +12,8 @@ namespace GameAnim
                     ? SharedRefs.ActionInfo
                     : SharedRefs.ActionInfo[gameUI.GameState.MyTurn ? "MyAction" : "EnemyAction"];
             gameUI.GameState.NormalAttack = (string) actionInfo["skill"]["type"] == "normalattack";
+
+            var actions = gameUI.GenEventProcessor(actionInfo);
 
             var fishId = (gameUI.GameState.MyTurn ? gameUI.GameState.MyFishId : gameUI.GameState.EnemyFishId)
                 [(int) actionInfo["ActionFish"]];
@@ -29,6 +32,7 @@ namespace GameAnim
             if (actionInfo.ContainsKey("passive"))
                 gameUI.PassiveAnim(actionInfo);
             gameUI.HpAnim(actionInfo);
+            actions[0]();
             return actionInfo.ContainsKey("passive");
         }
     }
