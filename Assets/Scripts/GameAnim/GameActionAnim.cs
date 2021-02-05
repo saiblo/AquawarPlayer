@@ -25,6 +25,7 @@ namespace GameAnim
             var logPrefix = (gameUI.GameState.MyTurn ? GameUI.MeStr : GameUI.EnemyStr) +
                             $"{actionInfo["ActionFish"]}号位置的{fishName}对";
 
+            actions[0]();
             if (gameUI.GameState.NormalAttack)
                 gameUI.NormalAttackAnim(actionInfo, logPrefix);
             else
@@ -32,7 +33,7 @@ namespace GameAnim
             if (actionInfo.ContainsKey("passive"))
                 gameUI.PassiveAnim(actionInfo);
             gameUI.HpAnim(actionInfo);
-            actions[0]();
+            actions[1]();
             return actionInfo.ContainsKey("passive");
         }
     }

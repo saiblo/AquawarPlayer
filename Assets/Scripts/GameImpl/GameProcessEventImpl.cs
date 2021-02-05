@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GameAnim;
 using LitJson;
 using Utils;
 
@@ -7,7 +8,7 @@ namespace GameImpl
 {
     public static class GameProcessEventImpl
     {
-        private class ActionEvent
+        public class ActionEvent
         {
             public bool Enemy;
             public int Pos;
@@ -83,7 +84,11 @@ namespace GameImpl
 
             events.Sort((x, y) => x.Time - y.Time);
 
-            return new Action[] {() => { gameUI.AddEventsToLog(events); }};
+            return new Action[]
+            {
+                () => { gameUI.DiffAnim(events); },
+                () => { gameUI.AddEventsToLog(events); }
+            };
         }
     }
 }

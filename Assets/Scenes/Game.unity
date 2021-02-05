@@ -1419,6 +1419,7 @@ MonoBehaviour:
   - {fileID: 802840322}
   - {fileID: 655270966}
   - {fileID: 1817763145}
+  diffPrefab: {fileID: 3099026211317147166, guid: ee41b0a9c78b3f142834fe3612f1c57f, type: 3}
   roundText: {fileID: 901318066}
   scoreText: {fileID: 1744242772}
   resultText: {fileID: 129678564}

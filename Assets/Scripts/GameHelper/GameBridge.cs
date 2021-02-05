@@ -51,6 +51,8 @@ namespace GameHelper
         public Hp[] myStatus;
         public Hp[] enemyStatus;
 
+        public Diff diffPrefab;
+
         public Text roundText;
         public Text scoreText;
         public Text resultText;
