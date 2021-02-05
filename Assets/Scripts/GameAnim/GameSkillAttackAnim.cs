@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using GameHelper;
 using LitJson;
 using UnityEngine;
@@ -13,6 +14,37 @@ namespace GameAnim
         {
             var myTurn = gameUI.GameState.MyTurn;
             var actionFish = (int) actionInfo["ActionFish"];
+
+            void Subtle()
+            {
+                if (!myTurn) gameUI.GameState.EnemyUsedSkills[actionFish].Add("无作为技能");
+
+                var myselfRecover = UnityEngine.Object.Instantiate(gameUI.recoverEffect, gameUI.allFishRoot);
+                myselfRecover.localPosition = GameObjectManager.FishRelativePosition(!myTurn, actionFish);
+                gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(myselfRecover.gameObject); }, 4000);
+
+                if (SharedRefs.Mode == Constants.GameMode.Online && !myTurn)
+                {
+                    gameUI.AddLog($"{logPrefix}己方使用了无作为技能。");
+                    return;
+                }
+
+                var friendId = actionFish;
+                for (var i = 0; i < 4; i++)
+                {
+                    if ((!myTurn || !gameUI.GameState.MyFishSelectedAsTarget[i]) &&
+                        (myTurn || !gameUI.GameState.EnemyFishSelectedAsTarget[i])) continue;
+                    friendId = i;
+                    break;
+                }
+
+                var shield = UnityEngine.Object.Instantiate(gameUI.shieldEffect, gameUI.allFishRoot);
+                shield.localPosition = GameObjectManager.FishRelativePosition(!myTurn, friendId);
+                gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(shield.gameObject); }, 5000);
+
+                gameUI.AddLog($"{logPrefix}己方{friendId}号位置的鱼使用了无作为技能。");
+            }
+
             switch ((string) actionInfo["skill"]["type"])
             {
                 case "aoe":
@@ -54,6 +86,9 @@ namespace GameAnim
                     gameUI.AddLog(
                         $"{logPrefix}{(gameUI.GameState.MyTurn ? GameUI.EnemyStr : GameUI.MeStr)}{string.Join(",", ids)}号位置的鱼发起了AOE攻击。"
                     );
+                    if (SharedRefs.Mode == Constants.GameMode.Offline &&
+                        (myTurn ? gameUI.GameState.MyFishSelectedAsTarget : gameUI.GameState.EnemyFishSelectedAsTarget)
+                        .Any()) Subtle();
                     break;
                 }
                 case "infight":
@@ -93,36 +128,14 @@ namespace GameAnim
                     gameUI.AddLog(
                         $"{logPrefix}{(gameUI.GameState.MyTurn ? GameUI.EnemyStr : GameUI.MeStr)}{target}号位置的鱼发起了暴击伤害。"
                     );
+                    if (SharedRefs.Mode == Constants.GameMode.Offline &&
+                        (myTurn ? gameUI.GameState.MyFishSelectedAsTarget : gameUI.GameState.EnemyFishSelectedAsTarget)
+                        .Any()) Subtle();
                     break;
                 }
                 case "subtle":
                 {
-                    if (!myTurn) gameUI.GameState.EnemyUsedSkills[actionFish].Add("无作为技能");
-
-                    var myselfRecover = UnityEngine.Object.Instantiate(gameUI.recoverEffect, gameUI.allFishRoot);
-                    myselfRecover.localPosition = GameObjectManager.FishRelativePosition(!myTurn, actionFish);
-                    gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(myselfRecover.gameObject); }, 4000);
-
-                    if (SharedRefs.Mode == Constants.GameMode.Online && !myTurn)
-                    {
-                        gameUI.AddLog($"{logPrefix}己方使用了无作为技能。");
-                        break;
-                    }
-
-                    var friendId = actionFish;
-                    for (var i = 0; i < 4; i++)
-                    {
-                        if ((!myTurn || !gameUI.GameState.MyFishSelectedAsTarget[i]) &&
-                            (myTurn || !gameUI.GameState.EnemyFishSelectedAsTarget[i])) continue;
-                        friendId = i;
-                        break;
-                    }
-
-                    var shield = UnityEngine.Object.Instantiate(gameUI.shieldEffect, gameUI.allFishRoot);
-                    shield.localPosition = GameObjectManager.FishRelativePosition(!myTurn, friendId);
-                    gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(shield.gameObject); }, 5000);
-
-                    gameUI.AddLog($"{logPrefix}己方{friendId}号位置的鱼使用了无作为技能。");
+                    Subtle();
                     break;
                 }
             }
