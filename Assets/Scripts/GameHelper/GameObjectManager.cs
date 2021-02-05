@@ -250,10 +250,12 @@ namespace GameHelper
             {
                 if ((float) players[0]["fight_fish"][i]["hp"] <= 0 && (float) lastPlayers[0]["fight_fish"][i]["hp"] > 0)
                     MyFishTransforms[i] = GenFish(false, i, gameUI);
-                MyFogs[i].gameObject.SetActive(!(bool) lastPlayers[0]["fight_fish"][i]["is_expose"]);
+                MyFogs[i].gameObject.SetActive(gameUI.GameState.MyFishAlive[i] &&
+                                               !(bool) lastPlayers[0]["fight_fish"][i]["is_expose"]);
                 if ((float) players[1]["fight_fish"][i]["hp"] <= 0 && (float) lastPlayers[1]["fight_fish"][i]["hp"] > 0)
                     EnemyFishTransforms[i] = GenFish(true, i, gameUI);
-                EnemyFogs[i].gameObject.SetActive(!(bool) lastPlayers[1]["fight_fish"][i]["is_expose"]);
+                EnemyFogs[i].gameObject.SetActive(gameUI.GameState.EnemyFishAlive[i] &&
+                                                  !(bool) lastPlayers[1]["fight_fish"][i]["is_expose"]);
             }
         }
 
