@@ -62,7 +62,7 @@ namespace GameAnim
                                 GameObjectManager.FishRelativePosition(myTurn, id) -
                                 GameObjectManager.FishRelativePosition(!myTurn, actionFish);
                             var targetFishId = (myTurn ? gameUI.GameState.EnemyFishId : gameUI.GameState.MyFishId)[id];
-                            var bias = targetFishId == 4 ? new Vector3(4.5f, 0, 0) : new Vector3(3f, 0, 0);
+                            var bias = targetFishId == 4 ? new Vector3(4f, 0, 0) : new Vector3(3f, 0, 0);
                             var distance = originalDistance + (originalDistance.x < 0 ? 1 : -1) * bias;
                             var angle = Math.Atan(distance.x / distance.z) / Math.PI * 180.0;
                             UnityEngine.Object.Instantiate(
