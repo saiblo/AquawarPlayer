@@ -88,7 +88,7 @@ namespace GameAnim
                     );
                     if (SharedRefs.Mode == Constants.GameMode.Offline &&
                         (myTurn ? gameUI.GameState.MyFishSelectedAsTarget : gameUI.GameState.EnemyFishSelectedAsTarget)
-                        .Any()) Subtle();
+                        .Any(b => b)) Subtle();
                     break;
                 }
                 case "infight":
