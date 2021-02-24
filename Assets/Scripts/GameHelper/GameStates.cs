@@ -24,8 +24,6 @@ namespace GameHelper
         public int AssertionPlayer = 0; // The player that performs the assertion
         public int AssertionTarget; // Which fish do you think it is?
 
-        public bool OnlineAssertionHit; // Made a online assertion, and hit
-
         public readonly bool[] MyFishSelectedAsTarget = {false, false, false, false};
         public readonly bool[] EnemyFishSelectedAsTarget = {false, false, false, false};
 
