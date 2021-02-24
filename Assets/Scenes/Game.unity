@@ -1341,14 +1341,7 @@ MonoBehaviour:
   nextStepButton: {fileID: 11741442}
   prevRoundButton: {fileID: 239000412}
   nextRoundButton: {fileID: 597753235}
-  assertionButtons:
-  - {fileID: 659040543}
-  - {fileID: 1876768376}
-  - {fileID: 960790152}
-  - {fileID: 278109953}
   doNotAssertButton: {fileID: 231395377}
-  confirmActionGroup: {fileID: 1306283019}
-  confirmAttackButton: {fileID: 167801220}
   countDownPrefab: {fileID: 8183459705649610555, guid: 7b27a92b1ee55f748b24b0be7544e87c, type: 3}
   exitConfirmMask: {fileID: 566143841}
   counters:
