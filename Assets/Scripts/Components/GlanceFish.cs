@@ -10,6 +10,7 @@ namespace Components
         public Image fishAvatar;
         public Image mask;
         public Image border;
+        public GameObject question;
 
         private int _id;
         private ProfileExtension _extension;

@@ -42,6 +42,12 @@ namespace GameImpl
                     $"用过的主动：{string.Join(",", gameUI.GameState.EnemyUsedSkills[i])}\n\n用过的被动：{string.Join(",", gameUI.GameState.EnemyUsedPassives[i])}\n\n曾被断言为：{string.Join(",", gameUI.GameState.EnemyAsserted[i].Select(id => Constants.FishName[id]))}"
                 );
             }
+
+            for (var i = 0; i < Constants.FishNum; i++)
+            {
+                gameUI.myGlance.allGlanceFish[i].question.SetActive(!SharedRefs.MyFishIdExpose[i]);
+                gameUI.enemyGlance.allGlanceFish[i].question.SetActive(!SharedRefs.EnemyFishIdExpose[i]);
+            }
         }
     }
 }

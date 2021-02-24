@@ -10,6 +10,10 @@ namespace Utils
 
         public static readonly Sprite[] FishAvatars = new Sprite[Constants.FishNum];
 
+        public static readonly bool[] MyFishIdExpose = new bool[Constants.FishNum];
+
+        public static readonly bool[] EnemyFishIdExpose = new bool[Constants.FishNum];
+
         public static int ReplayCursor = 0;
 
         public static JsonData ReplayJson = null;

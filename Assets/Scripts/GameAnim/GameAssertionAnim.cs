@@ -1,5 +1,6 @@
 ﻿using GameHelper;
 using UnityEngine;
+using Utils;
 
 namespace GameAnim
 {
@@ -20,6 +21,9 @@ namespace GameAnim
                 (gameUI.GameState.AssertionPlayer == 1
                     ? gameUI.GameState.MyFishExpose
                     : gameUI.GameState.EnemyFishExpose)[gameUI.GameState.Assertion] = true;
+                (gameUI.GameState.AssertionPlayer == 1
+                    ? SharedRefs.MyFishIdExpose
+                    : SharedRefs.EnemyFishIdExpose)[gameUI.GameState.AssertionTarget] = true;
             }
 
             (gameUI.GameState.AssertionPlayer == 1 ? gameUI.GameState.MyAsserted : gameUI.GameState.EnemyAsserted)
