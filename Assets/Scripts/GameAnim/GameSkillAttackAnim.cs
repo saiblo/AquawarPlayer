@@ -4,7 +4,6 @@ using System.Linq;
 using GameHelper;
 using LitJson;
 using UnityEngine;
-using Utils;
 
 namespace GameAnim
 {
@@ -22,12 +21,6 @@ namespace GameAnim
                 var myselfRecover = UnityEngine.Object.Instantiate(gameUI.recoverEffect, gameUI.allFishRoot);
                 myselfRecover.localPosition = GameObjectManager.FishRelativePosition(!myTurn, actionFish);
                 gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(myselfRecover.gameObject); }, 4000);
-
-                if (SharedRefs.Mode == Constants.GameMode.Online && !myTurn)
-                {
-                    gameUI.AddLog($"{logPrefix}己方使用了无作为技能。");
-                    return;
-                }
 
                 var friendId = actionFish;
                 for (var i = 0; i < 4; i++)
@@ -86,8 +79,7 @@ namespace GameAnim
                     gameUI.AddLog(
                         $"{logPrefix}{(gameUI.GameState.MyTurn ? GameUI.EnemyStr : GameUI.MeStr)}{string.Join(",", ids)}号位置的鱼发起了AOE攻击。"
                     );
-                    if (SharedRefs.Mode == Constants.GameMode.Offline &&
-                        (myTurn ? gameUI.GameState.MyFishSelectedAsTarget : gameUI.GameState.EnemyFishSelectedAsTarget)
+                    if ((myTurn ? gameUI.GameState.MyFishSelectedAsTarget : gameUI.GameState.EnemyFishSelectedAsTarget)
                         .Any(b => b)) Subtle();
                     break;
                 }
@@ -128,8 +120,7 @@ namespace GameAnim
                     gameUI.AddLog(
                         $"{logPrefix}{(gameUI.GameState.MyTurn ? GameUI.EnemyStr : GameUI.MeStr)}{target}号位置的鱼发起了暴击伤害。"
                     );
-                    if (SharedRefs.Mode == Constants.GameMode.Offline &&
-                        (myTurn ? gameUI.GameState.MyFishSelectedAsTarget : gameUI.GameState.EnemyFishSelectedAsTarget)
+                    if ((myTurn ? gameUI.GameState.MyFishSelectedAsTarget : gameUI.GameState.EnemyFishSelectedAsTarget)
                         .Any(b => b)) Subtle();
                     break;
                 }
@@ -139,9 +130,6 @@ namespace GameAnim
                     break;
                 }
             }
-            if (SharedRefs.Mode == Constants.GameMode.Online &&
-                !myTurn && !gameUI.GameState.EnemyFishExpose[actionFish])
-                GameObjectManager.UpdateHiddenExtension(gameUI, actionFish);
         }
     }
 }

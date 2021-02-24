@@ -99,7 +99,6 @@ public class Welcome : EnhancedMonoBehaviour
                 {
                     SharedRefs.ReplayCursor = 0;
                     SharedRefs.ReplayJson = replayJson;
-                    SharedRefs.Mode = Constants.GameMode.Offline;
                     SceneManager.LoadScene("Scenes/Game");
                 }
                 else
@@ -147,7 +146,6 @@ public class Welcome : EnhancedMonoBehaviour
                 {
                     SharedRefs.GameClient.RecvHandle.WaitOne();
                     SharedRefs.PickInfo = SharedRefs.GameClient.RecvBuffer; // PICK
-                    SharedRefs.Mode = Constants.GameMode.Online;
                     SharedRefs.OnlineWin = SharedRefs.OnlineLose = 0;
                     RunOnUiThread(() => { SceneManager.LoadScene("Scenes/Preparation"); });
                 }

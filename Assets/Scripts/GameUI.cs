@@ -10,9 +10,9 @@ public class GameUI : GameBridge
 
     public readonly GameObjectManager Gom;
 
-    public static string MeStr => SharedRefs.Mode == Constants.GameMode.Offline ? "0号AI" : "我方";
+    public static string MeStr => "0号AI";
 
-    public static string EnemyStr => SharedRefs.Mode == Constants.GameMode.Offline ? "1号AI" : "敌方";
+    public static string EnemyStr => "1号AI";
 
     // Dissolve effect
 
@@ -46,20 +46,14 @@ public class GameUI : GameBridge
             SceneManager.LoadScene("Scenes/Welcome");
             return;
         }
-        if (SharedRefs.Mode == Constants.GameMode.Online)
-            SceneManager.LoadScene(SharedRefs.OnlineLose + SharedRefs.OnlineWin == 3
-                ? "Scenes/Welcome"
-                : "Scenes/Preparation");
-        else
-            SceneManager.LoadScene((int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["rounds"] == 3
-                ? "Scenes/Welcome"
-                : "Scenes/Game");
+        SceneManager.LoadScene((int) SharedRefs.ReplayJson[SharedRefs.ReplayCursor]["rounds"] == 3
+            ? "Scenes/Welcome"
+            : "Scenes/Game");
     }
 
     public void BackHomeWrapper()
     {
-        if (SharedRefs.Mode == Constants.GameMode.Offline) BackHome();
-        else exitConfirmMask.SetActive(true);
+        BackHome();
     }
 
     public void OnlineCancelBackHome()

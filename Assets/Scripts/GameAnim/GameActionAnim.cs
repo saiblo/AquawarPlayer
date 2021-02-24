@@ -7,21 +7,14 @@ namespace GameAnim
     {
         public static bool ActionAnim(this GameUI gameUI)
         {
-            var actionInfo =
-                SharedRefs.Mode == Constants.GameMode.Offline
-                    ? SharedRefs.ActionInfo
-                    : SharedRefs.ActionInfo[gameUI.GameState.MyTurn ? "MyAction" : "EnemyAction"];
+            var actionInfo = SharedRefs.ActionInfo;
             gameUI.GameState.NormalAttack = (string) actionInfo["skill"]["type"] == "normalattack";
 
             var actions = gameUI.GenEventProcessor(actionInfo);
 
             var fishId = (gameUI.GameState.MyTurn ? gameUI.GameState.MyFishId : gameUI.GameState.EnemyFishId)
                 [(int) actionInfo["ActionFish"]];
-            var fishName = SharedRefs.Mode == Constants.GameMode.Offline ||
-                           gameUI.GameState.MyTurn ||
-                           gameUI.GameState.EnemyFishExpose[(int) actionInfo["ActionFish"]]
-                ? Constants.FishName[fishId]
-                : "[未知]";
+            var fishName = Constants.FishName[fishId];
             var logPrefix = (gameUI.GameState.MyTurn ? GameUI.MeStr : GameUI.EnemyStr) +
                             $"{actionInfo["ActionFish"]}号位置的{fishName}对";
 

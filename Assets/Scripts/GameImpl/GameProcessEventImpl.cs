@@ -27,11 +27,7 @@ namespace GameImpl
                 var fishId =
                     (actionEvent.Enemy ? gameUI.GameState.EnemyFishId : gameUI.GameState.MyFishId)
                     [actionEvent.Pos];
-                var fishName = SharedRefs.Mode == Constants.GameMode.Offline ||
-                               !actionEvent.Enemy ||
-                               gameUI.GameState.EnemyFishExpose[actionEvent.Pos]
-                    ? Constants.FishName[fishId]
-                    : "[未知]";
+                var fishName = Constants.FishName[fishId];
                 gameUI.AddLog(
                     $"  {actionEvent.Time}. {(actionEvent.Enemy ? GameUI.EnemyStr : GameUI.MeStr)}{actionEvent.Pos}号位置的{fishName}血量{(actionEvent.Positive ? "+" : "-")}{actionEvent.Value}"
                 );
@@ -50,9 +46,7 @@ namespace GameImpl
                 {
                     events.Add(new ActionEvent
                     {
-                        Enemy = SharedRefs.Mode == Constants.GameMode.Offline
-                            ? (int) hitList[i]["player"] == 1
-                            : (bool) hitList[i]["isEnemy"],
+                        Enemy = (int) hitList[i]["player"] == 1,
                         Pos = (int) hitList[i]["target"],
                         Value = (int) hitList[i]["value"],
                         Time = (int) hitList[i]["time"],
@@ -70,9 +64,7 @@ namespace GameImpl
                     {
                         events.Add(new ActionEvent
                         {
-                            Enemy = SharedRefs.Mode == Constants.GameMode.Offline
-                                ? (int) passiveList[i]["player"] == 1
-                                : (bool) passiveList[i]["isEnemy"],
+                            Enemy = (int) passiveList[i]["player"] == 1,
                             Pos = (int) passiveList[i]["source"],
                             Value = (int) (double) passiveList[i]["value"],
                             Time = (int) passiveList[i]["time"],

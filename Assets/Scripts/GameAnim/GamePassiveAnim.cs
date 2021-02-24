@@ -1,7 +1,6 @@
 ﻿using GameHelper;
 using LitJson;
 using UnityEngine;
-using Utils;
 
 namespace GameAnim
 {
@@ -13,9 +12,7 @@ namespace GameAnim
             for (var i = 0; i < passiveList.Count; i++)
             {
                 var sourcePos = (int) passiveList[i]["source"];
-                var enemy = SharedRefs.Mode == Constants.GameMode.Offline
-                    ? (int) passiveList[i]["player"] == 1
-                    : (bool) passiveList[i]["isEnemy"];
+                var enemy = (int) passiveList[i]["player"] == 1;
                 var sourceName = enemy ? GameUI.EnemyStr : GameUI.MeStr;
                 switch ((string) passiveList[i]["type"])
                 {
@@ -81,9 +78,6 @@ namespace GameAnim
                         break;
                     }
                 }
-                if (SharedRefs.Mode == Constants.GameMode.Online &&
-                    enemy && !gameUI.GameState.EnemyFishExpose[sourcePos])
-                    GameObjectManager.UpdateHiddenExtension(gameUI, sourcePos);
             }
         }
     }

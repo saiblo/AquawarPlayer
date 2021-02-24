@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Components;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using Utils;
 using Object = UnityEngine.Object;
 
@@ -72,112 +70,15 @@ namespace GameHelper
 
         public bool Initialized;
 
-        public Transform GenFish(bool enemy, int j, GameUI gameUI)
+        private Transform GenFish(bool enemy, int j, GameBridge gameUI)
         {
             var fishTransform = Object.Instantiate(
-                SharedRefs.Mode == Constants.GameMode.Online && enemy && !_gameStates.EnemyFishExpose[j]
-                    ? gameUI.unkFishPrefab
-                    : SharedRefs.FishPrefabs[(enemy ? _gameStates.EnemyFishId : _gameStates.MyFishId)[j]],
-                gameUI.allFishRoot);
+                SharedRefs.FishPrefabs[(enemy ? _gameStates.EnemyFishId : _gameStates.MyFishId)[j]],
+                gameUI.allFishRoot
+            );
             fishTransform.localPosition = FishRelativePosition(enemy, j);
             fishTransform.localScale = Small;
             fishTransform.rotation = Quaternion.Euler(new Vector3(0, enemy ? 100 : 260, 0));
-            if (SharedRefs.Mode == Constants.GameMode.Offline) return fishTransform;
-
-            if (!enemy) gameUI.actionButtons[j].Setup(gameUI.GameState.MyFishId[j]);
-
-            var fishTrigger = new EventTrigger.Entry();
-            fishTrigger.callback.AddListener(delegate
-            {
-                switch (_gameStates.GameStatus)
-                {
-                    case Constants.GameStatus.DoAssertion:
-                        if (enemy)
-                        {
-                            if (gameUI.GameState.EnemyFishExpose[j]) break;
-                            _gameStates.Assertion = _gameStates.Assertion == j ? -1 : j;
-                            gameUI.CloseAssertionModal();
-                        }
-                        break;
-                    case Constants.GameStatus.WaitAssertion:
-                        break;
-                    case Constants.GameStatus.SelectMyFish:
-                        if (!enemy) _gameStates.MyFishSelected = _gameStates.MyFishSelected == j ? -1 : j;
-                        break;
-                    case Constants.GameStatus.SelectEnemyFish:
-                        if (_gameStates.NormalAttack)
-                        {
-                            if (!enemy) break;
-                            if (_gameStates.EnemyFishSelectedAsTarget[j])
-                                _gameStates.EnemyFishSelectedAsTarget[j] = false;
-                            else
-                            {
-                                for (var i = 0; i < 4; i++)
-                                    _gameStates.EnemyFishSelectedAsTarget[i] = false;
-                                _gameStates.EnemyFishSelectedAsTarget[j] = true;
-                            }
-                        }
-                        else
-                        {
-                            var fishId = gameUI.GameState.MyFishId[gameUI.GameState.MyFishSelected];
-                            var fishSkill = Constants.SkillDict[fishId == 11 ? SharedRefs.MyImitate : fishId];
-                            if (enemy)
-                            {
-                                if (fishSkill == Constants.Skill.Aoe ||
-                                    fishSkill == Constants.Skill.InFight ||
-                                    fishSkill == Constants.Skill.InHelp ||
-                                    fishSkill == Constants.Skill.Clown) break;
-                                if (fishSkill == Constants.Skill.MinCrit)
-                                {
-                                    var minVal =
-                                        (from hp in gameUI.enemyStatus
-                                            where hp.Current > 0
-                                            select hp.Current).Min();
-                                    if (gameUI.enemyStatus[j].Current != minVal) break;
-                                }
-                                if (fishSkill == Constants.Skill.Turtle &&
-                                    (fishId == 11 ? gameUI.GameState.ImitateUsed : gameUI.GameState.TurtleUsed) >= 3)
-                                    break;
-                                if (_gameStates.EnemyFishSelectedAsTarget[j])
-                                    _gameStates.EnemyFishSelectedAsTarget[j] = false;
-                                else
-                                {
-                                    for (var i = 0; i < 4; i++) _gameStates.EnemyFishSelectedAsTarget[i] = false;
-                                    _gameStates.EnemyFishSelectedAsTarget[j] = true;
-                                }
-                            }
-                            else
-                            {
-                                if (fishSkill == Constants.Skill.Aoe ||
-                                    fishSkill == Constants.Skill.Crit ||
-                                    fishSkill == Constants.Skill.MinCrit) break;
-                                if ((fishSkill == Constants.Skill.InFight ||
-                                     fishSkill == Constants.Skill.Turtle ||
-                                     fishSkill == Constants.Skill.Clown) &&
-                                    j == gameUI.GameState.MyFishSelected) break;
-                                if (_gameStates.MyFishSelectedAsTarget[j])
-                                    _gameStates.MyFishSelectedAsTarget[j] = false;
-                                else
-                                {
-                                    for (var i = 0; i < 4; i++) _gameStates.MyFishSelectedAsTarget[i] = false;
-                                    _gameStates.MyFishSelectedAsTarget[j] = true;
-                                }
-                            }
-                        }
-                        break;
-                    case Constants.GameStatus.WaitingAnimation:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            });
-            fishTransform.GetComponent<EventTrigger>().triggers.Add(fishTrigger);
-            if (enemy) return fishTransform;
-
-            gameUI.counters[j].gameObject.SetActive(
-                gameUI.GameState.MyFishId[j] == 6 || gameUI.GameState.MyFishId[j] == 10 ||
-                gameUI.GameState.MyFishId[j] == 11 && (SharedRefs.MyImitate == 6 || SharedRefs.MyImitate == 10)
-            );
             return fishTransform;
         }
 
@@ -197,21 +98,13 @@ namespace GameHelper
                 gameUI.myExtensions[i].UpdateText(
                     $"{Constants.FishName[myFishId]}\n主动：{Constants.SkillDescription[myFishId]}\n被动：{Constants.PassiveDescription[myFishId]}{myImitatePrompt}"
                 );
-                if (SharedRefs.Mode == Constants.GameMode.Offline || _gameStates.EnemyFishExpose[i])
-                {
-                    var enemyImitatePrompt = gameUI.GameState.EnemyFishId[i] == 11
-                        ? $"\n所拟态鱼：{Constants.FishName[SharedRefs.EnemyImitate]}"
-                        : "";
-                    gameUI.enemyProfiles[i].SetupFish(enemyFishId, gameUI.enemyExtensions[i]);
-                    gameUI.enemyExtensions[i].UpdateText(
-                        $"{Constants.FishName[enemyFishId]}\n主动：{Constants.SkillDescription[enemyFishId]}\n被动：{Constants.PassiveDescription[enemyFishId]}{enemyImitatePrompt}"
-                    );
-                }
-                else
-                {
-                    gameUI.enemyProfiles[i].SetupFish(-1, gameUI.enemyExtensions[i]);
-                    gameUI.enemyExtensions[i].UpdateText("隐藏");
-                }
+                var enemyImitatePrompt = gameUI.GameState.EnemyFishId[i] == 11
+                    ? $"\n所拟态鱼：{Constants.FishName[SharedRefs.EnemyImitate]}"
+                    : "";
+                gameUI.enemyProfiles[i].SetupFish(enemyFishId, gameUI.enemyExtensions[i]);
+                gameUI.enemyExtensions[i].UpdateText(
+                    $"{Constants.FishName[enemyFishId]}\n主动：{Constants.SkillDescription[enemyFishId]}\n被动：{Constants.PassiveDescription[enemyFishId]}{enemyImitatePrompt}"
+                );
 
                 gameUI.myStatus[i].Full = Constants.DefaultHp;
                 gameUI.enemyStatus[i].Full = Constants.DefaultHp;

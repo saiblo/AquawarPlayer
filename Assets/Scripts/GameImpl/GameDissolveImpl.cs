@@ -53,9 +53,7 @@ namespace GameImpl
                 // ignored
             }
 
-            var name = SharedRefs.Mode == Constants.GameMode.Offline || !enemy || gameUI.GameState.EnemyFishExpose[pos]
-                ? Constants.FishName[(enemy ? gameUI.GameState.EnemyFishId : gameUI.GameState.MyFishId)[pos]]
-                : "鱼";
+            var name = Constants.FishName[(enemy ? gameUI.GameState.EnemyFishId : gameUI.GameState.MyFishId)[pos]];
             gameUI.AddLog($"{(enemy ? GameUI.EnemyStr : GameUI.MeStr)}{pos}号位置的{name}死亡。");
         }
     }

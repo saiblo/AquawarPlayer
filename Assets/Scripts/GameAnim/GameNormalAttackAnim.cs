@@ -35,11 +35,7 @@ namespace GameAnim
             }, () => { }, 81, 0, 10);
 
             var fishId = (gameUI.GameState.MyTurn ? gameUI.GameState.EnemyFishId : gameUI.GameState.MyFishId)[target];
-            var fishName = SharedRefs.Mode == Constants.GameMode.Offline ||
-                           !gameUI.GameState.MyTurn ||
-                           gameUI.GameState.EnemyFishExpose[(int) actionInfo["ActionFish"]]
-                ? Constants.FishName[fishId]
-                : "[未知]";
+            var fishName = Constants.FishName[fishId];
             var side = gameUI.GameState.MyTurn ? GameUI.EnemyStr : GameUI.MeStr;
             gameUI.AddLog($"{logPrefix}{side}{target}号位置的{fishName}发起了普通攻击。");
         }

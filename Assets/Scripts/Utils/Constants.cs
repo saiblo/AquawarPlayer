@@ -7,15 +7,10 @@
         public const int DefaultHp = 400;
         public const int DefaultAtk = 100;
 
-        public enum GameMode
-        {
-            Online,
-            Offline
-        }
-
         public enum GameStatus
         {
             DoAssertion,
+            PeekAssertion,
             WaitAssertion,
             SelectMyFish,
             SelectEnemyFish,
