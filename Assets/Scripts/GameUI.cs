@@ -120,36 +120,6 @@ public class GameUI : GameBridge
         if (SharedRefs.AutoPlay && nextStepButton.interactable) NextStep();
     }
 
-    public void DoAssertion(int id)
-    {
-        GameState.Assertion = id;
-        assertionModal.gameObject.SetActive(true);
-    }
-
-    public void CloseAssertionModal()
-    {
-        assertionModal.gameObject.SetActive(false);
-        assertionExt.gameObject.SetActive(false);
-    }
-
-    public void GiveUpAssertion()
-    {
-        GameState.Assertion = -1;
-        CloseAssertionModal();
-        doNotAssertButton.SetActive(false);
-        this.ChangeStatus();
-    }
-
-    public void ShowHint()
-    {
-        hintImage.SetActive(true);
-    }
-
-    public void HideHint()
-    {
-        hintImage.SetActive(false);
-    }
-
     // Extension methods
 
     // void MakeAGuess(bool enemy, int timeout)

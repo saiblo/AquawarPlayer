@@ -9,10 +9,6 @@ namespace GameHelper
     /// </summary>
     public abstract class GameBridge : EnhancedMonoBehaviour
     {
-        // Prefabs
-
-        public Transform unkFishPrefab;
-
         // Particle system
 
         public Transform waterProjectile;
@@ -36,9 +32,6 @@ namespace GameHelper
         public Transform allFishRoot;
 
         // Sprites
-
-        public Sprite darkBlue;
-        public Sprite lightBlue;
 
         public Sprite playIcon;
         public Sprite pauseIcon;
@@ -74,22 +67,12 @@ namespace GameHelper
         public Glance myGlance;
         public Glance enemyGlance;
 
-        public Glance assertionModal;
-        public ProfileExtension assertionExt;
-
-        public GameObject offlineOnlyButtons;
-        public GameObject questionButton;
-        public GameObject hintImage;
-        public Text hintText;
         public Image playButtonImage;
         public Button prevStepButton;
         public Button nextStepButton;
         public Button prevRoundButton;
         public Button nextRoundButton;
 
-        public GameObject doNotAssertButton;
-
-        public CountDown countDownPrefab;
         public GameObject exitConfirmMask;
 
         public Text[] counters;
