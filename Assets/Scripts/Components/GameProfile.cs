@@ -15,20 +15,12 @@ namespace Components
 
         private MonoBehaviour _extension;
 
-        public void SetupFish(int id, MonoBehaviour extension)
+        public void SetupFish(int id, MonoBehaviour extension, int imitate = -1)
         {
-            if (id >= 0)
-            {
-                fishName.text = Constants.FishName[id];
-                skill.text = Constants.SkillTable[id];
-                if (passive != null) passive.text = Constants.PassiveTable[id];
-                avatar.overrideSprite = SharedRefs.FishAvatars[id];
-            }
-            else
-            {
-                fishName.text = "？？？";
-                skill.text = "？？？";
-            }
+            fishName.text = imitate == -1 ? Constants.FishName[id] : $"<{Constants.FishName[imitate]}>";
+            skill.text = Constants.SkillTable[id];
+            if (passive != null) passive.text = Constants.PassiveTable[id];
+            avatar.overrideSprite = SharedRefs.FishAvatars[id];
             _extension = extension;
         }
 
