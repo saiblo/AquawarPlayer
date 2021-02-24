@@ -27,6 +27,8 @@ namespace GameHelper
         public readonly Vector3 Small = new Vector3(3, 3, 3);
         public readonly Vector3 Large = new Vector3(4, 4, 4);
 
+        public GameObject GuessFish = null;
+
         private CountDown _countDown;
 
         public void StopCountDown(GameUI gameUI)

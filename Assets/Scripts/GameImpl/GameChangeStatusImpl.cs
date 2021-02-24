@@ -3,6 +3,7 @@ using System.Threading;
 using GameAnim;
 using GameHelper;
 using Utils;
+using Object = UnityEngine.Object;
 
 namespace GameImpl
 {
@@ -43,24 +44,22 @@ namespace GameImpl
                     if (gameUI.GameState.Assertion == -1)
                     {
                         gameUI.GameState.GameStatus = Constants.GameStatus.WaitAssertion;
-                        gameUI.ChangeStatus();
+                        gameUI.SetTimeout(gameUI.ChangeStatus, 100);
                     }
                     else
                     {
                         gameUI.GameState.GameStatus = Constants.GameStatus.PeekAssertion;
-                        gameUI.AssertionAnim();
-                        gameUI.SetTimeout(() =>
-                        {
-                            gameUI.GameState.Assertion = -1;
-                            SharedRefs.AutoPlay = false;
-                            gameUI.nextStepButton.interactable = true;
-                        }, 1000);
+                        SharedRefs.AutoPlay = false;
+                        gameUI.nextStepButton.interactable = true;
                     }
                     break;
                 }
                 case Constants.GameStatus.PeekAssertion:
                     gameUI.GameState.GameStatus = Constants.GameStatus.WaitAssertion;
-                    gameUI.ChangeStatus();
+                    Object.Destroy(gameUI.Gom.GuessFish);
+                    gameUI.AssertionAnim();
+                    gameUI.GameState.Assertion = -1;
+                    gameUI.SetTimeout(gameUI.ChangeStatus, 1000);
                     break;
                 case Constants.GameStatus.WaitAssertion:
                     gameUI.GameState.GameStatus = Constants.GameStatus.SelectMyFish;

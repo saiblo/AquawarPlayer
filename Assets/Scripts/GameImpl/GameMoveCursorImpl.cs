@@ -55,7 +55,8 @@ namespace GameImpl
                         gameUI.GameState.AssertionPlayer = (int) operation["ID"];
                         gameUI.GameState.Assertion = (int) operation["Pos"];
                         gameUI.GameState.AssertionTarget = (int) operation["id"] - 1;
-                        gameUI.MakeAGuess(gameUI.GameState.AssertionPlayer == 0, 2000);
+                        gameUI.MakeAGuess(gameUI.GameState.AssertionPlayer == 0);
+                        gameUI.ChangeStatus();
                         gameUI.AddLog(
                             $"{subject}断言{target}{operation["Pos"]}号位置鱼为{Constants.FishName[(int) operation["id"] - 1]}。"
                         );
