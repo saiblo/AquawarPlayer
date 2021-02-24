@@ -92,24 +92,16 @@ namespace GameHelper
                 EnemyFishTransforms.Add(GenFish(true, i, gameUI));
 
                 var myFishId = gameUI.GameState.MyFishId[i];
-                var myFishRealId = myFishId == 11 ? SharedRefs.MyImitate : myFishId;
                 var enemyFishId = gameUI.GameState.EnemyFishId[i];
-                var enemyFishRealId = enemyFishId == 11 ? SharedRefs.EnemyImitate : enemyFishId;
                 gameUI.myProfiles[i].SetupFish(
                     myFishId,
                     gameUI.myExtensions[i],
                     myFishId == 11 ? SharedRefs.MyImitate : -1
                 );
-                gameUI.myExtensions[i].UpdateText(
-                    $"{Constants.FishName[myFishId]}\n主动：{Constants.SkillDescription[myFishRealId]}\n被动：{Constants.PassiveDescription[myFishRealId]}"
-                );
                 gameUI.enemyProfiles[i].SetupFish(
                     enemyFishId,
                     gameUI.enemyExtensions[i],
                     enemyFishId == 11 ? SharedRefs.EnemyImitate : -1
-                );
-                gameUI.enemyExtensions[i].UpdateText(
-                    $"{Constants.FishName[enemyFishId]}\n主动：{Constants.SkillDescription[enemyFishRealId]}\n被动：{Constants.PassiveDescription[enemyFishRealId]}"
                 );
 
                 gameUI.myStatus[i].Full = Constants.DefaultHp;
@@ -156,12 +148,6 @@ namespace GameHelper
                 EnemyFogs[i].gameObject.SetActive(gameUI.GameState.EnemyFishAlive[i] &&
                                                   !(bool) lastPlayers[1]["fight_fish"][i]["is_expose"]);
             }
-        }
-
-        public static void UpdateHiddenExtension(GameUI gameUI, int id)
-        {
-            gameUI.enemyExtensions[id].text.text =
-                $"隐藏\n用过的主动：{string.Join(",", gameUI.GameState.EnemyUsedSkills[id])}\n用过的被动：{string.Join(",", gameUI.GameState.EnemyUsedPassives[id])}";
         }
 
         public GameObjectManager(GameStates gameStates)

@@ -40,6 +40,12 @@ namespace GameHelper
         public readonly List<int> MyFishAvailable = new List<int>();
         public readonly List<int> EnemyFishAvailable = new List<int>();
 
+        public readonly HashSet<string>[] MyUsedSkills =
+            {new HashSet<string>(), new HashSet<string>(), new HashSet<string>(), new HashSet<string>()};
+
+        public readonly HashSet<string>[] MyUsedPassives =
+            {new HashSet<string>(), new HashSet<string>(), new HashSet<string>(), new HashSet<string>()};
+
         public readonly HashSet<string>[] EnemyUsedSkills =
             {new HashSet<string>(), new HashSet<string>(), new HashSet<string>(), new HashSet<string>()};
 

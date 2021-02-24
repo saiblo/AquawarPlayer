@@ -16,7 +16,8 @@ namespace GameAnim
 
             void Subtle()
             {
-                if (!myTurn) gameUI.GameState.EnemyUsedSkills[actionFish].Add("无作为技能");
+                (myTurn ? gameUI.GameState.MyUsedSkills : gameUI.GameState.EnemyUsedSkills)
+                    [actionFish].Add("无作为技能");
 
                 var myselfRecover = UnityEngine.Object.Instantiate(gameUI.recoverEffect, gameUI.allFishRoot);
                 myselfRecover.localPosition = GameObjectManager.FishRelativePosition(!myTurn, actionFish);
@@ -42,7 +43,8 @@ namespace GameAnim
             {
                 case "aoe":
                 {
-                    if (!myTurn) gameUI.GameState.EnemyUsedSkills[actionFish].Add("AOE");
+                    (myTurn ? gameUI.GameState.MyUsedSkills : gameUI.GameState.EnemyUsedSkills)
+                        [actionFish].Add("AOE");
                     var targetList = actionInfo["skill"]["targets"];
                     var ids = new List<string>();
                     for (var i = 0; i < targetList.Count; i++)
@@ -85,7 +87,8 @@ namespace GameAnim
                 }
                 case "infight":
                 {
-                    if (!myTurn) gameUI.GameState.EnemyUsedSkills[actionFish].Add("伤害队友");
+                    (myTurn ? gameUI.GameState.MyUsedSkills : gameUI.GameState.EnemyUsedSkills)
+                        [actionFish].Add("伤害队友");
                     var target = (int) actionInfo["skill"]["targets"][0]["pos"];
                     var myFishExplode = UnityEngine.Object.Instantiate(gameUI.bigExplosion, gameUI.allFishRoot);
                     myFishExplode.localPosition = GameObjectManager.FishRelativePosition(!myTurn, target);
@@ -98,7 +101,8 @@ namespace GameAnim
                 }
                 case "crit":
                 {
-                    if (!myTurn) gameUI.GameState.EnemyUsedSkills[actionFish].Add("暴击");
+                    (myTurn ? gameUI.GameState.MyUsedSkills : gameUI.GameState.EnemyUsedSkills)
+                        [actionFish].Add("暴击");
                     var target = (int) actionInfo["skill"]["targets"][0]["pos"];
                     var distance =
                         GameObjectManager.FishRelativePosition(!myTurn, actionFish) -
