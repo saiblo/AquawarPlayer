@@ -81,7 +81,10 @@ public class GameUI : GameBridge
         nextStepButton.interactable = false;
         prevRoundButton.interactable = false;
         nextRoundButton.interactable = false;
-        this.MoveCursor();
+        if (GameState.GameStatus == Constants.GameStatus.PeekAssertion)
+            this.ChangeStatus();
+        else
+            this.MoveCursor();
     }
 
     public void PrevRound()

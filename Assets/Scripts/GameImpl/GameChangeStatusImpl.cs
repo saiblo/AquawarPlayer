@@ -40,24 +40,27 @@ namespace GameImpl
             {
                 case Constants.GameStatus.DoAssertion:
                 {
-                    gameUI.GameState.GameStatus = Constants.GameStatus.WaitAssertion;
-
-                    gameUI.RunOnUiThread(() =>
+                    if (gameUI.GameState.Assertion == -1)
                     {
-                        // When either side made an assertion, play the animation.
-                        if (gameUI.GameState.Assertion != -1) gameUI.AssertionAnim();
-
-                        // Enter `WaitAssertion` branch
+                        gameUI.GameState.GameStatus = Constants.GameStatus.WaitAssertion;
+                        gameUI.ChangeStatus();
+                    }
+                    else
+                    {
+                        gameUI.GameState.GameStatus = Constants.GameStatus.PeekAssertion;
+                        gameUI.AssertionAnim();
                         gameUI.SetTimeout(() =>
                         {
                             gameUI.GameState.Assertion = -1;
-                            gameUI.ChangeStatus();
-                        }, gameUI.GameState.Assertion == -1 ? 200 : 1000);
-                    });
+                            SharedRefs.AutoPlay = false;
+                            gameUI.nextStepButton.interactable = true;
+                        }, 1000);
+                    }
                     break;
                 }
                 case Constants.GameStatus.PeekAssertion:
                     gameUI.GameState.GameStatus = Constants.GameStatus.WaitAssertion;
+                    gameUI.ChangeStatus();
                     break;
                 case Constants.GameStatus.WaitAssertion:
                     gameUI.GameState.GameStatus = Constants.GameStatus.SelectMyFish;
@@ -71,15 +74,12 @@ namespace GameImpl
                     gameUI.GameState.GameStatus = Constants.GameStatus.WaitingAnimation;
                     gameUI.AddLog();
 
-                    gameUI.RunOnUiThread(() =>
-                    {
-                        // And now the animation part
-                        var hasPassive = gameUI.ActionAnim();
+                    // And now the animation part
+                    var hasPassive = gameUI.ActionAnim();
 
-                        // Now go for a new round
-                        gameUI.GameState.MyTurn = !gameUI.GameState.MyTurn;
-                        gameUI.SetTimeout(gameUI.NewRound, hasPassive ? 2000 : 1000);
-                    });
+                    // Now go for a new round
+                    gameUI.GameState.MyTurn = !gameUI.GameState.MyTurn;
+                    gameUI.SetTimeout(gameUI.NewRound, hasPassive ? 2000 : 1000);
                     break;
                 }
                 case Constants.GameStatus.WaitingAnimation:
