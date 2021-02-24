@@ -115,7 +115,7 @@ namespace GameHelper
                 gameUI.myStatus[i].Full = Constants.DefaultHp;
                 gameUI.enemyStatus[i].Full = Constants.DefaultHp;
                 gameUI.myProfiles[i].SetAtk(Constants.DefaultAtk);
-                gameUI.enemyProfiles[i].SetAtk(-1);
+                gameUI.enemyProfiles[i].SetAtk(Constants.DefaultAtk);
             }
 
             for (var i = 0; i < Constants.FishNum; i++)
