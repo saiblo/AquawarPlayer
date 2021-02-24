@@ -1,4 +1,5 @@
-﻿using Utils;
+﻿using System.Linq;
+using Utils;
 
 namespace GameImpl
 {
@@ -34,16 +35,11 @@ namespace GameImpl
                             ? gameUI.Gom.Large
                             : gameUI.Gom.Small;
 
-                var myFishId = gameUI.GameState.MyFishId[i];
-                var myFishRealId = myFishId == 11 ? SharedRefs.MyImitate : myFishId;
                 gameUI.myExtensions[i].UpdateText(
-                    $"主动：{Constants.SkillDescription[myFishRealId]}\n\n被动：{Constants.PassiveDescription[myFishRealId]}\n\n用过的主动：{string.Join(",", gameUI.GameState.MyUsedSkills[i])}\n\n用过的被动：{string.Join(",", gameUI.GameState.MyUsedPassives[i])}"
+                    $"用过的主动：{string.Join(",", gameUI.GameState.MyUsedSkills[i])}\n\n用过的被动：{string.Join(",", gameUI.GameState.MyUsedPassives[i])}\n\n曾被断言为：{string.Join(",", gameUI.GameState.MyAsserted[i].Select(id => Constants.FishName[id]))}"
                 );
-
-                var enemyFishId = gameUI.GameState.EnemyFishId[i];
-                var enemyFishRealId = enemyFishId == 11 ? SharedRefs.EnemyImitate : enemyFishId;
                 gameUI.enemyExtensions[i].UpdateText(
-                    $"主动：{Constants.SkillDescription[enemyFishRealId]}\n\n被动：{Constants.PassiveDescription[enemyFishRealId]}\n\n用过的主动：{string.Join(",", gameUI.GameState.EnemyUsedSkills[i])}\n\n用过的被动：{string.Join(",", gameUI.GameState.EnemyUsedPassives[i])}"
+                    $"用过的主动：{string.Join(",", gameUI.GameState.EnemyUsedSkills[i])}\n\n用过的被动：{string.Join(",", gameUI.GameState.EnemyUsedPassives[i])}\n\n曾被断言为：{string.Join(",", gameUI.GameState.EnemyAsserted[i].Select(id => Constants.FishName[id]))}"
                 );
             }
         }

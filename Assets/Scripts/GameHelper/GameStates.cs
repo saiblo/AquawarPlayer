@@ -44,11 +44,17 @@ namespace GameHelper
         public readonly HashSet<string>[] MyUsedPassives =
             {new HashSet<string>(), new HashSet<string>(), new HashSet<string>(), new HashSet<string>()};
 
+        public readonly HashSet<int>[] MyAsserted =
+            {new HashSet<int>(), new HashSet<int>(), new HashSet<int>(), new HashSet<int>()};
+
         public readonly HashSet<string>[] EnemyUsedSkills =
             {new HashSet<string>(), new HashSet<string>(), new HashSet<string>(), new HashSet<string>()};
 
         public readonly HashSet<string>[] EnemyUsedPassives =
             {new HashSet<string>(), new HashSet<string>(), new HashSet<string>(), new HashSet<string>()};
+
+        public readonly HashSet<int>[] EnemyAsserted =
+            {new HashSet<int>(), new HashSet<int>(), new HashSet<int>(), new HashSet<int>()};
 
         public int TurtleUsed = 0;
         public int ClownUsed = 0;

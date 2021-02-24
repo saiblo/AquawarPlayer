@@ -22,6 +22,9 @@ namespace GameAnim
                     : gameUI.GameState.EnemyFishExpose)[gameUI.GameState.Assertion] = true;
             }
 
+            (gameUI.GameState.AssertionPlayer == 1 ? gameUI.GameState.MyAsserted : gameUI.GameState.EnemyAsserted)
+                [gameUI.GameState.Assertion].Add(gameUI.GameState.AssertionTarget);
+
             for (var i = 0; i < 4; i++)
                 if (((gameUI.GameState.AssertionPlayer == 1) ^ hit
                     ? gameUI.GameState.EnemyFishAlive
