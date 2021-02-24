@@ -18,8 +18,8 @@ namespace Components
         public void SetupFish(int id, MonoBehaviour extension, int imitate = -1)
         {
             fishName.text = imitate == -1 ? Constants.FishName[id] : $"<{Constants.FishName[imitate]}>";
-            skill.text = Constants.SkillTable[id];
-            if (passive != null) passive.text = Constants.PassiveTable[id];
+            skill.text = Constants.SkillTable[imitate == -1 ? id : imitate];
+            passive.text = Constants.PassiveTable[imitate == -1 ? id : imitate];
             avatar.overrideSprite = SharedRefs.FishAvatars[id];
             _extension = extension;
         }

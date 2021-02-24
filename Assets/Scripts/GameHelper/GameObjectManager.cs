@@ -92,14 +92,16 @@ namespace GameHelper
                 EnemyFishTransforms.Add(GenFish(true, i, gameUI));
 
                 var myFishId = gameUI.GameState.MyFishId[i];
+                var myFishRealId = myFishId == 11 ? SharedRefs.MyImitate : myFishId;
                 var enemyFishId = gameUI.GameState.EnemyFishId[i];
+                var enemyFishRealId = enemyFishId == 11 ? SharedRefs.EnemyImitate : enemyFishId;
                 gameUI.myProfiles[i].SetupFish(
                     myFishId,
                     gameUI.myExtensions[i],
                     myFishId == 11 ? SharedRefs.MyImitate : -1
                 );
                 gameUI.myExtensions[i].UpdateText(
-                    $"{Constants.FishName[myFishId]}\n主动：{Constants.SkillDescription[myFishId]}\n被动：{Constants.PassiveDescription[myFishId]}"
+                    $"{Constants.FishName[myFishId]}\n主动：{Constants.SkillDescription[myFishRealId]}\n被动：{Constants.PassiveDescription[myFishRealId]}"
                 );
                 gameUI.enemyProfiles[i].SetupFish(
                     enemyFishId,
@@ -107,7 +109,7 @@ namespace GameHelper
                     enemyFishId == 11 ? SharedRefs.EnemyImitate : -1
                 );
                 gameUI.enemyExtensions[i].UpdateText(
-                    $"{Constants.FishName[enemyFishId]}\n主动：{Constants.SkillDescription[enemyFishId]}\n被动：{Constants.PassiveDescription[enemyFishId]}"
+                    $"{Constants.FishName[enemyFishId]}\n主动：{Constants.SkillDescription[enemyFishRealId]}\n被动：{Constants.PassiveDescription[enemyFishRealId]}"
                 );
 
                 gameUI.myStatus[i].Full = Constants.DefaultHp;
