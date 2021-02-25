@@ -99,6 +99,8 @@ public class Welcome : EnhancedMonoBehaviour
                 {
                     SharedRefs.ReplayCursor = 0;
                     SharedRefs.ReplayJson = replayJson;
+                    for (var i = 0; i < Constants.FishNum; i++)
+                        SharedRefs.MyFishIdExpose[i] = SharedRefs.EnemyFishIdExpose[i] = false;
                     SceneManager.LoadScene("Scenes/Game");
                 }
                 else
