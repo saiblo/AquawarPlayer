@@ -1,8 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Text;
-using System.Threading;
-using GameHelper;
 using LitJson;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,21 +7,17 @@ using UnityEditor;
 using UnityEngine.UI;
 using Utils;
 
-public class Welcome : EnhancedMonoBehaviour
+public class Welcome : MonoBehaviour
 {
     public Transform[] fishPrefabSamples;
 
     public Sprite[] fishAvatars;
 
     public Transform offlineButton;
-    public Transform onlineButton;
     public Transform exitButton;
     public InputField inputField;
-    public Text inputPlaceholder;
     public Transform goButton;
     public Transform backButton;
-
-    private bool _offline;
 
     public Text statusText;
 
@@ -36,24 +29,18 @@ public class Welcome : EnhancedMonoBehaviour
             SharedRefs.FishPrefabs[i] = fishPrefabSamples[i];
             SharedRefs.FishAvatars[i] = fishAvatars[i];
         }
-        SetIgb(false, true);
+        SetIgb(false);
     }
 
-    private void SetOoe(bool active)
+    private void SetOe(bool active)
     {
         offlineButton.gameObject.SetActive(active);
-        onlineButton.gameObject.SetActive(active);
         exitButton.gameObject.SetActive(active);
     }
 
-    private void SetIgb(bool active, bool offline)
+    private void SetIgb(bool active)
     {
-        if (active)
-        {
-            inputPlaceholder.text = offline ? "请输入回放文件路径..." : "请输入Token...";
-            inputField.text = "";
-            _offline = offline;
-        }
+        if (active) inputField.text = "";
         inputField.gameObject.SetActive(active);
         goButton.gameObject.SetActive(active);
         backButton.gameObject.SetActive(active);
@@ -64,27 +51,20 @@ public class Welcome : EnhancedMonoBehaviour
 #if UNITY_EDITOR
         ProcessFile(EditorUtility.OpenFilePanel("选择回放文件", "", "json"));
 #else
-        SetOoe(false);
-        SetIgb(true, true);
+        SetOe(false);
+        SetIgb(true);
 #endif
-    }
-
-    public void OnlineButtonPressed()
-    {
-        SetOoe(false);
-        SetIgb(true, false);
     }
 
     public void BackButtonPressed()
     {
-        SetIgb(false, false);
-        SetOoe(true);
+        SetIgb(false);
+        SetOe(true);
     }
 
     public void ConfirmButtonPressed()
     {
-        if (_offline) ProcessFile(inputField.text.Trim());
-        else ConnectRoom(inputField.text.Trim());
+        ProcessFile(inputField.text.Trim());
     }
 
     // ReSharper disable once MemberCanBeMadeStatic.Local
@@ -121,49 +101,5 @@ public class Welcome : EnhancedMonoBehaviour
             statusText.text = e.Message;
 #endif
         }
-    }
-
-    private async void ConnectRoom(string tokenEncoded)
-    {
-        var tokenDecoded = tokenEncoded;
-        try
-        {
-            tokenDecoded = Encoding.UTF8.GetString(Convert.FromBase64String(tokenEncoded));
-        }
-        catch (Exception)
-        {
-            // ignored
-        }
-        var local = tokenDecoded == tokenEncoded;
-        if (local) tokenEncoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(tokenDecoded));
-        try
-        {
-            statusText.text = "连接中……";
-            SharedRefs.GameClient = new Client(tokenDecoded, tokenEncoded, local);
-            await SharedRefs.GameClient.Send();
-            statusText.text = "连接成功，等待对手中……";
-            new Thread(() =>
-            {
-                try
-                {
-                    SharedRefs.GameClient.RecvHandle.WaitOne();
-                    SharedRefs.PickInfo = SharedRefs.GameClient.RecvBuffer; // PICK
-                    SharedRefs.OnlineWin = SharedRefs.OnlineLose = 0;
-                    RunOnUiThread(() => { SceneManager.LoadScene("Scenes/Preparation"); });
-                }
-                catch (Exception)
-                {
-                    RunOnUiThread(() => { statusText.text = "连接失败"; });
-                }
-            }).Start();
-        }
-        catch (Exception)
-        {
-            statusText.text = "连接失败";
-        }
-    }
-
-    protected override void RunPerFrame()
-    {
     }
 }
