@@ -54,7 +54,7 @@ namespace GameImpl
             }
 
             var name = Constants.FishName[(enemy ? gameUI.GameState.EnemyFishId : gameUI.GameState.MyFishId)[pos]];
-            gameUI.AddLog($"{(enemy ? GameUI.EnemyStr : GameUI.MeStr)}{pos}号位置的{name}死亡。");
+            gameUI.AddLog($"{(enemy ? 1 : 0)}号AI的{name}死亡。");
         }
     }
 }

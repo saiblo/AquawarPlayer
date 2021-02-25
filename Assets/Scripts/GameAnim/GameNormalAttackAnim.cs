@@ -36,8 +36,7 @@ namespace GameAnim
 
             var fishId = (gameUI.GameState.MyTurn ? gameUI.GameState.EnemyFishId : gameUI.GameState.MyFishId)[target];
             var fishName = Constants.FishName[fishId];
-            var side = gameUI.GameState.MyTurn ? GameUI.EnemyStr : GameUI.MeStr;
-            gameUI.AddLog($"{logPrefix}{side}{target}号位置的{fishName}发起了普通攻击。");
+            gameUI.AddLog($"{logPrefix}{(gameUI.GameState.MyTurn ? 1 : 0)}号AI的{fishName}发起了普通攻击。");
         }
     }
 }

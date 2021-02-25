@@ -29,7 +29,7 @@ namespace GameImpl
                     [actionEvent.Pos];
                 var fishName = Constants.FishName[fishId];
                 gameUI.AddLog(
-                    $"  {actionEvent.Time}. {(actionEvent.Enemy ? GameUI.EnemyStr : GameUI.MeStr)}{actionEvent.Pos}号位置的{fishName}血量{(actionEvent.Positive ? "+" : "-")}{actionEvent.Value}"
+                    $"  {actionEvent.Time}. {(actionEvent.Enemy ? 1 : 0)}号AI的{fishName}血量{(actionEvent.Positive ? "+" : "-")}{actionEvent.Value}"
                 );
             });
             gameUI.AddLog();

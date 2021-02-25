@@ -10,10 +10,6 @@ public class GameUI : GameBridge
 
     public readonly GameObjectManager Gom;
 
-    public static string MeStr => "0号AI";
-
-    public static string EnemyStr => "1号AI";
-
     // Dissolve effect
 
     internal int DissolveShaderProperty;

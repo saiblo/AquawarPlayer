@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using GameHelper;
 using LitJson;
 using UnityEngine;
+using Utils;
 
 namespace GameAnim
 {
@@ -38,7 +38,10 @@ namespace GameAnim
                 shield.localPosition = GameObjectManager.FishRelativePosition(!myTurn, friendId);
                 gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(shield.gameObject); }, 5000);
 
-                gameUI.AddLog($"{logPrefix}己方{friendId}号位置的鱼使用了无作为技能。");
+                var friendName =
+                    Constants.FishName[(myTurn ? gameUI.GameState.MyFishId : gameUI.GameState.EnemyFishId)[friendId]];
+
+                gameUI.AddLog($"{logPrefix}己方{friendName}使用了无作为技能。");
             }
 
             switch ((string) actionInfo["skill"]["type"])
@@ -48,11 +51,9 @@ namespace GameAnim
                     (myTurn ? gameUI.GameState.MyUsedSkills : gameUI.GameState.EnemyUsedSkills)
                         [actionFish].Add("AOE");
                     var targetList = actionInfo["skill"]["targets"];
-                    var ids = new List<string>();
                     for (var i = 0; i < targetList.Count; i++)
                     {
                         var id = (int) actionInfo["skill"]["targets"][i]["pos"];
-                        ids.Add(id.ToString());
                         gameUI.SetTimeout(() =>
                         {
                             var originalDistance =
@@ -81,7 +82,7 @@ namespace GameAnim
                         }, i * 120);
                     }
                     gameUI.AddLog(
-                        $"{logPrefix}{(gameUI.GameState.MyTurn ? GameUI.EnemyStr : GameUI.MeStr)}{string.Join(",", ids)}号位置的鱼发起了AOE攻击。"
+                        $"{logPrefix}{(gameUI.GameState.MyTurn ? 1 : 0)}号AI发起了AOE攻击。"
                     );
                     if ((myTurn ? gameUI.GameState.MyFishSelectedAsTarget : gameUI.GameState.EnemyFishSelectedAsTarget)
                         .Any(b => b)) Subtle();
@@ -92,13 +93,16 @@ namespace GameAnim
                     (myTurn ? gameUI.GameState.MyUsedSkills : gameUI.GameState.EnemyUsedSkills)
                         [actionFish].Add("伤害队友");
                     var target = (int) actionInfo["skill"]["targets"][0]["pos"];
+                    var targetName =
+                        Constants.FishName[(myTurn ? gameUI.GameState.MyFishId : gameUI.GameState.EnemyFishId)[target]];
+
                     var myFishExplode = UnityEngine.Object.Instantiate(gameUI.bigExplosion, gameUI.allFishRoot);
                     myFishExplode.localPosition = GameObjectManager.FishRelativePosition(!myTurn, target);
                     gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(myFishExplode.gameObject); }, 2000);
                     var myFishRecover = UnityEngine.Object.Instantiate(gameUI.recoverEffect, gameUI.allFishRoot);
                     myFishRecover.localPosition = GameObjectManager.FishRelativePosition(!myTurn, actionFish);
                     gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(myFishRecover.gameObject); }, 4000);
-                    gameUI.AddLog($"{logPrefix}伤害了己方{target}号位置队友。");
+                    gameUI.AddLog($"{logPrefix}伤害了己方队友{targetName}。");
                     break;
                 }
                 case "crit":
@@ -106,6 +110,8 @@ namespace GameAnim
                     (myTurn ? gameUI.GameState.MyUsedSkills : gameUI.GameState.EnemyUsedSkills)
                         [actionFish].Add("暴击");
                     var target = (int) actionInfo["skill"]["targets"][0]["pos"];
+                    var targetName =
+                        Constants.FishName[(myTurn ? gameUI.GameState.EnemyFishId : gameUI.GameState.MyFishId)[target]];
                     var distance =
                         GameObjectManager.FishRelativePosition(!myTurn, actionFish) -
                         GameObjectManager.FishRelativePosition(myTurn, target);
@@ -124,7 +130,7 @@ namespace GameAnim
                         gameUI.SetTimeout(() => { UnityEngine.Object.Destroy(targetExplode.gameObject); }, 1000);
                     }, 200);
                     gameUI.AddLog(
-                        $"{logPrefix}{(gameUI.GameState.MyTurn ? GameUI.EnemyStr : GameUI.MeStr)}{target}号位置的鱼发起了暴击伤害。"
+                        $"{logPrefix}{(gameUI.GameState.MyTurn ? 1 : 0)}号AI的{targetName}发起了暴击伤害。"
                     );
                     if ((myTurn ? gameUI.GameState.MyFishSelectedAsTarget : gameUI.GameState.EnemyFishSelectedAsTarget)
                         .Any(b => b)) Subtle();

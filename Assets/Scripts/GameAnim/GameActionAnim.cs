@@ -15,8 +15,7 @@ namespace GameAnim
             var fishId = (gameUI.GameState.MyTurn ? gameUI.GameState.MyFishId : gameUI.GameState.EnemyFishId)
                 [(int) actionInfo["ActionFish"]];
             var fishName = Constants.FishName[fishId];
-            var logPrefix = (gameUI.GameState.MyTurn ? GameUI.MeStr : GameUI.EnemyStr) +
-                            $"{actionInfo["ActionFish"]}号位置的{fishName}对";
+            var logPrefix = $"{(gameUI.GameState.MyTurn ? 0 : 1)}号AI的{fishName}对";
 
             actions[0]();
             if (gameUI.GameState.NormalAttack)
