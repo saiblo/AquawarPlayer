@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Utils;
 
 namespace GameImpl
@@ -41,6 +42,9 @@ namespace GameImpl
                 gameUI.enemyExtensions[i].UpdateText(
                     $"用过的主动：{string.Join(",", gameUI.GameState.EnemyUsedSkills[i])}\n\n用过的被动：{string.Join(",", gameUI.GameState.EnemyUsedPassives[i])}\n\n曾被断言为：{string.Join(",", gameUI.GameState.EnemyAsserted[i].Select(id => Constants.FishName[id]))}"
                 );
+
+                gameUI.myCounters[i].text = $"{Math.Min(gameUI.GameState.MyUsedTimes[i], 3)}";
+                gameUI.enemyCounters[i].text = $"{Math.Min(gameUI.GameState.EnemyUsedTimes[i], 3)}";
             }
 
             for (var i = 0; i < Constants.FishNum; i++)

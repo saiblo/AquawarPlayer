@@ -56,8 +56,8 @@ namespace GameHelper
         public readonly HashSet<int>[] EnemyAsserted =
             {new HashSet<int>(), new HashSet<int>(), new HashSet<int>(), new HashSet<int>()};
 
-        public int TurtleUsed = 0;
-        public int ClownUsed = 0;
-        public int ImitateUsed = 0;
+        public readonly int[] MyUsedTimes = {0, 0, 0, 0};
+
+        public readonly int[] EnemyUsedTimes = {0, 0, 0, 0};
     }
 }

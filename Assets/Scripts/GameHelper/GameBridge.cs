@@ -75,6 +75,7 @@ namespace GameHelper
 
         public GameObject exitConfirmMask;
 
-        public Text[] counters;
+        public Text[] myCounters;
+        public Text[] enemyCounters;
     }
 }

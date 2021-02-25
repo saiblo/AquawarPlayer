@@ -76,6 +76,17 @@ namespace GameHelper
                 gameUI.enemyStatus[i].Full = Constants.DefaultHp;
                 gameUI.myProfiles[i].SetAtk(Constants.DefaultAtk);
                 gameUI.enemyProfiles[i].SetAtk(Constants.DefaultAtk);
+
+                gameUI.myCounters[i].gameObject.SetActive(gameUI.GameState.MyFishId[i] == 6 ||
+                                                          gameUI.GameState.MyFishId[i] == 10 ||
+                                                          gameUI.GameState.MyFishId[i] == 11 &&
+                                                          (SharedRefs.MyImitate == 6 ||
+                                                           SharedRefs.MyImitate == 10));
+                gameUI.enemyCounters[i].gameObject.SetActive(gameUI.GameState.EnemyFishId[i] == 6 ||
+                                                             gameUI.GameState.EnemyFishId[i] == 10 ||
+                                                             gameUI.GameState.EnemyFishId[i] == 11 &&
+                                                             (SharedRefs.EnemyImitate == 6 ||
+                                                              SharedRefs.EnemyImitate == 10));
             }
 
             for (var i = 0; i < Constants.FishNum; i++)

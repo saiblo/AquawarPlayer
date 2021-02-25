@@ -14,6 +14,8 @@ namespace GameAnim
             var myTurn = gameUI.GameState.MyTurn;
             var actionFish = (int) actionInfo["ActionFish"];
 
+            (myTurn ? gameUI.GameState.MyUsedTimes : gameUI.GameState.EnemyUsedTimes)[actionFish]++;
+
             void Subtle()
             {
                 (myTurn ? gameUI.GameState.MyUsedSkills : gameUI.GameState.EnemyUsedSkills)
