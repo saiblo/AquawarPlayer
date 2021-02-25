@@ -14,6 +14,7 @@ namespace GameAnim
             {
                 var sourcePos = (int) passiveList[i]["source"];
                 var enemy = (int) passiveList[i]["player"] == 1;
+                var value = (double) passiveList[i]["value"];
                 var fishName =
                     Constants.FishName[(enemy ? gameUI.GameState.EnemyFishId : gameUI.GameState.MyFishId)[sourcePos]];
                 var template = $"{(enemy ? 1 : 0)}号AI的{fishName}使用了被动技能：";
@@ -51,12 +52,13 @@ namespace GameAnim
                         break;
                     case "reduce":
                     {
+                        var name = value == 0 ? "闪避" : "减伤";
                         (enemy ? gameUI.GameState.EnemyUsedPassives : gameUI.GameState.MyUsedPassives)
-                            [sourcePos].Add("减伤");
+                            [sourcePos].Add(name);
                         var shield = Object.Instantiate(gameUI.shieldEffect, gameUI.allFishRoot);
                         shield.localPosition = GameObjectManager.FishRelativePosition(enemy, sourcePos);
                         gameUI.SetTimeout(() => { Object.Destroy(shield.gameObject); }, 3000);
-                        gameUI.AddLog($"{template}减伤。");
+                        gameUI.AddLog($"{template}{name}。");
                         break;
                     }
                     case "heal":
