@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Components;
 using UnityEngine;
 using Utils;
 using Object = UnityEngine.Object;
@@ -27,8 +26,6 @@ namespace GameHelper
         public readonly Vector3 Large = new Vector3(4, 4, 4);
 
         public GameObject GuessFish = null;
-
-        private CountDown _countDown;
 
         public static Vector3 FishRelativePosition(bool enemy, int id)
         {
