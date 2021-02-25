@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using LitJson;
+﻿using LitJson;
 using UnityEngine;
 
 namespace Utils
@@ -20,12 +19,6 @@ namespace Utils
 
         public static bool AutoPlay = false;
 
-        public static Client GameClient = null;
-
-        public static JsonData PickInfo = null;
-
-        public static List<int> FishChosen = null; // Shared by Preparation and Game
-
         public static JsonData ActionInfo = null; // Do not want to describe it. Shared between states. See the code.
 
         public static int MyImitate = 11;
@@ -33,8 +26,5 @@ namespace Utils
         public static int EnemyImitate = 11;
 
         public static bool ErrorFlag = false; // Indicates whether reading an error record
-
-        public static int OnlineWin = 0;
-        public static int OnlineLose = 0;
     }
 }

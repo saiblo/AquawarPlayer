@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Threading;
 using GameAnim;
-using GameHelper;
 using Utils;
 using Object = UnityEngine.Object;
 
@@ -86,28 +84,6 @@ namespace GameImpl
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-        }
-
-        public static void GameOver(this GameBridge gameUI, bool win, bool force = false)
-        {
-            if (win) ++SharedRefs.OnlineWin;
-            else ++SharedRefs.OnlineLose;
-            if (SharedRefs.OnlineLose + SharedRefs.OnlineWin != 3 && !force)
-            {
-                new Thread(() =>
-                {
-                    SharedRefs.GameClient.RecvHandle.WaitOne();
-                    SharedRefs.PickInfo = SharedRefs.GameClient.RecvBuffer; // PICK  
-                    gameUI.RunOnUiThread(() => { gameUI.gameOverMask.SetActive(true); });
-                }).Start();
-                return;
-            }
-            if (force)
-            {
-                SharedRefs.ErrorFlag = true;
-                gameUI.gameOverText.text = "回到首页";
-            }
-            gameUI.gameOverMask.SetActive(true);
         }
     }
 }
