@@ -71,13 +71,10 @@ namespace GameImpl
             gameUI.scoreText.text = $"{(rounds - score - 1) / 2}:{(score + rounds - 1) / 2}";
             gameUI.Gom.Init(gameUI);
             SharedRefs.ReplayCursor++;
-            if (SharedRefs.AutoPlay) gameUI.MoveCursor();
-            else
-            {
-                gameUI.prevRoundButton.interactable = true;
-                gameUI.nextRoundButton.interactable = rounds < 3;
-                gameUI.nextStepButton.interactable = true;
-            }
+            SharedRefs.AutoPlay = false;
+            gameUI.prevRoundButton.interactable = true;
+            gameUI.nextRoundButton.interactable = rounds < 3;
+            gameUI.nextStepButton.interactable = true;
         }
     }
 }
