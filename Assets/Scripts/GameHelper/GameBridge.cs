@@ -77,5 +77,8 @@ namespace GameHelper
 
         public Text[] myCounters;
         public Text[] enemyCounters;
+
+        public Text[] myCombo;
+        public Text[] enemyCombo;
     }
 }

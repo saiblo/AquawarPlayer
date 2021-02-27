@@ -60,6 +60,14 @@ namespace GameImpl
 
                 gameUI.myCounters[i].text = $"{Math.Min(gameUI.GameState.MyUsedTimes[i], 3)}";
                 gameUI.enemyCounters[i].text = $"{Math.Min(gameUI.GameState.EnemyUsedTimes[i], 3)}";
+
+                gameUI.myCombo[i].gameObject
+                    .SetActive(gameUI.GameState.MyComboSkip[i] > 0 && !gameUI.GameState.MyComboStop[i]);
+                gameUI.enemyCombo[i].gameObject
+                    .SetActive(gameUI.GameState.EnemyComboSkip[i] > 0 && !gameUI.GameState.EnemyComboStop[i]);
+
+                gameUI.myCombo[i].text = $"{gameUI.GameState.MyComboSkip[i]}";
+                gameUI.enemyCombo[i].text = $"{gameUI.GameState.EnemyComboSkip[i]}";
             }
 
             for (var i = 0; i < Constants.FishNum; i++)

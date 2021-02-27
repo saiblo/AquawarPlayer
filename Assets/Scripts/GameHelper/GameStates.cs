@@ -72,5 +72,13 @@ namespace GameHelper
             new HashSet<Constants.Buff>(), new HashSet<Constants.Buff>(),
             new HashSet<Constants.Buff>(), new HashSet<Constants.Buff>()
         };
+
+        public readonly int[] MyComboSkip = {0, 0, 0, 0};
+
+        public readonly int[] EnemyComboSkip = {0, 0, 0, 0};
+
+        public readonly bool[] MyComboStop = {false, false, false, false};
+
+        public readonly bool[] EnemyComboStop = {false, false, false, false};
     }
 }

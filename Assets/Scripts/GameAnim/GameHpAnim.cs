@@ -36,6 +36,9 @@ namespace GameAnim
             bool[] meSkipped = {false, false, false, false};
             bool[] enemySkipped = {false, false, false, false};
 
+            bool[] meHit = {false, false, false, false};
+            bool[] enemyHit = {false, false, false, false};
+
             if (actionInfo.ContainsKey("hit"))
             {
                 var hitList = actionInfo["hit"];
@@ -43,13 +46,31 @@ namespace GameAnim
                 {
                     if ((int) hitList[i]["value"] == 0)
                         ((int) hitList[i]["player"] == 1 ? enemySkipped : meSkipped)[(int) hitList[i]["target"]] = true;
+                    else
+                        ((int) hitList[i]["player"] == 1 ? enemyHit : meHit)[(int) hitList[i]["target"]] = true;
                 }
             }
 
             for (var i = 0; i < 4; i++)
             {
-                if (!meSkipped[i]) gameUI.GameState.MyBuff[i].Clear();
-                if (!enemySkipped[i]) gameUI.GameState.EnemyBuff[i].Clear();
+                if (meHit[i])
+                {
+                    gameUI.GameState.MyBuff[i].Clear();
+                    gameUI.GameState.MyComboStop[i] = true;
+                }
+                if (meSkipped[i] && !gameUI.GameState.MyComboStop[i])
+                {
+                    ++gameUI.GameState.MyComboSkip[i];
+                }
+                if (enemyHit[i])
+                {
+                    gameUI.GameState.EnemyBuff[i].Clear();
+                    gameUI.GameState.EnemyComboStop[i] = true;
+                }
+                if (enemySkipped[i] && !gameUI.GameState.EnemyComboStop[i])
+                {
+                    ++gameUI.GameState.EnemyComboSkip[i];
+                }
             }
         }
     }
