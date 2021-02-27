@@ -18,6 +18,7 @@ namespace GameAnim
             var logPrefix = $"{(gameUI.GameState.MyTurn ? 0 : 1)}号AI的{fishName}对";
 
             actions[0]();
+            gameUI.RemoveBuff(actionInfo);
             if (gameUI.GameState.NormalAttack)
                 gameUI.NormalAttackAnim(actionInfo, logPrefix);
             else

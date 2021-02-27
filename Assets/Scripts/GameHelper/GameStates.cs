@@ -59,5 +59,18 @@ namespace GameHelper
         public readonly int[] MyUsedTimes = {0, 0, 0, 0};
 
         public readonly int[] EnemyUsedTimes = {0, 0, 0, 0};
+
+        public readonly HashSet<Constants.Buff>[] MyBuff =
+        {
+            new HashSet<Constants.Buff>(), new HashSet<Constants.Buff>(),
+            new HashSet<Constants.Buff>(), new HashSet<Constants.Buff>()
+        };
+
+
+        public readonly HashSet<Constants.Buff>[] EnemyBuff =
+        {
+            new HashSet<Constants.Buff>(), new HashSet<Constants.Buff>(),
+            new HashSet<Constants.Buff>(), new HashSet<Constants.Buff>()
+        };
     }
 }

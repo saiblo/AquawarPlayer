@@ -36,11 +36,26 @@ namespace GameImpl
                             ? gameUI.Gom.Large
                             : gameUI.Gom.Small;
 
+                string BuffToStr(Constants.Buff buff)
+                {
+                    switch (buff)
+                    {
+                        case Constants.Buff.Reduce:
+                            return "减伤";
+                        case Constants.Buff.Heal:
+                            return "回血";
+                        case Constants.Buff.Deflect:
+                            return "承伤";
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(buff), buff, null);
+                    }
+                }
+
                 gameUI.myExtensions[i].UpdateText(
-                    $"用过的主动：{string.Join(",", gameUI.GameState.MyUsedSkills[i])}\n\n用过的被动：{string.Join(",", gameUI.GameState.MyUsedPassives[i])}\n\n曾被断言为：{string.Join(",", gameUI.GameState.MyAsserted[i].Select(id => Constants.FishName[id]))}"
+                    $"用过的主动：{string.Join(",", gameUI.GameState.MyUsedSkills[i])}\n\n用过的被动：{string.Join(",", gameUI.GameState.MyUsedPassives[i])}\n\n曾被断言为：{string.Join(",", gameUI.GameState.MyAsserted[i].Select(id => Constants.FishName[id]))}\n\nBuff：{string.Join(",", gameUI.GameState.MyBuff[i].Select(BuffToStr))}"
                 );
                 gameUI.enemyExtensions[i].UpdateText(
-                    $"用过的主动：{string.Join(",", gameUI.GameState.EnemyUsedSkills[i])}\n\n用过的被动：{string.Join(",", gameUI.GameState.EnemyUsedPassives[i])}\n\n曾被断言为：{string.Join(",", gameUI.GameState.EnemyAsserted[i].Select(id => Constants.FishName[id]))}"
+                    $"用过的主动：{string.Join(",", gameUI.GameState.EnemyUsedSkills[i])}\n\n用过的被动：{string.Join(",", gameUI.GameState.EnemyUsedPassives[i])}\n\n曾被断言为：{string.Join(",", gameUI.GameState.EnemyAsserted[i].Select(id => Constants.FishName[id]))}\n\nBuff：{string.Join(",", gameUI.GameState.EnemyBuff[i].Select(BuffToStr))}"
                 );
 
                 gameUI.myCounters[i].text = $"{Math.Min(gameUI.GameState.MyUsedTimes[i], 3)}";

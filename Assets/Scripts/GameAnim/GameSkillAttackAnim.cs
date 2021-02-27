@@ -42,6 +42,29 @@ namespace GameAnim
                     Constants.FishName[(myTurn ? gameUI.GameState.MyFishId : gameUI.GameState.EnemyFishId)[friendId]];
 
                 gameUI.AddLog($"{logPrefix}己方{friendName}使用了无作为技能。");
+
+                // NEW FEATURE: Buff
+
+                var fishId = (gameUI.GameState.MyTurn ? gameUI.GameState.MyFishId : gameUI.GameState.EnemyFishId)
+                    [(int) actionInfo["ActionFish"]];
+                var realFishId = fishId == 11
+                    ? gameUI.GameState.MyTurn ? SharedRefs.MyImitate : SharedRefs.EnemyImitate
+                    : fishId;
+                var buffSet =
+                    (gameUI.GameState.MyTurn ? gameUI.GameState.MyBuff : gameUI.GameState.EnemyBuff)[friendId];
+                switch (realFishId)
+                {
+                    case 5:
+                    case 7:
+                        buffSet.Add(Constants.Buff.Reduce);
+                        break;
+                    case 6:
+                        buffSet.Add(Constants.Buff.Heal);
+                        break;
+                    case 10:
+                        buffSet.Add(Constants.Buff.Deflect);
+                        break;
+                }
             }
 
             switch ((string) actionInfo["skill"]["type"])

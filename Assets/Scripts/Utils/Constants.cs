@@ -24,6 +24,13 @@
             Free
         }
 
+        public enum Buff
+        {
+            Reduce,
+            Heal,
+            Deflect
+        }
+
         public static readonly string[] FishName =
         {
             "射水鱼",

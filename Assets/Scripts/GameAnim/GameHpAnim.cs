@@ -29,5 +29,28 @@ namespace GameAnim
                 if (gameUI.enemyStatus[i].Current < 0) gameUI.enemyStatus[i].Current = 0;
             }
         }
+
+        public static void RemoveBuff(this GameUI gameUI, JsonData actionInfo)
+        {
+            // NEW FEATURE: Buff
+            bool[] meSkipped = {false, false, false, false};
+            bool[] enemySkipped = {false, false, false, false};
+
+            if (actionInfo.ContainsKey("hit"))
+            {
+                var hitList = actionInfo["hit"];
+                for (var i = 0; i < hitList.Count; i++)
+                {
+                    if ((int) hitList[i]["value"] == 0)
+                        ((int) hitList[i]["player"] == 1 ? enemySkipped : meSkipped)[(int) hitList[i]["target"]] = true;
+                }
+            }
+
+            for (var i = 0; i < 4; i++)
+            {
+                if (!meSkipped[i]) gameUI.GameState.MyBuff[i].Clear();
+                if (!enemySkipped[i]) gameUI.GameState.EnemyBuff[i].Clear();
+            }
+        }
     }
 }
