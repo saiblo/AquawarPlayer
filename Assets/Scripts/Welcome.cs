@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using GameHelper;
@@ -27,6 +28,9 @@ public class Welcome : EnhancedMonoBehaviour
     private bool _offline;
 
     public Text statusText;
+
+    [DllImport("__Internal")]
+    private static extern string GetReplay();
 
     private void Awake()
     {
@@ -165,5 +169,28 @@ public class Welcome : EnhancedMonoBehaviour
 
     protected override void RunPerFrame()
     {
+        var replay = GetReplay();
+        Console.WriteLine("Get replay: " + replay);
+        if (replay.Length <= 0) return;
+
+        try
+        {
+            var replayJson = JsonMapper.ToObject(replay);
+            if (Validators.ValidateJson(replayJson))
+            {
+                SharedRefs.ReplayCursor = 0;
+                SharedRefs.ReplayJson = replayJson;
+                SharedRefs.Mode = Constants.GameMode.Offline;
+                SceneManager.LoadScene("Scenes/Game");
+            }
+            else
+            {
+                statusText.text = "文件解析失败，请确认json文件格式是否正确。";
+            }
+        }
+        catch (Exception e)
+        {
+            statusText.text = e.Message;
+        }
     }
 }
