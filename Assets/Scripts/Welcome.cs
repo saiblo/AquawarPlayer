@@ -170,7 +170,6 @@ public class Welcome : EnhancedMonoBehaviour
     protected override void RunPerFrame()
     {
         var replay = GetReplay();
-        Console.WriteLine("Get replay: " + replay);
         if (replay.Length <= 0) return;
 
         try
