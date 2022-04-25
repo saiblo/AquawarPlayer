@@ -16,6 +16,9 @@ public class GameUI : GameBridge
     private static extern string GetReplay();
 
     [DllImport("__Internal")]
+    private static extern string GetPlayers();
+
+    [DllImport("__Internal")]
     private static extern void JsAlert(string message);
 
     private bool _alerted;
@@ -183,6 +186,10 @@ public class GameUI : GameBridge
             SharedRefs.FishPrefabs[i] = fishPrefabSamples[i];
             SharedRefs.FishAvatars[i] = fishAvatars[i];
         }
+        if (SharedRefs.PlayerNames != null)
+        {
+            playerNamesText.text = SharedRefs.PlayerNames;
+        }
         if (SharedRefs.ReplayJson != null)
         {
             this.AwakeImpl();
@@ -196,6 +203,15 @@ public class GameUI : GameBridge
 
     protected override void RunPerFrame()
     {
+        if (SharedRefs.PlayerNames == null)
+        {
+            var players = GetPlayers();
+            if (players.Length > 0)
+            {
+                SharedRefs.PlayerNames = players;
+                playerNamesText.text = players;
+            }
+        }
         if (SharedRefs.ReplayJson == null)
         {
             var replay = GetReplay();

@@ -19,3 +19,9 @@
 ```javascript
 fetch("replay.json").then((r) => r.blob()).then((r) => postMessage({message:"init_replay_player", replay_data: r}))
 ```
+
+测试选手名称的参考代码如下所示：
+
+```javascript
+postMessage({message:"load_players", "players": ["A", "B"]})
+```

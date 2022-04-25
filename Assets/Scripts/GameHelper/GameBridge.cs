@@ -102,5 +102,8 @@ namespace GameHelper
         public GameObject exitConfirmMask;
 
         public Text[] counters;
+
+        // Misc
+        public Text playerNamesText;
     }
 }
