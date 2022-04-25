@@ -183,6 +183,10 @@ public class GameUI : GameBridge
             SharedRefs.FishPrefabs[i] = fishPrefabSamples[i];
             SharedRefs.FishAvatars[i] = fishAvatars[i];
         }
+        if (SharedRefs.ReplayJson != null)
+        {
+            this.AwakeImpl();
+        }
     }
 
     private void OnDestroy()
