@@ -66,12 +66,6 @@ public class GameUI : GameBridge
                 : "Scenes/Game");
     }
 
-    public void BackHomeWrapper()
-    {
-        if (SharedRefs.Mode == Constants.GameMode.Offline) BackHome();
-        else exitConfirmMask.SetActive(true);
-    }
-
     public void OnlineCancelBackHome()
     {
         exitConfirmMask.SetActive(false);
@@ -120,11 +114,6 @@ public class GameUI : GameBridge
             if (ErrorParser.HandleErrorCheck(this)) return;
         }
         DoneAndGoBackToPreparation();
-    }
-
-    public void BackHome()
-    {
-        SceneManager.LoadScene("Scenes/Welcome");
     }
 
     public void ToggleAutoPlay()
