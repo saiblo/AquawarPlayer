@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Concurrent;
-using System.Threading;
 using UnityEngine;
 
 namespace GameHelper
@@ -11,43 +11,31 @@ namespace GameHelper
 
         protected internal void SetTimeout(Action action, int timeout)
         {
-            new Thread(() =>
+            IEnumerator DelayCoroutine()
             {
-                var autoEvent = new AutoResetEvent(false);
-                var timer = new Timer(stateInfo =>
-                    {
-                        _uiQueue.Enqueue(action);
-                        ((AutoResetEvent) stateInfo).Set();
-                    }
-                    , autoEvent, timeout, 0);
-                autoEvent.WaitOne();
-                timer.Dispose();
-            }).Start();
-        }
+                yield return new WaitForSeconds((float)timeout / 1000);
+                _uiQueue.Enqueue(action);
+            }
 
-        private TimerCallback Counter(int total, Action<int> repeatedAction)
-        {
-            var count = 0;
-            return stateInfo =>
-            {
-                var i = count;
-                ++count;
-                _uiQueue.Enqueue(() => { repeatedAction(i); });
-                if (count >= total) ((AutoResetEvent) stateInfo).Set();
-            };
+            StartCoroutine(DelayCoroutine());
         }
 
         protected internal void Repeat(Action<int> repeatedAction, Action cleanup, int totalTimes, int dueTime,
             int period)
         {
-            new Thread(() =>
+            IEnumerator RepeatCoroutine()
             {
-                var autoEvent = new AutoResetEvent(false);
-                var timer = new Timer(Counter(totalTimes, repeatedAction), autoEvent, dueTime, period);
-                autoEvent.WaitOne();
-                timer.Dispose();
-                RunOnUiThread(cleanup);
-            }).Start();
+                yield return new WaitForSeconds((float)dueTime / 1000);
+                for (var i = 0; i < totalTimes; i++)
+                {
+                    var j = i;
+                    _uiQueue.Enqueue(() => { repeatedAction(j); });
+                    yield return new WaitForSeconds((float)period / 1000);
+                }
+                _uiQueue.Enqueue(cleanup);
+            }
+
+            StartCoroutine(RepeatCoroutine());
         }
 
         public void RunOnUiThread(Action action)
