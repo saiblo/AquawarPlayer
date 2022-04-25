@@ -78,18 +78,18 @@
         }
       }, false)
       window.onload = () => {
-        const div = window.document.getElementById("GameDiv");
+        const gameCanvas = window.document.getElementById("unity-canvas");
         let timeout = null;
         window.onresize = () => {
           if (timeout === null) {
             timeout = setTimeout(() => {
-              div.style.setProperty("height", (window.innerHeight - 20) + "px");
-              div.style.setProperty("width", (window.innerWidth - 20) + "px");
+              gameCanvas.style.setProperty("height", (window.innerWidth - 20) * 9 / 16 + "px");
+              gameCanvas.style.setProperty("width", (window.innerWidth - 20) + "px");
               window.dispatchEvent(new Event("resize"));
               timeout = null;
             }, 100);
           }
-          window.saiblo.resize(window.innerWidth * 3 / 4);
+          window.saiblo.resize(window.innerWidth * 9 / 16);
         }
       }
       function getReplay() {
