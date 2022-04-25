@@ -11,3 +11,11 @@
 - yaowt19@mails.tsinghua.edu.cn
 - xu-d19@mails.tsinghua.edu.cn
 - zhang-sn19@mails.tsinghua.edu.cn
+
+## WebGL 本地调试提示
+
+将 `replay.json` 放到 `Assets/WebGLTemplates/Template/` 目录下，启动后在浏览器控制台输入指令：
+
+```javascript
+fetch("replay.json").then((r) => r.blob()).then((r) => postMessage({message:"init_replay_player", replay_data: r}))
+```

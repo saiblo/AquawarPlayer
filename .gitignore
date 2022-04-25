@@ -79,3 +79,7 @@ crashlytics-build.properties
 # NuGet Packages
 /[Aa]ssets/[Rr]esources/[Nn]u[Gg]et/[Pp]ackages/*
 /[Aa]ssets/[Rr]esources/[Nn]u[Gg]et/[Pp]ackages.meta
+
+# Replay files
+replay.json
+replay.json.meta
