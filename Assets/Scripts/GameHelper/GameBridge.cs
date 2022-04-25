@@ -13,6 +13,10 @@ namespace GameHelper
 
         public Transform unkFishPrefab;
 
+        public Transform[] fishPrefabSamples;
+
+        public Sprite[] fishAvatars;
+
         // Particle system
 
         public Transform waterProjectile;

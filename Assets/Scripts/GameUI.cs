@@ -1,4 +1,6 @@
-﻿using GameHelper;
+﻿using System;
+using System.Runtime.InteropServices;
+using GameHelper;
 using GameImpl;
 using LitJson;
 using UnityEngine.SceneManagement;
@@ -9,6 +11,9 @@ public class GameUI : GameBridge
     public readonly GameStates GameState;
 
     public readonly GameObjectManager Gom;
+
+    [DllImport("__Internal")]
+    private static extern string GetReplay();
 
     public static string MeStr => SharedRefs.Mode == Constants.GameMode.Offline ? "0号AI" : "我方";
 
@@ -179,6 +184,11 @@ public class GameUI : GameBridge
     private void Awake()
     {
         if (SharedRefs.GameClient != null) SharedRefs.GameClient.GameUI = this;
+        for (var i = 0; i < Constants.FishNum; i++)
+        {
+            SharedRefs.FishPrefabs[i] = fishPrefabSamples[i];
+            SharedRefs.FishAvatars[i] = fishAvatars[i];
+        }
         this.AwakeImpl();
     }
 
@@ -189,6 +199,28 @@ public class GameUI : GameBridge
 
     protected override void RunPerFrame()
     {
+        var replay = GetReplay();
+        if (SharedRefs.ReplayJson == null && replay.Length > 0)
+        {
+            try
+            {
+                var replayJson = JsonMapper.ToObject(replay);
+                if (Validators.ValidateJson(replayJson))
+                {
+                    SharedRefs.ReplayCursor = 0;
+                    SharedRefs.ReplayJson = replayJson;
+                    SharedRefs.Mode = Constants.GameMode.Offline;
+                }
+                else
+                {
+                    // statusText.text = "文件解析失败，请确认json文件格式是否正确。";
+                }
+            }
+            catch (Exception e)
+            {
+                // statusText.text = e.Message;
+            }
+        }
         this.RunPerFrameImpl();
     }
 
