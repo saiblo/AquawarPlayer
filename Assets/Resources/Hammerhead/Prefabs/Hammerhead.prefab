@@ -1391,7 +1391,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400084}
-  - component: {fileID: 9500000}
   - component: {fileID: 8163265466828871853}
   m_Layer: 0
   m_Name: Hammerhead
@@ -1419,25 +1418,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &9500000
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100084}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: c89f96cc6d2046f4292b2e44e8ba617a, type: 3}
-  m_Controller: {fileID: 9100000, guid: 04e815690274cb5449de854bcd7018d6, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!65 &8163265466828871853
 BoxCollider:
   m_ObjectHideFlags: 0

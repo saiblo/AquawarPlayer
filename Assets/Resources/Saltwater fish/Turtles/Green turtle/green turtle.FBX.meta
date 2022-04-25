@@ -1,49 +1,119 @@
 fileFormatVersion: 2
 guid: 225d07f85b7de994aa0656ab756b145f
-timeCreated: 1560600792
-licenseType: Store
 ModelImporter:
-  serializedVersion: 22
-  fileIDToRecycleName:
-    100000: body
-    100002: front left 1
-    100004: front left 2
-    100006: front left 3
-    100008: front right 1
-    100010: front right 2
-    100012: front right 3
-    100014: //RootNode
-    100016: green turtle
-    100018: head
-    100020: jaw
-    100022: left back flipper
-    100024: right back flipper
-    100026: tail 1
-    100028: tail 2
-    400000: body
-    400002: front left 1
-    400004: front left 2
-    400006: front left 3
-    400008: front right 1
-    400010: front right 2
-    400012: front right 3
-    400014: //RootNode
-    400016: green turtle
-    400018: head
-    400020: jaw
-    400022: left back flipper
-    400024: right back flipper
-    400026: tail 1
-    400028: tail 2
-    2100000: 01 - Default
-    4300000: green turtle
-    7400000: swim
-    7400002: death
-    9500000: //RootNode
-    13700000: green turtle
+  serializedVersion: 20200
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: body
+  - first:
+      1: 100002
+    second: front left 1
+  - first:
+      1: 100004
+    second: front left 2
+  - first:
+      1: 100006
+    second: front left 3
+  - first:
+      1: 100008
+    second: front right 1
+  - first:
+      1: 100010
+    second: front right 2
+  - first:
+      1: 100012
+    second: front right 3
+  - first:
+      1: 100014
+    second: //RootNode
+  - first:
+      1: 100016
+    second: green turtle
+  - first:
+      1: 100018
+    second: head
+  - first:
+      1: 100020
+    second: jaw
+  - first:
+      1: 100022
+    second: left back flipper
+  - first:
+      1: 100024
+    second: right back flipper
+  - first:
+      1: 100026
+    second: tail 1
+  - first:
+      1: 100028
+    second: tail 2
+  - first:
+      4: 400000
+    second: body
+  - first:
+      4: 400002
+    second: front left 1
+  - first:
+      4: 400004
+    second: front left 2
+  - first:
+      4: 400006
+    second: front left 3
+  - first:
+      4: 400008
+    second: front right 1
+  - first:
+      4: 400010
+    second: front right 2
+  - first:
+      4: 400012
+    second: front right 3
+  - first:
+      4: 400014
+    second: //RootNode
+  - first:
+      4: 400016
+    second: green turtle
+  - first:
+      4: 400018
+    second: head
+  - first:
+      4: 400020
+    second: jaw
+  - first:
+      4: 400022
+    second: left back flipper
+  - first:
+      4: 400024
+    second: right back flipper
+  - first:
+      4: 400026
+    second: tail 1
+  - first:
+      4: 400028
+    second: tail 2
+  - first:
+      21: 2100000
+    second: 01 - Default
+  - first:
+      43: 4300000
+    second: green turtle
+  - first:
+      74: 7400000
+    second: swim
+  - first:
+      74: 7400002
+    second: death
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: green turtle
   externalObjects: {}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -60,6 +130,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -67,84 +138,38 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: swim
-      takeName: Take 001
-      firstFrame: 10
-      lastFrame: 50
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: death
-      takeName: Take 001
-      firstFrame: 50
-      lastFrame: 100
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+    clipAnimations: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
-    meshCompression: 0
+    meshCompression: 3
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
@@ -152,10 +177,13 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-  importAnimation: 1
-  copyAvatar: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -165,14 +193,17 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
   additionalBone: 0
   userData: 
   assetBundleName: 
