@@ -15,6 +15,11 @@ public class GameUI : GameBridge
     [DllImport("__Internal")]
     private static extern string GetReplay();
 
+    [DllImport("__Internal")]
+    private static extern void JsAlert(string message);
+
+    private bool _alerted;
+
     public static string MeStr => SharedRefs.Mode == Constants.GameMode.Offline ? "0号AI" : "我方";
 
     public static string EnemyStr => SharedRefs.Mode == Constants.GameMode.Offline ? "1号AI" : "敌方";
@@ -189,7 +194,6 @@ public class GameUI : GameBridge
             SharedRefs.FishPrefabs[i] = fishPrefabSamples[i];
             SharedRefs.FishAvatars[i] = fishAvatars[i];
         }
-        this.AwakeImpl();
     }
 
     private void OnDestroy()
@@ -199,26 +203,41 @@ public class GameUI : GameBridge
 
     protected override void RunPerFrame()
     {
-        var replay = GetReplay();
-        if (SharedRefs.ReplayJson == null && replay.Length > 0)
+        if (SharedRefs.ReplayJson == null)
         {
-            try
+            var replay = GetReplay();
+            if (replay.Length > 0)
             {
-                var replayJson = JsonMapper.ToObject(replay);
-                if (Validators.ValidateJson(replayJson))
+                try
                 {
-                    SharedRefs.ReplayCursor = 0;
-                    SharedRefs.ReplayJson = replayJson;
-                    SharedRefs.Mode = Constants.GameMode.Offline;
+                    var replayJson = JsonMapper.ToObject(replay);
+                    if (Validators.ValidateJson(replayJson))
+                    {
+                        if (SharedRefs.ReplayJson == null)
+                        {
+                            SharedRefs.ReplayCursor = 0;
+                            SharedRefs.ReplayJson = replayJson;
+                            SharedRefs.Mode = Constants.GameMode.Offline;
+                            this.AwakeImpl();
+                        }
+                    }
+                    else
+                    {
+                        if (!_alerted)
+                        {
+                            _alerted = true;
+                            JsAlert("文件解析失败！");
+                        }
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    // statusText.text = "文件解析失败，请确认json文件格式是否正确。";
+                    if (!_alerted)
+                    {
+                        _alerted = true;
+                        JsAlert(e.Message);
+                    }
                 }
-            }
-            catch (Exception e)
-            {
-                // statusText.text = e.Message;
             }
         }
         this.RunPerFrameImpl();

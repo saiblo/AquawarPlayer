@@ -6,4 +6,7 @@ mergeInto(LibraryManager.library, {
         stringToUTF8(replay, buffer, bufferSize);
         return buffer;
     },
+    JsAlert: function (message) {
+        window.alert(UTF8ToString(message));
+    },
 });
