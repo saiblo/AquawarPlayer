@@ -26,8 +26,6 @@ namespace Utils
 
         public static bool AutoPlay = false;
 
-        public static Client GameClient = null;
-
         public static JsonData PickInfo = null;
 
         public static List<int> FishChosen = null; // Shared by Preparation and Game

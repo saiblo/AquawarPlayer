@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using GameHelper;
+﻿using GameHelper;
 using LitJson;
 using UnityEngine;
 using Utils;

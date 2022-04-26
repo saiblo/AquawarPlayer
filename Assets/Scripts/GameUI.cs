@@ -191,7 +191,6 @@ public class GameUI : GameBridge
 
     private void Awake()
     {
-        if (SharedRefs.GameClient != null) SharedRefs.GameClient.GameUI = this;
         for (var i = 0; i < Constants.FishNum; i++)
         {
             SharedRefs.FishPrefabs[i] = fishPrefabSamples[i];
@@ -205,11 +204,6 @@ public class GameUI : GameBridge
         {
             this.AwakeImpl();
         }
-    }
-
-    private void OnDestroy()
-    {
-        if (SharedRefs.GameClient != null) SharedRefs.GameClient.GameUI = null;
     }
 
     protected override void RunPerFrame()
