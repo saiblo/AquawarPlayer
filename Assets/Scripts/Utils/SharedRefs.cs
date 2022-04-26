@@ -14,6 +14,8 @@ namespace Utils
 
         public static JsonData ReplayJson = null;
 
+        public static string OnlineToken = null;
+
         public static string PlayerNames = null;
 
         public static Constants.GameMode Mode = Constants.GameMode.Online;

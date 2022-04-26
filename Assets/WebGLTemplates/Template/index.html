@@ -176,8 +176,22 @@
       function getReplay() {
         return window.replay === undefined ? "" : window.replay;
       }
+      function getToken() {
+        return window.saiblo?.token === undefined ? "" : window.saiblo.token;
+      }
       function getPlayers() {
         return window.saiblo?.players === undefined ? undefined : window.saiblo.players;
+      }
+      function bindWebsocket(websocket, token) {
+        window.websocketInstance = websocket;
+        window.saibloToken = token;
+      }
+      function sendWebsocketMessage(message) {
+        window.websocketInstance.send(JSON.stringify({
+          token: window.saibloToken,
+          request: "action",
+          content: message,
+        }));
       }
       console.log('Saiblo compatibility code injected.')
     </script>

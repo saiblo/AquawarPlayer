@@ -25,3 +25,9 @@ fetch("replay.json").then((r) => r.blob()).then((r) => postMessage({message:"ini
 ```javascript
 postMessage({message:"load_players", "players": ["A", "B"]})
 ```
+
+测试在线模式的参考代码如下所示：
+
+```javascript
+postMessage({message:"init_player_player", "token": token})
+```

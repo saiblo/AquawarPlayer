@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Text;
 using GameHelper;
 using GameImpl;
 using LitJson;
@@ -14,6 +15,15 @@ public class GameUI : GameBridge
 
     [DllImport("__Internal")]
     private static extern string GetReplay();
+
+    [DllImport("__Internal")]
+    private static extern string GetToken();
+
+    [DllImport("__Internal")]
+    private static extern void ConnectSaiblo(string tokenDecoded, string tokenEncoded);
+
+    [DllImport("__Internal")]
+    private static extern void SendWsMessage(string message);
 
     [DllImport("__Internal")]
     private static extern string GetPlayers();
@@ -212,7 +222,7 @@ public class GameUI : GameBridge
                 playerNamesText.text = players;
             }
         }
-        if (SharedRefs.ReplayJson == null)
+        if (SharedRefs.ReplayJson == null && SharedRefs.OnlineToken == null)
         {
             var replay = GetReplay();
             if (replay.Length > 0)
@@ -246,6 +256,28 @@ public class GameUI : GameBridge
                         _alerted = true;
                         JsAlert(e.Message);
                     }
+                }
+            }
+            else if (SharedRefs.OnlineToken == null)
+            {
+                var tokenEncoded = GetToken();
+                if (tokenEncoded.Length > 0 && SharedRefs.OnlineToken == null)
+                {
+                    SharedRefs.OnlineToken = tokenEncoded;
+                    var tokenDecoded = tokenEncoded;
+                    try
+                    {
+                        tokenDecoded = Encoding.UTF8.GetString(Convert.FromBase64String(tokenEncoded));
+                    }
+                    catch (Exception e)
+                    {
+                        JsAlert($"连接失败：{e.Message}");
+                    }
+                    if (tokenDecoded == tokenEncoded)
+                    {
+                        JsAlert("连接失败：token 解析失败");
+                    }
+                    ConnectSaiblo(tokenDecoded, tokenEncoded);
                 }
             }
         }
