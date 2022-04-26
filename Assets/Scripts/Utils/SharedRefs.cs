@@ -20,6 +20,10 @@ namespace Utils
 
         public static Constants.GameMode Mode = Constants.GameMode.Online;
 
+        public static int OnlineWaiting = 0;
+
+        public static string PendingMessage = null; // Shared by Preparation and Game
+
         public static bool AutoPlay = false;
 
         public static Client GameClient = null;

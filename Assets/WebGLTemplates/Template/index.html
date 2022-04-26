@@ -102,6 +102,7 @@
           fullscreenButton.onclick = () => {
             unityInstance.SetFullscreen(1);
           };
+          window.MyGameInstance = unityInstance;
         }).catch((message) => {
           alert(message);
         });
@@ -185,6 +186,13 @@
       function bindWebsocket(websocket, token) {
         window.websocketInstance = websocket;
         window.saibloToken = token;
+
+        websocket.onmessage = function (event) {
+          const data = JSON.parse(event.data)
+          if (data.request === "action") {
+            window.MyGameInstance.SendMessage("EventSystem", "OnWsMessage", data.content);
+          }
+        };
       }
       function sendWebsocketMessage(message) {
         window.websocketInstance.send(JSON.stringify({

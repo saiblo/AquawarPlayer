@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Components;
+using LitJson;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -30,8 +31,6 @@ public class Preparation : MonoBehaviour
     public Transform backgroundBase;
 
     public Image[] queue;
-
-    public GameObject exitConfirmMask;
 
     private readonly List<int> _selectedList = new List<int>();
 
@@ -101,11 +100,11 @@ public class Preparation : MonoBehaviour
             SharedRefs.FishChosen.Add(i);
         }
         if (_fishSelectStatus[11] == SelectStatus.Selected)
-            await SharedRefs.GameClient.Send(
-                new PickWithImitate {ChooseFishs = chooseFishs, ImitateFish = SharedRefs.MyImitate + 1}
+            SharedRefs.PendingMessage = JsonMapper.ToJson(
+                new PickWithImitate { ChooseFishs = chooseFishs, ImitateFish = SharedRefs.MyImitate + 1 }
             );
         else
-            await SharedRefs.GameClient.Send(new Pick {ChooseFishs = chooseFishs});
+            SharedRefs.PendingMessage = JsonMapper.ToJson(new Pick { ChooseFishs = chooseFishs });
         SceneManager.LoadScene("Scenes/Game");
     }
 
@@ -150,21 +149,6 @@ public class Preparation : MonoBehaviour
                 Push(i);
             }
         }
-    }
-
-    public void BackToWelcomeWrapper()
-    {
-        exitConfirmMask.SetActive(true);
-    }
-
-    public void BackToWelcome()
-    {
-        SceneManager.LoadScene("Scenes/Welcome");
-    }
-
-    public void OnlineCancelBackHome()
-    {
-        exitConfirmMask.SetActive(false);
     }
 
     private void Update()

@@ -105,5 +105,7 @@ namespace GameHelper
 
         // Misc
         public Text playerNamesText;
+
+        public Transform playerNamesBox;
     }
 }

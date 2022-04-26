@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
+using GameAnim;
 using GameHelper;
 using GameImpl;
 using LitJson;
@@ -23,7 +24,7 @@ public class GameUI : GameBridge
     private static extern void ConnectSaiblo(string tokenDecoded, string tokenEncoded);
 
     [DllImport("__Internal")]
-    private static extern void SendWsMessage(string message);
+    public static extern void SendWsMessage(string message);
 
     [DllImport("__Internal")]
     private static extern string GetPlayers();
@@ -200,7 +201,7 @@ public class GameUI : GameBridge
         {
             playerNamesText.text = SharedRefs.PlayerNames;
         }
-        if (SharedRefs.ReplayJson != null)
+        if (SharedRefs.ReplayJson != null || SharedRefs.OnlineToken != null)
         {
             this.AwakeImpl();
         }
@@ -222,6 +223,7 @@ public class GameUI : GameBridge
                 playerNamesText.text = players;
             }
         }
+        playerNamesBox.gameObject.SetActive(SharedRefs.OnlineToken == null);
         if (SharedRefs.ReplayJson == null && SharedRefs.OnlineToken == null)
         {
             var replay = GetReplay();
@@ -277,6 +279,7 @@ public class GameUI : GameBridge
                     {
                         JsAlert("连接失败：token 解析失败");
                     }
+                    SharedRefs.OnlineWaiting = 1;
                     ConnectSaiblo(tokenDecoded, tokenEncoded);
                 }
             }
@@ -288,5 +291,136 @@ public class GameUI : GameBridge
     {
         GameState = new GameStates();
         Gom = new GameObjectManager(GameState);
+    }
+
+    public void OnWsMessage(string message)
+    {
+        var messageObject = JsonMapper.ToObject(message);
+        switch (SharedRefs.OnlineWaiting)
+        {
+            case 1:
+                SharedRefs.PickInfo = messageObject; // PICK
+                SharedRefs.Mode = Constants.GameMode.Online;
+                SharedRefs.OnlineWin = SharedRefs.OnlineLose = 0;
+                SceneManager.LoadScene("Scenes/Preparation");
+                break;
+            case 2:
+                SharedRefs.ActionInfo = messageObject; // ASSERT
+                if ((string)SharedRefs.ActionInfo["Action"] == "EarlyFinish")
+                {
+                    resultText.text = (string)SharedRefs.ActionInfo["Result"] == "Win" ? $"{MeStr}获胜" : $"{EnemyStr}获胜";
+                    this.GameOver((string)SharedRefs.ActionInfo["Result"] == "Win", true);
+                    return;
+                }
+                GameState.MyTurn = (int)SharedRefs.PickInfo["FirstMover"] == 1;
+                for (var i = 0; i < Constants.FishNum; i++)
+                    assertionModal.SetupFish(i, Constants.FishState.Using, assertionExt, this);
+                this.NewRound();
+                break;
+            case 3:
+                SharedRefs.ActionInfo = messageObject; // ASSERT
+                if ((string)SharedRefs.ActionInfo["Action"] == "EarlyFinish")
+                {
+                    resultText.text = (string)SharedRefs.ActionInfo["Result"] == "Win" ? $"{MeStr}获胜" : $"{EnemyStr}获胜";
+                    this.GameOver((string)SharedRefs.ActionInfo["Result"] == "Win", true);
+                }
+                else
+                {
+                    // And now the animation part
+                    var hasPassive = this.ActionAnim();
+
+                    if (SharedRefs.Mode == Constants.GameMode.Offline || !GameState.MyTurn ||
+                        SharedRefs.ActionInfo.ContainsKey("EnemyAssert"))
+                    {
+                        // Now go for a new round
+                        GameState.MyTurn = !GameState.MyTurn;
+                        SetTimeout(this.NewRound, hasPassive ? 2000 : 1000);
+                    }
+                    else
+                    {
+                        // Game over
+                        resultText.text = (string) SharedRefs.ActionInfo["Result"] == "Win" ? $"{MeStr}获胜" : $"{EnemyStr}获胜";
+                        this.GameOver((string) SharedRefs.ActionInfo["Result"] == "Win");
+                    }
+                }
+                break;
+            case 4:
+            {
+                var end = false; // ACTION
+                switch ((string)messageObject["Action"])
+                {
+                    case "Finish":
+                        // You assert your way to death
+                        end = true;
+                        resultText.text = (string)messageObject["Result"] == "Win" ? $"{MeStr}获胜" : $"{EnemyStr}获胜";
+                        this.GameOver((string)messageObject["Result"] == "Win");
+                        break;
+                    case "EarlyFinish":
+                        resultText.text = (string)messageObject["Result"] == "Win" ? $"{MeStr}获胜" : $"{EnemyStr}获胜";
+                        this.GameOver((string)messageObject["Result"] == "Win", true);
+                        return;
+                    default:
+                    {
+                        var info = messageObject["GameInfo"];
+                        for (var i = 0; i < 4; i++)
+                        {
+                            var id = i;
+                            myStatus[i].Current = (int)info["MyHP"][i];
+                            enemyStatus[i].Current = (int)info["EnemyHP"][i];
+                            myProfiles[i].SetAtk((int)info["MyATK"][i]);
+                            if (GameState.MyFishAlive[i] && myStatus[i].Current <= 0)
+                                SetTimeout(() => { this.Dissolve(false, id); }, 500);
+                            if (GameState.EnemyFishAlive[i] &&
+                                enemyStatus[i].Current <= 0)
+                                SetTimeout(() => { this.Dissolve(true, id); }, 500);
+                        }
+                        break;
+                    }
+                }
+                GameState.AssertionPlayer = 0;
+                GameState.OnlineAssertionHit = !end && (bool)(messageObject["AssertReply"]["AssertResult"] ?? false);
+                
+                // When either side made an assertion, play the animation.
+                if (GameState.Assertion != -1) this.AssertionAnim();
+
+                if (SharedRefs.Mode == Constants.GameMode.Online && !GameState.MyTurn)
+                {
+                    if ((string)SharedRefs.ActionInfo["Action"] == "Finish")
+                    {
+                        end = true;
+                        resultText.text =
+                            (string)SharedRefs.ActionInfo["Result"] == "Win" ? $"{MeStr}获胜" : $"{EnemyStr}获胜";
+                        this.GameOver((string)SharedRefs.ActionInfo["Result"] == "Win");
+                    }
+                    else
+                    {
+                        for (var i = 0; i < 4; i++)
+                        {
+                            var id = i;
+                            if (GameState.MyFishAlive[i] && myStatus[i].Current <= 0)
+                                SetTimeout(() => { this.Dissolve(false, id); }, 500);
+                            if (GameState.EnemyFishAlive[i] && enemyStatus[i].Current <= 0)
+                                SetTimeout(() => { this.Dissolve(true, id); }, 500);
+                        }
+                    }
+                }
+
+                if (end) break;
+
+                // Enter `WaitAssertion` branch
+                SetTimeout(() =>
+                {
+                    GameState.Assertion = -1;
+                    this.ChangeStatus();
+                }, GameState.Assertion == -1 ? 200 : 1000);
+                break;
+            }
+            case 5:
+            default:
+                SharedRefs.PickInfo = messageObject; // PICK
+                gameOverMask.SetActive(true);
+                break;
+        }
+        SharedRefs.OnlineWaiting = 0;
     }
 }

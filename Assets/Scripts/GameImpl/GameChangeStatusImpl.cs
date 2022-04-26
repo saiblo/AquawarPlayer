@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using GameAnim;
 using GameHelper;
+using LitJson;
 using Utils;
 
 namespace GameImpl
@@ -35,7 +35,7 @@ namespace GameImpl
         /// turn, send his attacking plan to remote first. After that, play the
         /// attacking animations.</para>
         /// </summary>
-        public static async void ChangeStatus(this GameUI gameUI)
+        public static void ChangeStatus(this GameUI gameUI)
         {
             switch (gameUI.GameState.GameStatus)
             {
@@ -94,67 +94,22 @@ namespace GameImpl
                     {
                         if (gameUI.GameState.Assertion == -1)
                         {
-                            await SharedRefs.GameClient.Send(new Null());
+                            GameUI.SendWsMessage(JsonMapper.ToJson(new Null()));
                             gameUI.AddLog($"{GameUI.MeStr}放弃断言。");
                         }
                         else
                         {
-                            await SharedRefs.GameClient.Send(new Assert
+                            GameUI.SendWsMessage(JsonMapper.ToJson(new Assert
                                 {
                                     Pos = gameUI.GameState.Assertion,
                                     ID = gameUI.GameState.AssertionTarget + 1
                                 }
-                            );
+                            ));
                             gameUI.AddLog(
                                 $"{GameUI.MeStr}断言{GameUI.EnemyStr}{gameUI.GameState.Assertion}号位置的鱼为{Constants.FishName[gameUI.GameState.AssertionTarget]}。"
                             );
                         }
-                        new Thread(() =>
-                        {
-                            SharedRefs.GameClient.RecvHandle.WaitOne();
-                            var reply = SharedRefs.GameClient.RecvBuffer; // ACTION
-                            gameUI.RunOnUiThread(() =>
-                            {
-                                switch ((string) reply["Action"])
-                                {
-                                    case "Finish":
-                                        // You assert your way to death
-                                        end = true;
-                                        gameUI.resultText.text = (string) reply["Result"] == "Win"
-                                            ? $"{GameUI.MeStr}获胜"
-                                            : $"{GameUI.EnemyStr}获胜";
-                                        gameUI.GameOver((string) reply["Result"] == "Win");
-                                        break;
-                                    case "EarlyFinish":
-                                        gameUI.resultText.text = (string) reply["Result"] == "Win"
-                                            ? $"{GameUI.MeStr}获胜"
-                                            : $"{GameUI.EnemyStr}获胜";
-                                        gameUI.GameOver((string) reply["Result"] == "Win", true);
-                                        return;
-                                    default:
-                                    {
-                                        var info = reply["GameInfo"];
-                                        for (var i = 0; i < 4; i++)
-                                        {
-                                            var id = i;
-                                            gameUI.myStatus[i].Current = (int) info["MyHP"][i];
-                                            gameUI.enemyStatus[i].Current = (int) info["EnemyHP"][i];
-                                            gameUI.myProfiles[i].SetAtk((int) info["MyATK"][i]);
-                                            if (gameUI.GameState.MyFishAlive[i] && gameUI.myStatus[i].Current <= 0)
-                                                gameUI.SetTimeout(() => { gameUI.Dissolve(false, id); }, 500);
-                                            if (gameUI.GameState.EnemyFishAlive[i] &&
-                                                gameUI.enemyStatus[i].Current <= 0)
-                                                gameUI.SetTimeout(() => { gameUI.Dissolve(true, id); }, 500);
-                                        }
-                                        break;
-                                    }
-                                }
-                                gameUI.GameState.AssertionPlayer = 0;
-                                gameUI.GameState.OnlineAssertionHit =
-                                    !end && (bool) (reply["AssertReply"]["AssertResult"] ?? false);
-                                AfterWorks();
-                            });
-                        }).Start();
+                        SharedRefs.OnlineWaiting = 4;
                     }
                     else
                     {
@@ -222,11 +177,11 @@ namespace GameImpl
                                 enemyPos = i;
                                 break;
                             }
-                            await SharedRefs.GameClient.Send(new NormalAction
+                            GameUI.SendWsMessage(JsonMapper.ToJson(new NormalAction
                             {
                                 MyPos = gameUI.GameState.MyFishSelected,
                                 EnemyPos = enemyPos
-                            });
+                            }));
                         }
                         else
                         {
@@ -247,32 +202,14 @@ namespace GameImpl
                                 (SharedRefs.MyImitate == 6 || SharedRefs.MyImitate == 10))
                                 gameUI.counters[gameUI.GameState.MyFishSelected].text =
                                     $"{++gameUI.GameState.ImitateUsed}";
-                            await SharedRefs.GameClient.Send(new SkillAction
+                            GameUI.SendWsMessage(JsonMapper.ToJson(new SkillAction
                             {
                                 MyPos = gameUI.GameState.MyFishSelected,
                                 EnemyList = enemyList,
                                 MyList = myList
-                            });
+                            }));
                         }
-                        new Thread(() =>
-                        {
-                            SharedRefs.GameClient.RecvHandle.WaitOne();
-                            SharedRefs.ActionInfo = SharedRefs.GameClient.RecvBuffer; // ASSERT
-                            gameUI.RunOnUiThread(() =>
-                            {
-                                if ((string) SharedRefs.ActionInfo["Action"] == "EarlyFinish")
-                                {
-                                    gameUI.resultText.text = (string) SharedRefs.ActionInfo["Result"] == "Win"
-                                        ? $"{GameUI.MeStr}获胜"
-                                        : $"{GameUI.EnemyStr}获胜";
-                                    gameUI.GameOver((string) SharedRefs.ActionInfo["Result"] == "Win", true);
-                                }
-                                else
-                                {
-                                    AfterWorks();
-                                }
-                            });
-                        }).Start();
+                        SharedRefs.OnlineWaiting = 3;
                     }
                     else
                     {
@@ -295,12 +232,7 @@ namespace GameImpl
                 gameUI.scoreText.text = $"{SharedRefs.OnlineLose}:{SharedRefs.OnlineWin}";
             if (SharedRefs.OnlineLose + SharedRefs.OnlineWin != 3 && !force)
             {
-                new Thread(() =>
-                {
-                    SharedRefs.GameClient.RecvHandle.WaitOne();
-                    SharedRefs.PickInfo = SharedRefs.GameClient.RecvBuffer; // PICK  
-                    gameUI.RunOnUiThread(() => { gameUI.gameOverMask.SetActive(true); });
-                }).Start();
+                SharedRefs.OnlineWaiting = 5;
                 return;
             }
             if (force)

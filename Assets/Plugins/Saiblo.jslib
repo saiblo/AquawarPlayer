@@ -22,12 +22,6 @@ mergeInto(LibraryManager.library, {
                 request: "connect",
             }))
         };
-        websocket.onmessage = function (event) {
-            const data = JSON.parse(event.data)
-            if (data.request == "action") {
-                console.log(data.content);
-            }
-        };
         bindWebsocket(websocket, UTF8ToString(tokenEncoded));
     },
     SendWsMessage: function (message) {
